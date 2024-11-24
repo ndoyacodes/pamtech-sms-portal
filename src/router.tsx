@@ -77,6 +77,12 @@ const router = createBrowserRouter([
         }),
       },
       {
+        path: '/subscriptions/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/subscriptions/components/add-edit-suscription.tsx')).default,
+        }),
+      },
+      {
         path: 'tasks',
         lazy: async () => ({
           Component: (await import('@/pages/tasks')).default,

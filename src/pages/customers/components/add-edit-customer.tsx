@@ -24,6 +24,7 @@ import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
+import { IconUserPlus } from '@tabler/icons-react'
 
 const AddEditCustomer = () => {
   const [imageBase64, setImageBase64] = useState<string | null>(null)
@@ -61,6 +62,14 @@ const AddEditCustomer = () => {
         </div>
       </Layout.Header>
       <Layout.Body>
+      <div className='mb-4 flex items-center justify-between space-y-2'>
+          <div>
+            <h2 className='text-2xl font-bold tracking-tight'>Add customer</h2>
+            <p className='text-muted-foreground'>
+              Fill in the form below to add a new customer
+            </p>
+          </div>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
@@ -213,7 +222,7 @@ const AddEditCustomer = () => {
                   name='timezone'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>ID Type</FormLabel>
+                      <FormLabel>Timezone</FormLabel>
                       <FormControl>
                         <Select
                           value={field.value}
@@ -275,7 +284,9 @@ const AddEditCustomer = () => {
                  {/* Submit Button */}
                  <div className='mt-4'>
                   <Button type='submit' className='btn-primary w-full'>
+                
                     Add Customer
+                    <IconUserPlus className='ml-2 h-4 w-4' />
                   </Button>
                 </div>
             </div>
