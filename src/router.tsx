@@ -83,6 +83,30 @@ const router = createBrowserRouter([
         }),
       },
       {
+        path: '/plans',
+        lazy: async () => ({
+          Component: (await import('@/pages/plans')).default,
+        }),
+      },
+      {
+        path: '/plans/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/plans/components/add-edit-plans.tsx')).default,
+        }),
+      },
+      {
+        path: '/currencies',
+        lazy: async () => ({
+          Component: (await import('@/pages/currency')).default,
+        }),
+      },
+      {
+        path: '/currencies/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/currency/components/add-edit-currency.tsx')).default,
+        }),
+      },
+      {
         path: 'tasks',
         lazy: async () => ({
           Component: (await import('@/pages/tasks')).default,
