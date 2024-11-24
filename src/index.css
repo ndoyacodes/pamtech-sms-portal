@@ -3,7 +3,51 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
+  :root {
+    /* Base colors */
+    --background: 0 0% 100%;
+    --foreground: 220 20% 20%;
+    
+    /* Card and popover */
+    --card: 220 33% 98%;
+    --card-foreground: 220 20% 20%;
+    --popover: 220 33% 98%;
+    --popover-foreground: 220 20% 20%;
+    
+    /* Primary colors - based on the dark blue from logo */
+    --primary: 220 45% 35%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary and accent colors */
+    --secondary: 220 25% 92%;
+    --secondary-foreground: 220 20% 20%;
+    --accent: 220 25% 90%;
+    --accent-foreground: 220 20% 20%;
+    
+    /* Muted variations */
+    --muted: 220 20% 94%;
+    --muted-foreground: 220 15% 45%;
+    
+    /* Destructive/error states */
+    --destructive: 0 65% 52%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Borders and inputs */
+    --border: 220 15% 85%;
+    --input: 220 15% 85%;
+    --ring: 220 45% 45%;
+    
+    /* Border radius */
+    --radius: 0.5rem;
+    
+    /* Chart colors - more muted professional palette */
+    --chart-1: 220 45% 45%;
+    --chart-2: 200 35% 45%;
+    --chart-3: 240 30% 45%;
+    --chart-4: 260 25% 45%;
+    --chart-5: 280 20% 45%;
+  }
+    /* :root {
       --background: 0 0% 100%;
       --foreground: 240 10% 3.9%;
       --card: 0 0% 100%;
@@ -29,33 +73,48 @@
       --chart-3: 197 37% 24%;
       --chart-4: 43 74% 66%;
       --chart-5: 27 87% 67%;
-    }
+    } */
   
     .dark {
-      --background: 20 14.3% 4.1%;
-      --foreground: 0 0% 95%;
-      --card: 24 9.8% 10%;
-      --card-foreground: 0 0% 95%;
-      --popover: 0 0% 9%;
-      --popover-foreground: 0 0% 95%;
-      --primary: 142.1 70.6% 45.3%;
-      --primary-foreground: 144.9 80.4% 10%;
-      --secondary: 240 3.7% 15.9%;
-      --secondary-foreground: 0 0% 98%;
-      --muted: 0 0% 15%;
-      --muted-foreground: 240 5% 64.9%;
-      --accent: 12 6.5% 15.1%;
-      --accent-foreground: 0 0% 98%;
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 0 85.7% 97.3%;
-      --border: 240 3.7% 15.9%;
-      --input: 240 3.7% 15.9%;
-      --ring: 142.4 71.8% 29.2%;
-      --chart-1: 220 70% 50%;
-      --chart-2: 160 60% 45%;
-      --chart-3: 30 80% 55%;
-      --chart-4: 280 65% 60%;
-      --chart-5: 340 75% 55%;
+      /* Base dark theme colors */
+      --background: 220 20% 8%;
+      --foreground: 220 10% 95%;
+      
+      /* Card and popover */
+      --card: 220 15% 12%;
+      --card-foreground: 220 10% 95%;
+      --popover: 220 15% 10%;
+      --popover-foreground: 220 10% 95%;
+      
+      /* Primary colors - based on the dark blue brand */
+      --primary: 220 45% 45%;
+      --primary-foreground: 220 10% 95%;
+      
+      /* Secondary and accent */
+      --secondary: 220 15% 18%;
+      --secondary-foreground: 220 10% 98%;
+      --accent: 220 15% 20%;
+      --accent-foreground: 220 10% 98%;
+      
+      /* Muted variations */
+      --muted: 220 15% 15%;
+      --muted-foreground: 220 10% 70%;
+      
+      /* Destructive/error states */
+      --destructive: 0 65% 35%;
+      --destructive-foreground: 0 10% 95%;
+      
+      /* Borders and inputs */
+      --border: 220 15% 20%;
+      --input: 220 15% 20%;
+      --ring: 220 45% 40%;
+      
+      /* Chart colors - professional dark theme palette */
+      --chart-1: 220 50% 55%;
+      --chart-2: 200 45% 50%;
+      --chart-3: 240 40% 45%;
+      --chart-4: 260 35% 50%;
+      --chart-5: 280 30% 45%;
     }
 
       /* styles.css */

@@ -65,6 +65,12 @@ const router = createBrowserRouter([
         }),
       },
       {
+        path: '/customers/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/customers/components/add-edit-customer.tsx')).default,
+        }),
+      },
+      {
         path: '/subscriptions',
         lazy: async () => ({
           Component: (await import('@/pages/subscriptions')).default,
