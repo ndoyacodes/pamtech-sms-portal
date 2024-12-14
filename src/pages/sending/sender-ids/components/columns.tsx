@@ -33,7 +33,7 @@ export const columns: ColumnDef<DataSchema>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='District' />
+      <DataTableColumnHeader column={column} title='Name' />
     ),
     cell: ({ row }) => {
       return (
@@ -48,21 +48,55 @@ export const columns: ColumnDef<DataSchema>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'regionName',
+    accessorKey: 'assigned_to',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Region' />
+      <DataTableColumnHeader column={column} title='Assigned to' />
     ),
     cell: ({ row }) => {
       return (
         <div className='flex space-x-2'>
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('regionName')}
+            {row.getValue('assigned_to')}
           </span>
         </div>
       )
     },
     enableSorting: true,
     enableHiding: true,
+  },
+  {
+    accessorKey: 'name',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='  Price' />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className='flex space-x-2'>
+          <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
+            {row.getValue('name')}
+          </span>
+        </div>
+      )
+    },
+    enableSorting: true,
+    enableHiding: false,
+  },
+  {
+    accessorKey: 'name',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Status' />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className='flex space-x-2'>
+          <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
+            {row.getValue('name')}
+          </span>
+        </div>
+      )
+    },
+    enableSorting: true,
+    enableHiding: false,
   },
   {
     id: 'actions',

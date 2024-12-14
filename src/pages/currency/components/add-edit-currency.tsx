@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import { FormSchema, formSchema } from '../data/currency-form-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -10,34 +10,25 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
-import { PasswordInput } from '@/components/custom/password-input'
 import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
-import { IconUserPlus } from '@tabler/icons-react'
 
 const AddEditCustomer = () => {
-  const [imageBase64, setImageBase64] = useState<string | null>(null)
-  const mode = 'add'
-  const handleImageChange = (file: File) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (reader.result) {
-        setImageBase64(reader.result.toString())
-      }
-    }
-    reader.readAsDataURL(file)
-  }
+  // const [imageBase64, setImageBase64] = useState<string | null>(null)
+  // const mode = 'add'
+  // const handleImageChange = (file: File) => {
+  //   const reader = new FileReader()
+  //   reader.onload = () => {
+  //     if (reader.result) {
+  //       setImageBase64(reader.result.toString())
+  //     }
+  //   }
+  //   reader.readAsDataURL(file)
+  // }
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -46,7 +37,6 @@ const AddEditCustomer = () => {
   function onSubmit(data: FormSchema) {
     const finalData = {
       ...data,
-      image: imageBase64,
     }
     console.log(finalData)
   }

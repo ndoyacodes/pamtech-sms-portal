@@ -5,8 +5,9 @@ import { z } from 'zod'
 export const schema = z.object({
   id: z.string(),
   name: z.string(),
-  region:z.string(),
-  regionName:z.string()
+  price: z.string(),
+  assigned_to:z.string(),
+  status:z.string()
 })
 
 export type DataSchema = z.infer<typeof schema>
