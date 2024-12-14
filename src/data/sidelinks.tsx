@@ -1,4 +1,3 @@
-import { HandIcon } from '@radix-ui/react-icons'
 import {
   IconLayoutDashboard,
   IconMessages,
@@ -104,7 +103,7 @@ export const sidelinks: SideLink[] = [
       {
         title: 'Sender ID',
         label: '',
-        href: '/extra-components',
+        href: '/sender-ids',
         icon: <IconUserScreen size={18} />,
       },
       {

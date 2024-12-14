@@ -64,6 +64,7 @@ const AddEditCustomer = () => {
             <h2 className='text-2xl font-bold tracking-tight'>Add New Sender ID</h2>
             <p className='text-muted-foreground'>
             Sender ID is what appears on people's phones to show who the SMS is from.
+            <br />
              It can be your Brand Name or Company Name. 
              Set Price value 0 for free of cost sender id on OPES SMS
             </p>
@@ -102,7 +103,7 @@ const AddEditCustomer = () => {
                       onValueChange={field.onChange}
                     >
                       <SelectTrigger>
-                      <SelectValue placeholder='Select billing cycle' />
+                      <SelectValue placeholder='Select status' />
                       </SelectTrigger>
                       <SelectContent>
                       <SelectItem value='active'>Active</SelectItem>
@@ -168,6 +169,32 @@ const AddEditCustomer = () => {
                   </FormItem>
                   )}
                 />
+
+              {/* Customer */}
+              <FormField
+                control={form.control}
+                name='customer'
+                render={({ field }) => (
+                <FormItem>
+                <FormLabel>Customer</FormLabel>
+                <FormControl>
+                <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    >
+                      <SelectTrigger>
+                      <SelectValue placeholder='Select customer' />
+                      </SelectTrigger>
+                      <SelectContent>
+                      <SelectItem value='Customer1'>Customer 1 </SelectItem>
+                      <SelectItem value='Customer2'>Customer 2</SelectItem>
+                      </SelectContent>
+                    </Select>
+                </FormControl>
+                <FormMessage />
+                </FormItem>
+                )}
+              />
 
 
               {/* Format Input Field */}
