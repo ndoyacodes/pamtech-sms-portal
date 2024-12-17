@@ -149,7 +149,9 @@ const AddEditNumber: React.FC = () => {
                     <FormItem>
                       <FormLabel>Capabilities</FormLabel>
                       <FormControl>
-                        <Select
+                          <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                           isMulti
                           options={capabilityOptions}
                           placeholder='Select capabilities'

@@ -83,7 +83,9 @@ const AddEditCustomer = () => {
                     <FormItem>
                       <FormLabel>Customer</FormLabel>
                       <FormControl>
-                        <Select
+                          <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                           value={field.value}
                           onValueChange={(value: any) =>
                             form.setValue('customer', value)
@@ -111,7 +113,9 @@ const AddEditCustomer = () => {
                     <FormItem>
                       <FormLabel>Plan</FormLabel>
                       <FormControl>
-                        <Select
+                          <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                           value={field.value}
                           onValueChange={(value: string) =>
                             form.setValue('plan', value)

@@ -173,7 +173,9 @@ const KeywordForm: React.FC = () => {
                   <FormItem>
                     <FormLabel>Status *</FormLabel>
                     <FormControl>
-                      <Select
+                        <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                         placeholder='Select status'
                         options={[
                           { value: 'Assigned', label: 'Assigned' },
@@ -194,7 +196,9 @@ const KeywordForm: React.FC = () => {
                   <FormItem>
                     <FormLabel>Select Customer</FormLabel>
                     <FormControl>
-                      <Select
+                        <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                         placeholder='None'
                         options={[
                           { value: 'Customer1', label: 'Customer 1' },
@@ -231,7 +235,9 @@ const KeywordForm: React.FC = () => {
                   <FormItem>
                     <FormLabel>Currency *</FormLabel>
                     <FormControl>
-                      <Select
+                        <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                         defaultValue={{ value: 'USD', label: 'US Dollar (USD)' }}
                         options={[
                           { value: 'USD', label: 'US Dollar (USD)' },
@@ -255,7 +261,9 @@ const KeywordForm: React.FC = () => {
                 <FormItem>
                   <FormLabel>Renew *</FormLabel>
                   <FormControl>
-                    <Select
+                      <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                       defaultValue={{ value: 'Yearly', label: 'Yearly' }}
                       options={[
                         { value: 'Monthly', label: 'Monthly' },

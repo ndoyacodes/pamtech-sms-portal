@@ -92,7 +92,11 @@ const AddTemplateForm: React.FC = () => {
                 <FormItem>
                   <FormLabel>Select Customer *</FormLabel>
                   <FormControl>
-                    <Select
+                      <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                       placeholder='Select Customer'
                       defaultValue={{ value: 'Ernest Kisingo', label: 'Ernest Kisingo' }}
                       options={[
@@ -116,7 +120,9 @@ const AddTemplateForm: React.FC = () => {
                 <FormItem>
                   <FormLabel>Available Tag</FormLabel>
                   <FormControl>
-                    <Select
+                      <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                       defaultValue={{ value: 'Phone', label: 'Phone' }}
                       options={[
                         { value: 'Phone', label: 'Phone' },

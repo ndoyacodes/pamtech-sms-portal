@@ -144,7 +144,9 @@ const AddEditCustomer = () => {
                     <FormItem>
                       <FormLabel>Language</FormLabel>
                       <FormControl>
-                        <Select
+                          <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                           value={field.value}
                           onValueChange={(value: any) =>
                             form.setValue('language', value)
@@ -224,7 +226,9 @@ const AddEditCustomer = () => {
                     <FormItem>
                       <FormLabel>Timezone</FormLabel>
                       <FormControl>
-                        <Select
+                          <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                           value={field.value}
                           onValueChange={(value: any) =>
                             form.setValue('timezone', value)

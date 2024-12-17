@@ -119,7 +119,9 @@ const AddEditCustomer = () => {
                   <FormItem>
                     <FormLabel>Billing Cycle</FormLabel>
                     <FormControl>
-                    <Select
+                      <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                       value={field.value}
                       onValueChange={field.onChange}
                     >
@@ -145,7 +147,9 @@ const AddEditCustomer = () => {
                   <FormItem>
                     <FormLabel>Currency</FormLabel>
                     <FormControl>
-                    <Select
+                      <Select
+                      className="my-react-select-container"
+                        classNamePrefix="my-react-select"
                       value={field.value}
                       onValueChange={field.onChange}
                     >
