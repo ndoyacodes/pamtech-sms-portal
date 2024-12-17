@@ -42,7 +42,7 @@ export const columns: ColumnDef<DataSchema>[] = [
   {
     accessorKey: 'number',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Number' />
+      <DataTableColumnHeader column={column} title='NAme' />
     ),
     cell: ({ row }) => (
       <div className='w-[120px]'>{row.getValue('number')}</div>
@@ -53,7 +53,7 @@ export const columns: ColumnDef<DataSchema>[] = [
   {
     accessorKey: 'assignedTo',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Assigned To' />
+      <DataTableColumnHeader column={column} title='Customer' />
     ),
     cell: ({ row }) => (
       <div className='w-[150px]'>{row.getValue('assignedTo')}</div>
@@ -64,7 +64,7 @@ export const columns: ColumnDef<DataSchema>[] = [
   {
     accessorKey: 'price',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Price' />
+      <DataTableColumnHeader column={column} title='Message' />
     ),
     cell: ({ row }) => (
       <div className='w-[100px]'>{row.getValue('price')}</div>
@@ -79,17 +79,6 @@ export const columns: ColumnDef<DataSchema>[] = [
     ),
     cell: ({ row }) => (
       <div className='w-[100px]'>{row.getValue('status')}</div>
-    ),
-    enableSorting: true,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'capabilities',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Capabilities' />
-    ),
-    cell: ({ row }) => (
-      <div className='w-[200px]'>{row.getValue('capabilities')}</div>
     ),
     enableSorting: true,
     enableHiding: false,

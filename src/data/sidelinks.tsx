@@ -109,7 +109,7 @@ export const sidelinks: SideLink[] = [
       {
         title: 'Numbers',
         label: '',
-        href: '/numbers',
+        href: '/phone-numbers',
         icon: <IconPhoneCall size={18} />,
       },
       {

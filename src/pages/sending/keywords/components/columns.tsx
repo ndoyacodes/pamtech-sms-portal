@@ -42,7 +42,7 @@ export const columns: ColumnDef<DataSchema>[] = [
   {
     accessorKey: 'number',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Number' />
+      <DataTableColumnHeader column={column} title='Keyword' />
     ),
     cell: ({ row }) => (
       <div className='w-[120px]'>{row.getValue('number')}</div>

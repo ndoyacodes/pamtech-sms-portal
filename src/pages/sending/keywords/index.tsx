@@ -21,9 +21,9 @@ export default function Region() {
       <Layout.Body>
         <div className='mb-2 flex items-center justify-between space-y-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Numbers</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>Keywords</h2>
             <p className='text-muted-foreground'>
-              Here&apos;s a list of Numbers
+              Here&apos;s a list of Keyords
             </p>
           </div>
         </div>

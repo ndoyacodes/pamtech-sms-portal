@@ -119,9 +119,39 @@ const router = createBrowserRouter([
         }),
       },
       {
-        path: 'tasks',
+        path: 'phone-numbers',
         lazy: async () => ({
-          Component: (await import('@/pages/tasks')).default,
+          Component: (await import('@/pages/sending/numbers')).default,
+        }),
+      },
+      {
+        path: 'phone-numbers/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/sending/numbers/components/add-edit-numbers.tsx')).default,
+        }),
+      },
+      {
+        path: 'keywords',
+        lazy: async () => ({
+          Component: (await import('@/pages/sending/keywords')).default,
+        }),
+      },
+      {
+        path: 'keywords/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/sending/keywords/components/add-edit-keywords.tsx')).default,
+        }),
+      },
+      {
+        path: 'templates',
+        lazy: async () => ({
+          Component: (await import('@/pages/sending/templates')).default,
+        }),
+      },
+      {
+        path: 'templates/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/sending/templates/components/add-edit-templates.tsx')).default,
         }),
       },
       {

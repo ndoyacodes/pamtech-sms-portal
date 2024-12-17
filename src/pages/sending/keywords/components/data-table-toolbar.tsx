@@ -43,10 +43,10 @@ export function DataTableToolbar<TData>({
 
           <Button
             variant='default'
-            onClick={() => navigation('/phone-numbers/add')}
+            onClick={() => navigation('/keywords/add')}
             className='h-8 px-2 lg:px-3'
           >
-            Create New Phone Number
+            Create New Keyword
             <IconPlus className='ml-2 h-4 w-4' />
           </Button>
           <Button
