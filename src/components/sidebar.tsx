@@ -5,6 +5,9 @@ import { Button } from './custom/button'
 import Nav from './nav'
 import { cn } from '@/lib/utils'
 import { sidelinks } from '@/data/sidelinks'
+import {sidelinksAccount} from '@/data/accounts-sidelinks'
+import { useAppSelector } from '@/store/store-hooks'
+import { stat } from 'fs'
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   isCollapsed: boolean
@@ -16,8 +19,11 @@ export default function Sidebar({
   isCollapsed,
   setIsCollapsed,
 }: SidebarProps) {
-  const [navOpened, setNavOpened] = useState(false)
-
+  const [navOpened, setNavOpened] = useState(false);
+  const account =  useAppSelector(state =>  state.accaunt.account);
+   console.log("Account:"+account);
+   
+  const sidelinksData = account ? sidelinksAccount : sidelinks;
   /* Make body not scrollable when navBar is opened */
   useEffect(() => {
     if (navOpened) {
@@ -107,7 +113,7 @@ export default function Sidebar({
           className={`z-40 h-full flex-1 overflow-auto ${navOpened ? 'max-h-screen' : 'max-h-0 py-0 md:max-h-screen md:py-2'}`}
           closeNav={() => setNavOpened(false)}
           isCollapsed={isCollapsed}
-          links={sidelinks}
+          links={sidelinksData}
         />
 
         {/* Scrollbar width toggle button */}

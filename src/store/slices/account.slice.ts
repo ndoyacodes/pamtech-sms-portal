@@ -14,7 +14,7 @@ const accountSlice = createSlice({
       action: PayloadAction<{ account: boolean; }>
     ) => {
       const { account } = action.payload;
-      state.account = account;
+      state.account = !state.account;
     },
   }
 });

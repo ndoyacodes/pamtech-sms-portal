@@ -62,9 +62,7 @@ export function AppearanceForm() {
               <FormLabel>Font</FormLabel>
               <div className='relative w-max'>
                 <FormControl>
-                    <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
+                    <select
                     className={cn(
                       buttonVariants({ variant: 'outline' }),
                       'w-[200px] appearance-none font-normal'
