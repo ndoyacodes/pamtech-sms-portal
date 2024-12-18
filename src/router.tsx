@@ -155,6 +155,18 @@ const router = createBrowserRouter([
         }),
       },
       {
+        path: 'templates-tags',
+        lazy: async () => ({
+          Component: (await import('@/pages/sending/template-tags')).default,
+        }),
+      },
+      {
+        path: 'templates-tags/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/sending/template-tags/components/add-edit-templates.tsx')).default,
+        }),
+      },
+      {
         path: 'chats',
         lazy: async () => ({
           Component: (await import('@/pages/chats')).default,

@@ -121,7 +121,7 @@ export const sidelinks: SideLink[] = [
       {
         title: 'Templates tags',
         label: '',
-        href: '/templates',
+        href: '/templates-tags',
         icon: <IconTag  size={18} />,
       },
    

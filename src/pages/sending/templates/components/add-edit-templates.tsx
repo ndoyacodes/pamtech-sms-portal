@@ -95,8 +95,6 @@ const AddTemplateForm: React.FC = () => {
                       <Select
                       className="my-react-select-container"
                         classNamePrefix="my-react-select"
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
                       placeholder='Select Customer'
                       defaultValue={{ value: 'Ernest Kisingo', label: 'Ernest Kisingo' }}
                       options={[
