@@ -14,6 +14,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
 import { Layout } from '@/components/custom/layout'
+import { Search } from '@/components/search'
+import ThemeSwitch from '@/components/theme-switch'
+import { UserNav } from '@/components/user-nav'
 
 // Validation Schema
 const formSchema = z.object({
@@ -52,7 +55,17 @@ export const AddBlacklistForm: React.FC = () => {
 
   return (
     <Layout>
-      <div className="p-8 bg-white dark:bg-gray-900 rounded-md shadow-md max-w-4xl mx-auto">
+       {/* ===== Top Heading ===== */}
+    <Layout.Header sticky>
+      <Search />
+      <div className='ml-auto flex items-center space-x-4'>
+        <ThemeSwitch />
+        <UserNav />
+      </div>
+    </Layout.Header>
+
+    <Layout.Body>
+      <div className="p-8 bg-white dark:bg-gray-900 rounded-md shadow-md max-w-4xl ">
         <h2 className="text-2xl font-semibold mb-6">Add New Blacklist</h2>
 
         <Form {...form}>
@@ -118,6 +131,7 @@ export const AddBlacklistForm: React.FC = () => {
           </form>
         </Form>
       </div>
+      </Layout.Body>
     </Layout>
   )
 }

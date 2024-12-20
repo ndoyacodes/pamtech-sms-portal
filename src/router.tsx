@@ -185,13 +185,13 @@ const router = createBrowserRouter([
         }),
       },
       {
-        path: 'constacts',
+        path: 'contacts',
         lazy: async () => ({
           Component: (await import('@/pages/contact-groups')).default,
         }),
       },
       {
-        path: 'constacts/add',
+        path: 'contacts/add',
         lazy: async () => ({
           Component: (await import('@/pages/contact-groups/components/add-edit-contact.tsx')).default,
         }),
@@ -212,6 +212,24 @@ const router = createBrowserRouter([
         path: 'analysis',
         lazy: async () => ({
           Component: (await import('@/components/coming-soon')).default,
+        }),
+      },
+      {
+        path: 'developers',
+        lazy: async () => ({
+          Component: (await import('@/pages/developers')).default,
+        }),
+      },
+      {
+        path: 'sms/campaign-builder',
+        lazy: async () => ({
+          Component: (await import('@/components/coming-soon.tsx')).default,
+        }),
+      },
+      {
+        path: 'sms/quick-send',
+        lazy: async () => ({
+          Component: (await import('@/components/coming-soon.tsx')).default,
         }),
       },
       {

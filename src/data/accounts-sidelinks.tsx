@@ -20,6 +20,7 @@ import {
     IconReportAnalytics,
     IconBrandTelegram,
     IconRecordMail,
+    IconCpu2,
     
   } from '@tabler/icons-react'
   
@@ -96,13 +97,13 @@ import {
           {
             title: 'Campaigns builder',
             label: '',
-            href: '/sender-ids',
+            href: '/sms/campaign-builder',
             icon: <IconUserScreen size={18} />,
           },
           {
            title: 'Quick Send',
             label: '',
-            href: '/phone-numbers',
+            href: '/sms/quick-send',
             icon: <IconPhoneCall size={18} />,
           },
       
@@ -148,7 +149,12 @@ import {
         },
       ],
     },
-  
+    {
+      title: 'Developers',
+      label: '',
+      href: '/developers',
+      icon: <IconCpu2 size={18} />,
+    } ,
   
   
   ]
