@@ -44,13 +44,13 @@ import {
     {
       title: 'Contacts',
       label: '',
-      href: '/invoices',
+      href: '/contacts',
       icon: <IconShoppingCart size={18} />,
     },
     {
         title: 'Automations',
         label: '',
-        href: '/invoices',
+        href: '/automations',
         icon: <IconShoppingCart size={18} />,
       },
     {
@@ -83,7 +83,7 @@ import {
     {
         title: 'Blacklist',
         label: '',
-        href: '/invoices',
+        href: '/blacklists',
         icon: <IconShoppingCart size={18} />,
       } ,
       

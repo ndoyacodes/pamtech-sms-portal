@@ -185,6 +185,30 @@ const router = createBrowserRouter([
         }),
       },
       {
+        path: 'constacts',
+        lazy: async () => ({
+          Component: (await import('@/pages/contact-groups')).default,
+        }),
+      },
+      {
+        path: 'constacts/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/contact-groups/components/add-edit-contact.tsx')).default,
+        }),
+      },
+      {
+        path: 'blacklists',
+        lazy: async () => ({
+          Component: (await import('@/pages/blacklists')).default,
+        }),
+      },
+      {
+        path: 'blacklists/add',
+        lazy: async () => ({
+          Component: (await import('@/pages/blacklists/components/add-edit-blacklist.tsx')).default,
+        }),
+      },
+      {
         path: 'analysis',
         lazy: async () => ({
           Component: (await import('@/components/coming-soon')).default,

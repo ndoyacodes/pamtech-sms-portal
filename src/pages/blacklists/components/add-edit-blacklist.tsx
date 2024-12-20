@@ -1,0 +1,125 @@
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from '@/components/ui/form'
+import { Textarea } from '@/components/ui/textarea'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/custom/button'
+import { Layout } from '@/components/custom/layout'
+
+// Validation Schema
+const formSchema = z.object({
+  numbers: z.string().nonempty({ message: 'Paste Numbers is required' }),
+  reason: z.string().optional(),
+})
+
+// Delimiter Options
+const delimiters = [
+  { label: ', (Comma)', value: ',' },
+  { label: '; (Semicolon)', value: ';' },
+  { label: '| (Bar)', value: '|' },
+  { label: 'Tab', value: '\t' },
+  { label: 'New line', value: '\n' },
+]
+
+export const AddBlacklistForm: React.FC = () => {
+  const [selectedDelimiter, setSelectedDelimiter] = useState<string>(',')
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      numbers: '',
+      reason: '',
+    },
+  })
+
+  const onSubmit = (data: any) => {
+    console.log('Submitted Data:', { ...data, delimiter: selectedDelimiter })
+    // Handle API submission here
+  }
+
+  const handleReset = () => {
+    form.reset()
+    setSelectedDelimiter(',')
+  }
+
+  return (
+    <Layout>
+      <div className="p-8 bg-white dark:bg-gray-900 rounded-md shadow-md max-w-4xl mx-auto">
+        <h2 className="text-2xl font-semibold mb-6">Add New Blacklist</h2>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* Numbers Field */}
+            <FormField
+              control={form.control}
+              name="numbers"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Paste Numbers *</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Paste your blacklist numbers here"
+                      rows={6}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Delimiter Options */}
+            <div className="space-y-2">
+              <FormLabel>Delimiter</FormLabel>
+              <div className="flex flex-wrap gap-2">
+                {delimiters.map((delim) => (
+                  <Button
+                    key={delim.value}
+                    type="button"
+                    variant={selectedDelimiter === delim.value ? 'default' : 'outline'}
+                    onClick={() => setSelectedDelimiter(delim.value)}
+                  >
+                    {delim.label}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Reason Field */}
+            <FormField
+              control={form.control}
+              name="reason"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Reason</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Optional" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Action Buttons */}
+            <div className="flex gap-4 justify-end">
+              <Button type="submit">Save</Button>
+              <Button type="button" variant="outline" onClick={handleReset}>
+                Reset
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
+    </Layout>
+  )
+}
+
+export default AddBlacklistForm
