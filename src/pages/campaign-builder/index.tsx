@@ -12,10 +12,13 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
-import { Select } from '@/components/ui/select'
+import  Select  from 'react-select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Textarea } from '@/components/ui/textarea'
 import { Layout } from '@/components/custom/layout'
+import { Search } from '@/components/search'
+import ThemeSwitch from '@/components/theme-switch'
+import { UserNav } from '@/components/user-nav'
 
 const formSchema = z.object({
   name: z.string().nonempty({ message: 'Name is required' }),
@@ -51,6 +54,16 @@ export const CampaignBuilder: React.FC = () => {
 
   return (
     <Layout>
+           {/* ===== Top Heading ===== */}
+            <Layout.Header sticky>
+              <Search />
+              <div className='ml-auto flex items-center space-x-4'>
+                <ThemeSwitch />
+                <UserNav />
+              </div>
+            </Layout.Header>
+      
+            <Layout.Body>
       <div className="p-8 bg-white dark:bg-gray-900 rounded-md shadow-md max-w-6xl mx-auto">
         <h2 className="text-2xl font-semibold mb-6">Campaign Builder</h2>
 
@@ -117,7 +130,7 @@ export const CampaignBuilder: React.FC = () => {
                   <FormLabel>SMS Template</FormLabel>
                   <FormControl>
                     <Select
-                      placeholder="Select one"
+                      // placeholder="Select one"
                       options={[
                         { value: 'template1', label: 'Template 1' },
                         { value: 'template2', label: 'Template 2' },
@@ -194,6 +207,7 @@ export const CampaignBuilder: React.FC = () => {
           </form>
         </Form>
       </div>
+      </Layout.Body>
     </Layout>
   )
 }

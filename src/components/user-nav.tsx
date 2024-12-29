@@ -21,11 +21,11 @@ export function UserNav() {
   const navigate = useNavigate();
   const dispatch =  useAppDispatch();
   const account =  useAppSelector(state=> state.accaunt.account);
+  
   // const [jwtToken,setJwtToken] =useAuthentication();
-  const { jwtToken,setJwtToken } = useTheme()
   function logOut(){
-    console.log("Jwt:"+jwtToken)
-    setJwtToken("");
+    // console.log("Jwt:"+jwtToken)
+    // setJwtToken("");
     navigate("/sign-in");
   }
 
@@ -39,7 +39,9 @@ export function UserNav() {
    {
     account && (  <div className='flex flex-col justify-start'>
       <span className='font-bold'>Balance: 400000</span>
-      <Button className='' size="sm">Top up</Button>
+      <Button className='' size="sm"
+      onClick={()=>navigate("/sms/top-up")}
+      >Top up</Button>
    </div>)
    }
      <DropdownMenu>

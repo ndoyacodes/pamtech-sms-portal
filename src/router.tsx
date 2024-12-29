@@ -59,6 +59,18 @@ const router = createBrowserRouter([
         }),
       },
       {
+        path: '/automations',
+        lazy: async () => ({
+          Component: (await import('@/pages/automations')).default,
+        }),
+      },
+      {
+        path: '/automations/:id',
+        lazy: async () => ({
+          Component: (await import('@/pages/automations/components/add-edit-automations.tsx')).default,
+        }),
+      },
+      {
         path: '/customers',
         lazy: async () => ({
           Component: (await import('@/pages/customers')).default,
@@ -223,13 +235,19 @@ const router = createBrowserRouter([
       {
         path: 'sms/campaign-builder',
         lazy: async () => ({
-          Component: (await import('@/components/coming-soon.tsx')).default,
+          Component: (await import('@/pages/campaign-builder')).default,
         }),
       },
       {
         path: 'sms/quick-send',
         lazy: async () => ({
-          Component: (await import('@/components/coming-soon.tsx')).default,
+          Component: (await import('@/pages/campaign-builder')).default,
+        }),
+      },
+      {
+        path: 'sms/top-up',
+        lazy: async () => ({
+          Component: (await import('@/pages/top-up')).default,
         }),
       },
       {
@@ -237,6 +255,29 @@ const router = createBrowserRouter([
         lazy: async () => ({
           Component: (await import('@/pages/extra-components')).default,
         }),
+      },
+      {
+        path: 'reports',
+        lazy: async () => ({
+          Component: (await import('@/pages/messages/all')).default,
+        }),
+        errorElement: <GeneralError />,
+        children: [
+          {
+            index: true,
+            lazy: async () => ({
+              Component: (await import('@/pages/messages/all')).default,
+            }),
+          },  
+          {
+            path: 'all-messages',
+            lazy: async () => ({
+              Component: (await import('@/pages/messages/all')).default,
+            }),
+          },
+        
+       
+        ],
       },
       {
         path: 'settings',
