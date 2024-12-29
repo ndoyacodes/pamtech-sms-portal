@@ -109,8 +109,7 @@ export default function ProfileForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
                 <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select" onValueChange={field.onChange} defaultValue={field.value}>
+                onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder='Select a verified email to display' />

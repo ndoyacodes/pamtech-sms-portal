@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormSchema, formSchema } from '../data/subscription-form-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -19,7 +19,6 @@ import {
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
-import { PasswordInput } from '@/components/custom/password-input'
 import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
@@ -28,16 +27,15 @@ import { IconUserPlus } from '@tabler/icons-react'
 
 const AddEditCustomer = () => {
   const [imageBase64, setImageBase64] = useState<string | null>(null)
-  const mode = 'add'
-  const handleImageChange = (file: File) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (reader.result) {
-        setImageBase64(reader.result.toString())
-      }
-    }
-    reader.readAsDataURL(file)
-  }
+  // const handleImageChange = (file: File) => {
+  //   const reader = new FileReader()
+  //   reader.onload = () => {
+  //     if (reader.result) {
+  //       setImageBase64(reader.result.toString())
+  //     }
+  //   }
+  //   reader.readAsDataURL(file)
+  // }
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -49,6 +47,7 @@ const AddEditCustomer = () => {
       image: imageBase64,
     }
     console.log(finalData)
+    setImageBase64(null);
   }
 
   return (
@@ -84,8 +83,6 @@ const AddEditCustomer = () => {
                       <FormLabel>Customer</FormLabel>
                       <FormControl>
                           <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
                           value={field.value}
                           onValueChange={(value: any) =>
                             form.setValue('customer', value)
@@ -114,8 +111,6 @@ const AddEditCustomer = () => {
                       <FormLabel>Plan</FormLabel>
                       <FormControl>
                           <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
                           value={field.value}
                           onValueChange={(value: string) =>
                             form.setValue('plan', value)

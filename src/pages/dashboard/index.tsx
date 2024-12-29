@@ -1,5 +1,4 @@
 import { Layout } from '@/components/custom/layout'
-import { Button } from '@/components/custom/button'
 import {
   Card,
   CardContent,
@@ -14,10 +13,8 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { RecentSales } from './components/recent-sales'
 import { Overview } from './components/overview'
-import { IconBuilding, IconPlant2, IconScale, IconTractor, IconUserCog, IconPlayCard, IconMessage, IconRosetteDiscountCheck, IconChecklist } from '@tabler/icons-react'
+import {  IconUserCog, IconMessage, IconRosetteDiscountCheck, IconChecklist } from '@tabler/icons-react'
 // import useIsAuthenticated from '@/hooks/use-is-authenticated'
-import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
 // import useAuthentication from '@/hooks/use-authentication'
 import useToken from '@/hooks/use-token'
 
@@ -164,26 +161,3 @@ export default function Dashboard() {
     </Layout>
   )
 }
-
-const topNav = [
-  {
-    title: 'Overview',
-    href: 'dashboard/overview',
-    isActive: true,
-  },
-  {
-    title: 'Customers',
-    href: 'dashboard/customers',
-    isActive: false,
-  },
-  {
-    title: 'Products',
-    href: 'dashboard/products',
-    isActive: false,
-  },
-  {
-    title: 'Settings',
-    href: 'dashboard/settings',
-    isActive: false,
-  },
-]

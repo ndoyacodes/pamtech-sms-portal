@@ -78,8 +78,7 @@ export default function Apps() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
               <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select" value={appType} onValueChange={setAppType}>
+                       value={appType} onValueChange={setAppType}>
               <SelectTrigger className='w-36'>
                 <SelectValue>{appText.get(appType)}</SelectValue>
               </SelectTrigger>
@@ -92,8 +91,7 @@ export default function Apps() {
           </div>
 
             <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select" value={sort} onValueChange={setSort}>
+                    value={sort} onValueChange={setSort}>
             <SelectTrigger className='w-16'>
               <SelectValue>
                 <IconAdjustmentsHorizontal size={18} />

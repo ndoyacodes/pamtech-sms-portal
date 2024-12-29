@@ -4,7 +4,6 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { DataTable } from './components/data-table'
 import { columns } from './components/columns'
-import { farmers } from './data/farmers'
 
 export default function FarmersPage() {
   return (

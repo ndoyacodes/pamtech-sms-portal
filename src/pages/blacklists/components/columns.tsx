@@ -5,7 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 
-import { labels, priorities, statuses } from '../data/data'
+import { labels, } from '../data/data'
 import { Invoice } from '../data/schema'
 
 export const columns: ColumnDef<Invoice>[] = [

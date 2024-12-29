@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormSchema, formSchema } from '../data/plans-form-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import {useForm } from 'react-hook-form'
 import {
   Form,
   FormControl,
@@ -28,16 +28,15 @@ import { Checkbox } from '@/components/ui/checkbox'
 
 const AddEditCustomer = () => {
   const [imageBase64, setImageBase64] = useState<string | null>(null)
-  const mode = 'add'
-  const handleImageChange = (file: File) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (reader.result) {
-        setImageBase64(reader.result.toString())
-      }
-    }
-    reader.readAsDataURL(file)
-  }
+  // const handleImageChange = (file: File) => {
+  //   const reader = new FileReader()
+  //   reader.onload = () => {
+  //     if (reader.result) {
+  //       setImageBase64(reader.result.toString())
+  //     }
+  //   }
+  //   reader.readAsDataURL(file)
+  // }
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -49,6 +48,7 @@ const AddEditCustomer = () => {
       image: imageBase64,
     }
     console.log(finalData)
+    setImageBase64(null)
   }
 
   return (
@@ -120,8 +120,7 @@ const AddEditCustomer = () => {
                     <FormLabel>Billing Cycle</FormLabel>
                     <FormControl>
                       <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
+                   
                       value={field.value}
                       onValueChange={field.onChange}
                     >
@@ -148,8 +147,7 @@ const AddEditCustomer = () => {
                     <FormLabel>Currency</FormLabel>
                     <FormControl>
                       <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
+                      
                       value={field.value}
                       onValueChange={field.onChange}
                     >

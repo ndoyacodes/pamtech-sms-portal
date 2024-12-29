@@ -6,8 +6,7 @@ import { DataTableViewOptions } from '../components/data-table-view-options'
 
 import { priorities, statuses } from '../data/data'
 import { DataTableFacetedFilter } from './data-table-faceted-filter'
-import { useNavigate } from 'react-router-dom'
-import { IconFilter, IconPlus } from '@tabler/icons-react'
+import { IconFilter } from '@tabler/icons-react'
 import { z } from 'zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -62,7 +61,6 @@ export function DataTableToolbar<TData>({
   })
 
   const isFiltered = table.getState().columnFilters.length > 0
-  const navigate = useNavigate()
 
   return (
    <>

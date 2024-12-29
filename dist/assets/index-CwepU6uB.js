@@ -1,0 +1,1 @@
+import{r as s,a0 as u,h as e}from"./index-st5SMf4n.js";var c=u.useId||(()=>{}),f=0;function d(t){const[a,r]=s.useState(c());return e(()=>{t||r(o=>o??String(f++))},[t]),t||(a?`radix-${a}`:"")}export{d as u};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -41,8 +41,6 @@ const requiredOptions = [
 ]
 
 export const TemplateTagForm: React.FC = () => {
-  const [selectedType, setSelectedType] = useState(null)
-  const [selectedRequired, setSelectedRequired] = useState(null)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -118,7 +116,7 @@ export const TemplateTagForm: React.FC = () => {
                     value={typeOptions.find((opt) => opt.value === field.value)}
                     onChange={(e:any) => {
                       field.onChange(e?.value)
-                      setSelectedType(e)
+                      // setSelectedType(e)
                     }}
                   />
                 </FormControl>
@@ -146,7 +144,7 @@ export const TemplateTagForm: React.FC = () => {
                     )}
                     onChange={(e:any) => {
                       field.onChange(e?.value)
-                      setSelectedRequired(e)
+                      // setSelectedRequired(e)
                     }}
                   />
                 </FormControl>

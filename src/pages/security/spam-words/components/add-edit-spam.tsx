@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,8 +12,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
-import Select from 'react-select'
-import { Textarea } from '@/components/ui/textarea'
 import { Layout } from '@/components/custom/layout'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
@@ -24,10 +22,6 @@ const formSchema = z.object({
   name: z.string().nonempty({ message: 'Name is required' }),
 })
 
-const requiredOptions = [
-  { value: 'Mandatory', label: 'Mandatory' },
-  { value: 'Optional', label: 'Optional' },
-]
 
 export const TemplateTagForm: React.FC = () => {
 

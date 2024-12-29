@@ -35,9 +35,7 @@ export default function SidebarNav({
   return (
     <>
       <div className='p-1 md:hidden'>
-          <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select" value={val} onValueChange={handleSelect}>
+          <Select value={val} onValueChange={handleSelect}>
           <SelectTrigger className='h-12 sm:w-48'>
             <SelectValue placeholder='Theme' />
           </SelectTrigger>

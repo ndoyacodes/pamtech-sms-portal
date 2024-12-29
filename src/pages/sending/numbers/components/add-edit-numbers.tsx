@@ -57,7 +57,7 @@ const AddEditNumber: React.FC = () => {
     },
   })
 
-  const onSubmit = (data: FormSchema) => {}
+  const onSubmit = () => {}
 
   // Set form data when editing
   useEffect(() => {

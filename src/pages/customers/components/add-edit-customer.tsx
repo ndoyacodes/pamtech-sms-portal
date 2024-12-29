@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormSchema, formSchema } from '../data/customer-form-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -28,7 +28,6 @@ import { IconUserPlus } from '@tabler/icons-react'
 
 const AddEditCustomer = () => {
   const [imageBase64, setImageBase64] = useState<string | null>(null)
-  const mode = 'add'
   const handleImageChange = (file: File) => {
     const reader = new FileReader()
     reader.onload = () => {
@@ -145,8 +144,7 @@ const AddEditCustomer = () => {
                       <FormLabel>Language</FormLabel>
                       <FormControl>
                           <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
+                    
                           value={field.value}
                           onValueChange={(value: any) =>
                             form.setValue('language', value)
@@ -199,7 +197,7 @@ const AddEditCustomer = () => {
                 <FormField
                   control={form.control}
                   name='image'
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem>
                       <FormLabel>Image</FormLabel>
                       <FormControl>
@@ -227,8 +225,6 @@ const AddEditCustomer = () => {
                       <FormLabel>Timezone</FormLabel>
                       <FormControl>
                           <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
                           value={field.value}
                           onValueChange={(value: any) =>
                             form.setValue('timezone', value)

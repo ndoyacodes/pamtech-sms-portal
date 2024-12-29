@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import {
   Form,
@@ -69,7 +67,7 @@ const DeveloperDashboard = () => {
           <div className="flex gap-4 mb-8">
             <Button 
               variant="default" 
-              className="bg-indigo-600 hover:bg-indigo-700"
+              className=""
               onClick={regenerateToken}
             >
               Regenerate Token
@@ -89,7 +87,7 @@ const DeveloperDashboard = () => {
                       OAuth 2.0 API Endpoint
                     </FormLabel>
                     <FormControl>
-                      <Input {...field} readOnly className="bg-gray-50" />
+                      <Input {...field} readOnly className="" />
                     </FormControl>
                   </FormItem>
                 )}
@@ -103,7 +101,7 @@ const DeveloperDashboard = () => {
                   <Input 
                     value={apiToken}
                     readOnly 
-                    className="pr-10 bg-gray-50"
+                    className="pr-10 "
                   />
                   <Button
                     type="button"

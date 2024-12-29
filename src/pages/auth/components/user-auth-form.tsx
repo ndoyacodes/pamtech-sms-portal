@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { IconBrandFacebook, IconBrandGithub } from '@tabler/icons-react'
 import {
   Form,
   FormControl,
@@ -18,7 +17,6 @@ import { PasswordInput } from '@/components/custom/password-input'
 import { cn } from '@/lib/utils'
 // import useIsAuthenticated from '@/hooks/use-is-authenticated'
 // import useAuthentication from '@/hooks/use-authentication'
-import { useTheme } from '@/components/theme-provider'
 
 interface UserAuthFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -40,7 +38,6 @@ const formSchema = z.object({
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
-  const {jwtToken,setJwtToken} =useTheme();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,8 +54,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     setTimeout(() => {
       setIsLoading(false)
     }, 3000)
-    setJwtToken("jwtAuthtoken");
-    console.log("Token"+jwtToken)
+ 
     navigate("/");
    
   }
@@ -112,7 +108,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               </div>
               <div className='relative flex justify-center text-xs uppercase'>
                 <span className='bg-background px-2 text-muted-foreground'>
-                  Or continue with
+                 Dont have an account? <Link to='/sign-up' className='text-primary'>Register Here!</Link>
                 </span>
               </div>
             </div>

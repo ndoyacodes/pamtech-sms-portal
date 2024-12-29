@@ -139,7 +139,7 @@ export const AutomationForm: React.FC = () => {
                 <FormField
                   control={form.control}
                   name="smsTemplate"
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem>
                       <FormLabel>SMS Template</FormLabel>
                       <FormControl>
@@ -155,12 +155,12 @@ export const AutomationForm: React.FC = () => {
                 {/* Available Tag Field */}
                 <FormField
                   control={form.control}
-                  name="availableTag"
+                  name="message"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Available Tag</FormLabel>
                       <FormControl>
-                        <Input value="Phone" disabled {...field} />
+                        <Input   {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -176,7 +176,7 @@ export const AutomationForm: React.FC = () => {
                   <FormItem>
                     <FormLabel>SMS Type</FormLabel>
                     <FormControl>
-                      <Input value="Plain" disabled {...field} />
+                      <Input  {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

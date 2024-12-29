@@ -99,8 +99,6 @@ const AddEditCustomer = () => {
                 <FormLabel>Status</FormLabel>
                 <FormControl>
                   <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
                       value={field.value}
                       onValueChange={field.onChange}
                     >
@@ -127,8 +125,7 @@ const AddEditCustomer = () => {
                     <FormLabel>Billing Cycle</FormLabel>
                     <FormControl>
                       <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
+                      
                       value={field.value}
                       onValueChange={field.onChange}
                     >
@@ -156,8 +153,7 @@ const AddEditCustomer = () => {
                     <FormLabel>Currency</FormLabel>
                     <FormControl>
                       <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
+                      
                       value={field.value}
                       onValueChange={field.onChange}
                     >
@@ -185,8 +181,7 @@ const AddEditCustomer = () => {
                 <FormLabel>Customer</FormLabel>
                 <FormControl>
                   <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
+                      
                       value={field.value}
                       onValueChange={field.onChange}
                     >

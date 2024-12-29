@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { IconChevronsLeft, IconMenu2, IconTractor, IconX } from '@tabler/icons-react'
+import { IconChevronsLeft, IconMenu2, IconX } from '@tabler/icons-react'
 import { Layout } from './custom/layout'
 import { Button } from './custom/button'
 import Nav from './nav'
@@ -7,8 +7,6 @@ import { cn } from '@/lib/utils'
 import { sidelinks } from '@/data/sidelinks'
 import {sidelinksAccount} from '@/data/accounts-sidelinks'
 import { useAppSelector } from '@/store/store-hooks'
-import { stat } from 'fs'
-import { useNavigate } from 'react-router-dom'
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   isCollapsed: boolean
@@ -21,7 +19,6 @@ export default function Sidebar({
   setIsCollapsed,
 }: SidebarProps) {
   const [navOpened, setNavOpened] = useState(false);
-  const navigate =  useNavigate();
   const account =  useAppSelector(state =>  state.accaunt.account);
    console.log("Account:"+account);
    
