@@ -13,7 +13,7 @@ export interface CustomerPostData {
     customerType: CustomerType;
     countryCode: string;
     //Typo from the API
-    phoneNUmber: string; 
+    phoneNumber: string; 
     password: string;
     confirmPassword: string;
 }

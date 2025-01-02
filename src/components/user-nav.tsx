@@ -13,6 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/store/store-hooks'
 import { setAccount } from '@/store/slices/account.slice'
+import { useAuthStore } from '@/hooks/use-auth-store'
 
 
 const formatCurrency = (amount: number) => {
@@ -27,7 +28,8 @@ const formatCurrency = (amount: number) => {
 export function UserNav() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const account = useAppSelector((state) => state.accaunt.account)
+  const account = useAppSelector((state) => state.accaunt.account);
+  const {user} =  useAuthStore();
 
   // const [jwtToken,setJwtToken] =useAuthentication();
   function logOut() {
@@ -65,16 +67,20 @@ export function UserNav() {
           <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
             <Avatar className='h-8 w-8'>
               <AvatarImage src='/avatars/01.png' alt='@shadcn' />
-              <AvatarFallback>SN</AvatarFallback>
+              <AvatarFallback>
+                {user?.firstName?.charAt(0).toUpperCase()}  {user?.lastName?.charAt(0).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className='w-56' align='end' forceMount>
           <DropdownMenuLabel className='font-normal'>
             <div className='flex flex-col space-y-1'>
-              <p className='text-sm font-medium leading-none'>satnaing</p>
+              <p className='text-sm font-medium leading-none'>
+                {user?.firstName} {user?.lastName}
+              </p>
               <p className='text-xs leading-none text-muted-foreground'>
-                satnaingdev@gmail.com
+                {user?.email}
               </p>
             </div>
           </DropdownMenuLabel>

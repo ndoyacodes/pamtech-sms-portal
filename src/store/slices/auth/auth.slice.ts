@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthState } from '../../types/auth-state';
+import { AuthState, UserInfo } from '../../types/auth-state';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -14,20 +14,18 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (
       state,
-      action: PayloadAction<{ access_token: string; refresh_token: string }>
+      action: PayloadAction<{ accessToken: string; refreshToken: string, user:UserInfo }>
     ) => {
-      const { access_token, refresh_token } = action.payload;
-      console.log("-------------------------------------------------------");
-      console.log('access_token', access_token);
+      const { accessToken, refreshToken, user } = action.payload;
+      console.log('user', user);
+      console.log('accessToken', accessToken);
+      console.log('refreshToken', refreshToken);
       
 
-      // Decode user info
-    //   const userInfo = decodeAndExtractUserInfo(access_token);
-
-      state.tokens.access = access_token;
-      state.tokens.refresh = refresh_token;
-    //   state.user = userInfo;
-    //   state.isAuthenticated = !!userInfo;
+      state.tokens.access = accessToken;
+      state.tokens.refresh = refreshToken;
+      state.user = user;
+      state.isAuthenticated = !!user;
     },
     setLogoutAction: state => {
       state.user = null;

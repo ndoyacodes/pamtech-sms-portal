@@ -1,14 +1,28 @@
+  
+  export interface Customer {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    timezone: string;
+    status: boolean;
+    customerType: 'POSTPAID' | 'PREPAID';
+  }
+
   // User Information Type
   export interface UserInfo {
-    userId: string;
-    phoneNumber: string;
+    username: string;
+    phone: string;
     email: string;
     roles: string[];
     permissions: string[];
     firstName?: string;
     lastName?: string;
-    currentMembershipSaccoId?: string | null;
+    enabled: boolean;
+    customer?: Customer | null;
   }
+
+
   
   // Authentication State Type
   export interface AuthState {
@@ -20,3 +34,4 @@
     isAuthenticated: boolean;
   }
   
+

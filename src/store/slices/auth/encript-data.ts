@@ -1,12 +1,14 @@
 import sha256 from 'crypto-js/sha256';
 import AES from 'crypto-js/aes';
 import encUtf8 from 'crypto-js/enc-utf8';
-const ENCRYPTION_SECRET = process.env.REACT_APP_ENCRYPTION_SECRET || 'your_very_secret_key';
+const ENCRYPTION_SECRET =  'your_very_secret_key';
 
 // Generate a SHA-256 hash of the secret key for added security
 const hashKey = sha256(ENCRYPTION_SECRET).toString();
 
 export const encryptData = <T>(data: T): string | null => {
+  console.log('data', data);
+  
   try {
     // Convert data to string
     const dataString = JSON.stringify(data);

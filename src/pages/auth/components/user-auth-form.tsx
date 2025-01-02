@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
 import { PasswordInput } from '@/components/custom/password-input'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/hooks/api-hooks/auth/useAuth'
 // import useIsAuthenticated from '@/hooks/use-is-authenticated'
 // import useAuthentication from '@/hooks/use-authentication'
 
@@ -36,8 +37,9 @@ const formSchema = z.object({
 })
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const {loginUser} = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,13 +51,17 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
     console.log(data)
-   
+    const  finalData = {
+      username: data.email,
+      password: data.password
+    }
+
+    loginUser.mutate(finalData)
 
     setTimeout(() => {
       setIsLoading(false)
     }, 3000)
  
-    navigate("/");
    
   }
 
@@ -98,7 +104,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 </FormItem>
               )}
             />
-            <Button className='mt-2' loading={isLoading}>
+            <Button className='mt-2' loading={loginUser.isPending}
+            disabled={loginUser.isPending} type='submit'
+            >
               Login
             </Button>
 
