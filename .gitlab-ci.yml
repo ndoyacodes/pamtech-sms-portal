@@ -30,7 +30,7 @@ build_app:
     - npm run build
   artifacts:
     paths:
-      - build/
+      - dist/
 
 deploy_app:
   stage: deploy
@@ -38,4 +38,4 @@ deploy_app:
   script:
     - scp -r dist/ mongi@155.12.30.114:/var/www/opesportal
   only:
-    - main
+    - master
