@@ -1,0 +1,41 @@
+stages:
+  - install
+  - test
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+install_dependencies:
+  stage: install
+  image: node:22
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+run_tests:
+  stage: test
+  image: node:22
+  script:
+    - npm test
+
+build_app:
+  stage: build
+  image: node:22
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - build/
+
+deploy_app:
+  stage: deploy
+  image: node:22
+  script:
+    - scp -r dist/ mongi@155.12.30.114:/var/www/opesportal
+  only:
+    - main
