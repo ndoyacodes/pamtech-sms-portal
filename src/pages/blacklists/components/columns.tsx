@@ -1,14 +1,11 @@
 import { ColumnDef } from '@tanstack/react-table'
 
-import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
+import { DataSchema } from '../data/schema'
 
-import { labels, } from '../data/data'
-import { Invoice } from '../data/schema'
-
-export const columns: ColumnDef<Invoice>[] = [
+export const columns: ColumnDef<DataSchema>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -38,50 +35,32 @@ export const columns: ColumnDef<Invoice>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='#' />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className='w-[80px]'>{row.index +  1}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'date',
+    accessorKey: 'msisdn',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Name' />
-    ),
-    cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.date)
-
-      return (
-        <div className='flex space-x-2'>
-          {label && <Badge variant='outline'>{label.label}</Badge>}
-          <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('title')}
-          </span>
-        </div>
-      )
-    },
-  },
-  {
-    accessorKey: 'name',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='CODE' />
-    ),
-    cell: ({ row }) => <div className='w-[150px]'>{row.getValue('name')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='FORMAT' />
-    ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'details',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Status' />
+      <DataTableColumnHeader column={column} title='msisdn' />
     ),
     cell: ({ row }) => (
-      <div className='max-w-[200px] truncate'>{row.getValue('details')}</div>
+      <div className='w-[120px]'>{row.getValue('msisdn')}</div>
     ),
+    enableSorting: true,
+    enableHiding: false,
+  },
+
+  {
+    accessorKey: 'reason',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Reason' />
+    ),
+    cell: ({ row }) => (
+      <div className='w-[120px]'>{row.getValue('reason')}</div>
+    ),
+    enableSorting: true,
+    enableHiding: false,
   },
 
   {

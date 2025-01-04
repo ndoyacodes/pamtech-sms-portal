@@ -14,7 +14,7 @@ export default function FarmersPage() {
   } = useQuery({
     queryKey: ['customers'],
     queryFn: async () => {
-      const response = await customerService.getCustomers({page: 0, size: 10});
+      const response:any = await customerService.getCustomers({page: 0, size: 10});
       return response || [];
     },
     retry: 2,

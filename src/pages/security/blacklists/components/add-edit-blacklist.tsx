@@ -20,7 +20,7 @@ import { UserNav } from '@/components/user-nav'
 
 // Validation Schema
 const formSchema = z.object({
-  numbers: z.string().nonempty({ message: 'Paste Numbers is required' }),
+  msisdn: z.string().nonempty({ message: 'Paste Numbers is required' }),
   reason: z.string().optional(),
 })
 
@@ -38,7 +38,7 @@ export const AddBlacklistForm = ({blacklist} :  {blacklist: any}) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      numbers: '',
+      msisdn: '',
       reason: '',
     },
   })
@@ -75,7 +75,7 @@ export const AddBlacklistForm = ({blacklist} :  {blacklist: any}) => {
             {/* Numbers Field */}
             <FormField
               control={form.control}
-              name="numbers"
+              name="msisdn"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Paste Numbers *</FormLabel>
