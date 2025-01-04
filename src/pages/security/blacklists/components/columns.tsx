@@ -30,44 +30,34 @@ export const columns: ColumnDef<DataSchema>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  // {
-  //   accessorKey: 'id',
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title='Id' />
-  //   ),
-  //   cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
   {
-    accessorKey: 'number',
+    accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Number' />
+      <DataTableColumnHeader column={column} title='#' />
+    ),
+    cell: ({ row }) => <div className='w-[80px]'>{row.index +  1}</div>,
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: 'msisdn',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='msisdn' />
     ),
     cell: ({ row }) => (
-      <div className='w-[120px]'>{row.getValue('number')}</div>
+      <div className='w-[120px]'>{row.getValue('msisdn')}</div>
     ),
     enableSorting: true,
     enableHiding: false,
   },
+
   {
-    accessorKey: 'number',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Listed by' />
-    ),
-    cell: ({ row }) => (
-      <div className='w-[120px]'>{row.getValue('number')}</div>
-    ),
-    enableSorting: true,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'number',
+    accessorKey: 'reason',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Reason' />
     ),
     cell: ({ row }) => (
-      <div className='w-[120px]'>{row.getValue('number')}</div>
+      <div className='w-[120px]'>{row.getValue('reason')}</div>
     ),
     enableSorting: true,
     enableHiding: false,

@@ -17,35 +17,37 @@ import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
+import { useBlacklist } from '@/hooks/api-hooks/contacts/blacklist-hook'
 
 // Validation Schema
 const formSchema = z.object({
-  numbers: z.string().nonempty({ message: 'Paste Numbers is required' }),
+  msisdn: z.string().nonempty({ message: 'Paste Numbers is required' }),
   reason: z.string().optional(),
 })
 
 // Delimiter Options
 const delimiters = [
   { label: ', (Comma)', value: ',' },
-  { label: '; (Semicolon)', value: ';' },
-  { label: '| (Bar)', value: '|' },
-  { label: 'Tab', value: '\t' },
-  { label: 'New line', value: '\n' },
+  // { label: '; (Semicolon)', value: ';' },
+  // { label: '| (Bar)', value: '|' },
+  // { label: 'Tab', value: '\t' },
+  // { label: 'New line', value: '\n' },
 ]
 
-export const AddBlacklistForm: React.FC = () => {
-  const [selectedDelimiter, setSelectedDelimiter] = useState<string>(',')
+export const AddBlacklistForm = ({blacklist} :  {blacklist: any}) => {
+  const [selectedDelimiter, setSelectedDelimiter] = useState<string>(',');
+  const {addToBlacklist} =  useBlacklist();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      numbers: '',
+      msisdn: '',
       reason: '',
     },
   })
 
   const onSubmit = (data: any) => {
-    console.log('Submitted Data:', { ...data, delimiter: selectedDelimiter })
-    // Handle API submission here
+    console.log('Submitted Data:', { ...data })
+    addToBlacklist.mutate({data:data})
   }
 
   const handleReset = () => {
@@ -55,25 +57,27 @@ export const AddBlacklistForm: React.FC = () => {
 
   return (
     <Layout>
-       {/* ===== Top Heading ===== */}
-    <Layout.Header sticky>
-      <Search />
-      <div className='ml-auto flex items-center space-x-4'>
-        <ThemeSwitch />
-        <UserNav />
-      </div>
-    </Layout.Header>
+     <Layout.Header sticky>
+        <Search />
+        <div className='ml-auto flex items-center space-x-4'>
+          <ThemeSwitch />
+          <UserNav />
+        </div>
+      </Layout.Header>
+      {/* ===== Page Title ===== */}
+      <Layout.Header>
+        <h1 className='text-2xl font-bold'>Add SPam Word</h1>
+      </Layout.Header>
 
-    <Layout.Body>
-      <div className="p-8 bg-white dark:bg-gray-900 rounded-md shadow-md max-w-4xl ">
-        <h2 className="text-2xl font-semibold mb-6">Add New Blacklist</h2>
-
+      {/* ===== Form ===== */}
+      <Layout.Body>
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Numbers Field */}
             <FormField
               control={form.control}
-              name="numbers"
+              name="msisdn"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Paste Numbers *</FormLabel>
@@ -123,7 +127,10 @@ export const AddBlacklistForm: React.FC = () => {
 
             {/* Action Buttons */}
             <div className="flex gap-4 justify-end">
-              <Button type="submit">Save</Button>
+              <Button type="submit"
+              loading={addToBlacklist.isPending}
+              disabled={addToBlacklist.isPending}
+              >Save</Button>
               <Button type="button" variant="outline" onClick={handleReset}>
                 Reset
               </Button>

@@ -29,8 +29,8 @@ class BlacklistService extends APIClient {
         }
 
         // Get blacklist entries for a specific customer
-        getCustomerBlacklistById(customerId: string) {
-                return this.get<BlacklistData[]>(`/blacklist/customer/${customerId}`);
+        getCustomerBlacklistById(customerId: any, params?: { page?: number; size?: number }) {
+                return this.get<BlacklistData[]>(`/blacklist/customer/${customerId}`, params);
         }
 
         // Create a new blacklist entry
