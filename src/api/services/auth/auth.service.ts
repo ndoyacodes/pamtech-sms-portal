@@ -1,4 +1,3 @@
-import { CustomerPostData } from '@/pages/customers/data/types';
 import { APIClient } from '../../axios/instance';
 
 interface LoginCredentials {

@@ -44,7 +44,7 @@ export const useAuth = () => {
 
   const registerCustomer = useMutation({
     mutationFn: authService.regieter.bind(authService),
-    onSuccess: (data: any) => {
+    onSuccess: (_data: any) => {
       toast.success('Registration successful please login');
       // dispatch(
       //   setCredentials({

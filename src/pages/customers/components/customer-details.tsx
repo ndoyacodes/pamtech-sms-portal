@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   User,
   Building2,
@@ -12,7 +11,6 @@ import {
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/custom/button';
 import { Layout } from '@/components/custom/layout';
-import { useParams } from 'react-router-dom';
 import ThemeSwitch from '@/components/theme-switch';
 import { UserNav } from '@/components/user-nav';
 
@@ -34,9 +32,9 @@ const mockCustomer = {
 };
 
 const CustomerDetails = () => {
-  const { id } = useParams(); // Get customer ID from the URL
+  
 
-  // Fetch customer data based on ID (replace with API call)
+
   const customer = mockCustomer;
 
   if (!customer) {

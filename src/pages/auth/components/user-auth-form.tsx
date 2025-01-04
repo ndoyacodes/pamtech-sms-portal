@@ -1,6 +1,6 @@
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -37,8 +37,6 @@ const formSchema = z.object({
 })
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const {loginUser} = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,20 +47,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   })
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    console.log(data)
     const  finalData = {
       username: data.email,
       password: data.password
     }
 
-    loginUser.mutate(finalData)
-
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
- 
-   
+    loginUser.mutate(finalData)   
   }
 
   return (

@@ -68,7 +68,7 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
       }
 
       // Handle other errors
-      const errorMessage = 'An error occurred';
+      // const errorMessage = 'An error occurred';
       return Promise.reject(error);
     }
   );

@@ -75,6 +75,7 @@ export class APIClient {
   async patch<T>(
     url: string,
     data?: any,
+    //@ts-ignore
     p0?: { headers: { 'Content-Type': string } }
   ): Promise<T> {
     return this.instance.patch(url, data);
