@@ -10,6 +10,7 @@ import {
     IconReportAnalytics,
     IconBrandTelegram,
     IconCpu2,
+    IconFilePhone,
   } from '@tabler/icons-react'
   
   export interface NavLink {
@@ -31,10 +32,10 @@ import {
       icon: <IconLayoutDashboard size={18} />,
     },
     {
-      title: 'Contacts',
+      title: 'Phone book',
       label: '',
       href: '/contacts',
-      icon: <IconShoppingCart size={18} />,
+      icon: <IconFilePhone size={18} />,
     },
     {
       title: 'Subscriptions',

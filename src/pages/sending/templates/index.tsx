@@ -23,12 +23,12 @@ export default function FarmersPage() {
         page: pagination.pageIndex,
         size: pagination.pageSize,
       })
-      return (
-        response || {
-          content: response.content || [],
-          totalElements: response?.totalElements,
-        }
-      )
+
+      const fResponse = {
+        content: response || [],
+        totalElements: response?.totalElements,
+      }
+      return fResponse;
     },
     retry: 2,
     staleTime: 5 * 60 * 1000,
@@ -65,7 +65,7 @@ export default function FarmersPage() {
         ) : (
           <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
             <DataTable
-              data={templates?.content || []}
+              data={templates?.content}
               columns={columns}
               pagination={pagination}
               onPaginationChange={setPagination}

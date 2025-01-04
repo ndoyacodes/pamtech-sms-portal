@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   CustomerSchema,
   customerFormSchema,
@@ -34,9 +33,7 @@ import {
   Mail,
   Globe,
   Phone,
-  Languages,
   Shield,
-  Clock,
 } from 'lucide-react'
 import { useCustomer } from '@/hooks/api-hooks/customers/customer-hook'
 import { CustomerData, CustomerPostData } from '../data/types'

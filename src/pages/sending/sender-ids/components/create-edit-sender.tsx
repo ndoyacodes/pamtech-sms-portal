@@ -24,10 +24,12 @@ import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { useSenderId } from '@/hooks/api-hooks/customers/senderid-hook'
+import { useLocation } from 'react-router-dom'
 
-const AddEditCustomer = ({senderId} :  {senderId: any}) => {
+const AddEditCustomer = () => {
  const { createSenderId, updateSenderId} = useSenderId();
-
+ const location =  useLocation();
+ const senderId = location?.state.record;
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: senderId || {

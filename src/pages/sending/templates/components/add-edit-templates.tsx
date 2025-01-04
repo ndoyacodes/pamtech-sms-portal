@@ -20,10 +20,13 @@ import { UserNav } from '@/components/user-nav'
 import { formSchema, FormSchema } from '../data/template-form-schema'
 import { useAuthStore } from '@/hooks/use-auth-store'
 import { useSmsTemplate } from '@/hooks/api-hooks/message/template-hook'
+import { useLocation } from 'react-router-dom'
 
 
-const AddTemplateForm = ({template}: {template:any}) => {
-  const [charCount, setCharCount] = useState(0)
+const AddTemplateForm = () => {
+  const [charCount, setCharCount] = useState(0);
+  const location =  useLocation();
+  const template =  location?.state?.record;
   const maxChars = 160
   const {user} =  useAuthStore();
   const {createTemplate, updateTemplate} = useSmsTemplate()

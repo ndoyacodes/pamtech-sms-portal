@@ -17,7 +17,7 @@ import accauntSlice from "./slices/account.slice";
 const persistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['tokens', 'auth', "account"],
+  whitelist: ['tokens', 'auth', "accaunt"],
   transforms: [
     {
       in: (state: AuthState) => ({

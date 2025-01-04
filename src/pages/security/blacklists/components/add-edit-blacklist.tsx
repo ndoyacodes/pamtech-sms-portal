@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -33,7 +33,7 @@ const delimiters = [
   { label: 'New line', value: '\n' },
 ]
 
-export const AddBlacklistForm = ({blacklist} :  {blacklist: any}) => {
+export const AddBlacklistForm = () => {
   const [selectedDelimiter, setSelectedDelimiter] = useState<string>(',')
   const form = useForm({
     resolver: zodResolver(formSchema),

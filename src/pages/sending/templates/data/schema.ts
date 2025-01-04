@@ -6,7 +6,7 @@ export const schema = z.object({
   message: z.string(),
   messageType:z.enum(['dynamic','static']),
   name: z.string(),
-  customerId: z.number(),
+  // customerId: z.number(),
   id: z.number(),
   createdAt:z.string(),
   updatedAt:z.string(),
