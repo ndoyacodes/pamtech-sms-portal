@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import { HTMLAttributes } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -12,7 +12,6 @@ import {
   Check,
   Upload,
   Languages,
-  Clock,
   Shield,
   UserCircle,
   Building,
@@ -119,7 +118,6 @@ const formSchema = z
   })
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
-  const [isLoading, setIsLoading] = useState(false)
   const [step, setStep] = useState(1)
   // const [imageBase64, setImageBase64] = useState<string | null>(null)
   const { registerCustomer } = useAuth()
@@ -171,28 +169,16 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
   }
 
   const onSubmit = (data: any) => {
-    setIsLoading(true)
     console.log(data.kycFile)
-  const formData = new FormData();
+    const formData = new FormData()
 
-   
-  Object.entries({
-    ...data
-  }).forEach(([key, value]) => {
-     formData.append(key, value as string);
-  });
+    Object.entries({
+      ...data,
+    }).forEach(([key, value]) => {
+      formData.append(key, value as string)
+    })
 
-  // formData.append('kycFile', data.kycFile);
-    
-    // const finalData = {
-    //   ...data,
-    //   kycFile: imageBase64,
-    // }
-  
     registerCustomer.mutate(formData)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
   }
 
   const nextStep = async () => {
@@ -464,7 +450,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {aryIanaTimeZones.map((timeZone:string) => (
+                        {aryIanaTimeZones.map((timeZone: string) => (
                           <SelectItem key={timeZone} value={timeZone}>
                             {timeZone}
                           </SelectItem>
@@ -478,18 +464,19 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
             </div>
             <FormField
               control={form.control}
-              name="kycFile"
+              name='kycFile'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>KYC Document</FormLabel>
                   <FormControl>
-                    <div className="relative">
+                    <div className='relative'>
                       <Input
-                        type="file"
-                        className="pl-9"
+                        type='file'
+                        className='pl-9'
+                        //@ts-ignore
                         onChange={(e) => field.onChange(e.target.files[0])}
                       />
-                      <Upload className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                      <Upload className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
                     </div>
                   </FormControl>
                   <FormMessage />

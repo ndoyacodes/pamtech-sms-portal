@@ -35,22 +35,11 @@ export const columns: ColumnDef<Customer>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='ID' />
+      <DataTableColumnHeader column={column} title='S/NO' />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row, }) => <div className='w-[80px]'>{row.index + 1}</div>,
     enableSorting: false,
     enableHiding: false,
-  },
-  {
-    accessorKey: 'name',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Name' />
-    ),
-    cell: ({ row }) => (
-      <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-        {row.getValue('name')}
-      </span>
-    ),
   },
   {
     accessorKey: 'email',
@@ -64,35 +53,51 @@ export const columns: ColumnDef<Customer>[] = [
     ),
   },
   {
-    accessorKey: 'phone',
+    accessorKey: 'fullName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Phone' />
+      <DataTableColumnHeader column={column} title='Name' />
+    ),
+    cell: ({ row }) => {
+      const firstName = row.original.firstName || ''
+      const lastName = row.original.lastName || ''
+      return (
+        <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
+          {`${firstName} ${lastName}`.trim() || 'N/A'}
+        </span>
+      )
+    },
+  },
+  {
+    accessorKey: 'companyName',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Company' />
     ),
     cell: ({ row }) => (
       <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-        {row.getValue('phone') || 'N/A'}
+        {row.getValue('companyName') || 'N/A'}
+      </span>
+    ),
+  },
+
+  {
+    accessorKey: 'customerType',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Type' />
+    ),
+    cell: ({ row }) => (
+      <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
+        {row.getValue('customerType')}
       </span>
     ),
   },
   {
-    accessorKey: 'createdAt',
+    accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Created At' />
+      <DataTableColumnHeader column={column} title='Status' />
     ),
     cell: ({ row }) => (
-      <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-        {new Date(row.getValue('createdAt')).toLocaleDateString()}
-      </span>
-    ),
-  },
-  {
-    accessorKey: 'isActive',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Active' />
-    ),
-    cell: ({ row }) => (
-      <Badge >
-        {row.getValue('isActive') ? 'Active' : 'Inactive'}
+      <Badge>
+        {row.getValue('status') ? 'Active' : 'Inactive'}
       </Badge>
     ),
   },

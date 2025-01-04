@@ -46,11 +46,21 @@ export class APIClient {
   }
 
   async get<T>(url: string, params?: Record<string, any>): Promise<T> {
-    const queryString = params
-      ? Object.keys(params)
-          .map(key => `${key}=${params[key]}`)
-          .join('&')
-      : '';
+    const queryParams = new URLSearchParams();
+
+    // Add parameters to the query string
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        console.log('Key:', key, 'Value:', value);
+        
+        if (value !== undefined && value !== null) {
+          queryParams.append(key, value.toString());
+        }
+      });
+    }
+  
+    const queryString = queryParams.toString();
+      
     return this.instance.get(`${url}${queryString ? `?${queryString}` : ''}`);
   }
 

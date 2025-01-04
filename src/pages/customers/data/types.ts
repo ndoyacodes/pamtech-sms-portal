@@ -9,7 +9,7 @@ export interface CustomerPostData {
     language: string;
     companyName: string;
     website: string;
-    kycFile: string;
+    kycFile: any;
     customerType: CustomerType;
     countryCode: string;
     //Typo from the API
@@ -18,6 +18,30 @@ export interface CustomerPostData {
     confirmPassword: string;
 }
 
-export interface CustomerData extends CustomerPostData {
-    id: number;  
-}
+export interface CustomerData  {
+    
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    timezone: string;
+    status: boolean;
+    language: string;
+    companyName: string;
+    website: string;
+    customerType: CustomerType;
+
+
+}  
+//   {
+//         "id": 52,
+//         "email": "widambedeograss5@gmail.com",
+//         "firstName": "DEOGRASS",
+//         "lastName": "WIDAMBE",
+//         "timezone": "Africa/Dar_es_Salaam",
+//         "status": false,
+//         "language": "en",
+//         "companyName": "Widambe LTD",
+//         "website": "http://localhost:5173/sign-up",
+//         "customerType": "POSTPAID"
+//     },

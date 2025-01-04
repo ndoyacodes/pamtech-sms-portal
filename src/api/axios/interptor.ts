@@ -5,6 +5,7 @@ import axios, {
   InternalAxiosRequestConfig
 } from 'axios';
 import { setCredentials } from '@/store/slices/auth/auth.slice';
+import { displaySessionExpiredModal } from './session-expirition';
 
 export const setupInterceptors = (instance: AxiosInstance): void => {
   // Request interceptor
@@ -40,13 +41,14 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
             throw new Error('No refresh token available');
           }
 
-          const response = await axios.post(`/api/v1/auth/token/refresh`, {
+          const response = await axios.post(`/api/auth/refresh`, {
             refresh: refreshToken
           });
 
           store.dispatch(setCredentials({
             accessToken: response.data.access,
             refreshToken: response.data.refresh,
+            //@ts-ignore
             user: state.auth.user
           }))
         
@@ -60,7 +62,7 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
         } catch (refreshError) {
           // Clear local storage and redirect to login page
           localStorage.clear();
-          window.location.href = '/sign-in';
+          displaySessionExpiredModal(); 
           return Promise.reject(refreshError);
         }
       }
@@ -71,3 +73,6 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
     }
   );
 };
+
+
+

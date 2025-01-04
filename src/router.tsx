@@ -81,6 +81,12 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: '/customer/:id',
+          lazy: async () => ({
+            Component: (await import('@/pages/customers/components/customer-details.tsx')).default,
+          }),
+        },
+        {
           path: '/customers/add',
           lazy: async () => ({
             Component: (await import('@/pages/customers/components/add-edit-customer.tsx')).default,

@@ -38,58 +38,63 @@ export const columns: ColumnDef<Invoice>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='#' />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className='w-[80px]'>{row.index + 1}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'date',
+    accessorKey: 'name',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Name' />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.date)
-
       return (
         <div className='flex space-x-2'>
-          {label && <Badge variant='outline'>{label.label}</Badge>}
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('title')}
+            {row.getValue('name')}
           </span>
         </div>
       )
     },
   },
+
   {
-    accessorKey: 'name',
+    accessorKey: 'billingCycle',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Price' />
+      <DataTableColumnHeader column={column} title='Billing cycle' />
     ),
-    cell: ({ row }) => <div className='w-[150px]'>{row.getValue('name')}</div>,
+    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('billingCycle')}</div>,
   },
   {
-    accessorKey: 'type',
+    accessorKey: 'popular',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Sending credit' />
-    ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'details',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Status' />
+      <DataTableColumnHeader column={column} title='Popular' />
     ),
     cell: ({ row }) => (
-      <div className='max-w-[200px] truncate'>{row.getValue('details')}</div>
+      <Badge variant={row.getValue('popular') ? 'default' : 'secondary'}>
+      {row.getValue('popular') ? 'Yes' : 'No'}
+      </Badge>
     ),
+    },
+
+  {
+    accessorKey: 'pricePerSms',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Price per sms' />
+    ),
+    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('pricePerSms')}</div>,
   },
   {
-    accessorKey: 'amount',
+    accessorKey: 'popular',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Amount' />
+      <DataTableColumnHeader column={column} title='Customer Visible' />
     ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('amount')}</div>,
-  },
+    cell: ({ row }) => (
+      <Badge variant={row.getValue('customerVisible') ? 'default' : 'secondary'}>
+      {row.getValue('customerVisible') ? 'Yes' : 'No'}
+      </Badge>
+    ),
+    },
   {
     id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,

@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { FormSchema, formSchema } from '../data/customer-form-schema'
+import {
+  CustomerSchema,
+  customerFormSchema,
+} from '../data/customer-form-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import {
@@ -25,29 +28,63 @@ import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { IconUserPlus } from '@tabler/icons-react'
+import {
+  User,
+  Building2,
+  Mail,
+  Globe,
+  Phone,
+  Languages,
+  Shield,
+  Clock,
+} from 'lucide-react'
+import { useCustomer } from '@/hooks/api-hooks/customers/customer-hook'
+import { CustomerData, CustomerPostData } from '../data/types'
 
-const AddEditCustomer = () => {
-  const [imageBase64, setImageBase64] = useState<string | null>(null)
-  const handleImageChange = (file: File) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (reader.result) {
-        setImageBase64(reader.result.toString())
-      }
-    }
-    reader.readAsDataURL(file)
-  }
+const AddEditCustomer = ({ customer }: { customer?: CustomerData }) => {
+  const { updateCustomer, createCustomer } = useCustomer()
+  //@ts-ignore
+  const aryIanaTimeZones = Intl.supportedValuesOf('timeZone')
 
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CustomerSchema>({
+    resolver: zodResolver(customerFormSchema),
+    defaultValues: customer || {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      firstName: '',
+      lastName: '',
+      timezone: '',
+      language: '',
+      companyName: '',
+      website: '',
+      customerType: 'POSTPAID',
+      countryCode: '',
+      phoneNumber: '',
+      status: true,
+      kycFile:null ,
+    },
   })
 
-  function onSubmit(data: FormSchema) {
-    const finalData = {
+  function onSubmit(data: CustomerSchema) {
+    //@ts-ignore
+    const postData: CustomerPostData = {
       ...data,
-      image: imageBase64,
+      website: data.website || '',
     }
-    console.log(finalData)
+
+    const formData = new FormData()
+
+    Object.entries({
+      ...postData,
+    }).forEach(([key, value]) => {
+      formData.append(key, value as string)
+    })
+    if (customer) {
+      updateCustomer.mutate({ id: customer?.id, data: formData })
+    } else {
+      createCustomer.mutate({ data: formData })
+    }
   }
 
   return (
@@ -61,11 +98,15 @@ const AddEditCustomer = () => {
         </div>
       </Layout.Header>
       <Layout.Body>
-      <div className='mb-4 flex items-center justify-between space-y-2'>
+        <div className='mb-4 flex items-center justify-between space-y-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Add customer</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>
+              {customer ? 'Edit Customer' : 'Add Customer'}
+            </h2>
             <p className='text-muted-foreground'>
-              Fill in the form below to add a new customer
+              {customer
+                ? 'Update the customer details below'
+                : 'Fill in the form below to add a new customer'}
             </p>
           </div>
         </div>
@@ -74,7 +115,6 @@ const AddEditCustomer = () => {
             <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
               {/* Left Column */}
               <div className='space-y-4'>
-                {/* {imageBase64 && <img src={imageBase64} alt="Uploaded" style={{ marginTop: 10, maxWidth: '100%'  }} />} */}
                 {/* First Name Field */}
                 <FormField
                   control={form.control}
@@ -83,7 +123,14 @@ const AddEditCustomer = () => {
                     <FormItem>
                       <FormLabel>First Name</FormLabel>
                       <FormControl>
-                        <Input placeholder='Enter First Name' {...field} />
+                        <div className='relative'>
+                          <User className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
+                          <Input
+                            className='pl-9'
+                            placeholder='John'
+                            {...field}
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -98,14 +145,21 @@ const AddEditCustomer = () => {
                     <FormItem>
                       <FormLabel>Last Name</FormLabel>
                       <FormControl>
-                        <Input placeholder='Enter Last Name' {...field} />
+                        <div className='relative'>
+                          <User className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
+                          <Input
+                            className='pl-9'
+                            placeholder='Doe'
+                            {...field}
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                {/* Email */}
+                {/* Email Field */}
                 <FormField
                   control={form.control}
                   name='email'
@@ -113,7 +167,14 @@ const AddEditCustomer = () => {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder='Enter Email' {...field} />
+                        <div className='relative'>
+                          <Mail className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
+                          <Input
+                            className='pl-9'
+                            placeholder='your@email.com'
+                            {...field}
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -128,36 +189,81 @@ const AddEditCustomer = () => {
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder='Enter Phone Number' {...field} />
+                        <div className='relative'>
+                          <Phone className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
+                          <Input
+                            className='pl-9'
+                            placeholder='(255) 000-0000'
+                            {...field}
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                {/* Sex Select Field */}
+                {/* Country Code Field */}
+                <FormField
+                  control={form.control}
+                  name='countryCode'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Country Code</FormLabel>
+                      <FormControl>
+                        <div className='relative'>
+                          <Globe className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
+                          <Input className='pl-9' placeholder='+1' {...field} />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Language Field */}
                 <FormField
                   control={form.control}
                   name='language'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Language</FormLabel>
-                      <FormControl>
-                          <Select
-                    
-                          value={field.value}
-                          onValueChange={(value: any) =>
-                            form.setValue('language', value)
-                          }
-                        >
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder='Select Language' />
+                            <SelectValue placeholder='Select language' />
                           </SelectTrigger>
-                          <SelectContent defaultValue={'English'}>
-                            <SelectItem value='English'>English</SelectItem>
-                            <SelectItem value='Swahili'>Swahili</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value='en'>English</SelectItem>
+                          <SelectItem value='es'>Spanish</SelectItem>
+                          <SelectItem value='fr'>French</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name='kycFile'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>KYC Document</FormLabel>
+                      <FormControl>
+                        <div className='relative'>
+                          <Input
+                            type='file'
+                            className='pl-9'
+                            onChange={(e) =>
+                              field.onChange(e.target.files?.[0])
+                            }
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -167,128 +273,159 @@ const AddEditCustomer = () => {
 
               {/* Right Column */}
               <div className='space-y-4'>
+                {/* Password Field */}
                 <FormField
                   control={form.control}
                   name='password'
                   render={({ field }) => (
-                    <FormItem className='space-y-1'>
+                    <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <PasswordInput placeholder='********' {...field} />
+                        <div className='relative'>
+                          <Shield className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
+                          <PasswordInput
+                            className='pl-9'
+                            placeholder='********'
+                            {...field}
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+
+                {/* Confirm Password Field */}
                 <FormField
                   control={form.control}
                   name='confirmPassword'
                   render={({ field }) => (
-                    <FormItem className='space-y-1'>
+                    <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
-                        <PasswordInput placeholder='********' {...field} />
+                        <div className='relative'>
+                          <Shield className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
+                          <PasswordInput
+                            className='pl-9'
+                            placeholder='********'
+                            {...field}
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
+                {/* Company Name Field */}
                 <FormField
                   control={form.control}
-                  name='image'
-                  render={() => (
+                  name='companyName'
+                  render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Image</FormLabel>
+                      <FormLabel>Company Name</FormLabel>
                       <FormControl>
-                        {/* @ts-ignore */}
-                        <Input
-                          placeholder='Enter First Name'
-                          type='file'
-                          onChange={(e) =>
-                            //@ts-ignore
-                            handleImageChange(e?.target?.files[0])
-                          }
-                        />
+                        <div className='relative'>
+                          <Building2 className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
+                          <Input
+                            className='pl-9'
+                            placeholder='Your Company Ltd.'
+                            {...field}
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                {/* ID Type Select Field */}
+                {/* Website Field */}
+                <FormField
+                  control={form.control}
+                  name='website'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Website</FormLabel>
+                      <FormControl>
+                        <div className='relative'>
+                          <Globe className='absolute left-3 top-3 h-4 w-4 text-gray-400' />
+                          <Input
+                            className='pl-9'
+                            placeholder='https://example.com'
+                            {...field}
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Customer Type Field */}
+                <FormField
+                  control={form.control}
+                  name='customerType'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Account Type</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder='Select account type' />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value='POSTPAID'>Postpaid</SelectItem>
+                          <SelectItem value='PREPAID'>Prepaid</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Timezone Field */}
                 <FormField
                   control={form.control}
                   name='timezone'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Timezone</FormLabel>
-                      <FormControl>
-                          <Select
-                          value={field.value}
-                          onValueChange={(value: any) =>
-                            form.setValue('timezone', value)
-                          }
-                        >
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder='Select Timezone' />
+                            <SelectValue placeholder='Select timezone' />
                           </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value='UTC' defaultChecked>UTC</SelectItem>
-                            <SelectItem value='UTC+3'>
-                              UTC+3 (East Africa Time)
+                        </FormControl>
+                        <SelectContent>
+                          {aryIanaTimeZones.map((timeZone:string) => (
+                            <SelectItem key={timeZone} value={timeZone}>
+                              {timeZone}
                             </SelectItem>
-                            <SelectItem value='UTC+1'>
-                              UTC+1 (Central European Time)
-                            </SelectItem>
-                            <SelectItem value='UTC+2'>
-                              UTC+2 (Eastern European Time)
-                            </SelectItem>
-                            <SelectItem value='UTC-5'>
-                              UTC-5 (Eastern Time)
-                            </SelectItem>
-                            <SelectItem value='UTC-8'>
-                              UTC-8 (Pacific Time)
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                <FormField
-                  control={form.control}
-                  name='sendEmail'
-                  render={({ field }) => (
-                    <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
-                      <FormControl>
-                        <input
-                          type='checkbox'
-                          checked={field.value}
-                          onChange={field.onChange}
-                          className='h-4 w-4 rounded border-gray-300'
-                        />
-                      </FormControl>
-                      <div className='space-y-1 leading-none'>
-                        <FormLabel>Send Email</FormLabel>
-                      </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-             
+                {/* KYC File Upload */}
               </div>
-                 {/* Submit Button */}
-                 <div className='mt-4'>
-                  <Button type='submit' className='btn-primary w-full'>
-                
-                    Add Customer
-                    <IconUserPlus className='ml-2 h-4 w-4' />
-                  </Button>
-                </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className='mt-6 grid grid-cols-1 gap-6 md:grid-cols-2'>
+              <Button type='submit' className=''>
+                {customer ? 'Update Customer' : 'Add Customer'}
+                <IconUserPlus className='ml-2 h-4 w-4' />
+              </Button>
             </div>
           </form>
         </Form>

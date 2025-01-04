@@ -4,8 +4,23 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { DataTable } from './components/data-table'
 import { columns } from './components/columns'
+import { useQuery } from '@tanstack/react-query'
+import { customerService } from '@/api/services/customers/customer.service'
 
 export default function FarmersPage() {
+  const {
+    data: customers,
+    isLoading,
+  } = useQuery({
+    queryKey: ['customers'],
+    queryFn: async () => {
+      const response = await customerService.getCustomers({page: 0, size: 10});
+      return response || [];
+    },
+    retry: 2,
+    staleTime: 5 * 60 * 1000
+  });
+
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
@@ -26,9 +41,15 @@ export default function FarmersPage() {
             </p>
           </div>
         </div>
-        <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
-          <DataTable data={[]} columns={columns} />
+      {isLoading ? (
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
         </div>
+      ) : (
+        <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
+          <DataTable data={customers || []} columns={columns} />
+        </div>
+      )}
       </Layout.Body>
     </Layout>
   )
