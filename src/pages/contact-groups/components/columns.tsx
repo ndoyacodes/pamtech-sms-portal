@@ -6,9 +6,9 @@ import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 
 import { labels } from '../data/data'
-import { Invoice } from '../data/schema'
+import { Phonebook } from '../data/schema'
 
-export const columns: ColumnDef<Invoice>[] = [
+export const columns: ColumnDef<Phonebook>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -38,50 +38,50 @@ export const columns: ColumnDef<Invoice>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='#' />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className='w-[80px]'>{row.index + 1}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'date',
+    accessorKey: 'name',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Name' />
+    ),
+    cell: ({ row }) => <div className='w-[150px]'>{row.getValue('name')}</div>,
+  },
+  {
+    accessorKey: 'description',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='description' />
+    ),
+    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('description')}</div>,
+  },
+  {
+    accessorKey: 'count',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Number of contacts' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('count')}</div>
+    ),
+  },
+  {
+    accessorKey: 'active',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Name' />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.date)
+      const label = labels.find((label) => label.value === row.original.fileName)
 
       return (
         <div className='flex space-x-2'>
           {label && <Badge variant='outline'>{label.label}</Badge>}
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('title')}
+            {row.getValue('active')}
           </span>
         </div>
       )
     },
-  },
-  {
-    accessorKey: 'name',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='CODE' />
-    ),
-    cell: ({ row }) => <div className='w-[150px]'>{row.getValue('name')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='FORMAT' />
-    ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'details',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Status' />
-    ),
-    cell: ({ row }) => (
-      <div className='max-w-[200px] truncate'>{row.getValue('details')}</div>
-    ),
   },
 
   {

@@ -38,6 +38,10 @@ class TemplateService extends APIClient {
     deleteTemplate(id: number) {
         return this.delete<void>(`/templates/${id}`);
     }
+
+    getCustomerTemplates(id:any,p0: { page: number; size: number; }) {
+        return this.get(`/templates/customer/${id}`, p0);
+    }
 }
 
 export const templateService = new TemplateService();

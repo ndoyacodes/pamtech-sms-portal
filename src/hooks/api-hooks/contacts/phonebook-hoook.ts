@@ -7,7 +7,7 @@ export const usePhonebook = () => {
 
     // Add to phonebook mutation
     const uploadPhoneBook = useMutation({
-        mutationFn: ({ data }: { data: any }) => contactService.uploadPhoneBook(data),
+        mutationFn: ({ data }: { data: any }) => contactService.uploadPhoneBook(data.fileData, data.params),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['phonebook'] });
             toast.success('Added to phonebook successfully');

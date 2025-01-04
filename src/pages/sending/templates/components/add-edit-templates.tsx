@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Form,
@@ -18,37 +17,40 @@ import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
+import { formSchema, FormSchema } from '../data/template-form-schema'
+import { useAuthStore } from '@/hooks/use-auth-store'
+import { useSmsTemplate } from '@/hooks/api-hooks/message/template-hook'
 
-// ===== Validation Schema =====
-const formSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  customer: z.string().min(1, 'Customer is required'),
-  tag: z.string().optional(),
-  message: z
-    .string()
-    .max(160, 'Message must be 160 characters or less')
-    .min(1, 'Message is required'),
-})
 
-type FormSchema = z.infer<typeof formSchema>
-
-const AddTemplateForm: React.FC = () => {
+const AddTemplateForm = ({template}: {template:any}) => {
   const [charCount, setCharCount] = useState(0)
   const maxChars = 160
+  const {user} =  useAuthStore();
+  const {createTemplate, updateTemplate} = useSmsTemplate()
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      customer: '',
-      tag: 'Phone',
-      message: '',
-    },
+    defaultValues: template || {
+      message:'',
+      messageType: "static",
+      name: ""
+    }
   })
 
   const onSubmit = (data: FormSchema) => {
     console.log('Form Submitted:', data)
+    const finalData = {
+      ...data,
+      customerId: user?.customer?.id
+    }
+    if (template) {
+      updateTemplate.mutate({ id: template?.id, data: finalData })
+    } else {
+      createTemplate.mutate({ data: finalData })
+    }
   }
+
+  const isLoading = createTemplate.isPending || updateTemplate.isPending
 
   return (
     <Layout>
@@ -84,36 +86,12 @@ const AddTemplateForm: React.FC = () => {
               )}
             />
 
-            {/* ===== Customer ===== */}
-            <FormField
-              control={form.control}
-              name='customer'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Select Customer *</FormLabel>
-                  <FormControl>
-                      <Select
-                      className="my-react-select-container"
-                        classNamePrefix="my-react-select"
-                      placeholder='Select Customer'
-                      defaultValue={{ value: 'Ernest Kisingo', label: 'Ernest Kisingo' }}
-                      options={[
-                        { value: 'Ernest Kisingo', label: 'Ernest Kisingo' },
-                        { value: 'Customer A', label: 'Customer A' },
-                        { value: 'Customer B', label: 'Customer B' },
-                      ]}
-                      onChange={(e) => field.onChange(e?.value)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        
 
             {/* ===== Tag ===== */}
             <FormField
               control={form.control}
-              name='tag'
+              name='messageType'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Available Tag</FormLabel>
@@ -121,10 +99,10 @@ const AddTemplateForm: React.FC = () => {
                       <Select
                       className="my-react-select-container"
                         classNamePrefix="my-react-select"
-                      defaultValue={{ value: 'Phone', label: 'Phone' }}
+                      defaultValue={{ value: 'static', label: 'static' }}
                       options={[
-                        { value: 'Phone', label: 'Phone' },
-                        { value: 'Email', label: 'Email' },
+                        { value: 'dynamic', label: 'dynamic' },
+                        { value: 'static', label: 'static' },
                       ]}
                       onChange={(e) => field.onChange(e?.value)}
                     />
@@ -161,11 +139,11 @@ const AddTemplateForm: React.FC = () => {
 
             {/* ===== Buttons ===== */}
             <div className='flex gap-4'>
-              <Button type='submit' className='btn-primary'>
+              <Button type='submit' className='btn-primary'
+                loading={isLoading}
+                disabled={isLoading}
+              >
                 Save
-              </Button>
-              <Button type='reset' className='btn-secondary'>
-                Reset
               </Button>
             </div>
           </form>

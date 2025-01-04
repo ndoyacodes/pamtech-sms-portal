@@ -56,7 +56,7 @@ export function DataTableToolbar<TData>({
           </Button>
                <Button
             variant='default'
-            // onClick={() => table.resetColumnFilters()}
+            onClick={() => navigate('/upload-phonebook')}
             className='h-8 px-2 lg:px-3'
           >
             Import phone book

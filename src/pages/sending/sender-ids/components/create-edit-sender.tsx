@@ -23,30 +23,32 @@ import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
+import { useSenderId } from '@/hooks/api-hooks/customers/senderid-hook'
 
-const AddEditCustomer = () => {
-  // const [imageBase64, setImageBase64] = useState<string | null>(null)
-  // const mode = 'add'
-  // const handleImageChange = (file: File) => {
-  //   const reader = new FileReader()
-  //   reader.onload = () => {
-  //     if (reader.result) {
-  //       setImageBase64(reader.result.toString())
-  //     }
-  //   }
-  //   reader.readAsDataURL(file)
-  // }
+const AddEditCustomer = ({senderId} :  {senderId: any}) => {
+ const { createSenderId, updateSenderId} = useSenderId();
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
+    defaultValues: senderId || {
+      billingCycle:"CUSTOM",
+      name:"",
+      price:0
+    }
   })
 
   function onSubmit(data: FormSchema) {
     const finalData = {
       ...data,
     }
-    console.log(finalData)
+    if (senderId) {
+      updateSenderId.mutate({ id: senderId?.id, data: finalData })
+    } else {
+      createSenderId.mutate({ data: finalData })
+    }
   }
+
+  const isLoading = createSenderId.isPending || updateSenderId.isPending
 
   return (
     <Layout>
@@ -78,7 +80,7 @@ const AddEditCustomer = () => {
               {/* Name Input Field */}
               <FormField
                 control={form.control}
-                name='senderID'
+                name='name'
                 render={({ field }) => (
                 <FormItem>
                 <FormLabel>Sender ID'</FormLabel>
@@ -90,36 +92,11 @@ const AddEditCustomer = () => {
                 )}
               />
 
-              {/* Code Input Field */}
-              <FormField
-                control={form.control}
-                name='status'
-                render={({ field }) => (
-                <FormItem>
-                <FormLabel>Status</FormLabel>
-                <FormControl>
-                  <Select
-                      value={field.value}
-                      onValueChange={field.onChange}
-                    >
-                      <SelectTrigger>
-                      <SelectValue placeholder='Select status' />
-                      </SelectTrigger>
-                      <SelectContent>
-                      <SelectItem value='active'>Active</SelectItem>
-                      <SelectItem value='payment_required'>Payment required</SelectItem>
-                      </SelectContent>
-                    </Select>
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-                )}
-              />
-
+            
                 {/* Billing Cycle Select Field */}
                 <FormField
                   control={form.control}
-                  name='billing_cycle'
+                  name='billingCycle'
                   render={({ field }) => (
                   <FormItem>
                     <FormLabel>Billing Cycle</FormLabel>
@@ -133,8 +110,11 @@ const AddEditCustomer = () => {
                       <SelectValue placeholder='Select billing cycle' />
                       </SelectTrigger>
                       <SelectContent>
-                      <SelectItem value='monthly'>Monthly</SelectItem>
-                      <SelectItem value='yearly'>Yearly</SelectItem>
+                        <SelectItem value='DAILY'>Daily</SelectItem>
+                        <SelectItem value='WEEKLY'>Weekly</SelectItem>
+                        <SelectItem value='MONTHLY'>Monthly</SelectItem>
+                        <SelectItem value='YEARLY'>Yearly</SelectItem>
+                        <SelectItem value='CUSTOM'>Custom</SelectItem>
                       </SelectContent>
                     </Select>
                     </FormControl>
@@ -142,62 +122,6 @@ const AddEditCustomer = () => {
                   </FormItem>
                   )}
                 />
-
-
-                {/* Currency Select Field */}
-                <FormField
-                  control={form.control}
-                  name='currency'
-                  render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Currency</FormLabel>
-                    <FormControl>
-                      <Select
-                      
-                      value={field.value}
-                      onValueChange={field.onChange}
-                    >
-                      <SelectTrigger>
-                      <SelectValue placeholder='Select currency' />
-                      </SelectTrigger>
-                      <SelectContent>
-                      <SelectItem value='USD'>USD</SelectItem>
-                      <SelectItem value='EUR'>EUR</SelectItem>
-                      <SelectItem value='GBP'>GBP</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                  )}
-                />
-
-              {/* Customer */}
-              <FormField
-                control={form.control}
-                name='customer'
-                render={({ field }) => (
-                <FormItem>
-                <FormLabel>Customer</FormLabel>
-                <FormControl>
-                  <Select
-                      
-                      value={field.value}
-                      onValueChange={field.onChange}
-                    >
-                      <SelectTrigger>
-                      <SelectValue placeholder='Select customer' />
-                      </SelectTrigger>
-                      <SelectContent>
-                      <SelectItem value='Customer1'>Customer 1 </SelectItem>
-                      <SelectItem value='Customer2'>Customer 2</SelectItem>
-                      </SelectContent>
-                    </Select>
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-                )}
-              />
 
 
               {/* Format Input Field */}
@@ -217,7 +141,10 @@ const AddEditCustomer = () => {
 
               {/* Submit Button */}
               <div className='mt-4'>
-                <Button type='submit' className='btn-primary w-full'>
+                <Button type='submit' className='btn-primary w-full'
+                loading={isLoading}
+                disabled={isLoading}
+                >
                 Create Sender ID
                 </Button>
               </div>

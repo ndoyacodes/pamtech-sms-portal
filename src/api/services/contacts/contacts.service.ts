@@ -8,24 +8,24 @@ class ContactServices extends APIClient {
                 super('baseService');
         }
 
-        uploadPhoneBook(data: FormData) {
-            return this.post('/phonebook/upload', data, {
+        uploadPhoneBook(data: FormData, p0: { name: string; description: string; }) {
+            return this.post(`/phonebook/upload?name=${p0.name}&description=${p0.description}`, data, {
                 headers: {
                   'Content-Type': 'multipart/form-data',
                 },
               });
         }
 
-        getPhoneBooks() {
-            return this.get('/phonebook');
+        getPhoneBooks(p0: { page: number; size: number; }) {
+            return this.get('/phonebook', p0);
         }
 
         getPhoneBookById(id: string | number) {
             return this.get(`/phonebook/${id}`);
         }
 
-        getCustomerPhoneBooks() {
-            return this.get('/phonebook/customer');
+        getCustomerPhoneBooks(p0: { page: number; size: number; }) {
+            return this.get('/phonebook/customer', p0);
         }
        
 }

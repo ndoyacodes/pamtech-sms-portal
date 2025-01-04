@@ -153,6 +153,12 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: 'upload-phonebook',
+          lazy: async () => ({
+            Component: (await import('@/pages/contact-groups/components/phonebook.tsx')).default,
+          }),
+        },
+        {
           path: 'keywords',
           lazy: async () => ({
             Component: (await import('@/pages/sending/keywords')).default,

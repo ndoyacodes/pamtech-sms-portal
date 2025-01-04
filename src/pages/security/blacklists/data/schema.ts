@@ -4,7 +4,8 @@ import { z } from 'zod'
 // IRL, you will have a schema for your data models.
 export const schema = z.object({
   id: z.string(),
-  name: z.string()
+  msisdn: z.string(),
+  reason: z.string()
 })
 
 export type DataSchema = z.infer<typeof schema>

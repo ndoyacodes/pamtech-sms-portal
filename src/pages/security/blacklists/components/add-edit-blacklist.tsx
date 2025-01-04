@@ -33,7 +33,7 @@ const delimiters = [
   { label: 'New line', value: '\n' },
 ]
 
-export const AddBlacklistForm: React.FC = () => {
+export const AddBlacklistForm = ({blacklist} :  {blacklist: any}) => {
   const [selectedDelimiter, setSelectedDelimiter] = useState<string>(',')
   const form = useForm({
     resolver: zodResolver(formSchema),

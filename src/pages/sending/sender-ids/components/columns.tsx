@@ -30,16 +30,26 @@ export const columns: ColumnDef<DataSchema>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+    
+    {
+      accessorKey: 'id',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title='#' />
+      ),
+      cell: ({ row }) => <div className='w-[80px]'>{row.index + 1}</div>,
+      enableSorting: false,
+      enableHiding: false,
+    },
   {
-    accessorKey: 'name',
+    accessorKey: 'senderId',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Name' />
+      <DataTableColumnHeader column={column} title='Sender Id' />
     ),
     cell: ({ row }) => {
       return (
         <div className='flex space-x-2'>
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('name')}
+            {row.getValue('senderId')}
           </span>
         </div>
       )
@@ -48,15 +58,15 @@ export const columns: ColumnDef<DataSchema>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'assigned_to',
+    accessorKey: 'billingCycle',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Assigned to' />
+      <DataTableColumnHeader column={column} title='Billing Cycle' />
     ),
     cell: ({ row }) => {
       return (
         <div className='flex space-x-2'>
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('assigned_to')}
+            {row.getValue('billingCycle')}
           </span>
         </div>
       )
@@ -65,7 +75,7 @@ export const columns: ColumnDef<DataSchema>[] = [
     enableHiding: true,
   },
   {
-    accessorKey: 'name',
+    accessorKey: 'price',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='  Price' />
     ),
@@ -73,7 +83,7 @@ export const columns: ColumnDef<DataSchema>[] = [
       return (
         <div className='flex space-x-2'>
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('name')}
+            {row.getValue('price')}
           </span>
         </div>
       )
@@ -82,15 +92,15 @@ export const columns: ColumnDef<DataSchema>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'name',
+    accessorKey: 'activated',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Status' />
+      <DataTableColumnHeader column={column} title='activated' />
     ),
     cell: ({ row }) => {
       return (
         <div className='flex space-x-2'>
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('name')}
+            {row.getValue('activated')}
           </span>
         </div>
       )
