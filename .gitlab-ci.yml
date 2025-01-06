@@ -42,6 +42,9 @@ deploy_app:
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan 155.12.30.114 >> ~/.ssh/known_hosts
   script:
-    - scp -r dist/ deploy_app@155.12.30.114:/var/www/opesportal
+    - echo "Deploying the Spring Boot application..."
+    #    - scp -r dist/ deploy_app@155.12.30.114:/var/www/opesportal
+    - scp -o StrictHostKeyChecking=no -r dist/ deploy_app@155.12.30.114:/var/www/opesportal
+
   only:
     - master
