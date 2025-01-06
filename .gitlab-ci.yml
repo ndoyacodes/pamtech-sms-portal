@@ -36,6 +36,6 @@ deploy_app:
   stage: deploy
   image: node:22
   script:
-    - scp -r dist/ deploy_app@155.12.30.114:/var/www/opesportal
+    - scp -r dist/ deploy_app@155.12.30.114:/var/www/opesportal/dist
   only:
     - master
