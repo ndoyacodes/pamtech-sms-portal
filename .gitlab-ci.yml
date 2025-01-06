@@ -35,7 +35,13 @@ build_app:
 deploy_app:
   stage: deploy
   image: node:22
+  before_script:
+    - apt-get update && apt-get install -y openssh-client rsync
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan 155.12.30.114 >> ~/.ssh/known_hosts
   script:
-    - scp -r dist/ deploy_app@155.12.30.114:/var/www/opesportal/dist
+    - scp -r dist/ deploy_app@155.12.30.114:/var/www/opesportal
   only:
     - master
