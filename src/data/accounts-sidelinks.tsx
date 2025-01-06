@@ -44,10 +44,10 @@ import {
       icon: <IconShoppingCart size={18} />,
     },
     {
-        title: 'Automations',
+        title: 'Campaigns',
         label: '',
         href: '/automations',
-        icon: <IconShoppingCart size={18} />,
+        icon: <IconBrandTelegram size={18} />,
       },
     {
       title: 'Sending',
@@ -89,16 +89,16 @@ import {
         href: '/requests',
         icon: <IconMessages size={18} />,
         sub: [
+          // {
+          //   title: 'Campaigns builder',
+          //   label: '',
+          //   href: '/sms/campaign-builder',
+          //   icon: <IconUserScreen size={18} />,
+          // },
           {
-            title: 'Campaigns builder',
+           title: 'Send Bulk SMS',
             label: '',
-            href: '/sms/campaign-builder',
-            icon: <IconUserScreen size={18} />,
-          },
-          {
-           title: 'Quick Send',
-            label: '',
-            href: '/sms/quick-send',
+            href: '/sms/send-bulk-sms',
             icon: <IconPhoneCall size={18} />,
           },
       

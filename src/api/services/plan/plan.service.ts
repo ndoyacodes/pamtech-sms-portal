@@ -20,6 +20,10 @@ class PlanService extends APIClient {
         return this.post<any>('/plan', data);
     }
 
+    createPlanSUbscription(data: any) {
+        return this.post<any>('/plan/subscribe', data);
+    }
+
     // Update a plan
     updatePlan(id: number, data: Partial<any>) {
         return this.patch<any>(`/plan/${id}`, data, {

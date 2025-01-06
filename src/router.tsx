@@ -219,6 +219,12 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: 'phonebook/:id',
+          lazy: async () => ({
+            Component: (await import('@/pages/contact-groups/components/view-phone-book.tsx')).default,
+          }),
+        },
+        {
           path: 'contacts/add',
           lazy: async () => ({
             Component: (await import('@/pages/contact-groups/components/add-edit-contact.tsx')).default,
@@ -249,7 +255,7 @@ const router = createBrowserRouter([
           }),
         },
         {
-          path: 'sms/campaign-builder',
+          path: 'sms/send-bulk-sms',
           lazy: async () => ({
             Component: (await import('@/pages/campaign-builder')).default,
           }),

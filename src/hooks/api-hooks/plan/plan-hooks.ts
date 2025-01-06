@@ -19,6 +19,20 @@ export const usePlan = () => {
         }
     });
 
+      // Create plan mutation
+      const createSubscriptionPlan = useMutation({
+        mutationFn: ({ data }: { data: any }) => planService.createPlanSUbscription(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['plans'] });
+            toast.success('Plan subscription created successfully');
+        },
+        onError: (error: any) => {
+            const errorMessage = 
+                error?.response?.data?.message || 'Failed to create plan subscription, try again';
+            toast.error(errorMessage);
+        }
+    });
+
     // Update plan mutation
     const updatePlan = useMutation({
         mutationFn: ({ id, data }: { id: number; data: any }) => 
@@ -51,6 +65,7 @@ export const usePlan = () => {
     return {
         createPlan,
         updatePlan,
-        deletePlan
+        deletePlan,
+        createSubscriptionPlan
     };
 };

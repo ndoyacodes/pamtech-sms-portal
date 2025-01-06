@@ -24,8 +24,8 @@ class CampaignService extends APIClient {
         }
 
         // Get campaigns by customer
-        getCustomerCampaigns(customerId: string) {
-                return this.get<CampaignData[]>('/campaign/customer', { customerId });
+        getCustomerCampaigns(params?: { page?: number; size?: number }) {
+                return this.get<CampaignData[]>('/campaign/customer',params);
         }
 
         // Get a single campaign by ID
