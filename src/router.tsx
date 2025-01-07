@@ -69,7 +69,7 @@ const router = createBrowserRouter([
           }),
         },
         {
-          path: '/automations/:id',
+          path: '/automations/add-campagin',
           lazy: async () => ({
             Component: (await import('@/pages/automations/components/add-edit-automations.tsx')).default,
           }),

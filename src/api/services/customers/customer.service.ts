@@ -38,7 +38,7 @@ class CustomerService extends APIClient {
 
     // Delete a customer
     deleteCustomer(id: number) {
-        return this.delete<void>(`/customer/${id}`);
+        return this.delete<void>(`/customer/${id}`, {id: id});
     }
 }
 

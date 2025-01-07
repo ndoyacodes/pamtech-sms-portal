@@ -82,6 +82,21 @@ export class APIClient {
   }
 
   async delete<T>(url: string, p0: { id: number; }): Promise<T> {
-    return this.instance.delete(url);
+    const queryParams = new URLSearchParams();
+
+    // Add parameters to the query string
+    if (p0) {
+      Object.entries(p0).forEach(([key, value]) => {
+        console.log('Key:', key, 'Value:', value);
+        
+        if (value !== undefined && value !== null) {
+          queryParams.append(key, value.toString());
+        }
+      });
+    }
+
+    const queryString = queryParams.toString();
+  
+    return this.instance.delete(`${url}${queryString ? `?${queryString}` : ''}`);
   }
 }
