@@ -35,7 +35,7 @@ class PlanService extends APIClient {
 
     // Delete a plan
     deletePlan(id: number) {
-        return this.delete<void>(`/plan/${id}`);
+        return this.delete<void>(`/plan/${id}`, {id:id});
     }
 }
 

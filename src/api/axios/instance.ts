@@ -81,7 +81,7 @@ export class APIClient {
     return this.instance.patch(url, data);
   }
 
-  async delete<T>(url: string): Promise<T> {
+  async delete<T>(url: string, p0: { id: number; }): Promise<T> {
     return this.instance.delete(url);
   }
 }

@@ -6,10 +6,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { schema } from '../data/schema'
+import { useState } from 'react'
+import DeleteDialog from './delete'
+import { useNavigate } from 'react-router-dom'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -18,7 +22,10 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const item = schema.parse(row.original).id;
+  const item = schema.parse(row.original);
+  const [deleteSenderId, setDeleteSenderId] = useState(false);
+  const name  = schema.parse(row.original).senderId;
+  const navigate =  useNavigate();
 
   return (
     <DropdownMenu>
@@ -32,12 +39,22 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-        <DropdownMenuItem onClick={()=>{console.log(item)}}>Edit</DropdownMenuItem>
-        <DropdownMenuItem onClick={()=>{console.log(item)}}>
+        <DropdownMenuItem onClick={()=>{console.log(item)}}>View</DropdownMenuItem>
+        <DropdownMenuItem  onClick={() => {
+          navigate(`/sender-ids/add/`,  {state:{record: item}})
+        }}>Edit</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={()=>{
+           setDeleteSenderId(true)
+        }}>
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
+
+      {deleteSenderId && (
+        <DeleteDialog id={item.id} name={name} onClose={() => setDeleteSenderId(false)}/>
+      )}
     </DropdownMenu>
   )
 }

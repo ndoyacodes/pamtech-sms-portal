@@ -25,26 +25,31 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { useSenderId } from '@/hooks/api-hooks/customers/senderid-hook'
 import { useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const AddEditCustomer = () => {
  const { createSenderId, updateSenderId} = useSenderId();
  const location =  useLocation();
- const senderId = location?.state.record;
+ const senderId = location?.state?.record;
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: senderId || {
       billingCycle:"CUSTOM",
-      name:"",
+      senderId:senderId?.senderId || "",
       price:0
     }
   })
+
+  useEffect(() => {
+    form.setValue('name', senderId?.senderId)
+  }, [senderId])
 
   function onSubmit(data: FormSchema) {
     const finalData = {
       ...data,
     }
     if (senderId) {
-      updateSenderId.mutate({ id: senderId?.id, data: finalData })
+      updateSenderId.mutate({ id: senderId?.id, data: {...finalData, id:senderId?.id} })
     } else {
       createSenderId.mutate({ data: finalData })
     }
@@ -65,7 +70,7 @@ const AddEditCustomer = () => {
       <Layout.Body>
       <div className='mb-4 flex items-center justify-between space-y-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Add New Sender ID</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>{senderId? "Edit Sender ID": "Add New Sender ID"}</h2>
             <p className='text-muted-foreground'>
             Sender ID is what appears on people's phones to show who the SMS is from.
             <br />
@@ -146,8 +151,7 @@ const AddEditCustomer = () => {
                 <Button type='submit' className='btn-primary w-full'
                 loading={isLoading}
                 disabled={isLoading}
-                >
-                Create Sender ID
+                >{senderId? "Edit Sender ID": "Create Sender ID"}
                 </Button>
               </div>
               </div>
