@@ -9,11 +9,6 @@ interface MessageData {
     updatedAt: string;
 }
 
-interface BulkSMSRequest {
-    recipients: string[];
-    message: string;
-    templateId?: number;
-}
 
 class MessageService extends APIClient {
     constructor() {
@@ -22,17 +17,23 @@ class MessageService extends APIClient {
 
     // Get all messages with pagination
     getMessages(params?: { page?: number; size?: number }) {
-        return this.get<MessageData[]>('/api/sms', params);
+        return this.get<MessageData[]>('/sms', params);
     }
 
     // Get a single message by ID
     getMessageById(id: string) {
-        return this.get<MessageData>(`/api/sms/${id}`);
+        return this.get<MessageData>(`/sms/${id}`);
     }
 
     // Send bulk SMS
-    sendBulkSMS(data: BulkSMSRequest) {
-        return this.post<MessageData>('/api/sms/send-bulk', data);
+    sendBulkSMS(data: any) {
+        return this.post<MessageData>('/sms/send-bulk', data, 
+            {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              }
+        );
     }
 }
 

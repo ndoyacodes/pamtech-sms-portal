@@ -26,6 +26,7 @@ import { useQuery } from '@tanstack/react-query';
 import { contactService } from '@/api/services/contacts/contacts.service';
 import { senderIdService } from '@/api/services/customers/senderid.services';
 import { templateService } from '@/api/services/message/template.service';
+import { useCampaign } from '@/hooks/api-hooks/compaign/campaign-hook';
 
 const RECURRING_PERIODS = [
   { value: 'DAILY', label: 'Daily' },
@@ -53,6 +54,7 @@ const formSchema = z.object({
 export const CampaignForm = () => {
   const { user } = useAuthStore();
   const [showNextRunDate, setShowNextRunDate] = React.useState(false);
+  const {createCampaign} = useCampaign();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -135,7 +137,7 @@ export const CampaignForm = () => {
 
   const onSubmit = (data: any) => {
     console.log('Submitted Data:', data)
-    // Handle API submission here
+    createCampaign.mutate({data:data})
   }
 
 
@@ -416,7 +418,10 @@ export const CampaignForm = () => {
 
               {/* Submit Button */}
               <div className="flex justify-end">
-                <Button type="submit" className="w-full md:w-auto">
+                <Button type="submit" className="w-full md:w-auto"
+                loading={createCampaign.isPending}
+                disabled={createCampaign.isPending}
+                >
                   Create Campaign
                 </Button>
               </div>
