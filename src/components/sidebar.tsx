@@ -6,7 +6,7 @@ import Nav from './nav'
 import { cn } from '@/lib/utils'
 import { sidelinks } from '@/data/sidelinks'
 import {sidelinksAccount} from '@/data/accounts-sidelinks'
-import { useAppSelector } from '@/store/store-hooks'
+import { useAuthStore } from '@/hooks/use-auth-store'
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   isCollapsed: boolean
@@ -19,10 +19,9 @@ export default function Sidebar({
   setIsCollapsed,
 }: SidebarProps) {
   const [navOpened, setNavOpened] = useState(false);
-  const account =  useAppSelector(state =>  state.accaunt.account);
-   console.log("Account:"+account);
+  const { user} =  useAuthStore();
    
-  const sidelinksData = account ? sidelinksAccount : sidelinks;
+  const sidelinksData = user?.customer ? sidelinksAccount : sidelinks;
   /* Make body not scrollable when navBar is opened */
   useEffect(() => {
     if (navOpened) {

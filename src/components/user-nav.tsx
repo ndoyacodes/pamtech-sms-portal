@@ -10,8 +10,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '@/store/store-hooks'
-import { setAccount } from '@/store/slices/account.slice'
 import { useAuthStore } from '@/hooks/use-auth-store'
 
 
@@ -26,8 +24,6 @@ const formatCurrency = (amount: number) => {
 
 export function UserNav() {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
-  const account = useAppSelector((state) => state.accaunt.account);
   const {user} =  useAuthStore();
 
   // const [jwtToken,setJwtToken] =useAuthentication();
@@ -37,13 +33,10 @@ export function UserNav() {
     navigate('/sign-in')
   }
 
-  const switchView = () => {
-    dispatch(setAccount({ account: true }))
-  }
 
   return (
     <div className='flex  items-center justify-center gap-2'>
-      {account && (
+      {user?.customer && (
         <div className='flex flex-row gap-2 justify-start'>
           <span className='font-bold flex flex-col'>
             <span className='text-xs'>Balance</span>
@@ -89,8 +82,8 @@ export function UserNav() {
               Profile
               {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => switchView()}>
-              Switch View
+            <DropdownMenuItem>
+              Settings
               {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
             </DropdownMenuItem>
             <DropdownMenuItem>
