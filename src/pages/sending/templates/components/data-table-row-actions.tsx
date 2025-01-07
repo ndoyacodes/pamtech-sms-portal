@@ -6,10 +6,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { schema } from '../data/schema'
+import { useNavigate } from 'react-router-dom'
+import DeleteDialog from '../../sender-ids/components/delete'
+import { useState } from 'react'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -18,7 +22,9 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const item = schema.parse(row.original).id;
+  const item = schema.parse(row.original);
+  const [deleteTemplate, setDeleteTemplate] = useState(false);
+  const navigate =  useNavigate();
 
   return (
     <DropdownMenu>
@@ -32,12 +38,26 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-        <DropdownMenuItem onClick={()=>{console.log(item)}}>Edit</DropdownMenuItem>
-        <DropdownMenuItem onClick={()=>{console.log(item)}}>
+        <DropdownMenuItem 
+           onClick={() => {
+            navigate(`/templates/${item.id}`,  {state:{record: item}})
+          }}
+        >View</DropdownMenuItem>
+        <DropdownMenuItem 
+         onClick={() => {
+          navigate(`/templates/add/`,  {state:{record: item}})
+        }}
+        >Edit</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={()=>{
+          setDeleteTemplate(true)
+        }}>
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
+
+      {deleteTemplate && <DeleteDialog id={item.id} name={item.name} onClose={() =>  setDeleteTemplate(false)}/>}
     </DropdownMenu>
   )
 }

@@ -49,11 +49,13 @@ const AddEditPlan = () => {
     };
     console.log(finalData);
    if(currentPlan){
-     updatePlan.mutate({id:currentPlan.id,data:finalData})
+     updatePlan.mutate({id:currentPlan.id,data:{...finalData, id:currentPlan.id}})
    }else{
       createPlan.mutate({data:finalData})
    }
   };
+
+  const isLoading = createPlan.isPending || updatePlan.isPending;
 
   return (
     <Layout>
@@ -179,7 +181,7 @@ const AddEditPlan = () => {
                       <FormControl>
                         <Checkbox
                           checked={field.value}
-                          onChange={field.onChange}
+                          onCheckedChange={field.onChange}
                           disabled={currentPlan?.popular}
                         />
                       </FormControl>
@@ -192,7 +194,10 @@ const AddEditPlan = () => {
 
             {/* Submit Button */}
             <div className='mt-6'>
-              <Button type='submit' className=''>
+              <Button type='submit' className=''
+              loading={isLoading}
+              disabled={isLoading}
+              >
                 {currentPlan ? 'Update Plan' : 'Create Plan'}
                 <IconUserPlus className='ml-2 h-4 w-4' />
               </Button>

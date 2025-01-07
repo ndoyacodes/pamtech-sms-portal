@@ -61,12 +61,12 @@ import {
           href: '/sender-ids',
           icon: <IconUserScreen size={18} />,
         },
-        {
-          title: 'Numbers',
-          label: '',
-          href: '/phone-numbers',
-          icon: <IconPhoneCall size={18} />,
-        },
+        // {
+        //   title: 'Numbers',
+        //   label: '',
+        //   href: '/phone-numbers',
+        //   icon: <IconPhoneCall size={18} />,
+        // },
         {
           title: 'Sms Templates',
           label: '',
@@ -124,24 +124,18 @@ import {
           href: '/reports/all-messages',
           icon: <IconReportAnalytics size={18} />,
         },
-        {
-            title: 'received messages',
-            label: '',
-            href: '/reports/all-messages',
-            icon: <IconReportAnalytics size={18} />,
-          },
+        // {
+        //     title: 'received messages',
+        //     label: '',
+        //     href: '/reports/all-messages',
+        //     icon: <IconReportAnalytics size={18} />,
+        //   },
           {
             title: 'sent messages',
             label: '',
             href: '/reports/all-messages',
             icon: <IconReportAnalytics size={18} />,
           },
-        {
-          title: 'Compaigins',
-          label: '',
-          href: '/automations',
-          icon: <IconBrandTelegram size={18} />,
-        },
       ],
     },
     {

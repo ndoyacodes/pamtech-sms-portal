@@ -20,8 +20,8 @@ class TemplateService extends APIClient {
     }
 
     // Get a single template by ID
-    getTemplateById(id: string) {
-        return this.get<TemplateData>(`/templates/${id}`);
+    getTemplateById(id: any) {
+        return this.get<TemplateData>(`/templates/${id}`, {id: id});
     }
 
     // Create a new template

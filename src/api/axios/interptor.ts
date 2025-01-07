@@ -62,7 +62,11 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
         } catch (refreshError) {
           // Clear local storage and redirect to login page
           localStorage.clear();
-          displaySessionExpiredModal(); 
+         
+          setTimeout(() => {
+            displaySessionExpiredModal(); 
+          }, 100);
+          window.location.reload();
           return Promise.reject(refreshError);
         }
       }

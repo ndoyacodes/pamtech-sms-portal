@@ -6,10 +6,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { schema } from '../data/schema'
+import { useState } from 'react'
+import DeleteBlacklistDialog from './delete'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -18,7 +19,8 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const item = schema.parse(row.original).id;
+  const item = schema.parse(row.original);
+  const [deleteBlacklistEntry, setDeleteBlacklistEntry] = useState(false)
 
   return (
     <DropdownMenu>
@@ -32,12 +34,14 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-        <DropdownMenuItem onClick={()=>{console.log(item)}}>Edit</DropdownMenuItem>
-        <DropdownMenuItem onClick={()=>{console.log(item)}}>
+        {/* <DropdownMenuItem onClick={()=>{console.log(item)}}>Edit</DropdownMenuItem> */}
+        <DropdownMenuItem onClick={()=>{setDeleteBlacklistEntry(true)}}>
           Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+          {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
         </DropdownMenuItem>
       </DropdownMenuContent>
+
+      {deleteBlacklistEntry && ( <DeleteBlacklistDialog id={item.id} name={item.msisdn} onClose={() => setDeleteBlacklistEntry(false)}/>)}
     </DropdownMenu>
   )
 }

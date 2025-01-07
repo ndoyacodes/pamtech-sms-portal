@@ -25,12 +25,8 @@ class PlanService extends APIClient {
     }
 
     // Update a plan
-    updatePlan(id: number, data: Partial<any>) {
-        return this.patch<any>(`/plan/${id}`, data, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+    updatePlan(_id: number, data: Partial<any>) {
+        return this.put<any>(`/plan`, data);
     }
 
     // Delete a plan
