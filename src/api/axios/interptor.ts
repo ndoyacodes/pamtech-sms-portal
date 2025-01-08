@@ -13,6 +13,8 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
     (config: InternalAxiosRequestConfig) => {
       const state = store.getState();
       const accessToken = state.auth.tokens.access;
+      console.log('accessToken', accessToken);
+      
 
       if (accessToken) {
         config.headers.set('Authorization', `Bearer ${accessToken}`);

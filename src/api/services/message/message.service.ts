@@ -1,15 +1,5 @@
 import { APIClient } from '../../axios/instance';
 
-interface MessageData {
-    id: number;
-    content: string;
-    recipients: string[];
-    status: string;
-    createdAt: string;
-    updatedAt: string;
-}
-
-
 class MessageService extends APIClient {
     constructor() {
         super('baseService');
@@ -17,20 +7,20 @@ class MessageService extends APIClient {
 
     // Get all messages with pagination
     getMessages(params?: { page?: number; size?: number }) {
-        return this.get<MessageData[]>('/sms', params);
+        return this.get<any[]>('/sms', params);
     }
 
     // Get a single message by ID
     getMessageById(id: string) {
-        return this.get<MessageData>(`/sms/${id}`);
+        return this.get<any>(`/sms/${id}`);
     }
 
     // Send bulk SMS
     sendBulkSMS(data: any) {
-        return this.post<MessageData>('/sms/send-bulk', data, 
+        return this.post<any>('/sms/send-bulk', data, 
             {
                 headers: {
-                  'Content-Type': 'application/json',
+                  'Content-Type': 'multipart/form-data',
                 },
               }
         );

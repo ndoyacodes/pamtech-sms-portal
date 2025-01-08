@@ -37,12 +37,12 @@ import {
       href: '/contacts',
       icon: <IconFilePhone size={18} />,
     },
-    {
-      title: 'Subscriptions',
-      label: '',
-      href: '/subcriptions',
-      icon: <IconShoppingCart size={18} />,
-    },
+    // {
+    //   title: 'Subscriptions',
+    //   label: '',
+    //   href: '/subcriptions',
+    //   icon: <IconShoppingCart size={18} />,
+    // },
     {
         title: 'Campaigns',
         label: '',
