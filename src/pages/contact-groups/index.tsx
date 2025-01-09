@@ -17,7 +17,7 @@ export default function FarmersPage() {
   const { data: phonebook, isLoading } = useQuery({
     queryKey: ['phone-books', pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
-      const response: any = await contactService.getPhoneBooks({
+      const response: any = await contactService.getCustomerPhoneBooks({
         page: pagination.pageIndex,
         size: pagination.pageSize,
       })

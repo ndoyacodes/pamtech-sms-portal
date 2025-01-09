@@ -5,7 +5,6 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 
-import { labels } from '../data/data'
 import { Invoice } from '../data/schema'
 
 export const columns: ColumnDef<Invoice>[] = [
@@ -33,85 +32,59 @@ export const columns: ColumnDef<Invoice>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='ID' />
+      <DataTableColumnHeader column={column} title='#' />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className='w-[80px]'>{row.index + 1}</div>,
     enableSorting: false,
     enableHiding: false,
   },
-  {
-    accessorKey: 'date',
+    {
+    accessorKey: 'sender',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Date' />
+      <DataTableColumnHeader column={column} title="Sender" />
     ),
-    cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.date)
-
-      return (
-        <div className='flex space-x-2'>
-          {label && <Badge variant='outline'>{label.label}</Badge>}
-          <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('title')}
-          </span>
-        </div>
-      )
     },
-  },
+
   {
-    accessorKey: 'name',
+    accessorKey: 'recipient',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Direction' />
+      <DataTableColumnHeader column={column} title="Recipient" />
     ),
-    cell: ({ row }) => <div className='w-[150px]'>{row.getValue('name')}</div>,
-  },
-  {
-    accessorKey: 'type',
+    },
+    {
+      accessorKey: 'message',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Message" />
+      ),
+      cell: ({ row }) => <div className='truncate max-w-[150px]'>{String(row.getValue('message')).substring(0, 50)}</div>
+      },
+    {
+    accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Type' />
-    ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='From' />
-    ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='TO' />
-    ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='SMS count' />
-    ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Cost' />
-    ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('type')}</div>,
-  },
-  {
-    accessorKey: 'details',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Status' />
+      <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => (
-      <div className='max-w-[200px] truncate'>{row.getValue('details')}</div>
+      <Badge variant={row.getValue('status') === 'success' ? 'secondary' : 'destructive'}>
+      {row.getValue('status')}
+      </Badge>
     ),
-  },
-
+    },
+    {
+    accessorKey: 'network',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Network" />
+    ),
+    },
+    {
+    accessorKey: 'dateSent',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Date Sent" />
+    ),
+    },
   {
     id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,

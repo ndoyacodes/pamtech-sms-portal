@@ -38,7 +38,7 @@ const RECIPIENT_MODES = [
 
 const formSchema = z.object({
   senderId: z.number().min(1, { message: 'Sender ID is required' }),
-  phonebookId: z.any().optional(),
+  phonebookId: z.array(z.number()).optional(),
   message: z.string().min(1, { message: 'Message is required' }),
   messageType: z.string().min(1, { message: 'Message type is required' }),
   scheduled: z.boolean().default(false),
@@ -143,7 +143,7 @@ export const BulkSMSForm = () => {
         }
         break;
       case 'COMMA_SEPARATED':
-        formData.append('commaSeparatedNumbers', data.commaSeparatedNumbers);
+        // formData.append('commaSeparatedNumbers', data.commaSeparatedNumbers);
         formData.append('recipients', data.commaSeparatedNumbers);
         break;
     }
@@ -172,12 +172,12 @@ export const BulkSMSForm = () => {
                     className='my-react-select-container'
                     classNamePrefix='my-react-select'
                     isLoading={loadingPhoneBooks}
+                    isMulti={true}
                     placeholder='Select phone book'
                     options={phoneBooks}
-                    onChange={(option) => field.onChange(option?.value)}
-                    value={phoneBooks?.find(
-                      (option: any) => option.value === field.value
-                    )}
+                    onChange={(options) => field.onChange(options?.map(opt => opt.value))}
+                    //@ts-ignore
+                    value={phoneBooks?.filter((option:any) => field.value?.includes(option.value))}
                   />
                 </FormControl>
                 <FormMessage />

@@ -290,6 +290,13 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: 'message-detail',
+          lazy: async () => ({
+            Component: (await import('@/pages/messages/all/components/sms-detail.tsx')).default,
+          }),
+        },
+      
+        {
           path: 'reports',
           lazy: async () => ({
             Component: (await import('@/pages/messages/all')).default,
@@ -308,7 +315,8 @@ const router = createBrowserRouter([
                 Component: (await import('@/pages/messages/all')).default,
               }),
             },
-          
+
+        
          
           ],
         },
