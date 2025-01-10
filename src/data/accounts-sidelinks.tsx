@@ -11,6 +11,7 @@ import {
     IconBrandTelegram,
     IconCpu2,
     IconFilePhone,
+    IconLayersSubtract,
   } from '@tabler/icons-react'
   
   export interface NavLink {
@@ -32,6 +33,39 @@ import {
       icon: <IconLayoutDashboard size={18} />,
     },
     {
+      title: 'Subscriptions',
+      label: '',
+      href: '/subscriptions',
+      icon: <IconLayersSubtract size={18} />,
+    },
+    {
+      title: 'SMS',
+      label: '',
+      href: '/requests',
+      icon: <IconMessages size={18} />,
+      sub: [
+        // {
+        //   title: 'Campaigns builder',
+        //   label: '',
+        //   href: '/sms/campaign-builder',
+        //   icon: <IconUserScreen size={18} />,
+        // },
+        {
+         title: 'Send Bulk SMS',
+          label: '',
+          href: '/sms/send-bulk-sms',
+          icon: <IconPhoneCall size={18} />,
+        },
+        {
+          title: 'Campaigns',
+          label: '',
+          href: '/automations',
+          icon: <IconBrandTelegram size={18} />,
+        },
+    
+      ],
+    },
+    {
       title: 'Phone book',
       label: '',
       href: '/contacts',
@@ -43,12 +77,7 @@ import {
     //   href: '/subcriptions',
     //   icon: <IconShoppingCart size={18} />,
     // },
-    {
-        title: 'Campaigns',
-        label: '',
-        href: '/automations',
-        icon: <IconBrandTelegram size={18} />,
-      },
+
     {
       title: 'Sending',
       label: '',
@@ -83,27 +112,7 @@ import {
         icon: <IconShoppingCart size={18} />,
       } ,
       
-      {
-        title: 'SMS',
-        label: '',
-        href: '/requests',
-        icon: <IconMessages size={18} />,
-        sub: [
-          // {
-          //   title: 'Campaigns builder',
-          //   label: '',
-          //   href: '/sms/campaign-builder',
-          //   icon: <IconUserScreen size={18} />,
-          // },
-          {
-           title: 'Send Bulk SMS',
-            label: '',
-            href: '/sms/send-bulk-sms',
-            icon: <IconPhoneCall size={18} />,
-          },
-      
-        ],
-      },
+     
   
     //Admin Modules
     {

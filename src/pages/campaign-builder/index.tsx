@@ -84,7 +84,7 @@ export const BulkSMSForm = () => {
   const { data: phoneBooks, isLoading: loadingPhoneBooks } = useQuery({
     queryKey: ['phone-books'],
     queryFn: async () => {
-      const response: any = await contactService.getPhoneBooks({
+      const response: any = await contactService.getCustomerPhoneBooks({
         page: 0,
         size: 100,
       })

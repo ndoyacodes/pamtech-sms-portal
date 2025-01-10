@@ -11,11 +11,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ThemeSwitch from '@/components/theme-switch'
 // import { TopNav } from '@/components/top-nav'
 import { UserNav } from '@/components/user-nav'
-import { RecentSales } from './components/recent-sales'
 import { Overview } from './components/overview'
 import {  IconMessage, IconRosetteDiscountCheck, IconChecklist, IconBrandTelegram } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { dashboardService } from '@/api/services/dashboard/dashboard.service'
+import InteractivePieChart from './components/recent-sales'
 
 export default function Dashboard() {
   const { data: dashData, isLoading } = useQuery({
@@ -159,9 +159,11 @@ export default function Dashboard() {
                     You made 190 sender Id this month.
                   </CardDescription>
                 </CardHeader>
+
                 <CardContent>
-                  <RecentSales />
+                  <InteractivePieChart />
                 </CardContent>
+                
               </Card>
             </div>
           </TabsContent>

@@ -48,7 +48,7 @@ export function DataTableToolbar<TData>({
           )}
                <Button
             variant='default'
-            onClick={() => navigate('/subscriptions/add')}
+            onClick={() => navigate('/sms/top-up')}
             className='h-8 px-2 lg:px-3'
           >
             Create New subscription
