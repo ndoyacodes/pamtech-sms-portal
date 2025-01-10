@@ -154,9 +154,9 @@ export default function Dashboard() {
               </Card>
               <Card className='col-span-1 lg:col-span-3'>
                 <CardHeader>
-                  <CardTitle>Recent sender ID requsts</CardTitle>
+                  <CardTitle>SMS Reports</CardTitle>
                   <CardDescription>
-                    You made 190 sender Id this month.
+                    You have 98% sent messages.
                   </CardDescription>
                 </CardHeader>
 
