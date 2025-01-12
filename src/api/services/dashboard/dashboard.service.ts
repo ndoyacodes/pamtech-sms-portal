@@ -10,6 +10,10 @@ class DashboardService extends APIClient {
         return this.get<any>('/dashboard/customer');
     }
 
+    getCustomerChartsData() {
+    return this.get<any>('/dashboard/customer/chat');
+   }
+
    
 }
 

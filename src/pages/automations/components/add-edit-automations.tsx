@@ -36,9 +36,13 @@ const RECURRING_PERIODS = [
 ]
 
 const daysOfWeek = [
-  { value: 'MONDAY', label: 'Monday' },
-  { value: 'TUESDAY', label: 'Tuesday' },
-  // ... other days
+  { value: 'MON', label: 'Monday' },
+  { value: 'TUE', label: 'Tuesday' },
+  { value: 'WED', label: 'Wednesday' },
+  { value: 'THURS', label: 'Thursday' },
+  { value: 'FRI', label: 'Friday' },
+  { value: 'SAT', label: 'Saturday' },
+  { value: 'SUN', label: 'Sunday' },
 ]
 
 const datesInMonth = Array.from({ length: 31 }, (_, i) => ({
@@ -49,7 +53,16 @@ const datesInMonth = Array.from({ length: 31 }, (_, i) => ({
 const months = [
   { value: 'JANUARY', label: 'January' },
   { value: 'FEBRUARY', label: 'February' },
-  // ... other months
+  { value: 'MARCH', label: 'March' },
+  { value: 'APRIL', label: 'April' },
+  { value: 'MAY', label: 'May' },
+  { value: 'JUNE', label: 'June' },
+  { value: 'JULY', label: 'July' },
+  { value: 'AUGUST', label: 'August' },
+  { value: 'SEPTEMBER', label: 'September' },  // ... other months
+  { value: 'OCTOBER', label: 'October' },
+  { value: 'NOVEMBER', label: 'November' },
+  { value: 'DECEMBER', label: 'December' }
 ]
 
 const formSchema = z.object({
@@ -406,9 +419,9 @@ export const CampaignForm = () => {
                         name='nextRunDate'
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Next Run Date *</FormLabel>
+                            <FormLabel>Run Time *</FormLabel>
                             <FormControl>
-                              <Input type='datetime-local' {...field} />
+                              <Input type='time' {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
