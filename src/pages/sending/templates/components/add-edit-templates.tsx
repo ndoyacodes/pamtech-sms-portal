@@ -66,7 +66,9 @@ const AddTemplateForm = () => {
       </Layout.Header>
       {/* ===== Page Title ===== */}
       <Layout.Header>
-        <h1 className='text-2xl font-bold'>Add Template</h1>
+        <h1 className='text-2xl font-bold'>
+          {template ? 'Edit' : 'Add'} Template
+        </h1>
       </Layout.Header>
 
       {/* ===== Form ===== */}

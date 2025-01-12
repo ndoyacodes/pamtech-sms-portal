@@ -4,9 +4,8 @@ import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
-
-import { labels } from '../data/data'
 import { Phonebook } from '../data/schema'
+
 
 export const columns: ColumnDef<Phonebook>[] = [
   {
@@ -68,21 +67,19 @@ export const columns: ColumnDef<Phonebook>[] = [
   {
     accessorKey: 'active',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Name' />
+      <DataTableColumnHeader column={column} title='Status' />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.fileName)
-
+      const isActive = row.getValue('active')
       return (
-        <div className='flex space-x-2'>
-          {label && <Badge variant='outline'>{label.label}</Badge>}
-          <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('active')}
-          </span>
-        </div>
+      <div className='flex w-[100px] items-center'>
+        <Badge variant={isActive ? 'default' : 'destructive'}>
+        {isActive ? 'Active' : 'Inactive'}
+        </Badge>
+      </div>
       )
     },
-  },
+    },
 
   {
     id: 'actions',

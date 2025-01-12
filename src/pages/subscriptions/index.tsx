@@ -20,9 +20,9 @@ export default function FarmersPage() {
       <Layout.Body>
         <div className='mb-2 flex items-center justify-between space-y-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Subscriptions</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>Subscriptions history</h2>
             <p className='text-muted-foreground'>
-              Here&apos;s a list of all subscriptions
+              Here&apos;s a list of all subscriptions history
             </p>
           </div>
         </div>

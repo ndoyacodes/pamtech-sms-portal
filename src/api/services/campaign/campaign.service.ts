@@ -24,8 +24,8 @@ class CampaignService extends APIClient {
         }
 
         // Get campaigns by customer
-        getCustomerCampaigns(customerId: string) {
-                return this.get<CampaignData[]>('/campaign/customer', { customerId });
+        getCustomerCampaigns(params?: { page?: number; size?: number }) {
+                return this.get<CampaignData[]>('/campaign/customer',params);
         }
 
         // Get a single campaign by ID
@@ -40,7 +40,7 @@ class CampaignService extends APIClient {
 
         // Delete a campaign
         deleteCampaign(id: number) {
-                return this.delete<void>(`/campaign/${id}`);
+                return this.delete<void>(`/campaign/${id}`, {id:id});
         }
 }
 

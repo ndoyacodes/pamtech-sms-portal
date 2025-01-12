@@ -48,7 +48,7 @@ export function DataTableToolbar<TData>({
           )}
                <Button
             variant='default'
-            onClick={() => navigate('/automations/say-happy-birthday')}
+            onClick={() => navigate('/automations/add-campagin')}
             className='h-8 px-2 lg:px-3'
           >
             Create new

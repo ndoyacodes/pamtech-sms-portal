@@ -5,8 +5,8 @@ import { Button } from './custom/button'
 import Nav from './nav'
 import { cn } from '@/lib/utils'
 import { sidelinks } from '@/data/sidelinks'
-import {sidelinksAccount} from '@/data/accounts-sidelinks'
-import { useAppSelector } from '@/store/store-hooks'
+import { sidelinksAccount } from '@/data/accounts-sidelinks'
+import { useAuthStore } from '@/hooks/use-auth-store'
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   isCollapsed: boolean
@@ -18,11 +18,10 @@ export default function Sidebar({
   isCollapsed,
   setIsCollapsed,
 }: SidebarProps) {
-  const [navOpened, setNavOpened] = useState(false);
-  const account =  useAppSelector(state =>  state.accaunt.account);
-   console.log("Account:"+account);
-   
-  const sidelinksData = account ? sidelinksAccount : sidelinks;
+  const [navOpened, setNavOpened] = useState(false)
+  const { user } = useAuthStore()
+
+  const sidelinksData = user?.customer ? sidelinksAccount : sidelinks
   /* Make body not scrollable when navBar is opened */
   useEffect(() => {
     if (navOpened) {
@@ -83,12 +82,13 @@ export default function Sidebar({
               <span className='sr-only'>Shamba Bora</span>
             </svg> */}
             {/* <IconTractor size={32} fill="none" stroke='primary' strokeWidth='1'/> */}
-              <img src="/logo.png" alt="" className='w-20 h-6 '/>
+
             <div
-              className={`flex flex-col justify-end truncate ${isCollapsed ? 'invisible w-0' : 'visible w-auto'}`}
+              className={`flex flex-row justify-center truncate ${isCollapsed ? 'invisible w-0' : 'visible w-auto'}`}
             >
-              <span className='font-bold px-4 text-xl'>OPESSMS</span>
-              <span className='text-xs px-4'>Admin portal</span>
+              <img src='/logo.png' alt='' className='py-4  object-cover' />
+              {/* <span className='font-bold px-4 text-xl'>OPESSMS</span>
+              <span className='text-xs px-4'>Admin portal</span> */}
             </div>
           </div>
 

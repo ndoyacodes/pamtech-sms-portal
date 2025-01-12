@@ -8,7 +8,7 @@ import { DataTableViewOptions } from '../components/data-table-view-options'
 import { priorities, statuses } from '../data/data'
 import { DataTableFacetedFilter } from './data-table-faceted-filter'
 import { useNavigate } from 'react-router-dom'
-import { IconPlus } from '@tabler/icons-react'
+// import { IconPlus } from '@tabler/icons-react'
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -24,8 +24,8 @@ export function DataTableToolbar<TData>({
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
         <Input
-          placeholder='Filter invoices...'
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+          placeholder='Filter phone...'
+          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
             table.getColumn('title')?.setFilterValue(event.target.value)
           }
@@ -46,14 +46,14 @@ export function DataTableToolbar<TData>({
               options={priorities}
             />
           )}
-               <Button
+               {/* <Button
             variant='default'
             onClick={() => navigate('/contacts/add')}
             className='h-8 px-2 lg:px-3'
           >
             Create Contact
             <IconPlus className='ml-2 h-4 w-4' />
-          </Button>
+          </Button> */}
                <Button
             variant='default'
             onClick={() => navigate('/upload-phonebook')}

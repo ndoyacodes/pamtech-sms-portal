@@ -13,7 +13,7 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
     (config: InternalAxiosRequestConfig) => {
       const state = store.getState();
       const accessToken = state.auth.tokens.access;
-
+      console.log('accessToken', accessToken);
       if (accessToken) {
         config.headers.set('Authorization', `Bearer ${accessToken}`);
       }
@@ -42,7 +42,7 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
           }
 
           const response = await axios.post(`/api/auth/refresh`, {
-            refresh: refreshToken
+            refreshToken: refreshToken
           });
 
           store.dispatch(setCredentials({
@@ -62,7 +62,11 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
         } catch (refreshError) {
           // Clear local storage and redirect to login page
           localStorage.clear();
-          displaySessionExpiredModal(); 
+             setTimeout(() => {
+            displaySessionExpiredModal(); 
+          }, 100);
+      
+          window.location.reload();
           return Promise.reject(refreshError);
         }
       }

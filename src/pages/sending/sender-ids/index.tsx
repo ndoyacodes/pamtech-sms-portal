@@ -32,7 +32,6 @@ export default function FarmersPage() {
     staleTime: 5 * 60 * 1000,
   })
 
-  console.log(senderIds)
 
   return (
     <Layout>

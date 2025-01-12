@@ -4,6 +4,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 import { DataSchema } from '../data/schema'
+import { Badge } from '@/components/ui/badge'
 
 export const columns: ColumnDef<DataSchema>[] = [
   {
@@ -66,23 +67,36 @@ export const columns: ColumnDef<DataSchema>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Message' />
     ),
-    cell: ({ row }) => (
-      <div className='w-[100px]'>{row.getValue('message')}</div>
-    ),
+    cell: ({ row }) => {
+      const message = row.getValue('message') as string
+      return (
+        <div className='flex space-x-2'>
+          <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
+            {typeof message === 'string' && message.length > 50 ? `${message.slice(0, 50)}...` : message}
+          </span>
+        </div>
+      )
+    },
     enableSorting: true,
     enableHiding: false,
   },
+
   {
-    accessorKey: 'active',
+    accessorKey: 'activated',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Status' />
     ),
-    cell: ({ row }) => (
-      <div className='w-[100px]'>{row.getValue('active')}</div>
-    ),
-    enableSorting: true,
-    enableHiding: false,
-  },
+    cell: ({ row }) => {
+      const isActive = row.getValue('active')
+      return (
+      <div className='flex w-[100px] items-center'>
+        <Badge variant={isActive ? 'default' : 'destructive'}>
+        {isActive ? 'Active' : 'Inactive'}
+        </Badge>
+      </div>
+      )
+    },
+    },
   {
     id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,

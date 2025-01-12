@@ -69,7 +69,7 @@ const router = createBrowserRouter([
           }),
         },
         {
-          path: '/automations/:id',
+          path: '/automations/add-campagin',
           lazy: async () => ({
             Component: (await import('@/pages/automations/components/add-edit-automations.tsx')).default,
           }),
@@ -181,6 +181,17 @@ const router = createBrowserRouter([
           lazy: async () => ({
             Component: (await import('@/pages/sending/templates/components/add-edit-templates.tsx')).default,
           }),
+        },  {
+          path: 'templates/add',
+          lazy: async () => ({
+            Component: (await import('@/pages/sending/templates/components/add-edit-templates.tsx')).default,
+          }),
+        },
+        {
+          path: 'templates/:id',
+          lazy: async () => ({
+            Component: (await import('@/pages/sending/templates/components/view-template.tsx')).default,
+          }),
         },
         {
           path: 'templates-tags',
@@ -219,6 +230,12 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: 'phonebook/:id',
+          lazy: async () => ({
+            Component: (await import('@/pages/contact-groups/components/view-phone-book.tsx')).default,
+          }),
+        },
+        {
           path: 'contacts/add',
           lazy: async () => ({
             Component: (await import('@/pages/contact-groups/components/add-edit-contact.tsx')).default,
@@ -249,7 +266,7 @@ const router = createBrowserRouter([
           }),
         },
         {
-          path: 'sms/campaign-builder',
+          path: 'sms/send-bulk-sms',
           lazy: async () => ({
             Component: (await import('@/pages/campaign-builder')).default,
           }),
@@ -273,6 +290,13 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: 'message-detail',
+          lazy: async () => ({
+            Component: (await import('@/pages/messages/all/components/sms-detail.tsx')).default,
+          }),
+        },
+      
+        {
           path: 'reports',
           lazy: async () => ({
             Component: (await import('@/pages/messages/all')).default,
@@ -291,7 +315,8 @@ const router = createBrowserRouter([
                 Component: (await import('@/pages/messages/all')).default,
               }),
             },
-          
+
+        
          
           ],
         },

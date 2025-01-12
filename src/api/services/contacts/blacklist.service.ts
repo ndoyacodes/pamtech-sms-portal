@@ -40,7 +40,7 @@ class BlacklistService extends APIClient {
 
         // Delete a blacklist entry
         deleteBlacklistEntry(id: number) {
-                return this.delete<void>(`/blacklist/${id}`);
+                return this.delete<void>(`/blacklist/`, {id: id});
         }
 }
 

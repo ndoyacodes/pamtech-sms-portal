@@ -4,6 +4,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 import { DataSchema } from '../data/schema'
+import { Badge } from '@/components/ui/badge'
 
 export const columns: ColumnDef<DataSchema>[] = [
   {
@@ -94,20 +95,20 @@ export const columns: ColumnDef<DataSchema>[] = [
   {
     accessorKey: 'activated',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='activated' />
+      <DataTableColumnHeader column={column} title='Status' />
     ),
     cell: ({ row }) => {
+      const isActive = row.getValue('activated')
       return (
-        <div className='flex space-x-2'>
-          <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('activated')}
-          </span>
-        </div>
+      <div className='flex w-[100px] items-center'>
+        <Badge variant={isActive ? 'default' : 'destructive'}>
+        {isActive ? 'Active' : 'Inactive'}
+        </Badge>
+      </div>
       )
     },
-    enableSorting: true,
-    enableHiding: false,
-  },
+    },
+
   {
     id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,

@@ -20,18 +20,18 @@ class PlanService extends APIClient {
         return this.post<any>('/plan', data);
     }
 
+    createPlanSUbscription(data: any) {
+        return this.post<any>('/plan/subscribe', data);
+    }
+
     // Update a plan
-    updatePlan(id: number, data: Partial<any>) {
-        return this.patch<any>(`/plan/${id}`, data, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+    updatePlan(_id: number, data: Partial<any>) {
+        return this.put<any>(`/plan`, data);
     }
 
     // Delete a plan
     deletePlan(id: number) {
-        return this.delete<void>(`/plan/${id}`);
+        return this.delete<void>(`/plan/${id}`, {id:id});
     }
 }
 

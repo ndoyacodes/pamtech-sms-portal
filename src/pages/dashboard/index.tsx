@@ -11,40 +11,49 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ThemeSwitch from '@/components/theme-switch'
 // import { TopNav } from '@/components/top-nav'
 import { UserNav } from '@/components/user-nav'
-import { RecentSales } from './components/recent-sales'
 import { Overview } from './components/overview'
-import {  IconUserCog, IconMessage, IconRosetteDiscountCheck, IconChecklist } from '@tabler/icons-react'
-// import useIsAuthenticated from '@/hooks/use-is-authenticated'
-// import useAuthentication from '@/hooks/use-authentication'
-import useToken from '@/hooks/use-token'
+import {  IconMessage, IconRosetteDiscountCheck, IconChecklist, IconBrandTelegram } from '@tabler/icons-react'
+import { useQuery } from '@tanstack/react-query'
+import { dashboardService } from '@/api/services/dashboard/dashboard.service'
+import InteractivePieChart from './components/recent-sales'
 
 export default function Dashboard() {
-  // const navigate = useNavigate();
+  const { data: dashData, isLoading } = useQuery({
+    queryKey: ['dashboard',],
+    queryFn: async () => {
+      const response: any = await dashboardService.getCustomerDashboardData()
+      return response
+    },
+    retry: 2,
+    staleTime: 5 * 60 * 1000,
+  });
 
-  const [token, setToken] = useToken('jwtToken', null);
+  console.log('dashData', dashData);
+  
 
-  // const [isAuthenteticated] = useIsAuthenticated()
 
-  // useEffect(() => {
-  //   console.log(isAuthenteticated);
-  //   if (isAuthenteticated == "Test") {
-  //     navigate("/sign-in")
-  //   }
-  // }, [isAuthenteticated]);
- 
-  // console.log("Acessing token dasboard",jwtToken);
-  // useEffect(() => {
-  //   console.log("Jwt Token" + jwtToken);
-  //   if (token == "") {
-  //     navigate("/sign-in")
-  //   }
-  // });
+  if (isLoading) {
+    return (
+      <Layout>
+      {/* ===== Top Heading ===== */}
+      <Layout.Header>
+        {/* <TopNav links={topNav} /> */}
+        <div className='ml-auto flex items-center space-x-4'>
+          <Search />
+          <ThemeSwitch />
+          <UserNav />
+        </div>
+      </Layout.Header>
 
-  if(token==null){
-    setToken("test")
+      {/* ===== Main ===== */}
+      <Layout.Body>
+      <div className='flex h-64 items-center justify-center'>
+        <div className='h-8 w-8 animate-spin rounded-full border-b-2 border-gray-900 dark:border-white'></div>
+      </div>
+      </Layout.Body>
+      </Layout>
+    )
   }
-
-
 
   return (
     <Layout>
@@ -81,55 +90,55 @@ export default function Dashboard() {
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                    Total Customers
+                    Total Sms sent
                   </CardTitle>
-                  <IconUserCog />
+                  <IconChecklist />
 
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>10,231</div>
+                  <div className='text-2xl font-bold'>{dashData?.totalSmsSent}</div>
                   <p className='text-xs text-muted-foreground'>
-                    +20.1 from last month
+                   total sms sent successfully
                   </p>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2' >
                   <CardTitle className='text-sm font-medium'>
-                    Plan
+                    SMS balance
                   </CardTitle>
-                  < IconChecklist/>
+                   <IconMessage />
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>2,350</div>
+                  <div className='text-2xl font-bold'>{dashData?.smsBalance}</div>
                   <p className='text-xs text-muted-foreground'>
-                    +180 from last month
+                   account total sms balance
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-                  <CardTitle className='text-sm font-medium'>SMS sent</CardTitle>
-                  <IconMessage />
+                  <CardTitle className='text-sm font-medium'>Campaigns</CardTitle>
+                  <IconBrandTelegram />
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>78966700</div>
+                  <div className='text-2xl font-bold'>{dashData?.totalCampaigns}</div>
                   <p className='text-xs text-muted-foreground'>
-                    +2% from start
+                    total number of campaigns
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                  Campaigns sent
+                  Active campaigns
                   </CardTitle>
                   <IconRosetteDiscountCheck />
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>2300</div>
+                  <div className='text-2xl font-bold'>{dashData?.activeCampaigns}</div>
                   <p className='text-xs text-muted-foreground'>
-                    +3 from start
+                    total number of active campaigns
                   </p>
                 </CardContent>
               </Card>
@@ -145,14 +154,16 @@ export default function Dashboard() {
               </Card>
               <Card className='col-span-1 lg:col-span-3'>
                 <CardHeader>
-                  <CardTitle>Recent sender ID requsts</CardTitle>
+                  <CardTitle>SMS Reports</CardTitle>
                   <CardDescription>
-                    You made 190 sender Id this month.
+                    You have 98% sent messages.
                   </CardDescription>
                 </CardHeader>
+
                 <CardContent>
-                  <RecentSales />
+                  <InteractivePieChart />
                 </CardContent>
+                
               </Card>
             </div>
           </TabsContent>
