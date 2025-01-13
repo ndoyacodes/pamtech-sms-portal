@@ -128,7 +128,7 @@ import {
           icon: <IconDashboard size={18} />,
         },
         {
-          title: 'all messages',
+          title: 'All Messages',
           label: '',
           href: '/reports/all-messages',
           icon: <IconReportAnalytics size={18} />,
@@ -140,7 +140,7 @@ import {
         //     icon: <IconReportAnalytics size={18} />,
         //   },
           {
-            title: 'sent messages',
+            title: 'Sent Messages',
             label: '',
             href: '/reports/all-messages',
             icon: <IconReportAnalytics size={18} />,

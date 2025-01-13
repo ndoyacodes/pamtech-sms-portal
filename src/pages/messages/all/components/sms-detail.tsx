@@ -18,6 +18,8 @@ export const SMSView = () => {
     const location = useLocation();
     const sms = location.state?.sms;
 
+    console.log("This is sms ", sms)
+
   if (!sms) {
     return (
       <Layout>
@@ -47,7 +49,7 @@ export const SMSView = () => {
         <div className="max-w-6xl space-y-6 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold">SMS Details</h1>
+              <span className="text-2xl font-bold pr-6">SMS Details</span>
               <Badge variant={sms?.status === 'FAILED' ? 'destructive' : 'default'}>
                 {sms?.status}
               </Badge>
@@ -71,6 +73,10 @@ export const SMSView = () => {
                   <div>
                     <p className="text-sm text-muted-foreground">Recipient</p>
                     <p className="text-sm font-medium">{sms?.recipient}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Sender ID</p>
+                    <p className="text-sm font-medium">{sms?.sender?.senderId}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Network</p>
