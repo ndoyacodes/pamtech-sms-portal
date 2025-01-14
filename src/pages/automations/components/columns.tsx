@@ -2,6 +2,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { Badge } from '@/components/ui/badge.tsx'
+import { DataTableRowActions } from '@/pages/plans/components/data-table-row-actions.tsx'
 
 export type Campaign = {
   id: number
@@ -73,13 +74,21 @@ export const columns: ColumnDef<Campaign>[] = [
   {
     accessorKey: 'active',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title='Status' />
     ),
     cell: ({ row }) => {
       return (
-      <Badge variant={row.getValue('active') === true ? 'success' : 'destructive'}>
-        {row.getValue('active') === true ? 'Active' : 'Not Active'}
-      </Badge>
-    )},
+        <Badge variant={row.getValue('active') === true ? 'success' : 'destructive'}>
+          {row.getValue('active') === true ? 'Active' : 'Not Active'}
+        </Badge>
+      )
+    },
+  },
+  {
+    id: 'actions',
+    header: 'Actions',
+    cell: ({ row }) => <DataTableRowActions row={row} />,
+    enableSorting: false,
+    enableHiding: false,
   },
 ]

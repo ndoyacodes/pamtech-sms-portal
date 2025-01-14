@@ -1,45 +1,43 @@
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
+// data-table-row-actions.tsx
 import { Row } from '@tanstack/react-table'
-
-import { Button } from '@/components/custom/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-
-import { taskSchema } from '../data/schema'
-import {  useNavigate } from 'react-router-dom'
+import { MoreHorizontal } from 'lucide-react'
+import { Button } from '@/components/custom/button.tsx'
+import { useNavigation } from 'react-router-dom'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
 }
 
-export function DataTableRowActions<TData>({
-                                             row,
-                                           }: DataTableRowActionsProps<TData>) {
-  const campaign = taskSchema.parse(row.original)
-  const navigate = useNavigate()
+export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
+
+  const nav = useNavigation()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant='ghost'
-          className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
-        >
-          <DotsHorizontalIcon className='h-4 w-4' />
-          <span className='sr-only'>Open menu</span>
+        <Button variant='ghost' className='h-8 w-8 p-0'>
+          <MoreHorizontal className='h-4 w-4' />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='w-[160px]'>
+      <DropdownMenuContent align='end'>
         <DropdownMenuItem
-          onClick={() => {navigate('/campaign-detail', {state:{campaign: campaign}})}}
-        >View</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
+          onClick={() => {
+            // @ts-ignore
+            nav("/campaign-detail/"+row.original?.id, {state:{campaign: row.original}})
+          }}>
+          Edit
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            // Handle delete action
+            console.log('Delete', row.original)
+          }}>
           Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
