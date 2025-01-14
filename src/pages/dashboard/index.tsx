@@ -146,7 +146,7 @@ export default function Dashboard() {
             <div className='grid grid-cols-1 gap-4 lg:grid-cols-7'>
               <Card className='col-span-1 lg:col-span-4'>
                 <CardHeader>
-                  <CardTitle>Custommer growth</CardTitle>
+                  <CardTitle>Message Trends</CardTitle>
                 </CardHeader>
                 <CardContent className='pl-2'>
                   <Overview />

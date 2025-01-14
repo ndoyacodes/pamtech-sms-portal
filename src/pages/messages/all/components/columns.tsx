@@ -7,7 +7,6 @@ import { DataTableRowActions } from './data-table-row-actions'
 
 import { Invoice } from '../data/schema'
 
-// @ts-ignore
 export const columns: ColumnDef<Invoice>[] = [
   {
     id: 'select',
@@ -36,60 +35,62 @@ export const columns: ColumnDef<Invoice>[] = [
 
   {
     accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='#' />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title='#' />,
     cell: ({ row }) => <div className='w-[80px]'>{row.index + 1}</div>,
     enableSorting: false,
     enableHiding: false,
   },
-    {
+  {
     accessorKey: 'sender',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Sender" />
+      <DataTableColumnHeader column={column} title='Sender' />
     ),
-      cell: ({ row }) => (
-        // @ts-ignore
-          row.getValue('sender').senderId
-      ),
-    },
+  },
 
   {
     accessorKey: 'recipient',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Recipient" />
+      <DataTableColumnHeader column={column} title='Recipient' />
     ),
-    },
-    {
-      accessorKey: 'message',
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Message" />
-      ),
-      cell: ({ row }) => <div className='truncate max-w-[150px]'>{String(row.getValue('message')).substring(0, 50)}</div>
-      },
-    {
-    accessorKey: 'status',
+  },
+  {
+    accessorKey: 'message',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title='Message' />
     ),
     cell: ({ row }) => (
-      <Badge variant={row.getValue('status') === 'success' ? 'secondary' : 'destructive'}>
-      {row.getValue('status')}
+      <div className='max-w-[150px] truncate'>
+        {String(row.getValue('message')).substring(0, 50)}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'status',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Status' />
+    ),
+    cell: ({ row }) => (
+      <Badge
+        variant={
+          row.getValue('status') === 'success' ? 'secondary' : 'destructive'
+        }
+      >
+        {row.getValue('status')}
       </Badge>
     ),
-    },
-    {
+  },
+  {
     accessorKey: 'network',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Network" />
+      <DataTableColumnHeader column={column} title='Network' />
     ),
-    },
-    {
+  },
+  {
     accessorKey: 'dateSent',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Date Sent" />
+      <DataTableColumnHeader column={column} title='Date Sent' />
     ),
-    },
+  },
   {
     id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,
