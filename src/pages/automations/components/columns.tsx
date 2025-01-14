@@ -2,7 +2,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { Badge } from '@/components/ui/badge.tsx'
-import { DataTableRowActions } from '@/pages/plans/components/data-table-row-actions.tsx'
+import { DataTableRowActions } from './data-table-row-actions'
 
 export type Campaign = {
   id: number
@@ -86,9 +86,6 @@ export const columns: ColumnDef<Campaign>[] = [
   },
   {
     id: 'actions',
-    header: 'Actions',
-    cell: ({ row }) => <DataTableRowActions row={row} />,
-    enableSorting: false,
-    enableHiding: false,
+    cell: ({ row }) => <DataTableRowActions row={row} />
   },
 ]

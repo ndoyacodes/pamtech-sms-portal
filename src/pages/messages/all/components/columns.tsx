@@ -7,6 +7,9 @@ import { DataTableRowActions } from './data-table-row-actions'
 
 import { Invoice } from '../data/schema'
 
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 export const columns: ColumnDef<Invoice>[] = [
   {
     id: 'select',
@@ -45,6 +48,8 @@ export const columns: ColumnDef<Invoice>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Sender' />
     ),
+    // @ts-ignore
+    cell: ({ row }) => <span>{String(row.getValue('sender').senderId)}</span>
   },
 
   {
@@ -60,7 +65,7 @@ export const columns: ColumnDef<Invoice>[] = [
     ),
     cell: ({ row }) => (
       <div className='max-w-[150px] truncate'>
-        {String(row.getValue('message')).substring(0, 50)}
+        {String(row.getValue('message')).substring(0, 50)} ...
       </div>
     ),
   },
