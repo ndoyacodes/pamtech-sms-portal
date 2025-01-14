@@ -3,6 +3,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { Badge } from '@/components/ui/badge.tsx'
 import { DataTableRowActions } from './data-table-row-actions'
+import { format } from 'date-fns';
 
 export type Campaign = {
   id: number
@@ -70,6 +71,28 @@ export const columns: ColumnDef<Campaign>[] = [
         {String(row.getValue('description')).substring(0, 50)}...
       </div>
     ),
+  },
+  {
+    accessorKey: 'startDate',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Start Date' />
+    ),
+    cell: ({ row }) => {
+      const startDate = row.getValue('startDate');
+      // @ts-ignore
+      return format(new Date(startDate), 'yyyy-MM-dd');
+    },
+  },
+  {
+    accessorKey: 'endDate',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='End Date' />
+    ),
+    cell: ({ row }) => {
+      const endDate = row.getValue('endDate');
+      // @ts-ignore
+      return format(new Date(endDate), 'yyyy-MM-dd');
+    },
   },
   {
     accessorKey: 'active',

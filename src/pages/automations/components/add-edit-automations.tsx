@@ -27,12 +27,13 @@ import { contactService } from '@/api/services/contacts/contacts.service';
 import { senderIdService } from '@/api/services/customers/senderid.services';
 import { templateService } from '@/api/services/message/template.service';
 import { useCampaign } from '@/hooks/api-hooks/compaign/campaign-hook';
+import { useNavigate } from 'react-router-dom';
+import { toast } from '@/components/ui/use-toast.ts'
 
 const RECURRING_PERIODS = [
   { value: 'DAILY', label: 'Daily' },
   { value: 'WEEKLY', label: 'Weekly' },
   { value: 'MONTHLY', label: 'Monthly' },
-  { value: 'YEARLY', label: 'Yearly' },
 ];
 
 const daysOfWeek = [
@@ -72,6 +73,7 @@ export const CampaignForm = () => {
   const { user } = useAuthStore();
   const [showNextRunDate, setShowNextRunDate] = React.useState(false);
   const { createCampaign } = useCampaign();
+  const navigate = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -154,7 +156,50 @@ export const CampaignForm = () => {
 
   const onSubmit = (data: any) => {
     console.log('Submitted Data:', data);
-    createCampaign.mutate({ data: data });
+    let periodParam: string[] = [];
+
+    switch (data.recurringPeriod) {
+      case 'DAILY':
+        // @ts-ignore
+        periodParam = [ data.nextRunDate ] || [];
+        break;
+      case 'WEEKLY':
+        periodParam = data.weeklyDays || [];
+        break;
+      case 'MONTHLY':
+        periodParam = data.monthlyDates?.map((date: number) => date.toString()) || [];
+        break;
+      case 'YEARLY':
+        if (data.yearlyMonth && data.yearlyDate) {
+          periodParam = [`${data.yearlyMonth}-${data.yearlyDate}`];
+        }
+        break;
+      default:
+        periodParam = [];
+        break;
+    }
+
+    let { weeklyDays, monthlyDates, yearlyMonth, yearlyDate, nextRunDate, ...newData } = data;
+    newData = {...newData, periodParam}
+    createCampaign.mutate({ data: newData }, {
+      onSuccess: () => {
+        toast({
+          title: 'Success',
+          description: 'Campaign created successfully!',
+          variant: 'default',
+        });
+
+        navigate('/automations');
+      },
+      onError: (error) => {
+        toast({
+          title: 'Error',
+          description: 'Failed to create campaign. Please try again.',
+          variant: 'destructive',
+        });
+        console.error('Error creating campaign:', error);
+      },
+    });
   };
 
   // @ts-ignore

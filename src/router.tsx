@@ -75,6 +75,12 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: '/automations/campaign/:id',
+          lazy: async () => ({
+            Component: (await import('@/pages/automations/components/campaign-detail.tsx')).default,
+          }),
+        },
+        {
           path: '/customers',
           lazy: async () => ({
             Component: (await import('@/pages/customers')).default,

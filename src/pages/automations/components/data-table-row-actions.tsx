@@ -8,15 +8,41 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/custom/button.tsx'
-import { useNavigation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { toast } from '@/components/ui/use-toast'
+import { Campaign } from '@/pages/automations/components/columns.tsx'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
 }
 
 export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
+  const navigate = useNavigate()
+  const campaign = row.original as Campaign
 
-  const nav = useNavigation()
+  const handleEdit = () => {
+    if (!campaign?.id) {
+      toast({
+        title: 'Error',
+        description: 'Campaign ID is missing.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    navigate(`/automations/campaign/${campaign.id}`, { state: { campaign } })
+  }
+
+  const handleDelete = () => {
+    if (!campaign?.id) {
+      toast({
+        title: 'Error',
+        description: 'Campaign ID is missing.',
+        variant: 'destructive',
+      })
+      return
+    }
+  }
 
   return (
     <DropdownMenu>
@@ -26,20 +52,8 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuItem
-          onClick={() => {
-            // @ts-ignore
-            nav("/campaign-detail/"+row.original?.id, {state:{campaign: row.original}})
-          }}>
-          Edit
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            // Handle delete action
-            console.log('Delete', row.original)
-          }}>
-          Delete
-        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleEdit}>View</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
