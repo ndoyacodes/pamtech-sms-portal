@@ -11,9 +11,14 @@ class CustomerService extends APIClient {
         return this.get<CustomerData>('/customer', params);
     }
 
+    //approve customer
+    approveCustomer(data:any){
+        return this.post<any>('/customer', data);
+    }
+
     // Get a single customer by ID
     getCustomerById(id: string) {
-        return this.get<CustomerData>(`/customer/${id}`);
+        return this.get<any>(`/customer/${id}`);
     }
 
     // Create a new customer

@@ -1,23 +1,17 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Row } from '@tanstack/react-table'
-
 import { Button } from '@/components/custom/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-
-import { labels } from '../data/data'
 import { customerSchema } from '../data/schema'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import CustomerApprovalModal from './cusstomer-approval-modal'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -26,7 +20,9 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const task = customerSchema.parse(row.original)
+  const task = customerSchema.parse(row.original);
+  const [approveModal, setApproveModal] = useState(false)
+  const navigate =  useNavigate();
 
   return (
     <DropdownMenu>
@@ -40,28 +36,22 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={task.lastName}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
+        <DropdownMenuItem
+        onClick={() =>  {
+          navigate(`/customer/${task.id}`)
+        }}
+        >View</DropdownMenuItem>
+        <DropdownMenuItem>edit</DropdownMenuItem>
+        <DropdownMenuItem
+        onClick={() =>  setApproveModal(true)}
+        >approve</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+          {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
         </DropdownMenuItem>
       </DropdownMenuContent>
+     {approveModal && <CustomerApprovalModal customerId={task?.id} onClose={() =>  setApproveModal(false)}/>} 
     </DropdownMenu>
   )
 }

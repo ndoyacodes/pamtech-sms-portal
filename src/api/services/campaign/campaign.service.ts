@@ -1,11 +1,14 @@
 import { APIClient } from '../../axios/instance';
 
-interface CampaignData {
-    // Add campaign-specific fields here
-    id?: number;
-    name?: string;
-    description?: string;
-    // Add other campaign-related fields as needed
+export interface CampaignData {
+        id: number;
+        name: string;
+        description: string;
+        startDate: string;
+        endDate: string;
+        budget: number;
+        customer: number;
+        status: string;
 }
 
 class CampaignService extends APIClient {
@@ -25,7 +28,7 @@ class CampaignService extends APIClient {
 
         // Get campaigns by customer
         getCustomerCampaigns(params?: { page?: number; size?: number }) {
-                return this.get<CampaignData[]>('/campaign/customer',params);
+                return this.get<any>('/campaign/customer',params);
         }
 
         // Get a single campaign by ID

@@ -21,7 +21,13 @@ export default function FarmersPage() {
         page: pagination.pageIndex,
         size: pagination.pageSize,
       })
-      return response
+      
+      return (
+        response || {
+          content: response.content || [],
+          totalElements: response?.totalElements,
+        }
+      )
     },
     retry: 2,
     staleTime: 5 * 60 * 1000,

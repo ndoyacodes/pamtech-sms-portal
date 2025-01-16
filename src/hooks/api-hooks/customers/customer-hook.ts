@@ -19,6 +19,20 @@ export const useCustomer = () => {
         }
     });
 
+    // Approve customer mutation
+    const approveCustomer = useMutation({
+        mutationFn: (data: any) => customerService.approveCustomer(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['customers'] });
+            toast.success('Customer approved successfully');
+        },
+        onError: (error: any) => {
+            const errorMessage = 
+                error?.response?.data?.message || 'Failed to approve customer';
+            toast.error(errorMessage);
+        }
+    });
+
     // Update customer mutation
     const updateCustomer = useMutation({
         mutationFn: ({ id, data }: { id: number; data: any }) => 
@@ -51,6 +65,7 @@ export const useCustomer = () => {
     return {
         createCustomer,
         updateCustomer,
-        deleteCustomer
+        deleteCustomer,
+        approveCustomer
     };
 };

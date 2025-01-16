@@ -13,6 +13,9 @@ import { Button } from '@/components/custom/button';
 import { Layout } from '@/components/custom/layout';
 import ThemeSwitch from '@/components/theme-switch';
 import { UserNav } from '@/components/user-nav';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { customerService } from '@/api/services/customers/customer.service';
 
 // Mock customer data (replace with API call in a real application)
 const mockCustomer = {
@@ -32,12 +35,28 @@ const mockCustomer = {
 };
 
 const CustomerDetails = () => {
-  
+  const { id } = useParams();
 
+
+  const {
+    data: data,
+    isLoading,
+  } = useQuery({
+    queryKey: ['customer-details', id],
+    queryFn: () => {
+      //@ts-ignore
+      const response: any = customerService.getCustomerById(id)
+      console.log(response);
+    
+      return response
+    },
+  })
+
+  console.log(data);
 
   const customer = mockCustomer;
 
-  if (!customer) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
