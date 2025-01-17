@@ -53,8 +53,10 @@ export function DataTableRowActions<TData>({
           View
         </DropdownMenuItem>
         <DropdownMenuItem>Edit</DropdownMenuItem>
-        {(task.approvalStatus !== 'REJECTED' ||
-          task.approvalStatus !== 'APPROVED') && (
+        {!(
+          task.approvalStatus === 'REJECTED' ||
+          task.approvalStatus === 'APPROVED'
+        ) ? <></> : (
           <>
             <DropdownMenuItem onClick={() => setApproveModal(true)}>
               Approve
