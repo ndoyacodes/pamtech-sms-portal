@@ -86,7 +86,7 @@ export const columns: ColumnDef<Customer>[] = [
     ),
     cell: ({ row }) => (
       <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-        {row.getValue('customerType')}
+        {row.getValue('customerType') !== null || row.getValue('customerType') !== undefined && row.getValue('customerType')}
       </span>
     ),
   },

@@ -13,7 +13,7 @@ class CustomerService extends APIClient {
 
     //approve customer
     approveCustomer(data:any){
-        return this.post<any>('/customer', data);
+        return this.post<any>('/customer/approve', data);
     }
 
     // Get a single customer by ID

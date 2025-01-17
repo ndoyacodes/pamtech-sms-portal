@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { customerService } from '@/api/services/customers/customer.service'; // You'll need to create this service
+import { customerService } from '@/api/services/customers/customer.service';
+// import { data } from 'autoprefixer' // You'll need to create this service
 
 export const useCustomer = () => {
     const queryClient = useQueryClient();
@@ -23,8 +24,7 @@ export const useCustomer = () => {
     const approveCustomer = useMutation({
         mutationFn: (data: any) => customerService.approveCustomer(data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['customers'] });
-            toast.success('Customer approved successfully');
+            queryClient.invalidateQueries({ queryKey: ['customers'] }).then(r => console.log(r));
         },
         onError: (error: any) => {
             const errorMessage = 
