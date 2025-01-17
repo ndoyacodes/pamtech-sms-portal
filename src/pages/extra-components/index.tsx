@@ -88,6 +88,7 @@ export default function ExtraComponents() {
                 <SyntaxHighlighter
                   language='tsx'
                   style={nord}
+                  refs
                   wrapLines
                   wrapLongLines
                 >
