@@ -96,7 +96,8 @@ export const columns: ColumnDef<Customer>[] = [
       <DataTableColumnHeader column={column} title='Approval' />
     ),
     cell: ({ row }) => (
-      <Badge>
+      <Badge variant={row.getValue('approvalStatus') === "PENDING" || row.getValue('approvalStatus') === null ? 'secondary'
+        : row.getValue('approvalStatus') === "APPROVED" ? 'success' : 'destructive'}>
         {row.getValue('approvalStatus')}
       </Badge>
     ),

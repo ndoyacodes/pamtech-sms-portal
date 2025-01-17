@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { customerSchema } from '../data/schema'
@@ -33,6 +32,7 @@ export function DataTableRowActions<TData>({
     setApproveModal(false);
   };
 
+  // @ts-ignore
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -53,18 +53,23 @@ export function DataTableRowActions<TData>({
           View
         </DropdownMenuItem>
         <DropdownMenuItem>Edit</DropdownMenuItem>
+        { task.approvalStatus === "APPROVED" &&
         <DropdownMenuItem onClick={() => setApproveModal(true)}>
           Approve
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        }
+
+        { (task.approvalStatus === "REJECTED" || task.approvalStatus === "APPROVED") &&
         <DropdownMenuItem onClick={() => setRejectModal(true)}>
           Reject
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        }
+        { task.approvalStatus === "APPROVED" &&
         <DropdownMenuItem>
           Delete
           {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
         </DropdownMenuItem>
+        }
       </DropdownMenuContent>
       {approveModal && (
         <CustomerApprovalModal
