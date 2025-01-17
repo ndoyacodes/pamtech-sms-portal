@@ -13,7 +13,8 @@ export const customerSchema = z.object({
   companyName: z.string(),
   website: z.string().url(),
   // customerType: z.enum(['POSTPAID', 'PREPAID'])
-  customerType: z.any()
+  customerType: z.any(),
+  approvalStatus: z.string()
 })
 
 export type Customer = z.infer<typeof customerSchema>

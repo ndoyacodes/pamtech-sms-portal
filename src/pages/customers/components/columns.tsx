@@ -91,6 +91,17 @@ export const columns: ColumnDef<Customer>[] = [
     ),
   },
   {
+    accessorKey: 'approvalStatus',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Approval' />
+    ),
+    cell: ({ row }) => (
+      <Badge>
+        {row.getValue('approvalStatus')}
+      </Badge>
+    ),
+  },
+  {
     accessorKey: 'status',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Status' />
