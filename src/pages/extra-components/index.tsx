@@ -84,14 +84,14 @@ export default function ExtraComponents() {
                   </PinInput>
                 </div>
               </TabsContent>
-              <TabsContent value='code'>
-                {/*<SyntaxHighlighter*/}
-                {/*  language='tsx'*/}
-                {/*  style={nord}*/}
-                {/*  refs*/}
-                {/*  wrapLines*/}
-                {/*  wrapLongLines*/}
-                {/*>*/}
+              {/*<TabsContent value='code'>
+                <SyntaxHighlighter
+                  language='tsx'
+                  style={nord}
+                  refs
+                  wrapLines
+                  wrapLongLines
+                >
                   {`<PinInput
                       className='flex h-10 space-x-4'
                       defaultValue=''
@@ -107,8 +107,8 @@ export default function ExtraComponents() {
                       <PinInputField component={Input} />
                     </PinInput>
                     `}
-                {/*</SyntaxHighlighter>*/}
-              </TabsContent>
+                </SyntaxHighlighter>
+              </TabsContent>*/}
             </Tabs>
           </div>
           <div className='flex-1'>
