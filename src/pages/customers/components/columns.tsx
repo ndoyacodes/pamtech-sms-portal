@@ -86,8 +86,20 @@ export const columns: ColumnDef<Customer>[] = [
     ),
     cell: ({ row }) => (
       <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-        {row.getValue('customerType')}
+        {row.getValue('customerType') !== null || row.getValue('customerType') !== undefined && row.getValue('customerType')}
       </span>
+    ),
+  },
+  {
+    accessorKey: 'approvalStatus',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Approval' />
+    ),
+    cell: ({ row }) => (
+      <Badge variant={row.getValue('approvalStatus') === "PENDING" || row.getValue('approvalStatus') === null ? 'secondary'
+        : row.getValue('approvalStatus') === "APPROVED" ? 'success' : 'destructive'}>
+        {row.getValue('approvalStatus')}
+      </Badge>
     ),
   },
   {

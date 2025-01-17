@@ -12,7 +12,9 @@ export const customerSchema = z.object({
   language: z.string(),
   companyName: z.string(),
   website: z.string().url(),
-  customerType: z.any()
+  // customerType: z.any()
+  customerType: z.any(),
+  approvalStatus: z.string()
 })
 
 export type Customer = z.infer<typeof customerSchema>

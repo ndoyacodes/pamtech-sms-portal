@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { customerSchema } from '../data/schema'
@@ -21,11 +20,21 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const customer = customerSchema.parse(row.original);
+  const customer = customerSchema.parse(row.original)
   const [approveModal, setApproveModal] = useState(false);
   const [revokeApprovalMOdal, setRevokeApprovalMOdal] = useState(false)
-  const navigate =  useNavigate();
+  const [rejectModal, setRejectModal] = useState(false)
+  const navigate = useNavigate()
 
+  const handleCloseApprovalModal = () => {
+    setApproveModal(false)
+  }
+
+  const handleCloseRejectModal = () => {
+    setApproveModal(false)
+  }
+
+  // @ts-ignore
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -39,6 +48,7 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
         <DropdownMenuItem
+<<<<<<< HEAD
         onClick={() =>  {
           navigate(`/customer/${customer.id}`)
         }}
@@ -55,10 +65,55 @@ export function DataTableRowActions<TData>({
         <DropdownMenuItem>
           Delete
           {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
+=======
+          onClick={() => {
+            navigate(`/customer/${task.id}`)
+          }}
+        >
+          View
+>>>>>>> 79897e0c3987caf0d506b460f9de93d12036462e
         </DropdownMenuItem>
+        <DropdownMenuItem>Edit</DropdownMenuItem>
+        {!(
+          task.approvalStatus === 'REJECTED' ||
+          task.approvalStatus === 'APPROVED'
+        ) ? <></> : (
+          <>
+            <DropdownMenuItem onClick={() => setApproveModal(true)}>
+              Approve
+            </DropdownMenuItem>
+
+            <DropdownMenuItem onClick={() => setRejectModal(true)}>
+              Reject
+            </DropdownMenuItem>
+          </>
+        )}
+        {task.approvalStatus === 'APPROVED' && (
+          <DropdownMenuItem>
+            Delete
+            {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
+<<<<<<< HEAD
      {approveModal && <CustomerApprovalModal customerId={customer?.id} onClose={() =>  setApproveModal(false)}/>} 
       {revokeApprovalMOdal && <DeleteBlacklistDialog mode="disapprove" customerId={customer?.id} onClose={() =>  setRevokeApprovalMOdal(false)}/>}
+=======
+      {approveModal && (
+        <CustomerApprovalModal
+          customerId={task?.id}
+          actionType={'APPROVE'}
+          onClose={handleCloseApprovalModal}
+        />
+      )}
+      {rejectModal && (
+        <CustomerApprovalModal
+          customerId={task?.id}
+          actionType={'REJECT'}
+          onClose={handleCloseRejectModal}
+        />
+      )}
+>>>>>>> 79897e0c3987caf0d506b460f9de93d12036462e
     </DropdownMenu>
   )
 }

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IconChevronRight } from '@tabler/icons-react'
-import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+// import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism'
+// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { Layout } from '@/components/custom/layout'
 import { Breadcrumb, BreadcrumbItem } from '@/components/custom/breadcrumb'
 import { PinInput, PinInputField } from '@/components/custom/pin-input'
@@ -84,30 +84,31 @@ export default function ExtraComponents() {
                   </PinInput>
                 </div>
               </TabsContent>
-              <TabsContent value='code'>
+              {/*<TabsContent value='code'>
                 <SyntaxHighlighter
                   language='tsx'
                   style={nord}
+                  refs
                   wrapLines
                   wrapLongLines
                 >
                   {`<PinInput
-  className='flex h-10 space-x-4'
-  defaultValue=''
-  onComplete={(str) => 
-    console.log('completed', str)
-  }  
-  autoFocus
->
-  <PinInputField component={Input} />
-  <PinInputField component={Input} />
-  <Separator orientation='vertical' />
-  <PinInputField component={Input} />
-  <PinInputField component={Input} />
-</PinInput>
-`}
+                      className='flex h-10 space-x-4'
+                      defaultValue=''
+                      onComplete={(str) => 
+                        console.log('completed', str)
+                      }  
+                      autoFocus
+                    >
+                      <PinInputField component={Input} />
+                      <PinInputField component={Input} />
+                      <Separator orientation='vertical' />
+                      <PinInputField component={Input} />
+                      <PinInputField component={Input} />
+                    </PinInput>
+                    `}
                 </SyntaxHighlighter>
-              </TabsContent>
+              </TabsContent>*/}
             </Tabs>
           </div>
           <div className='flex-1'>
@@ -131,7 +132,7 @@ export default function ExtraComponents() {
                   </PinInput>
                 </div>
               </TabsContent>
-              <TabsContent value='code'>
+              {/*<TabsContent value='code'>
                 <SyntaxHighlighter
                   language='tsx'
                   style={nord}
@@ -139,25 +140,25 @@ export default function ExtraComponents() {
                   wrapLongLines
                 >
                   {`function ControlledPinInput() {
-  const [pinInput, setPinInput] = useState('');
+                    const [pinInput, setPinInput] = useState('');
 
-  return (
-    <PinInput
-      className='flex h-10 space-x-4'
-      value={pinInput}
-      onChange={setPinInput}
-      onComplete={(str) => 
-        console.log('completed', str)
-      }
-    >
-      {Array.from({ length: 4 }, (_, i) => (
-        <PinInputField key={i} component={Input} />
-      ))}
-    </PinInput>
-  )
-}`}
+                    return (
+                      <PinInput
+                        className='flex h-10 space-x-4'
+                        value={pinInput}
+                        onChange={setPinInput}
+                        onComplete={(str) => 
+                          console.log('completed', str)
+                        }
+                      >
+                        {Array.from({ length: 4 }, (_, i) => (
+                          <PinInputField key={i} component={Input} />
+                        ))}
+                      </PinInput>
+                    )
+                  }`}
                 </SyntaxHighlighter>
-              </TabsContent>
+              </TabsContent>*/}
             </Tabs>
           </div>
         </div>
