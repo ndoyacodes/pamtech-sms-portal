@@ -25,12 +25,12 @@ export function DataTableRowActions<TData>({
   const navigate = useNavigate()
 
   const handleCloseApprovalModal = () => {
-    setApproveModal(false);
-  };
+    setApproveModal(false)
+  }
 
   const handleCloseRejectModal = () => {
-    setApproveModal(false);
-  };
+    setApproveModal(false)
+  }
 
   // @ts-ignore
   return (
@@ -53,35 +53,36 @@ export function DataTableRowActions<TData>({
           View
         </DropdownMenuItem>
         <DropdownMenuItem>Edit</DropdownMenuItem>
-        { task.approvalStatus === "APPROVED" &&
-        <DropdownMenuItem onClick={() => setApproveModal(true)}>
-          Approve
-        </DropdownMenuItem>
-        }
+        {(task.approvalStatus !== 'REJECTED' ||
+          task.approvalStatus !== 'APPROVED') && (
+          <>
+            <DropdownMenuItem onClick={() => setApproveModal(true)}>
+              Approve
+            </DropdownMenuItem>
 
-        { (task.approvalStatus === "REJECTED" || task.approvalStatus === "APPROVED") &&
-        <DropdownMenuItem onClick={() => setRejectModal(true)}>
-          Reject
-        </DropdownMenuItem>
-        }
-        { task.approvalStatus === "APPROVED" &&
-        <DropdownMenuItem>
-          Delete
-          {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
-        </DropdownMenuItem>
-        }
+            <DropdownMenuItem onClick={() => setRejectModal(true)}>
+              Reject
+            </DropdownMenuItem>
+          </>
+        )}
+        {task.approvalStatus === 'APPROVED' && (
+          <DropdownMenuItem>
+            Delete
+            {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
       {approveModal && (
         <CustomerApprovalModal
           customerId={task?.id}
-          actionType={"APPROVE"}
+          actionType={'APPROVE'}
           onClose={handleCloseApprovalModal}
         />
       )}
       {rejectModal && (
         <CustomerApprovalModal
           customerId={task?.id}
-          actionType={"REJECT"}
+          actionType={'REJECT'}
           onClose={handleCloseRejectModal}
         />
       )}
