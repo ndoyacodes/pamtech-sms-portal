@@ -13,9 +13,10 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
     (config: InternalAxiosRequestConfig) => {
       const state = store.getState();
       const accessToken = state.auth.tokens.access;
-      console.log('accessToken', accessToken);
+      const refreshToken = state.auth.tokens.refresh;
+      console.log('refresh token', refreshToken);
       if (accessToken) {
-        config.headers.set('Authorization', `Bearer ${accessToken}`);
+        config.headers['Authorization'] = `Bearer ${accessToken}`;
       }
       return config;
     },
@@ -40,7 +41,7 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
           if (!refreshToken) {
             throw new Error('No refresh token available');
           }
-
+       
           const response = await axios.post(`/api/auth/refresh`, {
             refreshToken: refreshToken
           });

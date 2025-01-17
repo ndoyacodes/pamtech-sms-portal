@@ -24,7 +24,7 @@ export const useCustomer = () => {
     const approveCustomer = useMutation({
         mutationFn: (data: any) => customerService.approveCustomer(data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['customers'] }).then(r => console.log(r));
+            queryClient.invalidateQueries({ queryKey: ['customers', 'customer-details'] }).then(r => console.log(r));
         },
         onError: (error: any) => {
             const errorMessage = 
@@ -38,7 +38,7 @@ export const useCustomer = () => {
         mutationFn: ({ id, data }: { id: number; data: any }) => 
             customerService.updateCustomer(id, data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['customers'] });
+            queryClient.invalidateQueries({ queryKey: ['customers', 'customer-details'] });
             toast.success('Customer updated successfully');
         },
         onError: (error: any) => {

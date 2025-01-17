@@ -79,17 +79,17 @@ export const columns: ColumnDef<Customer>[] = [
     ),
   },
 
-  {
-    accessorKey: 'customerType',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Type' />
-    ),
-    cell: ({ row }) => (
-      <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-        {row.getValue('customerType') !== null || row.getValue('customerType') !== undefined && row.getValue('customerType')}
-      </span>
-    ),
-  },
+  // {
+  //   accessorKey: 'customerType',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title='Type' />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
+  //       {row.getValue('customerType') !== null || row.getValue('customerType') !== undefined && row.getValue('customerType')}
+  //     </span>
+  //   ),
+  // },
   {
     accessorKey: 'approvalStatus',
     header: ({ column }) => (
@@ -120,7 +120,7 @@ export const columns: ColumnDef<Customer>[] = [
         {row.getValue('status') === true
           ? 'Active'
           : row.getValue('status') === false
-          ? 'Pending'
+          ? 'Inactive'
           : 'Inactive'}
       </Badge>
     ),

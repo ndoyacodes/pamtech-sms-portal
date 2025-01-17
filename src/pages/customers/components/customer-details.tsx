@@ -1,5 +1,4 @@
 import {
-  User,
   Building2,
   Mail,
   Globe,
@@ -23,12 +22,11 @@ import { format } from 'date-fns'
 import { Search } from '@/components/search'
 import { useState } from 'react'
 import CustomerApprovalModal from './cusstomer-approval-modal'
-import DeleteBlacklistDialog from './approval-confimation'
 
 const CustomerDetails = () => {
   const { id } = useParams();
     const [approveModal, setApproveModal] = useState(false);
-    const [revokeApprovalMOdal, setRevokeApprovalMOdal] = useState(false);
+    const [rejectModal, setRejectModal] = useState(false)
     const navigate =  useNavigate();
 
   const { data: customer, isLoading } = useQuery({
@@ -88,7 +86,7 @@ const CustomerDetails = () => {
                 onClick={() =>  navigate('/customer/add', {state:{record:customer}})}
                 >Edit Customer</Button>
               <Button variant="destructive"
-                onClick={() =>  setRevokeApprovalMOdal(true)}
+                onClick={() =>  setRejectModal(true)}
               >Revoke</Button>
 
               </div>
@@ -164,35 +162,35 @@ const CustomerDetails = () => {
                 <Shield className='h-5 w-5 text-gray-500' />
                 <div>
                   <p className='text-sm text-gray-500'>Customer Type</p>
-                  <p className='font-medium'>{customer.customerType || 'Not specified'}</p>
+                  <p className='font-medium'>{customer?.customerType || 'Not specified'}</p>
                 </div>
               </div>
               <div className='flex items-center space-x-4'>
                 <Wallet className='h-5 w-5 text-gray-500' />
                 <div>
                   <p className='text-sm text-gray-500'>SMS Balance</p>
-                  <p className='font-medium'>{customer.smsBalance}</p>
+                  <p className='font-medium'>{customer?.smsBalance}</p>
                 </div>
               </div>
               <div className='flex items-center space-x-4'>
                 <CheckCircle className='h-5 w-5 text-gray-500' />
                 <div>
                   <p className='text-sm text-gray-500'>Pending SMS</p>
-                  <p className='font-medium'>{customer.hasPendingSMS ? 'Yes' : 'No'}</p>
+                  <p className='font-medium'>{customer?.hasPendingSMS ? 'Yes' : 'No'}</p>
                 </div>
               </div>
               <div className='flex items-center space-x-4'>
                 <Calendar className='h-5 w-5 text-gray-500' />
                 <div>
                   <p className='text-sm text-gray-500'>Created At</p>
-                  <p className='font-medium'>{format(new Date(customer.createdAt), 'PPpp')}</p>
+                  <p className='font-medium'>{format(new Date(customer?.createdAt), 'PPpp')}</p>
                 </div>
               </div>
               <div className='flex items-center space-x-4'>
                 <Calendar className='h-5 w-5 text-gray-500' />
                 <div>
                   <p className='text-sm text-gray-500'>Last Updated</p>
-                  <p className='font-medium'>{format(new Date(customer.updatedAt), 'PPpp')}</p>
+                  <p className='font-medium'>{format(new Date(customer?.updatedAt), 'PPpp')}</p>
                 </div>
               </div>
             </div>
@@ -219,8 +217,14 @@ const CustomerDetails = () => {
           </CardFooter>
         </Card>
       </Layout.Body>
-      {approveModal && <CustomerApprovalModal customerId={customer?.id} onClose={() =>  setApproveModal(false)}/>} 
-      {revokeApprovalMOdal && <DeleteBlacklistDialog mode="disapprove" customerId={customer?.id} onClose={() =>  setRevokeApprovalMOdal(false)}/>}
+      {approveModal && <CustomerApprovalModal customerId={customer?.id} onClose={() =>  setApproveModal(false)}  actionType={'APPROVE'}/>} 
+      {rejectModal && (
+        <CustomerApprovalModal
+          customerId={customer?.id}
+          actionType={'REJECT'}
+          onClose={() =>  setRejectModal(false)}
+        />
+      )}
     </Layout>
   )
 }

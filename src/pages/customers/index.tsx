@@ -6,15 +6,26 @@ import { DataTable } from './components/data-table'
 import { columns } from './components/columns'
 import { useQuery } from '@tanstack/react-query'
 import { customerService } from '@/api/services/customers/customer.service'
+import { useState } from 'react'
 
 export default function FarmersPage() {
+   const [pagination, setPagination] = useState({
+      pageIndex: 0,
+      pageSize: 10,
+    })
+    // const { user} = useAuthStore();
   const {
     data: customers,
     isLoading,
   } = useQuery({
-    queryKey: ['customers'],
+    queryKey: ['customers', pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
-      const response:any = await customerService.getCustomers({page: 0, size: 10});
+      const response:any = await customerService.getCustomers(
+        {
+          page: pagination.pageIndex,
+          size: pagination.pageSize,
+        }
+      );
       return response || [];
     },
     retry: 2,
@@ -47,7 +58,13 @@ export default function FarmersPage() {
         </div>
       ) : (
         <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
-          <DataTable data={customers || []} columns={columns} />
+         <DataTable
+                      data={customers || []}
+                      columns={columns}
+                      pagination={pagination}
+                      onPaginationChange={setPagination}
+                      totalElements={customers?.totalElements || 0}
+                    />
         </div>
       )}
       </Layout.Body>
