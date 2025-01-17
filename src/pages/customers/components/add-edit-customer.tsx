@@ -36,9 +36,12 @@ import {
   Shield,
 } from 'lucide-react'
 import { useCustomer } from '@/hooks/api-hooks/customers/customer-hook'
-import { CustomerData, CustomerPostData } from '../data/types'
+import {  CustomerPostData } from '../data/types'
+import { useLocation } from 'react-router-dom'
 
-const AddEditCustomer = ({ customer }: { customer?: CustomerData }) => {
+const AddEditCustomer = () => {
+  const location =  useLocation();
+  const customer = location?.state?.record;
   const { updateCustomer, createCustomer } = useCustomer()
   //@ts-ignore
   const aryIanaTimeZones = Intl.supportedValuesOf('timeZone')

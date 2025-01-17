@@ -45,6 +45,9 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
             refreshToken: refreshToken
           });
 
+          console.log(response);
+          
+
           store.dispatch(setCredentials({
             accessToken: response.data.access,
             refreshToken: response.data.refresh,

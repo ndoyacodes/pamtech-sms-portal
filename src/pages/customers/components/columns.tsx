@@ -96,8 +96,20 @@ export const columns: ColumnDef<Customer>[] = [
       <DataTableColumnHeader column={column} title='Status' />
     ),
     cell: ({ row }) => (
-      <Badge>
-        {row.getValue('status') ? 'Active' : 'Inactive'}
+      <Badge 
+        variant={
+          row.getValue('status') === true
+        ? 'success'
+        : row.getValue('status') === false
+        ? 'secondary'
+        : 'destructive'
+        }
+      >
+        {row.getValue('status') === true
+          ? 'Active'
+          : row.getValue('status') === false
+          ? 'Pending'
+          : 'Inactive'}
       </Badge>
     ),
   },

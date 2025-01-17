@@ -12,6 +12,7 @@ import { customerSchema } from '../data/schema'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import CustomerApprovalModal from './cusstomer-approval-modal'
+import DeleteBlacklistDialog from './approval-confimation'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -20,8 +21,9 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const task = customerSchema.parse(row.original);
-  const [approveModal, setApproveModal] = useState(false)
+  const customer = customerSchema.parse(row.original);
+  const [approveModal, setApproveModal] = useState(false);
+  const [revokeApprovalMOdal, setRevokeApprovalMOdal] = useState(false)
   const navigate =  useNavigate();
 
   return (
@@ -38,20 +40,25 @@ export function DataTableRowActions<TData>({
       <DropdownMenuContent align='end' className='w-[160px]'>
         <DropdownMenuItem
         onClick={() =>  {
-          navigate(`/customer/${task.id}`)
+          navigate(`/customer/${customer.id}`)
         }}
         >View</DropdownMenuItem>
         <DropdownMenuItem>edit</DropdownMenuItem>
-        <DropdownMenuItem
-        onClick={() =>  setApproveModal(true)}
-        >approve</DropdownMenuItem>
+       {
+          customer.status ? <DropdownMenuItem
+          onClick={() =>  setRevokeApprovalMOdal(true)}
+          >Revoke Approval</DropdownMenuItem> : <DropdownMenuItem
+          onClick={() =>  setApproveModal(true)}
+          >Approve</DropdownMenuItem>
+       }
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           Delete
           {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
         </DropdownMenuItem>
       </DropdownMenuContent>
-     {approveModal && <CustomerApprovalModal customerId={task?.id} onClose={() =>  setApproveModal(false)}/>} 
+     {approveModal && <CustomerApprovalModal customerId={customer?.id} onClose={() =>  setApproveModal(false)}/>} 
+      {revokeApprovalMOdal && <DeleteBlacklistDialog mode="disapprove" customerId={customer?.id} onClose={() =>  setRevokeApprovalMOdal(false)}/>}
     </DropdownMenu>
   )
 }
