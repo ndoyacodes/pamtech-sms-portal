@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IconChevronRight } from '@tabler/icons-react'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { Layout } from '@/components/custom/layout'
 import { Breadcrumb, BreadcrumbItem } from '@/components/custom/breadcrumb'
 import { PinInput, PinInputField } from '@/components/custom/pin-input'
@@ -45,15 +45,13 @@ export default function ExtraComponents() {
         </div>
       </Layout.Header>
 
-      {/* ===== Main Content ===== */}
+      {/* className='space-y-4' */}
       <Layout.Body className='space-y-4'>
         <div className='flex items-center justify-between space-y-2'>
           <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
             Extra Components
           </h1>
         </div>
-
-        {/* Breadcrumbs */}
         <h2 className='text-lg font-bold md:text-xl'>Breadcrumbs</h2>
         <Breadcrumb separator={<IconChevronRight size={18} />}>
           {items}
@@ -62,10 +60,8 @@ export default function ExtraComponents() {
 
         <Separator />
 
-        {/* Pin Input */}
         <h2 className='text-lg font-bold md:text-xl'>Pin Input</h2>
         <div className='flex flex-col gap-12 lg:flex-row'>
-          {/* Uncontrolled Pin Input */}
           <div className='flex-1'>
             <h3 className='mb-2 font-medium'>Uncontrolled</h3>
             <Tabs defaultValue='preview'>
@@ -97,7 +93,10 @@ export default function ExtraComponents() {
                 >
                   {`<PinInput
   className='flex h-10 space-x-4'
-  onComplete={(str) => console.log('completed', str)}
+  defaultValue=''
+  onComplete={(str) => 
+    console.log('completed', str)
+  }  
   autoFocus
 >
   <PinInputField component={Input} />
@@ -105,13 +104,12 @@ export default function ExtraComponents() {
   <Separator orientation='vertical' />
   <PinInputField component={Input} />
   <PinInputField component={Input} />
-</PinInput>`}
+</PinInput>
+`}
                 </SyntaxHighlighter>
               </TabsContent>
             </Tabs>
           </div>
-
-          {/* Controlled Pin Input */}
           <div className='flex-1'>
             <h3 className='mb-2 font-medium'>Controlled</h3>
             <Tabs defaultValue='preview'>
@@ -148,13 +146,15 @@ export default function ExtraComponents() {
       className='flex h-10 space-x-4'
       value={pinInput}
       onChange={setPinInput}
-      onComplete={(str) => console.log('completed', str)}
+      onComplete={(str) => 
+        console.log('completed', str)
+      }
     >
       {Array.from({ length: 4 }, (_, i) => (
         <PinInputField key={i} component={Input} />
       ))}
     </PinInput>
-  );
+  )
 }`}
                 </SyntaxHighlighter>
               </TabsContent>
