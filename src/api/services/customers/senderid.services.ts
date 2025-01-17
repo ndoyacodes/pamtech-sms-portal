@@ -36,7 +36,8 @@ class SenderIdService extends APIClient {
 
         // Delete a sender ID
         deleteSenderId(id: number) {
-                return this.delete<void>(`/sender-id/`, {id: id});
+                // @ts-ignore
+          return this.delete<void>(`/sender-id/${id}`);
         }
 
         getCustomerSenderIds(p0: { page: number; size: number; }) {
