@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IconChevronRight } from '@tabler/icons-react'
-import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+// import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism'
+// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { Layout } from '@/components/custom/layout'
 import { Breadcrumb, BreadcrumbItem } from '@/components/custom/breadcrumb'
 import { PinInput, PinInputField } from '@/components/custom/pin-input'
@@ -132,7 +132,7 @@ export default function ExtraComponents() {
                   </PinInput>
                 </div>
               </TabsContent>
-              <TabsContent value='code'>
+              {/*<TabsContent value='code'>
                 <SyntaxHighlighter
                   language='tsx'
                   style={nord}
@@ -158,7 +158,7 @@ export default function ExtraComponents() {
                     )
                   }`}
                 </SyntaxHighlighter>
-              </TabsContent>
+              </TabsContent>*/}
             </Tabs>
           </div>
         </div>
