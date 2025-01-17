@@ -36,7 +36,12 @@ export const CampaignBuilder: React.FC = () => {
     },
   })
 
-  const { data: plans, isLoading } = useQuery({
+  // Watch the `planId` and `amount` fields
+  const selectedPlanId = form.watch('planId')
+  const amount = form.watch('amount')
+
+  // Fetch plans
+  const { data: plans, isLoading: isPlansLoading } = useQuery({
     queryKey: ['plans'],
     queryFn: async () => {
       const response = await planService.getPlans({ page: 0, size: 10 })
@@ -45,6 +50,15 @@ export const CampaignBuilder: React.FC = () => {
     retry: 2,
     staleTime: 5 * 60 * 1000,
   })
+
+  // Find the selected plan
+  const selectedPlan = plans?.find((plan: any) => plan.id === selectedPlanId)
+
+  // Calculate the number of SMS (default to 0 if no plan or amount is selected)
+  const numberOfSms =
+    selectedPlan && amount
+      ? Math.floor(Number(amount) / selectedPlan.pricePerSms)
+      : 0
 
   const onSubmit = (data: any) => {
     console.log('Submitted Data:', data)
@@ -68,15 +82,15 @@ export const CampaignBuilder: React.FC = () => {
       </Layout.Header>
 
       <Layout.Body>
-        <div className='mx-auto  max-w-6xl rounded-md p-8 shadow-md'>
+        <div className='mx-auto max-w-6xl rounded-md p-8 shadow-md'>
           <h2 className='mb-6 text-2xl font-semibold'>Top Up</h2>
           <p className='text-sm text-gray-600'>
-            Add balance to your account to snd messages
+            Add balance to your account to send messages
           </p>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-              {/* SMS Template */}
+              {/* Plan Selection */}
               <FormField
                 control={form.control}
                 name='planId'
@@ -87,7 +101,7 @@ export const CampaignBuilder: React.FC = () => {
                       <Select
                         className='my-react-select-container'
                         classNamePrefix='my-react-select'
-                        isLoading={isLoading}
+                        isLoading={isPlansLoading}
                         placeholder='Select a plan'
                         options={plans?.map((plan: any) => ({
                           value: plan.id,
@@ -97,9 +111,9 @@ export const CampaignBuilder: React.FC = () => {
                         value={
                           plans?.find((plan: any) => plan.id === field.value)
                             ? {
-                                value: field.value,
-                                label: `${plans?.find((plan: any) => plan.id === field.value)?.name} - ${plans.find((plan: any) => plan.id === field.value)?.pricePerSms} TZS`,
-                              }
+                              value: field.value,
+                              label: `${plans?.find((plan: any) => plan.id === field.value)?.name} - ${plans.find((plan: any) => plan.id === field.value)?.pricePerSms} TZS`,
+                            }
                             : null
                         }
                       />
@@ -109,7 +123,7 @@ export const CampaignBuilder: React.FC = () => {
                 )}
               />
 
-              {/* Contact Groups */}
+              {/* Amount Input */}
               <FormField
                 control={form.control}
                 name='amount'
@@ -117,12 +131,23 @@ export const CampaignBuilder: React.FC = () => {
                   <FormItem>
                     <FormLabel>Amount (TZS)</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter balace' {...field} />
+                      <Input
+                        placeholder='Enter amount'
+                        {...field}
+                        type='number' // Ensure the input is a number
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
+              {/* Display Number of SMS (always displayed, defaults to 0) */}
+              <div className='mt-4'>
+                <p className='text-sm text-gray-600'>
+                  Number of SMS: <strong>{numberOfSms}</strong>
+                </p>
+              </div>
 
               {/* Submit Button */}
               <div className='flex justify-end'>
@@ -131,7 +156,7 @@ export const CampaignBuilder: React.FC = () => {
                   loading={createSubscriptionPlan.isPending}
                   disabled={createSubscriptionPlan.isPending}
                 >
-                  checkout
+                  Checkout
                 </Button>
               </div>
             </form>

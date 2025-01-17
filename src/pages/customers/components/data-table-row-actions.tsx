@@ -54,15 +54,16 @@ export function DataTableRowActions<TData>({
         >
           View
         </DropdownMenuItem>
+        {customer.approvalStatus !== 'REJECTED'&&
         <DropdownMenuItem
           onClick={() => {
             navigate(`/customer/add`, { state: { record:customer } })
           }}
         >Edit</DropdownMenuItem>
-        {!(
-          customer.approvalStatus === 'REJECTED' ||
-          customer.approvalStatus === 'APPROVED'
-        ) ? <></> : (
+        }
+        {(
+          customer.approvalStatus === 'PENDING'
+        ) &&
           <>
             <DropdownMenuItem onClick={() => setApproveModal(true)}>
               Approve
@@ -71,16 +72,13 @@ export function DataTableRowActions<TData>({
             <DropdownMenuItem onClick={() => setRejectModal(true)}>
               Reject
             </DropdownMenuItem>
-          </>
-        )}
-        {customer.approvalStatus === 'APPROVED' && (
+
           <DropdownMenuItem>
             Delete
-            {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
           </DropdownMenuItem>
-        )}
+          </>
+        }
       </DropdownMenuContent>
-     {/* {approveModal && <CustomerApprovalModal customerId={customer?.id} onClose={() =>  setApproveModal(false)}/>}  */}
       {revokeApprovalMOdal && <DeleteBlacklistDialog mode="disapprove" customerId={customer?.id} onClose={() =>  setRevokeApprovalMOdal(false)}/>}
       {approveModal && (
         <CustomerApprovalModal

@@ -72,7 +72,7 @@ const CustomerDetails = () => {
             </p>
           </div>
         
-          {!customer?.status && (
+          {customer.approvalStatus === 'PENDING' && (
             <div className="flex gap-2">
                 <Button variant='outline'>Edit Customer</Button>
               <Button variant="default"
@@ -80,7 +80,7 @@ const CustomerDetails = () => {
               >Approve</Button>
             </div>
           )}
-          {customer?.status && (
+          {customer.approvalStatus === 'APPROVED' && (
                <div className="flex gap-2">
                 <Button variant='outline'
                 onClick={() =>  navigate('/customer/add', {state:{record:customer}})}
