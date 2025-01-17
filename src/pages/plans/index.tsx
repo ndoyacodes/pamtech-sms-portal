@@ -6,20 +6,29 @@ import { DataTable } from './components/data-table'
 import { columns } from './components/columns'
 import { useQuery } from '@tanstack/react-query'
 import { planService } from '@/api/services/plan/plan.service'
+import { useState } from 'react'
 
 export default function PlansPage() {
+    const [pagination, setPagination] = useState({
+      pageIndex: 0,
+      pageSize: 10,
+    })
   const {
     data: plans,
     isLoading,
   } = useQuery({
-    queryKey: ['plans'],
+    queryKey: ['plans', pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
-      const response = await planService.getPlans({page: 0, size: 10});
+      const response = await planService.getPlans({
+        page: pagination.pageIndex,
+        size: pagination.pageSize,
+      });
       return response || [];
     },
     retry: 2,
     staleTime: 5 * 60 * 1000
   });
+
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
@@ -46,7 +55,13 @@ export default function PlansPage() {
                </div>
              ) : (
                <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
-                 <DataTable data={plans || []} columns={columns} />
+   <DataTable
+              data={plans || []}
+              columns={columns}
+              pagination={pagination}
+              onPaginationChange={setPagination}
+              totalElements={plans?.totalElements || 0}
+            />
                </div>
              )}
       </Layout.Body>

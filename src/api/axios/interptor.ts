@@ -1,5 +1,5 @@
 import { store } from '@/store/Store';
-import axios, {
+import {
   AxiosInstance,
   AxiosError,
   InternalAxiosRequestConfig
@@ -7,32 +7,52 @@ import axios, {
 import { setCredentials } from '@/store/slices/auth/auth.slice';
 import { displaySessionExpiredModal } from './session-expirition';
 
+
 export const setupInterceptors = (instance: AxiosInstance): void => {
-  // Request interceptor
+  let isRefreshing = false;
+  let failedQueue: any[] = [];
+
+  const processQueue = (error: any = null) => {
+    failedQueue.forEach(prom => {
+      if (error) {
+        prom.reject(error);
+      } else {
+        prom.resolve();
+      }
+    });
+    failedQueue = [];
+  };
+
   instance.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
       const state = store.getState();
       const accessToken = state.auth.tokens.access;
-      const refreshToken = state.auth.tokens.refresh;
-      console.log('refresh token', refreshToken);
+      
       if (accessToken) {
+        // Add token expiration check here if using JWT
         config.headers['Authorization'] = `Bearer ${accessToken}`;
       }
       return config;
     },
-    (error: AxiosError) => {
-      return Promise.reject(error);
-    }
+    (error: AxiosError) => Promise.reject(error)
   );
 
-  // Response interceptor
   instance.interceptors.response.use(
     response => response.data,
     async (error: AxiosError) => {
       const originalRequest = error.config as any;
 
       if (error.response?.status === 401 && !originalRequest._retry) {
+        if (isRefreshing) {
+          return new Promise((resolve, reject) => {
+            failedQueue.push({ resolve, reject });
+          })
+            .then(() => instance(originalRequest))
+            .catch(err => Promise.reject(err));
+        }
+
         originalRequest._retry = true;
+        isRefreshing = true;
 
         try {
           const state = store.getState();
@@ -41,42 +61,45 @@ export const setupInterceptors = (instance: AxiosInstance): void => {
           if (!refreshToken) {
             throw new Error('No refresh token available');
           }
-       
-          const response = await axios.post(`/api/auth/refresh`, {
-            refreshToken: refreshToken
+
+          const response = await instance.post<any>('/auth/refresh', {
+            refreshToken
           });
 
-          console.log(response);
+          store.dispatch(
+            setCredentials({
+              accessToken: response.data.access,
+              refreshToken: response.data.refresh,
+              //@ts-ignore
+              user: state.auth.user
+            })
+          );
+
+          //@ts-ignore
+          originalRequest.headers.Authorization = `Bearer ${response.access}`;
           
-
-          store.dispatch(setCredentials({
-            accessToken: response.data.access,
-            refreshToken: response.data.refresh,
-            //@ts-ignore
-            user: state.auth.user
-          }))
-        
-          const newAccessToken = response.data.access;
-        
-          // Update the failed request's authorization header
-          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
-          // Retry the original request
+          processQueue();
           return instance(originalRequest);
         } catch (refreshError) {
-          // Clear local storage and redirect to login page
-          localStorage.clear();
-             setTimeout(() => {
-            displaySessionExpiredModal(); 
-          }, 100);
-      
-          window.location.reload();
+          processQueue(refreshError);
+          
+          // Only clear and reload for actual auth failures
+          if (refreshError) {
+            localStorage.clear();
+            setTimeout(() => {
+           displaySessionExpiredModal(); 
+         }, 100);
+
+         window.location.reload();
+            return Promise.reject(refreshError);
+          }
+          
           return Promise.reject(refreshError);
+        } finally {
+          isRefreshing = false;
         }
       }
 
-      // Handle other errors
-      // const errorMessage = 'An error occurred';
       return Promise.reject(error);
     }
   );

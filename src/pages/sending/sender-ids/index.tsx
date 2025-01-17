@@ -7,16 +7,19 @@ import { DataTable } from './components/data-table'
 import { columns } from './components/columns'
 import { useQuery } from '@tanstack/react-query'
 import { senderIdService } from '@/api/services/customers/senderid.services'
+import { useAuthStore } from '@/hooks/use-auth-store'
 
 export default function FarmersPage() {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
-  })
+  });
+  const {user} =  useAuthStore();
 
   const { data: senderIds, isLoading } = useQuery({
     queryKey: ['sender-ids', pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
+     if (user?.customer) {
       const response: any = await senderIdService.getCustomerSenderIds({
         page: pagination.pageIndex,
         size: pagination.pageSize,
@@ -27,6 +30,19 @@ export default function FarmersPage() {
           totalElements: response?.totalElements,
         }
       )
+      
+     }
+     const response: any = await senderIdService.getSenderIds({
+      page: pagination.pageIndex,
+      size: pagination.pageSize,
+    })
+    return (
+      response || {
+        content: response.content || [],
+        totalElements: response?.totalElements,
+      }
+    )
+   
     },
     retry: 2,
     staleTime: 5 * 60 * 1000,

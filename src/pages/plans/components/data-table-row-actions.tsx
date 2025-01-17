@@ -41,9 +41,9 @@ export function DataTableRowActions<TData>({
         <DropdownMenuItem
         onClick={() =>  {navigate('/plans/add', {state: {record: task}})}}
         >Edit</DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
-        <DropdownMenuSeparator />
+        {/* <DropdownMenuItem>Make a copy</DropdownMenuItem>
+        <DropdownMenuItem>Favorite</DropdownMenuItem> */}
+        {/* <DropdownMenuSeparator /> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
