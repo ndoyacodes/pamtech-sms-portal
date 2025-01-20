@@ -21,7 +21,7 @@ const DeleteBlacklistDialog = ({  mode, onClose, customerId }: DeleteBlacklistDi
 
     const mutation = useMutation({
         mutationFn: async () => {
-            return await  customerService.approveCustomer({customerId:customerId, remarks:'', approved:false})
+            return await  customerService.approveCustomer({id:customerId, remarks:'', approved:false})
         },
         onSuccess: () => {
             toast.success('Customer approval revoked successfully')
