@@ -77,7 +77,7 @@ export const columns: ColumnDef<Customer>[] = [
         {row.getValue('companyName') || 'N/A'}
       </span>
     ),
-  },
+  },  
 
   // {
   //   accessorKey: 'customerType',

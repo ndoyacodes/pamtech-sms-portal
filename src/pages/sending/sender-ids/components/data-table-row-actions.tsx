@@ -24,13 +24,13 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const item = schema.parse(row.original);
-  const [deleteSenderId, setDeleteSenderId] = useState(false);
-  const name  = schema.parse(row.original).senderId;
-  const [approveModal, setApproveModal] = useState(false);
-  const [rejectModal, setRejectModal] = useState(false); 
-  const navigate =  useNavigate();
-  const {user} =  useAuthStore();
+  const item = schema.parse(row.original)
+  const [deleteSenderId, setDeleteSenderId] = useState(false)
+  const name = schema.parse(row.original).senderId
+  const [approveModal, setApproveModal] = useState(false)
+  const [rejectModal, setRejectModal] = useState(false)
+  const navigate = useNavigate()
+  const { user } = useAuthStore()
 
   const handleCloseApprovalModal = () => {
     setApproveModal(false)
@@ -39,7 +39,6 @@ export function DataTableRowActions<TData>({
   const handleCloseRejectModal = () => {
     setRejectModal(false)
   }
-
 
   return (
     <DropdownMenu>
@@ -53,14 +52,23 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-        <DropdownMenuItem onClick={()=>{console.log(item)}}>View</DropdownMenuItem>
-        <DropdownMenuItem  onClick={() => {
-          navigate(`/sender-ids/add/`,  {state:{record: item}})
-        }}>Edit</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            console.log(item)
+          }}
+        >
+          View
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            navigate(`/sender-ids/add/`, { state: { record: item } })
+          }}
+        >
+          Edit
+        </DropdownMenuItem>
 
-         {
-          !user?.customer   && (
-            <>
+        {!user?.customer && (
+          <>
             <DropdownMenuItem onClick={() => setApproveModal(true)}>
               Approve
             </DropdownMenuItem>
@@ -69,30 +77,31 @@ export function DataTableRowActions<TData>({
               Reject
             </DropdownMenuItem>
 
-          <DropdownMenuItem>
-            Delete
-          </DropdownMenuItem>
+            <DropdownMenuItem>Delete</DropdownMenuItem>
           </>
-          )
-         }
+        )}
         <DropdownMenuSeparator />
-  {
-    user?.customer && (
-      <DropdownMenuItem onClick={()=>{
-        setDeleteSenderId(true)
-     }}>
-       Delete
-       <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-     </DropdownMenuItem>
-    )
-  }
+        {user?.customer && (
+          <DropdownMenuItem
+            onClick={() => {
+              setDeleteSenderId(true)
+            }}
+          >
+            Delete
+            <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
 
       {deleteSenderId && (
-        <DeleteDialog id={item.id} name={name} onClose={() => setDeleteSenderId(false)}/>
+        <DeleteDialog
+          id={item.id}
+          name={name}
+          onClose={() => setDeleteSenderId(false)}
+        />
       )}
 
-{approveModal && (
+      {approveModal && (
         <SenderIdApprovalModal
           senderId={item?.id}
           actionType={'APPROVE'}
@@ -101,7 +110,7 @@ export function DataTableRowActions<TData>({
       )}
       {rejectModal && (
         <SenderIdApprovalModal
-        senderId={item?.id}
+          senderId={item?.id}
           actionType={'REJECT'}
           onClose={handleCloseRejectModal}
         />
