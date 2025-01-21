@@ -11,14 +11,20 @@ import { Button } from '@/components/custom/button.tsx'
 import { useNavigate } from 'react-router-dom'
 import { toast } from '@/components/ui/use-toast'
 import { Campaign } from '@/pages/automations/components/columns.tsx'
+import { useState } from 'react'
+import EnableCampaignCOnfirmation from './enable-campaigns-confirmation'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
 }
 
-export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
+export function DataTableRowActions<TData>({
+  row,
+}: DataTableRowActionsProps<TData>) {
   const navigate = useNavigate()
   const campaign = row.original as Campaign
+  const [enableState, setEnableState] = useState('enable')
+  const [enableMOdal, setEnableMOdal] = useState(true)
 
   const handleEdit = () => {
     if (!campaign?.id) {
@@ -53,8 +59,33 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         <DropdownMenuItem onClick={handleEdit}>View</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            setEnableMOdal(true)
+            setEnableState('enable')
+          }}
+        >
+          Disabe
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            setEnableMOdal(true)
+            setEnableState('disable')
+          }}
+        >
+          Enable
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
+
+      {enableMOdal && (
+        <EnableCampaignCOnfirmation
+          campaign={campaign.name}
+          campaignId={campaign.id}
+          mode={enableState}
+          onClose={() => setEnableMOdal(false)}
+        />
+      )}
     </DropdownMenu>
   )
 }

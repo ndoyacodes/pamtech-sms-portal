@@ -21,6 +21,10 @@ class CampaignService extends APIClient {
                 return this.post<CampaignData>('/campaign/new', data);
         }
 
+        campaignAction(data: any) {
+                return this.post<CampaignData>(`/campaign/${data}`);
+        }
+
         // Get all campaigns
         getCampaigns(params?: { page?: number; size?: number }) {
                 return this.get<CampaignData[]>('/campaign', params);
