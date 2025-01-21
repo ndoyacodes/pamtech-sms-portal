@@ -11,7 +11,7 @@ export const customerSchema = z.object({
   status: z.boolean(),
   language: z.string(),
   companyName: z.string(),
-  website: z.string().url(),
+  website: z.any(),
   customerType: z.any(),
   approvalStatus: z.string()
 })
