@@ -8,6 +8,7 @@ export const schema = z.object({
   price: z.number(),
   billingCycle: z.enum(['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY', 'CUSTOM']),
   status: z.boolean(),
+  approvalStatus: z.string(),
   createdAt:z.string(),
   updatedAt:z.string(),
   activated:z.any(),

@@ -93,6 +93,18 @@ export const columns: ColumnDef<DataSchema>[] = [
     enableHiding: false,
   },
   {
+      accessorKey: 'approvalStatus',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title='Approval' />
+      ),
+      cell: ({ row }) => (
+        <Badge variant={row.getValue('approvalStatus') === "PENDING" || row.getValue('approvalStatus') === null ? 'secondary'
+          : row.getValue('approvalStatus') === "APPROVED" ? 'success' : 'destructive'}>
+          {row.getValue('approvalStatus')}
+        </Badge>
+      ),
+    },
+  {
     accessorKey: 'activated',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Status' />
@@ -101,7 +113,7 @@ export const columns: ColumnDef<DataSchema>[] = [
       const isActive = row.getValue('activated')
       return (
       <div className='flex w-[100px] items-center'>
-        <Badge variant={isActive ? 'default' : 'destructive'}>
+        <Badge variant={isActive ? 'success' : 'destructive'}>
         {isActive ? 'Active' : 'Inactive'}
         </Badge>
       </div>

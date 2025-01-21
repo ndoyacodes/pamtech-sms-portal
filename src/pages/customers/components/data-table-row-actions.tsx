@@ -23,7 +23,7 @@ export function DataTableRowActions<TData>({
   const customer = customerSchema.parse(row.original)
   const [approveModal, setApproveModal] = useState(false);
   const [revokeApprovalMOdal, setRevokeApprovalMOdal] = useState(false)
-  const [rejectModal, setRejectModal] = useState(false)
+  const [rejectModal, setRejectModal] = useState(false); 
   const navigate = useNavigate()
 
   const handleCloseApprovalModal = () => {

@@ -9,7 +9,7 @@ export const useSenderId = () => {
     const createSenderId = useMutation({
         mutationFn: ({ data }: { data: any }) => senderIdService.createSenderId(data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['senderIds'] });
+            queryClient.invalidateQueries({ queryKey: ['sender-ids'] });
             toast.success('Sender ID created successfully');
         },
         onError: (error: any) => {
@@ -19,12 +19,25 @@ export const useSenderId = () => {
         }
     });
 
+    const approveSenderId = useMutation({
+        mutationFn: ({ data }: { data: any }) => senderIdService.approveSenderId(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['sender-ids'] });
+            toast.success('Sender ID approved successfully');
+        },
+        onError: (error: any) => {
+            const errorMessage = 
+                error?.response?.data?.message || 'Failed to approve sender ID';
+            toast.error(errorMessage);
+        }
+    });
+
     // Update sender ID mutation
     const updateSenderId = useMutation({
         mutationFn: ({ id, data }: { id: number; data: any }) => 
             senderIdService.updateSenderId(id, data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['senderIds'] });
+            queryClient.invalidateQueries({ queryKey: ['sender-ids'] });
             toast.success('Sender ID updated successfully');
         },
         onError: (error: any) => {
@@ -38,7 +51,7 @@ export const useSenderId = () => {
     const deleteSenderId = useMutation({
         mutationFn: (id: number) => senderIdService.deleteSenderId(id),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['senderIds'] });
+            queryClient.invalidateQueries({ queryKey: ['sender-ids'] });
             toast.success('Sender ID deleted successfully');
         },
         onError: (error: any) => {
@@ -51,6 +64,7 @@ export const useSenderId = () => {
     return {
         createSenderId,
         updateSenderId,
-        deleteSenderId
+        deleteSenderId,
+        approveSenderId
     };
 };
