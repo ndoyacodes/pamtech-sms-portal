@@ -31,7 +31,7 @@ import {
       const approved = actionType === 'APPROVE';
       approveCustomer.mutate(
         {
-          customerId: customerId,
+          id: customerId,
           remarks: remarks,
           approved: approved,
         },

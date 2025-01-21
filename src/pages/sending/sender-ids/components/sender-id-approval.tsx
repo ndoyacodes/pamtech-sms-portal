@@ -31,7 +31,7 @@ import { useSenderId } from '@/hooks/api-hooks/customers/senderid-hook';
       const approved = actionType === 'APPROVE';
       approveSenderId.mutate(
        {data:  {
-        senderId: senderId,
+        id: senderId,
         remarks: remarks,
         approved: approved,
       }},
