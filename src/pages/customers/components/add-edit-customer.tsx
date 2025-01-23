@@ -44,7 +44,7 @@ const AddEditCustomer = () => {
   const customer = location?.state?.record;
   const { updateCustomer, createCustomer } = useCustomer()
   //@ts-ignore
-  const aryIanaTimeZones = Intl.supportedValuesOf('timeZone')
+  const aryIanaTimeZones = Intl?.supportedValuesOf('timeZone')
 
   const form = useForm<CustomerSchema>({
     resolver: zodResolver(customerFormSchema),

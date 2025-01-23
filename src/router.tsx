@@ -141,6 +141,12 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: '/sender-ids/details/:id',
+          lazy: async () => ({
+            Component: (await import('@/pages/sending/sender-ids/components/details.tsx')).default,
+          }),
+        },
+        {
           path: '/sender-ids/add',
           lazy: async () => ({
             Component: (await import('@/pages/sending/sender-ids/components/create-edit-sender.tsx')).default,

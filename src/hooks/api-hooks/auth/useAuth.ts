@@ -53,7 +53,7 @@ export const useAuth = () => {
       //   })
       // );
 
-      // navigate('/dashboard/project-management');
+      navigate('/sign-in');
     },
     onError: (error: any) => {
       console.log('error', error);

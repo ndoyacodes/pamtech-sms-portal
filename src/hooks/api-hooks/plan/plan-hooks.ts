@@ -1,15 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { planService } from '@/api/services/plan/plan.service';
+import { useNavigate } from 'react-router-dom';
 
 export const usePlan = () => {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
     // Create plan mutation
     const createPlan = useMutation({
         mutationFn: ({ data }: { data: any }) => planService.createPlan(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['plans'] });
+            navigate('/plans');
             toast.success('Plan created successfully');
         },
         onError: (error: any) => {
@@ -24,6 +27,7 @@ export const usePlan = () => {
         mutationFn: ({ data }: { data: any }) => planService.createPlanSUbscription(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['plans'] });
+            navigate('/plans');
             toast.success('Plan subscription created successfully');
         },
         onError: (error: any) => {
@@ -39,6 +43,7 @@ export const usePlan = () => {
             planService.updatePlan(id, data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['plans'] });
+            navigate('/plans');
             toast.success('Plan updated successfully');
         },
         onError: (error: any) => {
@@ -53,6 +58,7 @@ export const usePlan = () => {
         mutationFn: (id: number) => planService.deletePlan(id),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['plans'] });
+            navigate('/plans');
             toast.success('Plan deleted successfully');
         },
         onError: (error: any) => {

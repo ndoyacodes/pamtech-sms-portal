@@ -54,7 +54,7 @@ export function DataTableRowActions<TData>({
       <DropdownMenuContent align='end' className='w-[160px]'>
         <DropdownMenuItem
           onClick={() => {
-            console.log(item)
+           navigate(`/sender-ids/details/${item.id}`)
           }}
         >
           View

@@ -9,28 +9,23 @@ import { customerService } from '@/api/services/customers/customer.service'
 import { useState } from 'react'
 
 export default function FarmersPage() {
-   const [pagination, setPagination] = useState({
-      pageIndex: 0,
-      pageSize: 10,
-    })
-    // const { user} = useAuthStore();
-  const {
-    data: customers,
-    isLoading,
-  } = useQuery({
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  })
+  // const { user} = useAuthStore();
+  const { data: customers, isLoading } = useQuery({
     queryKey: ['customers', pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
-      const response:any = await customerService.getCustomers(
-        {
-          page: pagination.pageIndex,
-          size: pagination.pageSize,
-        }
-      );
-      return response || [];
+      const response: any = await customerService.getCustomers({
+        page: pagination.pageIndex,
+        size: pagination.pageSize,
+      })
+      return response || []
     },
     retry: 2,
-    staleTime: 5 * 60 * 1000
-  });
+    staleTime: 5 * 60 * 1000,
+  })
 
   return (
     <Layout>
@@ -48,25 +43,25 @@ export default function FarmersPage() {
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>Customers</h2>
             <p className='text-muted-foreground'>
-              Here&apos;s a list of your farmers
+              Here&apos;s a list of your customers
             </p>
           </div>
         </div>
-      {isLoading ? (
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
-        </div>
-      ) : (
-        <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
-         <DataTable
-                      data={customers || []}
-                      columns={columns}
-                      pagination={pagination}
-                      onPaginationChange={setPagination}
-                      totalElements={customers?.totalElements || 0}
-                    />
-        </div>
-      )}
+        {isLoading ? (
+          <div className='flex h-64 items-center justify-center'>
+            <div className='h-8 w-8 animate-spin rounded-full border-b-2 border-gray-900 dark:border-white'></div>
+          </div>
+        ) : (
+          <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
+            <DataTable
+              data={customers || []}
+              columns={columns}
+              pagination={pagination}
+              onPaginationChange={setPagination}
+              totalElements={customers?.totalElements || 0}
+            />
+          </div>
+        )}
       </Layout.Body>
     </Layout>
   )

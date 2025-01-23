@@ -10,6 +10,16 @@ class PlanService extends APIClient {
         return this.get<any>('/plan', params);
     }
 
+     // Get all plans with pagination
+     getPlanCustomerView(params?: { page?: number; size?: number }) {
+        return this.get<any>('/plan/visible', params);
+    }
+    
+      // Get all plans with pagination
+      getPlanSubscriptions(params?: { page?: number; size?: number }) {
+        return this.get<any>('/plan/subscription', params);
+    }
+
     // Get a single plan by ID
     getPlanById(id: string) {
         return this.get<any>(`/plan/${id}`);

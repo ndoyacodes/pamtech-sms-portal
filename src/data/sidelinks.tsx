@@ -143,7 +143,7 @@ export const sidelinks: SideLink[] = [
       {
         title: 'Blacklist',
         label: '',
-        href: '/blacklist',
+        href: '/blacklists',
         icon: <IconUserExclamation size={18} />,
       },
       {

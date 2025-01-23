@@ -1,15 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { senderIdService } from '@/api/services/customers/senderid.services'; 
+import { useNavigate } from 'react-router-dom';
 
 export const useSenderId = () => {
     const queryClient = useQueryClient();
+    const navigate =  useNavigate();
 
     // Create sender ID mutation
     const createSenderId = useMutation({
         mutationFn: ({ data }: { data: any }) => senderIdService.createSenderId(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['sender-ids'] });
+            navigate('/sender-ids');
             toast.success('Sender ID created successfully');
         },
         onError: (error: any) => {
@@ -23,6 +26,7 @@ export const useSenderId = () => {
         mutationFn: ({ data }: { data: any }) => senderIdService.approveSenderId(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['sender-ids'] });
+            navigate('/sender-ids');
             toast.success('Sender ID approved successfully');
         },
         onError: (error: any) => {
@@ -38,6 +42,7 @@ export const useSenderId = () => {
             senderIdService.updateSenderId(id, data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['sender-ids'] });
+            navigate('/sender-ids');
             toast.success('Sender ID updated successfully');
         },
         onError: (error: any) => {
@@ -52,6 +57,7 @@ export const useSenderId = () => {
         mutationFn: (id: number) => senderIdService.deleteSenderId(id),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['sender-ids'] });
+            navigate('/sender-ids');
             toast.success('Sender ID deleted successfully');
         },
         onError: (error: any) => {

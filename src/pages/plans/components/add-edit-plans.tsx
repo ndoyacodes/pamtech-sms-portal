@@ -160,7 +160,7 @@ const AddEditPlan = () => {
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    disabled={currentPlan?.customerVisible}
+                    // disabled={currentPlan?.customerVisible}
                   />
                   </FormControl>
                   <FormLabel>Customer Visible</FormLabel>
@@ -182,7 +182,7 @@ const AddEditPlan = () => {
                         <Checkbox
                           checked={field.value}
                           onCheckedChange={field.onChange}
-                          disabled={currentPlan?.popular}
+                          // disabled={currentPlan?.popular}
                         />
                       </FormControl>
                       <FormLabel>Mark as Popular Plan</FormLabel>

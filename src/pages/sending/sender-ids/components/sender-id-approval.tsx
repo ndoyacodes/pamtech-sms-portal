@@ -32,7 +32,7 @@ import { useSenderId } from '@/hooks/api-hooks/customers/senderid-hook';
       approveSenderId.mutate(
        {data:  {
         id: senderId,
-        remarks: remarks,
+        remarks: 'remarks',
         approved: approved,
       }},
         {

@@ -12,12 +12,14 @@ import ThemeSwitch from '@/components/theme-switch'
 // import { TopNav } from '@/components/top-nav'
 import { UserNav } from '@/components/user-nav'
 import { Overview } from './components/overview'
-import {  IconMessage, IconRosetteDiscountCheck, IconChecklist, IconBrandTelegram } from '@tabler/icons-react'
+import {  IconMessage, IconRosetteDiscountCheck, IconChecklist, IconBrandTelegram, IconUsersGroup, IconIdBadge, IconStatusChange } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
 import { dashboardService } from '@/api/services/dashboard/dashboard.service'
 import InteractivePieChart from './components/recent-sales'
+import { useAuthStore } from '@/hooks/use-auth-store'
 
 export default function Dashboard() {
+  const {user} = useAuthStore();
   const { data: dashData, isLoading } = useQuery({
     queryKey: ['dashboard',],
     queryFn: async () => {
@@ -86,7 +88,9 @@ export default function Dashboard() {
             </TabsList>
           </div>
           <TabsContent value='overview' className='space-y-4'>
-            <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+            {
+              user?.customer ? (
+                <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
@@ -143,6 +147,67 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
             </div>
+              ): (
+
+                <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+              <Card>
+                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                  <CardTitle className='text-sm font-medium'>
+                    Total Customers
+                  </CardTitle>
+                  <IconUsersGroup />
+
+                </CardHeader>
+                <CardContent>
+                  <div className='text-2xl font-bold'>{dashData?.totalSmsSent}</div>
+                  <p className='text-xs text-muted-foreground'>
+                   total active customers
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2' >
+                  <CardTitle className='text-sm font-medium'>
+                    Total sender Ids
+                  </CardTitle>
+                   <IconIdBadge />
+                </CardHeader>
+                <CardContent>
+                  <div className='text-2xl font-bold'>{dashData?.smsBalance}</div>
+                  <p className='text-xs text-muted-foreground'>
+                   total customer sender ids
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                  <CardTitle className='text-sm font-medium'>Campaigns</CardTitle>
+                  <IconBrandTelegram />
+                </CardHeader>
+                <CardContent>
+                  <div className='text-2xl font-bold'>{dashData?.totalCampaigns}</div>
+                  <p className='text-xs text-muted-foreground'>
+                    total number of campaigns
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                  <CardTitle className='text-sm font-medium'>
+                  Total plans
+                  </CardTitle>
+                  <IconStatusChange />
+                </CardHeader>
+                <CardContent>
+                  <div className='text-2xl font-bold'>{dashData?.activeCampaigns}</div>
+                  <p className='text-xs text-muted-foreground'>
+                    total number of active plans
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+              )
+            }
             <div className='grid grid-cols-1 gap-4 lg:grid-cols-7'>
               <Card className='col-span-1 lg:col-span-4'>
                 <CardHeader>

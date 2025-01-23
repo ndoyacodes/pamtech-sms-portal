@@ -19,11 +19,19 @@ export default function FarmersPage() {
   const { data: blacklists, isLoading } = useQuery({
     queryKey: ['blacklists', pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
+     if (user?.customer) {
       const response: any = await blacklistService.getCustomerBlacklistById(user?.customer?.id, {
         page: pagination.pageIndex,
         size: pagination.pageSize,
-      })
+      });
       return response
+     }else{
+      const response: any = await blacklistService.getBlacklist({
+        page: pagination.pageIndex,
+        size: pagination.pageSize,
+      });
+      return response
+     }
     },
     retry: 2,
     staleTime: 5 * 60 * 1000,

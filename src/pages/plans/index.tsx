@@ -9,25 +9,22 @@ import { planService } from '@/api/services/plan/plan.service'
 import { useState } from 'react'
 
 export default function PlansPage() {
-    const [pagination, setPagination] = useState({
-      pageIndex: 0,
-      pageSize: 10,
-    })
-  const {
-    data: plans,
-    isLoading,
-  } = useQuery({
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  })
+  const { data: plans, isLoading } = useQuery({
     queryKey: ['plans', pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
       const response = await planService.getPlans({
         page: pagination.pageIndex,
         size: pagination.pageSize,
-      });
-      return response || [];
+      })
+      return response || []
     },
     retry: 2,
-    staleTime: 5 * 60 * 1000
-  });
+    staleTime: 5 * 60 * 1000,
+  })
 
   return (
     <Layout>
@@ -50,20 +47,20 @@ export default function PlansPage() {
           </div>
         </div>
         {isLoading ? (
-               <div className="flex items-center justify-center h-64">
-                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
-               </div>
-             ) : (
-               <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
-   <DataTable
+          <div className='flex h-64 items-center justify-center'>
+            <div className='h-8 w-8 animate-spin rounded-full border-b-2 border-gray-900 dark:border-white'></div>
+          </div>
+        ) : (
+          <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
+            <DataTable
               data={plans || []}
               columns={columns}
               pagination={pagination}
               onPaginationChange={setPagination}
               totalElements={plans?.totalElements || 0}
             />
-               </div>
-             )}
+          </div>
+        )}
       </Layout.Body>
     </Layout>
   )

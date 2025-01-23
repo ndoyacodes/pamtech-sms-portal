@@ -63,7 +63,7 @@ const StepIndicator = ({ stepNumber, currentStep, title, icon: Icon }: any) => {
         <div className='absolute -bottom-8 left-1/2 w-max -translate-x-1/2'>
           <span
             className={`text-sm font-medium
-              ${isActive ? 'text-white' : ''}
+              ${isActive ? 'text-black dark:text-white' : ''}
               ${isCompleted ? 'text-green-500' : ''}
               ${!isActive && !isCompleted ? 'text-gray-500' : ''}
             `}
@@ -193,7 +193,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
     switch (step) {
       case 1:
         return (
-          <div className='space-y-4 animate-in slide-in-from-right-5'>
+          <div className='space-y-4 '>
             <FormField
               control={form.control}
               name='email'

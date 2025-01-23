@@ -20,7 +20,7 @@ class SenderIdService extends APIClient {
         }
 
         // Get a single sender ID by ID
-        getSenderIdById(id: string) {
+        getSenderIdById(id: any) {
                 return this.get<SenderIdData>(`/sender-id/${id}`);
         }
 
@@ -35,8 +35,8 @@ class SenderIdService extends APIClient {
         }
 
         // Update a sender ID
-        updateSenderId(id: number, data: Partial<SenderIdData>) {
-                return this.patch<SenderIdData>(`/sender-id/${id}`, data);
+        updateSenderId(_id: number, data: Partial<SenderIdData>) {
+                return this.put<SenderIdData>(`/sender-id`, data);
         }
 
         // Delete a sender ID

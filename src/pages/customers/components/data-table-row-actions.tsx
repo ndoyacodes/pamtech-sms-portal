@@ -54,10 +54,14 @@ export function DataTableRowActions<TData>({
         >
           View
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setRejectModal(true)}>
+              Diactivate
+            </DropdownMenuItem>
+
         {customer.approvalStatus !== 'REJECTED'&&
         <DropdownMenuItem
           onClick={() => {
-            navigate(`/customer/add`, { state: { record:customer } })
+            navigate(`/customers/add`, { state: { record:customer } })
           }}
         >Edit</DropdownMenuItem>
         }

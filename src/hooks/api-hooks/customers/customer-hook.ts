@@ -1,17 +1,21 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { customerService } from '@/api/services/customers/customer.service';
+import { useNavigate } from 'react-router-dom';
 // import { data } from 'autoprefixer' // You'll need to create this service
 
 export const useCustomer = () => {
     const queryClient = useQueryClient();
+    const navigate =  useNavigate();
 
     // Create customer mutation
     const createCustomer = useMutation({
         mutationFn: ({ data }: { data: any }) => customerService.createCustomer(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['customers'] });
+            navigate('/customers');
             toast.success('Customer created successfully');
+
         },
         onError: (error: any) => {
             const errorMessage = 
@@ -39,6 +43,7 @@ export const useCustomer = () => {
             customerService.updateCustomer(id, data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['customers', 'customer-details'] });
+            navigate('/customers');
             toast.success('Customer updated successfully');
         },
         onError: (error: any) => {
@@ -53,6 +58,7 @@ export const useCustomer = () => {
         mutationFn: (id: number) => customerService.deleteCustomer(id),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['customers'] });
+            navigate('/customers');
             toast.success('Customer deleted successfully');
         },
         onError: (error: any) => {
