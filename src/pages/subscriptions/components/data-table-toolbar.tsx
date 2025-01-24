@@ -5,10 +5,11 @@ import { Button } from '@/components/custom/button'
 import { Input } from '@/components/ui/input'
 import { DataTableViewOptions } from '../components/data-table-view-options'
 
-import { priorities, statuses } from '../data/data'
-import { DataTableFacetedFilter } from './data-table-faceted-filter'
+// import { priorities, statuses } from '../data/data'
+// import { DataTableFacetedFilter } from './data-table-faceted-filter'
 import { useNavigate } from 'react-router-dom'
 import { IconPlus } from '@tabler/icons-react'
+import { useAuthStore } from '@/hooks/use-auth-store'
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -19,6 +20,7 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const navigate =  useNavigate();
+  const {user } =  useAuthStore();
 
   return (
     <div className='flex items-center justify-between'>
@@ -32,7 +34,7 @@ export function DataTableToolbar<TData>({
           className='h-8 w-[150px] lg:w-[250px]'
         />
         <div className='flex gap-x-2'>
-          {table.getColumn('status') && (
+          {/* {table.getColumn('status') && (
             <DataTableFacetedFilter
               column={table.getColumn('status')}
               title='Status'
@@ -45,15 +47,17 @@ export function DataTableToolbar<TData>({
               title='Status'
               options={priorities}
             />
-          )}
-               <Button
-            variant='default'
-            onClick={() => navigate('/sms/top-up')}
-            className='h-8 px-2 lg:px-3'
-          >
-            Create New subscription
-            <IconPlus className='ml-2 h-4 w-4' />
-          </Button>
+          )} */}
+               {user?.customer && (
+                <Button
+                variant='default'
+                onClick={() => navigate('/sms/top-up')}
+                className='h-8 px-2 lg:px-3'
+              >
+                Create New subscription
+                <IconPlus className='ml-2 h-4 w-4' />
+              </Button>
+               )}
                <Button
             variant='default'
             // onClick={() => table.resetColumnFilters()}

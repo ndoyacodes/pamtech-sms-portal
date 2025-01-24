@@ -42,7 +42,7 @@ export const columns: ColumnDef<DataSchema>[] = [
   {
     accessorKey: 'msisdn',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='msisdn' />
+      <DataTableColumnHeader column={column} title='email template' />
     ),
     cell: ({ row }) => (
       <div className='w-[120px]'>{row.getValue('msisdn')}</div>
@@ -54,7 +54,7 @@ export const columns: ColumnDef<DataSchema>[] = [
   {
     accessorKey: 'reason',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Reason' />
+      <DataTableColumnHeader column={column} title='template' />
     ),
     cell: ({ row }) => (
       <div className='w-[120px]'>{row.getValue('reason')}</div>

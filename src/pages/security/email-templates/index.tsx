@@ -9,7 +9,7 @@ export default function Region() {
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
-      <Layout.Header sticky>
+         <Layout.Header sticky className='mt-4 lg:mt-0 md:mt-0 sm:mt-4'>
         <Search />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
@@ -20,9 +20,9 @@ export default function Region() {
       <Layout.Body>
         <div className='mb-2 flex items-center justify-between space-y-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Blacklist</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>Email templates</h2>
             <p className='text-muted-foreground'>
-              Here&apos;s a list of blacklisted numbers
+              Here&apos;s a list of email templates
             </p>
           </div>
         </div>

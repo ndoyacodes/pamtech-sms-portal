@@ -224,6 +224,12 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: 'email-templates',
+          lazy: async () => ({
+            Component: (await import('@/pages/security/email-templates')).default,
+          }),
+        },
+        {
           path: 'templates-tags/add',
           lazy: async () => ({
             Component: (await import('@/pages/sending/template-tags/components/add-edit-templates.tsx')).default,
@@ -317,6 +323,12 @@ const router = createBrowserRouter([
           path: 'message-detail',
           lazy: async () => ({
             Component: (await import('@/pages/messages/all/components/sms-detail.tsx')).default,
+          }),
+        },
+        {
+          path: 'profile',
+          lazy: async () => ({
+            Component: (await import('@/pages/settings/profile-update')).default,
           }),
         },
       

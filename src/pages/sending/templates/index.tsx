@@ -19,6 +19,7 @@ export default function FarmersPage() {
   const { data: templates, isLoading } = useQuery({
     queryKey: ['templates', pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
+     if (user?.customer) {
       const response: any = await templateService.getCustomerTemplates(user?.customer?.id,{
         page: pagination.pageIndex,
         size: pagination.pageSize,
@@ -29,6 +30,19 @@ export default function FarmersPage() {
         totalElements: response?.totalElements,
       }
       return fResponse;
+     }
+     else{
+      const response: any = await templateService.getTemplates({
+        page: pagination.pageIndex,
+        size: pagination.pageSize,
+      })
+
+      const fResponse = {
+        content: response || [],
+        totalElements: response?.totalElements,
+      }
+      return fResponse;
+     }
     },
     retry: 2,
     staleTime: 5 * 60 * 1000,
@@ -39,7 +53,7 @@ export default function FarmersPage() {
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
-      <Layout.Header sticky>
+         <Layout.Header sticky className='mt-4 lg:mt-0 md:mt-0 sm:mt-4'>
         <Search />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />

@@ -9,7 +9,8 @@ import {
   AlertCircle,
   MessageSquare,
   Calendar,
-  Tag
+  Tag,
+  Building
 } from 'lucide-react'
 import { Button } from '@/components/custom/button'
 import { Search } from '@/components/search'
@@ -69,7 +70,7 @@ const [deleteTemplate, setDeleteTemplate] = useState(false);
 
   return (
     <Layout>
-      <Layout.Header sticky>
+         <Layout.Header sticky className='mt-4 lg:mt-0 md:mt-0 sm:mt-4'>
         <Search />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
@@ -160,6 +161,35 @@ const [deleteTemplate, setDeleteTemplate] = useState(false);
                 </div>
               </CardContent>
             </Card>
+
+            <Card>
+                            <CardHeader>
+                                <CardTitle className='flex items-center gap-2'>
+                                    <Building className='h-5 w-5' />
+                                    Customer Information
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className='space-y-4'>
+                                <div className='grid grid-cols-2 gap-4'>
+                                    <div>
+                                        <p className='text-sm text-muted-foreground'>Company Name</p>
+                                        <p className='text-sm'>{template?.customer.companyName}</p>
+                                    </div>
+                                    <div>
+                                        <p className='text-sm text-muted-foreground'>Name</p>
+                                        <p className='text-sm'>{template?.customer.firstName} {template?.customer.lastName}</p>
+                                    </div>
+                                    <div>
+                                        <p className='text-sm text-muted-foreground'>Customer Type</p>
+                                        <Badge variant='outline'>{template?.customer.customerType}</Badge>
+                                    </div>
+                                    <div>
+                                        <p className='text-sm text-muted-foreground'>SMS Balance</p>
+                                        <p className='text-sm'>{template?.customer.smsBalance}</p>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
           </div>
 
           <div className='flex justify-end space-x-4'>

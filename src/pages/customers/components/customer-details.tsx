@@ -37,7 +37,7 @@ const CustomerDetails = () => {
   if (isLoading) {
     return (
       <Layout>
-        <Layout.Header sticky>
+           <Layout.Header sticky className='mt-4 lg:mt-0 md:mt-0 sm:mt-4'>
           <div className='ml-auto flex items-center space-x-4'>
             <ThemeSwitch />
             <UserNav />
@@ -54,7 +54,7 @@ const CustomerDetails = () => {
 
   return (
     <Layout>
-      <Layout.Header sticky>
+         <Layout.Header sticky className='mt-4 lg:mt-0 md:mt-0 sm:mt-4'>
           <Search />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
