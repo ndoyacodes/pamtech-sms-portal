@@ -181,19 +181,19 @@ export const sidelinks: SideLink[] = [
       {
         title: 'Dashboard',
         label: '',
-        href: '/dashboard',
+        href: '/',
         icon: <IconDashboard size={18} />,
       },
       {
         title: 'Sms History',
         label: '',
-        href: '/sms-history',
+        href: '/reports/all-messages',
         icon: <IconReportAnalytics size={18} />,
       },
       {
         title: 'Compaigins',
         label: '',
-        href: '/compaigins',
+        href: '/automations',
         icon: <IconBrandTelegram size={18} />,
       },
     ],

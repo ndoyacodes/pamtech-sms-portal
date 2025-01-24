@@ -43,10 +43,10 @@ export function DataTableToolbar<TData>({
 
           <Button
             variant='default'
-            onClick={() => navigation('/templates-tags/add')}
+            onClick={() => navigation('/spam-words/add')}
             className='h-8 px-2 lg:px-3'
           >
-            Create New Template tag
+            Create spam word
             <IconPlus className='ml-2 h-4 w-4' />
           </Button>
           <Button

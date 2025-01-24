@@ -7,8 +7,10 @@ import { columns } from './components/columns'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { campaignService } from '@/api/services/campaign/campaign.service'
+import { useAuthStore } from '@/hooks/use-auth-store'
 
 export default function FarmersPage() {
+  const { user } = useAuthStore()
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -17,17 +19,31 @@ export default function FarmersPage() {
   const { data: campaigns, isLoading } = useQuery({
     queryKey: ['campaigns', pagination.pageIndex, pagination.pageSize],
     queryFn: async () => {
-      const response: any = await campaignService.getCustomerCampaigns({
-        page: pagination.pageIndex,
-        size: pagination.pageSize,
-      })
-      
-      return (
-        response || {
-          content: response.content || [],
-          totalElements: response?.totalElements,
-        }
-      )
+      if (user?.customer) {
+        const response: any = await campaignService.getCustomerCampaigns({
+          page: pagination.pageIndex,
+          size: pagination.pageSize,
+        })
+        
+        return (
+          response || {
+            content: response.content || [],
+            totalElements: response?.totalElements,
+          }
+        )
+      }else{
+        const response: any = await campaignService.getCampaigns({
+          page: pagination.pageIndex,
+          size: pagination.pageSize,
+        })
+        
+        return (
+          response || {
+            content: response.content || [],
+            totalElements: response?.totalElements,
+          }
+        )
+      }
     },
     retry: 2,
     staleTime: 5 * 60 * 1000,

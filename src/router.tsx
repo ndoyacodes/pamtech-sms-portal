@@ -177,6 +177,18 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: 'spam-words',
+          lazy: async () => ({
+            Component: (await import('@/pages/security/spam-words')).default,
+          }),
+        },
+        {
+          path: 'spam-words/add',
+          lazy: async () => ({
+            Component: (await import('@/pages/security/spam-words/components/add-edit-spam.tsx')).default,
+          }),
+        },
+        {
           path: 'keywords/add',
           lazy: async () => ({
             Component: (await import('@/pages/sending/keywords/components/add-edit-keywords.tsx')).default,

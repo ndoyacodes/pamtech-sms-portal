@@ -1,15 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { blacklistService } from '@/api/services/contacts/blacklist.service'; 
+import { useNavigate } from 'react-router-dom';
 
 export const useBlacklist = () => {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
+    
 
     // Add to blacklist mutation
     const addToBlacklist = useMutation({
         mutationFn: ({ data }: { data: any }) => blacklistService.createBlacklistEntry(data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['blacklist'] });
+            queryClient.invalidateQueries({ queryKey: ['blacklists'] });
+            navigate('/blacklists');
             toast.success('Added to blacklist successfully');
         },
         onError: (error: any) => {
@@ -38,7 +42,7 @@ export const useBlacklist = () => {
     const removeFromBlacklist = useMutation({
         mutationFn: (id: number) => blacklistService.deleteBlacklistEntry(id),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['blacklist'] });
+            queryClient.invalidateQueries({ queryKey: ['blacklists'] });
             toast.success('Removed from blacklist successfully');
         },
         onError: (error: any) => {
