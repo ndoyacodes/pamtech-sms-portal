@@ -5,23 +5,30 @@ import { z } from 'zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { 
-  User, Mail, Phone, Lock, XCircle 
+  User, Lock, XCircle 
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/hooks/use-auth-store';
 import { Button } from '@/components/custom/button';
 import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+  } from '@/components/ui/form'
 
-// Validation schemas
 const profileSchema = z.object({
-  fullName: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  phoneNumber: z.string().min(10, 'Invalid phone number'),
-  username: z.string().min(3, 'Username must be at least 3 characters')
-});
+    firstName: z.string().min(2, 'First name is required'),
+    lastName: z.string().min(2, 'Last name is required'),
+    email: z.string().email('Invalid email address'),
+    phone: z.string().min(10, 'Phone number must be at least 10 digits'),
+    username: z.string().email('Invalid username format')
+  })
 
 const passwordSchema = z.object({
   currentPassword: z.string().min(6, 'Password must be at least 6 characters'),
@@ -39,43 +46,38 @@ const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [serverError, setServerError] = useState('');
   const { user } = useAuthStore();
+  
+  const form = useForm<ProfileFormData>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      email: user?.email || '',
+      phone: user?.phone || '',
+      username: user?.username || ''
+    }
+  })
 
-  const navigate = useNavigate()
-
-  const { register: registerProfile, handleSubmit: handleProfileSubmit, 
-    formState: { errors: profileErrors }, reset } = useForm<ProfileFormData>({
-    resolver: zodResolver(profileSchema)
-  });
+  const handleProfileUpdate = async (data: any) => {
+    try {
+      // API call to update profile
+      console.log('Profile updated:', data)
+      setIsEditing(false)
+    } catch (error) {
+      console.error('Error updating profile:', error)
+    }
+  }
 
   const { register: registerPassword, handleSubmit: handlePasswordSubmit, 
     formState: { errors: passwordErrors }, reset: resetPassword } = useForm<PasswordFormData>({
     resolver: zodResolver(passwordSchema)
   });
 
-  const [userData, setUserData] = useState({
-    user: {
-      id: 0,
-      username: '',
-      email: '',
-      marketing: {
-        full_name: '',
-        phone_number: '',
-        created_at: '',
-        updated_at: '',
-        // ... other fields
-      }
-    }
-  });
-
-
-
-  const handleProfileUpdate = async (data: ProfileFormData) => {
-    console.log(data);
-  };
 
   const handlePasswordChange = async (data: PasswordFormData) => {
       console.log(data);
-      
+      resetPassword();
+      setServerError('Password changed failed');
   };
 
     
@@ -95,7 +97,7 @@ const ProfilePage = () => {
     <div className="">
         
       {/* Profile Section */}
-      <div className='max-w-4xl mx-auto p-4 space-y-8'>
+      <div className=' p-4 space-y-8'>
       <Card>
         <CardHeader className="border-b">
           <div className="flex items-center justify-between">
@@ -118,7 +120,7 @@ const ProfilePage = () => {
                   Cancel
                 </Button>
                 <Button 
-                  onClick={handleProfileSubmit(handleProfileUpdate)}
+                 onClick={form.handleSubmit(handleProfileUpdate)}
                   
                 >
                   Save Changes
@@ -129,108 +131,82 @@ const ProfilePage = () => {
         </CardHeader>
 
         <CardContent className="pt-6">
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  Full Name
-                </label>
-                {isEditing ? (
-                  <>
-                    <Input
-                      {...registerProfile('fullName')}
-                      className="mt-1"
-                    />
-                    {profileErrors.fullName && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {profileErrors.fullName.message}
-                      </p>
-                    )}
-                  </>
-                ) : (
-                  <p className="mt-1 text-gray-900">
-                    {userData.user.marketing.full_name}
-                  </p>
+        <Form {...form}>
+          <form className="space-y-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>First Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled={!isEditing} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </div>
+              />
 
-              <div>
-                <label className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
-                  Email
-                </label>
-                {isEditing ? (
-                  <>
-                    <Input
-                      {...registerProfile('email')}
-                      className="mt-1"
-                    />
-                    {profileErrors.email && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {profileErrors.email.message}
-                      </p>
-                    )}
-                  </>
-                ) : (
-                  <p className="mt-1 text-gray-900">
-                    {userData.user.email}
-                  </p>
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Last Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled={!isEditing} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </div>
-            </div>
+              />
 
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  Phone Number
-                </label>
-                {isEditing ? (
-                  <>
-                    <Input
-                      {...registerProfile('phoneNumber')}
-                      className="mt-1"
-                    />
-                    {profileErrors.phoneNumber && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {profileErrors.phoneNumber.message}
-                      </p>
-                    )}
-                  </>
-                ) : (
-                  <p className="mt-1 text-gray-900">
-                    {userData.user.marketing.phone_number}
-                  </p>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="email" disabled={!isEditing} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </div>
+              />
 
-              <div>
-                <label className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  Username
-                </label>
-                {isEditing ? (
-                  <>
-                    <Input
-                      {...registerProfile('username')}
-                      className="mt-1"
-                    />
-                    {profileErrors.username && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {profileErrors.username.message}
-                      </p>
-                    )}
-                  </>
-                ) : (
-                  <p className="mt-1 text-gray-900">
-                    {userData.user.username}
-                  </p>
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled={!isEditing} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </div>
+              />
+
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled={!isEditing} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
           </form>
-        </CardContent>
+        </Form>
+      </CardContent>
       </Card>
 
       {/* Password Change Section */}

@@ -95,11 +95,15 @@ export function UserNav() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem
+            onClick={() => navigate('/profile')}
+            >
               Profile
               {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem
+                onClick={() => navigate('/settings')}
+            >
               Settings
               {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
             </DropdownMenuItem>
