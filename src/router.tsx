@@ -366,7 +366,7 @@ const router = createBrowserRouter([
             {
               index: true,
               lazy: async () => ({
-                Component: (await import('./pages/settings/profile')).default,
+                Component: (await import('./pages/settings/appearance')).default,
               }),
             },
             {
