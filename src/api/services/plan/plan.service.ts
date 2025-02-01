@@ -16,7 +16,7 @@ class PlanService extends APIClient {
     }
     
       // Get all plans with pagination
-      getPlanSubscriptions(params?: { page?: number; size?: number }) {
+      getPlanSubscriptions(params?: { page?: number; size?: number , status:string}) {
         return this.get<any>('/plan/subscription', params);
     }
 

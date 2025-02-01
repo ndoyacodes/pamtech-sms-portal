@@ -2,10 +2,8 @@ import {
   ArrowDownIcon,
   ArrowRightIcon,
   CheckCircledIcon,
-  CircleIcon,
   CrossCircledIcon,
-  QuestionMarkCircledIcon,
-  StopwatchIcon,
+
 } from '@radix-ui/react-icons'
 
 export const labels = [
@@ -25,30 +23,16 @@ export const labels = [
 
 export const statuses = [
   {
-    value: 'backlog',
-    label: 'Backlog',
-    icon: QuestionMarkCircledIcon,
-  },
-  {
-    value: 'todo',
-    label: 'Todo',
-    icon: CircleIcon,
-  },
-  {
-    value: 'in progress',
-    label: 'In Progress',
-    icon: StopwatchIcon,
-  },
-  {
-    value: 'done',
-    label: 'Done',
+    value: 'ACTIVE',
+    label: 'Active',
     icon: CheckCircledIcon,
   },
   {
-    value: 'canceled',
-    label: 'Canceled',
+    value: 'EXPIRED',
+    label: 'Expired',
     icon: CrossCircledIcon,
   },
+ 
 ]
 
 export const priorities = [

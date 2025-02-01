@@ -1,11 +1,8 @@
 import { Outlet } from 'react-router-dom'
 import {
-  IconBrowserCheck,
-  IconExclamationCircle,
   IconNotification,
   IconPalette,
   IconTool,
-  IconUser,
 } from '@tabler/icons-react'
 import { Layout } from '@/components/custom/layout'
 import { Search } from '@/components/search'

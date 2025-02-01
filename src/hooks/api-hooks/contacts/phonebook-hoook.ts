@@ -1,14 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { contactService } from '@/api/services/contacts/contacts.service';
+import { useNavigate } from 'react-router-dom';
 
 export const usePhonebook = () => {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
     // Add to phonebook mutation
     const uploadPhoneBook = useMutation({
         mutationFn: ({ data }: { data: any }) => contactService.uploadPhoneBook(data.fileData, data.params),
         onSuccess: () => {
+            navigate('/contacts')
             queryClient.invalidateQueries({ queryKey: ['phonebook'] });
             toast.success('Added to phonebook successfully');
         },

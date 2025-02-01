@@ -8,15 +8,29 @@ import { DataTableViewOptions } from '../components/data-table-view-options'
 // import { priorities, statuses } from '../data/data'
 // import { DataTableFacetedFilter } from './data-table-faceted-filter'
 import { useNavigate } from 'react-router-dom'
-import { IconPlus } from '@tabler/icons-react'
+import {  IconPlus, IconArrowDown } from '@tabler/icons-react'
 import { useAuthStore } from '@/hooks/use-auth-store'
+import { DataTableFacetedFilter } from './data-table-faceted-filter'
+import { statuses } from '../data/data'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+  table: Table<TData>,
+  onStatusChange: (status:string) => void;
+  status: string;
 }
 
 export function DataTableToolbar<TData>({
   table,
+  onStatusChange,
+  status
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const navigate =  useNavigate();
@@ -33,21 +47,40 @@ export function DataTableToolbar<TData>({
           }
           className='h-8 w-[150px] lg:w-[250px]'
         />
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button variant="outline" className="h-8 w-[150px]">
+        {statuses.find(s => status === s.value)?.label || 'Filter by Status'}
+        <IconArrowDown className="ml-2 h-4 w-4" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent align="end">
+      <DropdownMenuLabel>Filter Status</DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      {statuses.map((statusdt) => (
+        <DropdownMenuItem
+          key={statusdt.value}
+          onClick={() => onStatusChange(statusdt.value)}
+        >
+          {statusdt.icon && <statusdt.icon className="mr-2 h-4 w-4" />}
+          {statusdt.label}
+          {status == statusdt.value && (
+            <span className="ml-auto">✓</span>
+          )}
+        </DropdownMenuItem>
+      ))}
+    </DropdownMenuContent>
+  </DropdownMenu>
         <div className='flex gap-x-2'>
-          {/* {table.getColumn('status') && (
+          {table.getColumn('status') && (
             <DataTableFacetedFilter
               column={table.getColumn('status')}
               title='Status'
               options={statuses}
+
             />
           )}
-          {table.getColumn('priority') && (
-            <DataTableFacetedFilter
-              column={table.getColumn('priority')}
-              title='Status'
-              options={priorities}
-            />
-          )} */}
+
                {user?.customer && (
                 <Button
                 variant='default'

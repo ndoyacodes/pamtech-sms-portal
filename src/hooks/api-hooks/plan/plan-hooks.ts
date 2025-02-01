@@ -26,8 +26,8 @@ export const usePlan = () => {
       const createSubscriptionPlan = useMutation({
         mutationFn: ({ data }: { data: any }) => planService.createPlanSUbscription(data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['plans'] });
-            navigate('/plans');
+            queryClient.invalidateQueries({ queryKey: ['plans', 'dashboard'] });
+            navigate('/subscriptions');
             toast.success('Plan subscription created successfully');
         },
         onError: (error: any) => {

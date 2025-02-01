@@ -1,14 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { templateService } from '@/api/services/message/template.service'; 
+import { useNavigate } from 'react-router-dom';
 
 export const useSmsTemplate = () => {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
     // Create SMS template mutation
     const createTemplate = useMutation({
         mutationFn: ({ data }: { data: any }) => templateService.createTemplate(data),
         onSuccess: () => {
+            navigate('/templates');
             queryClient.invalidateQueries({ queryKey: ['smsTemplates'] });
             toast.success('SMS template created successfully');
         },
@@ -24,6 +27,7 @@ export const useSmsTemplate = () => {
         mutationFn: ({ id, data }: { id: number; data: any }) => 
             templateService.updateTemplate(id, data),
         onSuccess: () => {
+            navigate('/templates');
             queryClient.invalidateQueries({ queryKey: ['smsTemplates'] });
             toast.success('SMS template updated successfully');
         },
@@ -38,6 +42,7 @@ export const useSmsTemplate = () => {
     const deleteTemplate = useMutation({
         mutationFn: (id: number) => templateService.deleteTemplate(id),
         onSuccess: () => {
+            navigate('/templates'); 
             queryClient.invalidateQueries({ queryKey: ['smsTemplates'] });
             toast.success('SMS template deleted successfully');
         },
