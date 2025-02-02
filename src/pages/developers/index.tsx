@@ -19,21 +19,37 @@ import { Layout } from '@/components/custom/layout';
 import { Search } from '@/components/search';
 import ThemeSwitch from '@/components/theme-switch';
 import { UserNav } from '@/components/user-nav';
+import { dashboardService } from '@/api/services/dashboard/dashboard.service';
+import { toast } from 'react-toastify';
 
 const DeveloperDashboard = () => {
-  const [apiToken, setApiToken] = useState('2i1HMrCCBT7xeChkZBfxI59UfxhI8G31LM2BhuKeOL6');
+  const [apiToken, setApiToken] = useState('');
+  const [isLoading, setIsLoading] = useState(false)
+  const [viewKey, setViewKey] = useState(false);
   const [copied, setCopied] = useState(false);
   
   const form = useForm({
     defaultValues: {
-      endpoint: 'https://www.messagimg.opestechnologies.co.tz/api/v3/',
+      endpoint: 'https://opessms.yared.codes/api/v1/sms/send',
     }
   });
 
-  const regenerateToken = () => {
-    // Simulate token regeneration
-    const newToken = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
-    setApiToken(newToken);
+  const regenerateToken = async () => {
+     try {
+      setIsLoading(true);
+
+      const response =  await dashboardService.generateCustomerApiKey();
+      if (response) {
+        setViewKey(true);
+        toast.success('API Token Regenerated Successfully');
+        setApiToken(response?.body?.apiKey);
+      }
+     } catch (error) {
+      toast.error('Failed to regenerate API Token, Please try again later!');
+     }finally{
+      setIsLoading(false);
+     }
+   
   };
 
   const copyToClipboard = () => {
@@ -83,7 +99,7 @@ const DeveloperDashboard = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-sm font-medium">
-                      OAuth 2.0 API Endpoint
+                      API Endpoint
                     </FormLabel>
                     <FormControl>
                       <Input {...field} readOnly className="" />
@@ -101,12 +117,14 @@ const DeveloperDashboard = () => {
                     value={apiToken}
                     readOnly 
                     className="pr-10 "
+                    hidden={!viewKey} 
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
                     className="absolute right-2 top-1/2 -translate-y-1/2"
+                    loading={isLoading}
                     onClick={copyToClipboard}
                   >
                     <IconCopy className="h-4 w-4" />

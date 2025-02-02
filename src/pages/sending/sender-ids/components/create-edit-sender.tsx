@@ -10,13 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
 import { Layout } from '@/components/custom/layout'
@@ -47,6 +40,8 @@ const AddEditCustomer = () => {
   function onSubmit(data: FormSchema) {
     const finalData = {
       ...data,
+      price:0,
+      billingCycle:"CUSTOM",
     }
     if (senderId) {
       updateSenderId.mutate({ id: senderId?.id, data: {...finalData, id:senderId?.id} })
@@ -101,7 +96,7 @@ const AddEditCustomer = () => {
 
             
                 {/* Billing Cycle Select Field */}
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name='billingCycle'
                   render={({ field }) => (
@@ -128,11 +123,11 @@ const AddEditCustomer = () => {
                     <FormMessage />
                   </FormItem>
                   )}
-                />
+                /> */}
 
 
               {/* Format Input Field */}
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name='price'
                 render={({ field }) => (
@@ -144,7 +139,7 @@ const AddEditCustomer = () => {
                 <FormMessage />
                 </FormItem>
                 )}
-              />
+              /> */}
 
               {/* Submit Button */}
               <div className='mt-4'>

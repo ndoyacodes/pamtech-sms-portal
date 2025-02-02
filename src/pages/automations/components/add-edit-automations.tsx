@@ -218,16 +218,16 @@ export const CampaignForm = () => {
       </Layout.Header>
 
       <Layout.Body>
-        <Card className='mx-auto p-8'>
+        <Card className='mx-auto p-8 '>
           <h2 className='mb-6 text-2xl font-semibold'>Create Campaign</h2>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-              <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+              <div className='grid grid-cols-1 gap-6 md:grid-cols-2 '>
                 {/* Left Column */}
-                <div className='space-y-6'>
+                <div className='space-y-6 h-fit flex flex-col'>
                   {/* Basic Information Section */}
-                  <div className='space-y-4'>
+                  <div className='space-y-4 flex-grow'>
                     <h3 className='text-lg font-medium'>Basic Information</h3>
 
                     <FormField
@@ -318,9 +318,9 @@ export const CampaignForm = () => {
                 </div>
 
                 {/* Right Column */}
-                <div className='space-y-6'>
+                <div className='space-y-6 h-fit flex flex-col'>
                   {/* Audience Section */}
-                  <div className='space-y-4'>
+                  <div className='space-y-4 flex-grow'>
                     <h3 className='text-lg font-medium'>Audience</h3>
 
                     <FormField

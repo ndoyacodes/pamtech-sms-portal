@@ -31,7 +31,7 @@ class TemplateService extends APIClient {
 
     // Update a template
     updateTemplate(id: number, data: Partial<TemplateData>) {
-        return this.patch<TemplateData>(`/templates/${id}`, data);
+        return this.put<TemplateData>(`/templates/${id}`, data);
     }
 
     // Delete a template

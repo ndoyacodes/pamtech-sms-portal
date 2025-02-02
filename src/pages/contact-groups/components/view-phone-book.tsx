@@ -199,10 +199,10 @@ export const PhonebookView = () => {
                     <p className='text-sm text-muted-foreground'>Name</p>
                     <p className='font-medium'>{`${phonebook?.createdBy.firstName} ${phonebook?.createdBy.lastName}`}</p>
                   </div>
-                  <div>
+                  {/* <div>
                     <p className='text-sm text-muted-foreground'>Role</p>
                     <Badge variant='outline'>{phonebook?.createdBy.role}</Badge>
-                  </div>
+                  </div> */}
                   <div>
                     <p className='text-sm text-muted-foreground'>Email</p>
                     <p className='text-sm'>{phonebook?.createdBy.email}</p>

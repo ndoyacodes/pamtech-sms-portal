@@ -44,7 +44,8 @@ const AddTemplateForm = () => {
     console.log('Form Submitted:', data)
     const finalData = {
       ...data,
-      customerId: user?.customer?.id
+      customerId: user?.customer?.id,
+      id: template?.id
     }
     if (template) {
       updateTemplate.mutate({ id: template?.id, data: finalData })

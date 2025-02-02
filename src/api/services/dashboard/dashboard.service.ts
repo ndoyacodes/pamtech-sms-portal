@@ -14,6 +14,10 @@ class DashboardService extends APIClient {
     return this.get<any>('/dashboard/customer/chat');
    }
 
+   generateCustomerApiKey() {
+    return this.get<any>('/api-key/generate');
+   }
+
    
 }
 

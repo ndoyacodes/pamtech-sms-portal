@@ -42,6 +42,7 @@ export const useBlacklist = () => {
     const removeFromBlacklist = useMutation({
         mutationFn: (id: number) => blacklistService.deleteBlacklistEntry(id),
         onSuccess: () => {
+            navigate('/blacklists');
             queryClient.invalidateQueries({ queryKey: ['blacklists'] });
             toast.success('Removed from blacklist successfully');
         },

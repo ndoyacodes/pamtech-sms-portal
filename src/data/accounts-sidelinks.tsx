@@ -124,7 +124,7 @@ import {
         {
           title: 'Analysis',
           label: '',
-          href: '/dashboard',
+          href: '/',
           icon: <IconDashboard size={18} />,
         },
         {
