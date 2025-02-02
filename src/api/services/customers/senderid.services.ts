@@ -26,7 +26,7 @@ class SenderIdService extends APIClient {
 
             // Get a single sender ID by ID
         approveSenderId(data: any) {
-                return this.get<SenderIdData>(`/sender-id/approve`, data);
+                return this.post<SenderIdData>(`/sender-id/approve`, data);
         }
 
         // Create a new sender ID
