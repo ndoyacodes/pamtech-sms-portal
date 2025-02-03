@@ -20,6 +20,9 @@ interface EnableCampaignCOnfirmationProps {
 const EnableCampaignCOnfirmation = ({  mode, onClose, campaignId, campaign }: EnableCampaignCOnfirmationProps) => {
     const queryClient = useQueryClient();
 
+    console.log(mode, campaignId, campaign);
+    
+
     const mutation = useMutation({
         mutationFn: async () => {
             if (mode  === 'disable') {

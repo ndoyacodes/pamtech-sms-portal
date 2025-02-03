@@ -75,7 +75,7 @@ export const PhonebookView = () => {
         </div>
       </Layout.Header>
       <Layout.Body>
-        <div className=' max-w-6xl space-y-6 p-6'>
+        <div className='space-y-6 p-6'>
           {/* Header Section */}
           <div className='flex items-center justify-between'>
             <div>

@@ -24,7 +24,7 @@ export function DataTableRowActions<TData>({
   const navigate = useNavigate()
   const campaign = row.original as Campaign
   const [enableState, setEnableState] = useState('enable')
-  const [enableMOdal, setEnableMOdal] = useState(true)
+  const [enableMOdal, setEnableMOdal] = useState(false)
 
   const handleEdit = () => {
     if (!campaign?.id) {
@@ -38,6 +38,8 @@ export function DataTableRowActions<TData>({
 
     navigate(`/automations/campaign/${campaign.id}`, { state: { campaign } })
   }
+
+  console.log(campaign)
 
   const handleDelete = () => {
     if (!campaign?.id) {
@@ -59,22 +61,26 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         <DropdownMenuItem onClick={handleEdit}>View</DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            setEnableMOdal(true)
-            setEnableState('enable')
-          }}
-        >
-          Disabe
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            setEnableMOdal(true)
-            setEnableState('disable')
-          }}
-        >
-          Enable
-        </DropdownMenuItem>
+        {campaign.active === true ? (
+          <DropdownMenuItem
+            onClick={() => {
+              setEnableMOdal(true)
+              setEnableState('disable')
+            }}
+          >
+            Disabe
+          </DropdownMenuItem>
+        ) : (
+          <DropdownMenuItem
+            onClick={() => {
+              setEnableMOdal(true)
+              setEnableState('enable')
+            }}
+          >
+            Enable
+          </DropdownMenuItem>
+        )}
+
         <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
 

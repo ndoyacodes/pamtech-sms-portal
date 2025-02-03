@@ -22,11 +22,13 @@ import { format } from 'date-fns'
 import { Search } from '@/components/search'
 import { useState } from 'react'
 import CustomerApprovalModal from './cusstomer-approval-modal'
+import PDFViewerModal from './kyc-view-doc'
 
 const CustomerDetails = () => {
   const { id } = useParams();
     const [approveModal, setApproveModal] = useState(false);
-    const [rejectModal, setRejectModal] = useState(false)
+    const [rejectModal, setRejectModal] = useState(false);
+    const [openKycFile, setOpenKycFile] = useState(false);
     const navigate =  useNavigate();
 
   const { data: customer, isLoading } = useQuery({
@@ -201,11 +203,12 @@ const CustomerDetails = () => {
               <p className='text-sm text-gray-500'>KYC Document:</p>
               <a
                 href={customer?.kycFile}
+                onClick={() => setOpenKycFile(true)}
                 target='_blank'
                 rel='noopener noreferrer'
                 className='text-primary hover:underline'
               >
-                Download
+                Open
               </a>
             </div>
             {customer?.remarks && (
@@ -225,6 +228,12 @@ const CustomerDetails = () => {
           onClose={() =>  setRejectModal(false)}
         />
       )}
+
+      {
+        openKycFile && (
+          <PDFViewerModal fileUrl={customer?.kycFile} isOpen={openKycFile} onClose={() => setOpenKycFile(false)} title={customer?.firstName}/>
+        )
+      }
     </Layout>
   )
 }

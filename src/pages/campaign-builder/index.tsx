@@ -38,7 +38,7 @@ const RECIPIENT_MODES = [
 
 const formSchema = z.object({
   senderId: z.number().min(1, { message: 'Sender ID is required' }),
-  phonebookId: z.array(z.number()).optional(),
+  phonebookId: z.any(z.number()).optional(),
   message: z.string().min(1, { message: 'Message is required' }),
   messageType: z.string().min(1, { message: 'Message type is required' }),
   scheduled: z.boolean().default(false),
