@@ -4,8 +4,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { X } from 'lucide-react';
-import { Button } from '@/components/custom/button';
 
 interface PDFViewerModalProps {
   isOpen: boolean;
@@ -20,14 +18,14 @@ const PDFViewerModal = ({ isOpen, onClose, fileUrl, title = 'Document Viewer' }:
       <DialogContent className="max-w-4xl h-[80vh]">
         <DialogHeader className="flex flex-row items-center justify-between">
           <DialogTitle>{title}</DialogTitle>
-          <Button
+          {/* <Button
             variant="ghost"
             size="icon"
             className="h-8 w-8 p-0"
             onClick={onClose}
           >
             <X className="h-4 w-4" />
-          </Button>
+          </Button> */}
         </DialogHeader>
         <div className="flex-1 w-full h-full min-h-[60vh]">
           <iframe

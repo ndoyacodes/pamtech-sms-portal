@@ -8,13 +8,13 @@ import { columns } from './components/columns'
 import { useQuery } from '@tanstack/react-query'
 import { blacklistService } from '@/api/services/contacts/blacklist.service'
 import { useAuthStore } from '@/hooks/use-auth-store'
-
 export default function FarmersPage() {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   })
   const { user} = useAuthStore();
+
 
   const { data: blacklists, isLoading } = useQuery({
     queryKey: ['blacklists', pagination.pageIndex, pagination.pageSize],
@@ -37,7 +37,7 @@ export default function FarmersPage() {
     staleTime: 5 * 60 * 1000,
   })
 
-  console.log(blacklists)
+
 
   return (
     <Layout>

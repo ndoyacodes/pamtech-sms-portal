@@ -18,6 +18,7 @@ import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { useBlacklist } from '@/hooks/api-hooks/contacts/blacklist-hook'
+import { useNavigate } from 'react-router-dom'
 
 // Validation Schema
 const formSchema = z.object({
@@ -37,6 +38,7 @@ const delimiters = [
 export const AddBlacklistForm = () => {
   const [selectedDelimiter, setSelectedDelimiter] = useState<string>(',');
   const {addToBlacklist} =  useBlacklist();
+  const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,6 +55,11 @@ export const AddBlacklistForm = () => {
   const handleReset = () => {
     form.reset()
     setSelectedDelimiter(',')
+  }
+
+  const handleCancel = () =>  {
+    handleReset()
+    navigate('/blacklists')
   }
 
   return (
@@ -131,8 +138,8 @@ export const AddBlacklistForm = () => {
               loading={addToBlacklist.isPending}
               disabled={addToBlacklist.isPending}
               >Save</Button>
-              <Button type="button" variant="outline" onClick={handleReset}>
-                Reset
+              <Button type="button" variant="outline" onClick={handleCancel}>
+                Cancel
               </Button>
             </div>
           </form>

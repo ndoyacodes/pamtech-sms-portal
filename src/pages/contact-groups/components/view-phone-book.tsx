@@ -13,7 +13,7 @@ import {
   Building,
   Globe,
 } from 'lucide-react'
-import { Button } from '@/components/custom/button'
+// import { Button } from '@/components/custom/button'
 import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
@@ -249,13 +249,13 @@ export const PhonebookView = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className='flex justify-end space-x-4'>
+          {/* <div className='flex justify-end space-x-4'>
             <Button variant='outline'>Download Contacts</Button>
             <Button variant='outline'>Edit Phonebook</Button>
             {!phonebook?.deleted && (
               <Button variant='destructive'>Delete Phonebook</Button>
             )}
-          </div>
+          </div> */}
         </div>
       </Layout.Body>
     </Layout>

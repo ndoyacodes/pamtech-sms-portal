@@ -20,7 +20,7 @@ import { UserNav } from '@/components/user-nav'
 import { formSchema, FormSchema } from '../data/template-form-schema'
 import { useAuthStore } from '@/hooks/use-auth-store'
 import { useSmsTemplate } from '@/hooks/api-hooks/message/template-hook'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 
 const AddTemplateForm = () => {
@@ -29,7 +29,8 @@ const AddTemplateForm = () => {
   const template =  location?.state?.record;
   const maxChars = 160
   const {user} =  useAuthStore();
-  const {createTemplate, updateTemplate} = useSmsTemplate()
+  const {createTemplate, updateTemplate} = useSmsTemplate();
+  const navigate =  useNavigate();
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -52,6 +53,10 @@ const AddTemplateForm = () => {
     } else {
       createTemplate.mutate({ data: finalData })
     }
+  }
+
+  const handleNavigate = () => {
+    navigate('/templates')
   }
 
   const isLoading = createTemplate.isPending || updateTemplate.isPending
@@ -144,12 +149,15 @@ const AddTemplateForm = () => {
             />
 
             {/* ===== Buttons ===== */}
-            <div className='flex gap-4'>
+            <div className='flex justify-end gap-4'>
               <Button type='submit' className='btn-primary'
                 loading={isLoading}
                 disabled={isLoading}
               >
                 Save
+              </Button>
+              <Button type="button" variant="outline" onClick={handleNavigate}>
+                Cancel
               </Button>
             </div>
           </form>

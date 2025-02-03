@@ -36,6 +36,14 @@ const CustomerDetails = () => {
     queryFn: () => customerService.getCustomerById(id),
   })
 
+  const handleCloseApprovalModal = () => {
+    setApproveModal(false)
+  }
+
+  const handleCloseRejectModal = () => {
+    setRejectModal(false)
+  }
+
   if (isLoading) {
     return (
       <Layout>
@@ -80,6 +88,11 @@ const CustomerDetails = () => {
               <Button variant="default"
                 onClick={() =>  setApproveModal(true)}
               >Approve</Button>
+                    <Button onClick={() => setRejectModal(true)}
+                     variant={'destructive'} 
+                      >
+              Reject
+            </Button>
             </div>
           )}
           {customer?.approvalStatus === "PENDING" && (
@@ -201,15 +214,13 @@ const CustomerDetails = () => {
             <div className='flex items-center space-x-4'>
               <FileText className='h-5 w-5 text-gray-500' />
               <p className='text-sm text-gray-500'>KYC Document:</p>
-              <a
-                href={customer?.kycFile}
+              <div
                 onClick={() => setOpenKycFile(true)}
-                target='_blank'
                 rel='noopener noreferrer'
                 className='text-primary hover:underline'
               >
                 Open
-              </a>
+              </div>
             </div>
             {customer?.remarks && (
               <div className='mt-4'>
@@ -221,11 +232,18 @@ const CustomerDetails = () => {
         </Card>
       </Layout.Body>
       {approveModal && <CustomerApprovalModal customerId={customer?.id} onClose={() =>  setApproveModal(false)}  actionType={'APPROVE'}/>} 
+      {approveModal && (
+        <CustomerApprovalModal
+          customerId={customer?.id}
+          actionType={'APPROVE'}
+          onClose={handleCloseApprovalModal}
+        />
+      )}
       {rejectModal && (
         <CustomerApprovalModal
           customerId={customer?.id}
           actionType={'REJECT'}
-          onClose={() =>  setRejectModal(false)}
+          onClose={handleCloseRejectModal}
         />
       )}
 
