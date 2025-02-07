@@ -91,7 +91,7 @@ const InteractivePieChart = () => {
     queryFn: async () => {
       if (user?.customer) {
         const response = await dashboardService.getDashbordCustomerPieData()
-        const transformedData = response.map(([status, count]) => {
+        const transformedData = response?.map(([status, count]) => {
           return {
             name: status,
             value: count,
