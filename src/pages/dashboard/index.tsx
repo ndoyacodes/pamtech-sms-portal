@@ -2,7 +2,6 @@ import { Layout } from '@/components/custom/layout'
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -227,9 +226,9 @@ export default function Dashboard() {
               <Card className='col-span-1 lg:col-span-3'>
                 <CardHeader>
                   <CardTitle>SMS Reports</CardTitle>
-                  <CardDescription>
+                  {/* <CardDescription>
                     You have 98% sent messages.
-                  </CardDescription>
+                  </CardDescription> */}
                 </CardHeader>
 
                 <CardContent>
