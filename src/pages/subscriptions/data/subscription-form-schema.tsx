@@ -1,8 +1,7 @@
 import { z } from 'zod'
 
 export const formSchema = z.object({
-  
-    customer: z.any(),
+  customer: z.any(),
   plan: z.string(),
   notificationNumberOfDays: z.string(),
 })

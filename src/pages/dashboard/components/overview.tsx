@@ -18,6 +18,7 @@ export function Overview() {
         const response = await dashboardService.getDashbordCustomerChat({
           period: currentPeriod
         });
+        setPeriod(currentPeriod);
         
         return Object.entries(response).map(([name, total]) => ({
           name,

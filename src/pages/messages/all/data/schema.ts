@@ -18,7 +18,7 @@ export const taskSchema = z.object({
   smsCount: z.number(),
   dateSent: z.string(),
   customer: z.any(),
-  plan: z.null().optional(),
+  plan: z.any(),
   messageId: z.string(),
   smsType: z.string(),
   template: z.null().optional(),

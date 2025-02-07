@@ -4,8 +4,6 @@ import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
-
-import { labels, priorities } from '../data/data'
 import { Invoice } from '../data/schema'
 
 export const columns: ColumnDef<Invoice>[] = [
@@ -38,85 +36,56 @@ export const columns: ColumnDef<Invoice>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='#' />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className='w-[80px]'>{row.index + 1}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'date',
+    accessorKey: 'numberOfSmsPurchased',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Date' />
+      <DataTableColumnHeader column={column} title='Number of sms purchased' />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.date)
 
       return (
         <div className='flex space-x-2'>
-          {label && <Badge variant='outline'>{label.label}</Badge>}
+           {/* <Badge variant='outline'>{label.label}</Badge> */}
           <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('title')}
+            {row.getValue('numberOfSmsPurchased')}
           </span>
         </div>
       )
     },
   },
   {
-    accessorKey: 'name',
+    accessorKey: 'currentBalance',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Name' />
+      <DataTableColumnHeader column={column} title='Current balance' />
     ),
-    cell: ({ row }) => <div className='w-[150px]'>{row.getValue('name')}</div>,
+    cell: ({ row }) => <div className='w-[150px]'>{row.getValue('currentBalance')}</div>,
   },
   {
-    accessorKey: 'type',
+    accessorKey: 'expiryDate',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Type' />
+      <DataTableColumnHeader column={column} title='Expiry date' />
     ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('type')}</div>,
+    cell: ({ row }) => <div className='w-[100px]'>{new Date(row.getValue('expiryDate')).toLocaleDateString()}</div>,
   },
-  {
-    accessorKey: 'details',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Details' />
-    ),
-    cell: ({ row }) => (
-      <div className='max-w-[200px] truncate'>{row.getValue('details')}</div>
-    ),
-  },
-  {
-    accessorKey: 'amount',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Amount' />
-    ),
-    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('amount')}</div>,
-  },
-  {
-    accessorKey: 'priority',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Priority' />
-    ),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue('priority')
-      )
-
-      if (!priority) {
-        return null
-      }
-
-      return (
-        <div className='flex items-center'>
-          {priority.icon && (
-            <priority.icon className='mr-2 h-4 w-4 text-muted-foreground' />
-          )}
-          <span>{priority.label}</span>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
-  },
+   {
+     accessorKey: 'expired',
+     header: ({ column }) => (
+       <DataTableColumnHeader column={column} title='Status' />
+     ),
+     cell: ({ row }) => (
+       <Badge
+         variant={
+           row.getValue('expired')  ? 'destructive' : 'success'
+         }
+       >
+         {row.getValue('expired')? 'Expired' : 'Active'}
+       </Badge>
+     ),
+   },
   {
     id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,
