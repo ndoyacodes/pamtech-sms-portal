@@ -30,8 +30,10 @@ export function UserNav() {
   const { data: dashData, isLoading } = useQuery({
     queryKey: ['dashboard',],
     queryFn: async () => {
-      const response: any = await dashboardService.getCustomerDashboardData()
+      if (user?.customer) {
+        const response: any = await dashboardService.getCustomerDashboardData()
       return response
+      }
     },
     retry: 2,
     staleTime: 5 * 60 * 1000,

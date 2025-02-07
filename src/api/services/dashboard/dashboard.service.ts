@@ -10,10 +10,11 @@ class DashboardService extends APIClient {
         return this.get<any>('/dashboard/customer');
     }
 
-    getCustomerChartsData() {
-    return this.get<any>('/dashboard/customer/chat');
-   }
-
+      // Get all campaigns
+    getDashbordCustomerChat(params?: { period?: string; }) {
+        return this.get<any[]>('/dashboard/customer/chart', params);
+    }
+    
    generateCustomerApiKey() {
     return this.get<any>('/api-key/generate');
    }

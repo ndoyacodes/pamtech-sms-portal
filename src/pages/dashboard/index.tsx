@@ -20,11 +20,18 @@ import { useAuthStore } from '@/hooks/use-auth-store'
 
 export default function Dashboard() {
   const {user} = useAuthStore();
+  console.log(user?.customer);
+  
   const { data: dashData, isLoading } = useQuery({
     queryKey: ['dashboard',],
     queryFn: async () => {
-      const response: any = await dashboardService.getCustomerDashboardData()
-      return response
+      if (user?.customer) {
+        const response: any = await dashboardService.getCustomerDashboardData();
+        return response;
+      }else{
+        // const response: any = await dashboardService.getDashboardData();
+        return null;
+      }
     },
     retry: 2,
     staleTime: 5 * 60 * 1000,
