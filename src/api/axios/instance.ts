@@ -14,7 +14,8 @@ const createAxiosInstance = (baseURL: string): AxiosInstance => {
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+  
   });
 
   // Setup interceptors for this instance
@@ -45,7 +46,7 @@ export class APIClient {
     return this.instance;
   }
 
-  async get<T>(url: string, params?: Record<string, any>): Promise<T> {
+  async get<T>(url: string, params?: Record<string, any>, config?: any): Promise<T> {
     const queryParams = new URLSearchParams();
 
     // Add parameters to the query string
@@ -61,7 +62,7 @@ export class APIClient {
   
     const queryString = queryParams.toString();
       
-    return this.instance.get(`${url}${queryString ? `?${queryString}` : ''}`);
+    return this.instance.get(`${url}${queryString ? `?${queryString}` : ''}`, config);
   }
 
   async post<T>(url: string, data?: any, config?: any): Promise<T> {

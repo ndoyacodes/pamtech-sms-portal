@@ -1,4 +1,3 @@
-import React from 'react';
 import { customerService } from '@/api/services/customers/customer.service';
 import {
   Dialog,
@@ -22,23 +21,31 @@ const PDFViewerModal = ({ isOpen, onClose, title = 'Document Viewer' }: PDFViewe
     queryKey: ['customer-kycfile', id],
     queryFn: async () => {
       try {
-        const response = await customerService.getCustomerKycFile(id);
+        const response:Blob = await customerService.getCustomerKycFile(id);
         
         console.log('Response type:', typeof response);
         
         let pdfBlob: Blob;
         if (typeof response === 'string') {
-          const byteCharacters = Array.from(response).map(char => char.charCodeAt(0));
-          const byteArray = new Uint8Array(byteCharacters);
+          // const byteCharacters = Array.from(response).map(char => char.charCodeAt(0));
+          // const byteArray = new Uint8Array(byteCharacters);
+
+          const encoder = new TextEncoder();
+          const byteArray = encoder.encode(response);
           
+          // Create the blob from the byte array
           pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
+          console.log('Created Blob size:', pdfBlob.size);
+          pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
+
+
           
           console.log('Created Blob size:', pdfBlob.size);
         } else {
           throw new Error('Expected string response');
         }
         
-        const url = URL.createObjectURL(pdfBlob);
+        const url = URL.createObjectURL(response);
         console.log('Created URL:', url);
         return url;
       } catch (error) {
@@ -48,13 +55,13 @@ const PDFViewerModal = ({ isOpen, onClose, title = 'Document Viewer' }: PDFViewe
     },
   });
 
-  React.useEffect(() => {
-    return () => {
-      if (pdfUrl) {
-        URL.revokeObjectURL(pdfUrl);
-      }
-    };
-  }, [pdfUrl]);
+  // React.useEffect(() => {
+  //   return () => {
+  //     if (pdfUrl) {
+  //       URL.revokeObjectURL(pdfUrl);
+  //     }
+  //   };
+  // }, [pdfUrl]);
 
   console.log('PDF URL:', pdfUrl);
   
