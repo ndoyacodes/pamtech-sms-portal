@@ -34,15 +34,15 @@ const CustomerDetails = () => {
   const { data: customer, isLoading } = useQuery({
     queryKey: ['customer-details', id],
     queryFn: () => customerService.getCustomerById(id),
-  })
+  });
 
   const handleCloseApprovalModal = () => {
     setApproveModal(false)
-  }
+  };
 
   const handleCloseRejectModal = () => {
     setRejectModal(false)
-  }
+  };
 
   if (isLoading) {
     return (
@@ -211,7 +211,8 @@ const CustomerDetails = () => {
             </div>
           </CardContent>
           <CardFooter className='border-t p-6'>
-            <div className='flex items-center space-x-4'>
+   
+              <div className='flex items-center space-x-4'>
               <FileText className='h-5 w-5 text-gray-500' />
               <p className='text-sm text-gray-500'>KYC Document:</p>
               <div
@@ -222,6 +223,7 @@ const CustomerDetails = () => {
                 Open
               </div>
             </div>
+            
             {customer?.remarks && (
               <div className='mt-4'>
                 <p className='text-sm text-gray-500'>Remarks:</p>
@@ -249,7 +251,7 @@ const CustomerDetails = () => {
 
       {
         openKycFile && (
-          <PDFViewerModal fileUrl={customer?.kycFile} isOpen={openKycFile} onClose={() => setOpenKycFile(false)} title={customer?.firstName}/>
+          <PDFViewerModal isOpen={openKycFile} onClose={() => setOpenKycFile(false)} title={customer?.firstName}/>
         )
       }
     </Layout>

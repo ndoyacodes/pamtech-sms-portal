@@ -35,6 +35,7 @@ interface DataTableProps<TData, TValue> {
   };
   onPaginationChange: (pagination: { pageIndex: number; pageSize: number }) => void;
   totalElements: number;
+  isIndex: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -43,6 +44,7 @@ export function DataTable<TData, TValue>({
   pagination,
   onPaginationChange,
   totalElements,
+  isIndex
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
@@ -81,7 +83,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className='space-y-4'>
-      <DataTableToolbar table={table} />
+     {isIndex && <DataTableToolbar table={table} />}
       <div className='rounded-md border'>
         <Table>
           <TableHeader>

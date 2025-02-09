@@ -81,7 +81,7 @@ export class APIClient {
     return this.instance.patch(url, data);
   }
 
-  async delete<T>(url: string, p0: { id: number; }): Promise<T> {
+  async delete<T>(url: string, p0?: { id: number; }): Promise<T> {
     const queryParams = new URLSearchParams();
 
     // Add parameters to the query string
