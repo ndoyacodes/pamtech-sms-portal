@@ -21,33 +21,28 @@ const PDFViewerModal = ({ isOpen, onClose, title = 'Document Viewer' }: PDFViewe
     queryKey: ['customer-kycfile', id],
     queryFn: async () => {
       try {
-        const response:Blob = await customerService.getCustomerKycFile(id);
-        
-        console.log('Response type:', typeof response);
-        
-        let pdfBlob: Blob;
-        if (typeof response === 'string') {
-          // const byteCharacters = Array.from(response).map(char => char.charCodeAt(0));
-          // const byteArray = new Uint8Array(byteCharacters);
+        const base64String: string = await customerService.getCustomerKycFile(id);
 
-          const encoder = new TextEncoder();
-          const byteArray = encoder.encode(response);
-          
-          // Create the blob from the byte array
-          pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
-          console.log('Created Blob size:', pdfBlob.size);
-          pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
+        // 1. Decode the Base64 string to a Uint8Array
+        const byteCharacters = atob(base64String); // Decode Base64
+        const byteArrays = [];
 
+        for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+          const slice = byteCharacters.slice(offset, offset + 512);
 
-          
-          console.log('Created Blob size:', pdfBlob.size);
-        } else {
-          throw new Error('Expected string response');
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
         }
-        
-        const url = URL.createObjectURL(response);
-        console.log('Created URL:', url);
+
+        const blob = new Blob(byteArrays, { type: 'application/pdf' }); // Create Blob from Uint8Array
+        const url = URL.createObjectURL(blob);
         return url;
+
       } catch (error) {
         console.error('Error loading PDF:', error);
         throw error;
