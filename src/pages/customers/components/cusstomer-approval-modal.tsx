@@ -19,16 +19,20 @@ import {
   }
   
   const CustomerApprovalModal = ({ customerId, actionType, onClose }: CustomerApprovalModalProps) => {
-    const [remarks, setRemarks] = useState('');
-    const { approveCustomer } = useCustomer();
-  
+    const [remarks, setRemarks] = useState('')
+    const { approveCustomer } = useCustomer()
+
+    function capitalize(str: string) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+
     const handleSubmit = async () => {
       if (actionType === 'REJECT' && !remarks.trim()) {
-        toast.error('Remarks are required for rejection.');
-        return;
+        toast.error('Remarks are required for rejection.')
+        return
       }
-  
-      const approved = actionType === 'APPROVE';
+
+      const approved = actionType === 'APPROVE'
       approveCustomer.mutate(
         {
           id: customerId,
@@ -40,38 +44,36 @@ import {
             toast.success(
               approved
                 ? 'Customer approved successfully!'
-                : 'Customer rejected successfully!'
-            );
-            onClose();
+                : 'Customer rejected / deactivated successfully!'
+            )
+            onClose()
           },
           onError: (error: any) => {
             const errorMessage =
-              error?.response?.data?.message || 'Failed to process the request.';
-            toast.error(errorMessage);
+              error?.response?.data?.message || 'Failed to process the request.'
+            toast.error(errorMessage)
           },
         }
-      );
-    };
-  
+      )
+    }
+
     return (
-      <Dialog open={true} onOpenChange={onClose} >
+      <Dialog open={true} onOpenChange={onClose}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Customer Approval</DialogTitle>
             <DialogDescription>
-              {actionType === 'APPROVE'
-                ? 'Are you sure you want to approve this customer?'
-                : 'Are you sure you want to reject this customer? This action is irreversible.'}
+              {`Are you sure you want to ${actionType.toLowerCase()} this customer?`}
             </DialogDescription>
           </DialogHeader>
-  
-          <div className="space-y-4 py-4">
+
+          <div className='space-y-4 py-4'>
             {actionType === 'REJECT' && (
-              <div className="space-y-2">
-                <Label htmlFor="remarks">Remarks</Label>
+              <div className='space-y-2'>
+                <Label htmlFor='remarks'>Remarks</Label>
                 <Textarea
-                  id="remarks"
-                  placeholder="Enter remarks"
+                  id='remarks'
+                  placeholder='Enter remarks'
                   value={remarks}
                   onChange={(e) => setRemarks(e.target.value)}
                   required
@@ -79,23 +81,27 @@ import {
               </div>
             )}
           </div>
-  
-          <div className="flex justify-end space-x-2">
-            <Button variant="secondary" onClick={onClose}>
+
+          <div className='flex justify-end space-x-2'>
+            <Button variant='secondary' onClick={onClose}>
               Cancel
             </Button>
             <Button
-              variant={actionType === 'APPROVE' ? 'default' : 'destructive'}
+              variant={
+                actionType === 'APPROVE' || actionType === 'ACTIVATE'
+                  ? 'default'
+                  : 'destructive'
+              }
               loading={approveCustomer.isPending}
               onClick={handleSubmit}
               disabled={approveCustomer.isPending}
             >
-              {actionType === 'APPROVE' ? 'Approve' : 'Reject'}
+              {capitalize(actionType.toLowerCase())}
             </Button>
           </div>
         </DialogContent>
       </Dialog>
-    );
+    )
   };
   
   export default CustomerApprovalModal;

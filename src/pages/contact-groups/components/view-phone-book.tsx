@@ -104,11 +104,10 @@ export const PhonebookView = () => {
         >
           <div className='mt-3 w-full overflow-x-auto pb-2'>
             <TabsList>
-            <TabsTrigger value='numbers'>Phone book numbers</TabsTrigger>
+              <TabsTrigger value='numbers'>Phone book numbers</TabsTrigger>
               <TabsTrigger value='phonebook-details'>
                 Phone book details
               </TabsTrigger>
-              
             </TabsList>
           </div>
           <TabsContent value='phonebook-details' className='space-y-4 '>

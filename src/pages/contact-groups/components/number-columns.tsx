@@ -51,7 +51,47 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: 'msisdn',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Number' />
+      <DataTableColumnHeader column={column} title='Column A' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
+    ),
+  },
+
+  {
+    accessorKey: 'msisdn',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Column B' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
+    ),
+  },
+
+  {
+    accessorKey: 'msisdn',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Column C' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
+    ),
+  },
+
+  {
+    accessorKey: 'msisdn',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Column D' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
+    ),
+  },
+
+  {
+    accessorKey: 'msisdn',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Action' />
     ),
     cell: ({ row }) => {
       const [deleteState, setdeleteState] = useState(false)
