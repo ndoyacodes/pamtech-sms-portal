@@ -24,13 +24,7 @@ class CustomerService extends APIClient {
 
      // Get a single customer by ID
      getCustomerKycFile(id: any) {
-        return this.get<any>(`/customer/attachment/${id}`,{},
-            {
-                headers: {
-                  Accept: 'application/pdf',
-                },
-              }
-        );
+        return this.get<any>(`/customer/attachment/${id}`,{})
     }
 
     // Create a new customer

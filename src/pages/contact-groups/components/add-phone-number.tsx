@@ -15,6 +15,11 @@ import { usePhonebook } from "@/hooks/api-hooks/contacts/phonebook-hoook";
 
 interface AddPhoneNumberFormData {
     recipient: string;
+    col1: string;
+    col2: string;
+    col3: string;
+    col4: string;
+    col5: string;
 }
 
 export function AddPhoneNumberModal() {
@@ -56,21 +61,60 @@ export function AddPhoneNumberModal() {
                     <div className="grid gap-2">
                         <Label htmlFor="recipient">Phone Number</Label>
                         <Input
-                            id="recipient"
-                            placeholder="Enter phone number"
-                            {...register("recipient", { required: true })}
+                          id="recipient"
+                          placeholder="Enter phone number"
+                          {...register("recipient", { required: true })}
                         />
                     </div>
-                  
+                    <div className="grid gap-2">
+                        <Label htmlFor="col1">Enter Column A</Label>
+                        <Input
+                          id="col1"
+                          placeholder="Enter Column A"
+                          {...register("col1", { required: false })}
+                        />
+                    </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="col2">Enter Column B</Label>
+                        <Input
+                          id="col2"
+                          placeholder="Enter Column B"
+                          {...register("col2", { required: false })}
+                        />
+                    </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="col2">Enter Column C</Label>
+                        <Input
+                          id="col3"
+                          placeholder="Enter Column C"
+                          {...register("col3", { required: false })}
+                        />
+                    </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="col2">Enter Column D</Label>
+                        <Input
+                          id="col4"
+                          placeholder="Enter Column D"
+                          {...register("col4", { required: false })}
+                        />
+                    </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="col2">Enter Column E</Label>
+                        <Input
+                          id="col5"
+                          placeholder="Enter Column E"
+                          {...register("col5", { required: false })}
+                        />
+                    </div>
 
                     <div className="flex justify-end space-x-2 mt-4">
-                    <Button variant="secondary" onClick={() => setIsOpen(false)}>
-                        Cancel
-                    </Button>
-                    <Button type="submit" disabled={addContactToPhonebook.isPending}>
-                        {addContactToPhonebook.isPending ? "Adding..." : "Add Phone Number"}
-                    </Button>
-                </div>
+                        <Button variant="secondary" onClick={() => setIsOpen(false)}>
+                            Cancel
+                        </Button>
+                        <Button type="submit" disabled={addContactToPhonebook.isPending}>
+                            {addContactToPhonebook.isPending ? "Adding..." : "Add Phone Number"}
+                        </Button>
+                    </div>
                 </form>
             </DialogContent>
         </Dialog>

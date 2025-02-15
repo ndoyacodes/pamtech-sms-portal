@@ -8,15 +8,6 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TabsContent } from '@radix-ui/react-tabs'
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 
 const CampaignDetailsPage = () => {
   const navigate = useNavigate()
@@ -64,7 +55,7 @@ const CampaignDetailsPage = () => {
                   <h2 className='mb-4 text-xl font-semibold'>
                     Basic Information
                   </h2>
-                  <div className='space-y-4'>
+                  <div className='space-y-4'>45
                     <div>
                       <p className='text-sm text-gray-500'>Description</p>
                       <p className='text-lg'>{campaign.description || 'N/A'}</p>
@@ -152,48 +143,7 @@ const CampaignDetailsPage = () => {
             <h1 className='mb-6 text-3xl font-bold'>Campaign History</h1>
             {/* Campaign Logs Table */}
             <div className='overflow-x-auto'>
-              {/* <DataTable columns={columns} data={data} /> */}
-              <Table>
-                <TableCaption>A list of your recent invoices.</TableCaption>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className='w-[100px]'>Invoice</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Method</TableHead>
-                    <TableHead className='text-right'>Amount</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className='font-medium'>INV001</TableCell>
-                    <TableCell>Paid</TableCell>
-                    <TableCell>Credit Card</TableCell>
-                    <TableCell className='text-right'>$250.00</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-
-              <Table>
-                <TableCaption>Showing 1 to 10 of 100 entries</TableCaption>
-                <TableHead>
-                  <TableRow>
-                    <TableHeader>Event</TableHeader>
-                    <TableHeader>Recipient</TableHeader>
-                    <TableHeader>Message</TableHeader>
-                    <TableHeader>Timestamp</TableHeader>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {/* {data.map((row) => (
-                  <TableRow key={row.id}>
-                    <TableCell>{row.event}</TableCell>
-                    <TableCell>{row.recipient}</TableCell>
-                    <TableCell>{row.message}</TableCell>
-                    <TableCell>{format(new Date(row.timestamp), 'yyyy-MM-dd HH:mm')}</TableCell>
-                  </TableRow>
-                ))} */}
-                </TableBody>
-              </Table>
+              {/*<DataTable columns={columns} data={data} />*/}
             </div>
           </TabsContent>
         </Tabs>

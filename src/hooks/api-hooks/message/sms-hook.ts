@@ -9,44 +9,15 @@ export const useSms = () => {
     const sendBulkSMS = useMutation({
         mutationFn: ({ data }: { data: any }) => messageService.sendBulkSMS(data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['phonebook'] });
-            toast.success('Added to phonebook successfully');
+            queryClient.invalidateQueries({ queryKey: ['sms'] });
+            toast.success('Campaign was successfully sent.');
         },
         onError: (error: any) => {
             const errorMessage = 
-                error?.response?.data?.message || 'Failed to add to phonebook';
+                error?.response?.data?.message || 'Failed to send sms';
             toast.error(errorMessage);
         }
     });
-
-    // Update phonebook entry mutation
-    // const updatePhonebookEntry = useMutation({
-    //     mutationFn: ({ id, data }: { id: number; data: any }) => 
-    //         phonebookService.updatePhonebookEntry(id, data),
-    //     onSuccess: () => {
-    //         queryClient.invalidateQueries({ queryKey: ['phonebook'] });
-    //         toast.success('Phonebook entry updated successfully');
-    //     },
-    //     onError: (error: any) => {
-    //         const errorMessage = 
-    //             error?.response?.data?.message || 'Failed to update phonebook entry';
-    //         toast.error(errorMessage);
-    //     }
-    // });
-
-    // // Remove from phonebook mutation
-    // const removeFromPhonebook = useMutation({
-    //     mutationFn: (id: number) => phonebookService.deletePhonebookEntry(id),
-    //     onSuccess: () => {
-    //         queryClient.invalidateQueries({ queryKey: ['phonebook'] });
-    //         toast.success('Removed from phonebook successfully');
-    //     },
-    //     onError: (error: any) => {
-    //         const errorMessage = 
-    //             error?.response?.data?.message || 'Failed to remove from phonebook';
-    //         toast.error(errorMessage);
-    //     }
-    // });
 
     return {
         sendBulkSMS

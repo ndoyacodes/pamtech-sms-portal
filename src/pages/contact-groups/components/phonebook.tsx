@@ -70,16 +70,6 @@ export default function Component() {
 
         // Check if the first column contains phone numbers
         const firstColumn = json.map((row: any) => row[0])
-        // const phoneNumberRegex = /^\+?\d{10,15}$/;
-
-        // const isValid = firstColumn.every((cell: any) =>
-        //   phoneNumberRegex.test(cell)
-        // );
-
-        // if (!isValid) {
-        //   setErrorMessage("The first column must contain valid phone numbers.");
-        //   return;
-        // }
 
         if (firstColumn.length === 0) {
           setErrorMessage('The file is empty or has no data.')
