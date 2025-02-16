@@ -10,12 +10,13 @@ import { usePhonebook } from '@/hooks/api-hooks/contacts/phonebook-hoook'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function Component() {
   const [files, setFiles] = useState<File[]>([])
   const [isInvalid, setIsInvalid] = useState(false);
   const location =  useLocation();
-  const phoneBookData = location?.state?.phonebook;
+  const phoneBookData = location?.state?.record;
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [name, setName] = useState<string>(phoneBookData?.name) 
   const [description, setDescription] = useState<string>(phoneBookData?.description) 
@@ -84,6 +85,14 @@ export default function Component() {
     }
 
     reader.readAsBinaryString(file)
+  }
+
+  const handleEdit = async () => {
+     if (phoneBookData) {
+      // edit phonebook
+      navigate('/contacts');
+      toast.success('Phonebook updated successfully');
+     }
   }
 
   const submitFileToServer = async (file: File) => {
@@ -155,44 +164,48 @@ export default function Component() {
                 className='w-full'
               />
             </div>
-            <div
-            className='relative w-full max-w-xl rounded-lg bg-card p-8 shadow-lg'
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={handleDrop}
-          >
-            <div className='flex h-64 flex-col items-center justify-center rounded-md border-2 border-dashed border-muted'>
-              {files.length > 0 ? (
-                <div className='flex flex-col items-center justify-center'>
-                  <p className='text-muted-foreground'>
-                    File ready: <strong>{files[0].name}</strong>
-                  </p>
-                </div>
-              ) : (
-                <div className='flex flex-col items-center justify-center'>
-                  <UploadIcon className='h-12 w-12 text-muted-foreground' />
-                  <p className='mt-4 text-muted-foreground'>
-                    Drag and drop Excel files here or{' '}
-                    <label
-                      htmlFor='file-input'
-                      className='cursor-pointer font-medium text-primary'
-                    >
-                      import
-                    </label>
-                  </p>
-                </div>
+           {
+            !phoneBookData && (
+              <div
+              className='relative w-full max-w-xl rounded-lg bg-card p-8 shadow-lg'
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDrop}
+            >
+              <div className='flex h-64 flex-col items-center justify-center rounded-md border-2 border-dashed border-muted'>
+                {files.length > 0 ? (
+                  <div className='flex flex-col items-center justify-center'>
+                    <p className='text-muted-foreground'>
+                      File ready: <strong>{files[0].name}</strong>
+                    </p>
+                  </div>
+                ) : (
+                  <div className='flex flex-col items-center justify-center'>
+                    <UploadIcon className='h-12 w-12 text-muted-foreground' />
+                    <p className='mt-4 text-muted-foreground'>
+                      Drag and drop Excel files here or{' '}
+                      <label
+                        htmlFor='file-input'
+                        className='cursor-pointer font-medium text-primary'
+                      >
+                        import
+                      </label>
+                    </p>
+                  </div>
+                )}
+                <input
+                  id='file-input'
+                  type='file'
+                  accept='.xlsx, .xls'
+                  className='absolute left-0 top-0 h-full w-full cursor-pointer opacity-0'
+                  onChange={handleFileInput}
+                />
+              </div>
+              {isInvalid && (
+                <div className='mt-4 text-red-500'>{errorMessage}</div>
               )}
-              <input
-                id='file-input'
-                type='file'
-                accept='.xlsx, .xls'
-                className='absolute left-0 top-0 h-full w-full cursor-pointer opacity-0'
-                onChange={handleFileInput}
-              />
             </div>
-            {isInvalid && (
-              <div className='mt-4 text-red-500'>{errorMessage}</div>
-            )}
-          </div>
+            )
+           }
             {/* Save Button */}
          
             <div className='mt-6 flex  justify-end gap-2'>
@@ -207,6 +220,19 @@ export default function Component() {
                 <FileIcon className='ml-2 h-4 w-4' />
               </Button>
                 )}
+              {
+                phoneBookData && (
+                  <Button
+                  type='submit'
+                  onClick={handleEdit}
+                  // loading={uploadPhoneBook.isPending}
+                  // disabled={uploadPhoneBook.isPending}
+                  >
+                    Edit
+                  </Button>
+                )
+              }
+              
               <Button type="button" variant="outline" onClick={handleReset}>
                 Cancel
               </Button>
