@@ -75,7 +75,7 @@ export function AddPhoneNumberModal() {
                           {...register("name", { required: false })}
                         />
                     </div>
-                    <div className="grid gap-2">
+                    {/* <div className="grid gap-2">
                         <Label htmlFor="col1">Enter Column A</Label>
                         <Input
                           id="col1"
@@ -114,7 +114,7 @@ export function AddPhoneNumberModal() {
                           placeholder="Enter Column E"
                           {...register("col5", { required: false })}
                         />
-                    </div>
+                    </div> */}
 
                     <div className="flex justify-end space-x-2 mt-4">
                         <Button variant="secondary" onClick={() => setIsOpen(false)}>
