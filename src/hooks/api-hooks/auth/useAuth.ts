@@ -73,14 +73,26 @@ export const useAuth = () => {
     {
         mutationFn: authService.forgetPassword.bind(authService),
         onSuccess: () => {
-            toast.success("password  reset was sent successfully, enter the code sent to your phone number");
-            navigate('/verify-otp');
+            toast.success("password reset was sent successfully, a link is sent to your email to reset your password");
         },
         onError: () => {
-            toast.error("Failed to reset passwors, please try again later")
+            toast.error("Failed to reset passwors, email accout not found")
         }
     }
 )
+
+const resetPassword = useMutation(
+  {
+      mutationFn: authService.forgetReset.bind(authService),
+      onSuccess: () => {
+          toast.success("password reset sent successfully");
+      },
+      onError: () => {
+          toast.error("Failed to reset passwors")
+      }
+  }
+)
+
 
 const updateCurrentUserProfile = useMutation(
   {
@@ -100,6 +112,7 @@ const updateCurrentUserProfile = useMutation(
     loginUser,
     registerCustomer,
     updateCurrentUserProfile,
-    forgetPassword
+    forgetPassword,
+    resetPassword
   };
 };

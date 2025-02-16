@@ -15,7 +15,7 @@ import { Button } from '@/components/custom/button'
 import { Layout } from '@/components/custom/layout'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { customerService } from '@/api/services/customers/customer.service'
 import { format } from 'date-fns'
@@ -29,7 +29,7 @@ const CustomerDetails = () => {
   const [approveModal, setApproveModal] = useState(false)
   const [rejectModal, setRejectModal] = useState(false)
   const [openKycFile, setOpenKycFile] = useState(false)
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const { data: customer, isLoading } = useQuery({
     queryKey: ['customer-details', id],
@@ -82,7 +82,11 @@ const CustomerDetails = () => {
             </p>
           </div>
           <div className='flex gap-2'>
-            <Button variant='outline'>Edit Customer</Button>
+            <Button variant='outline'
+              onClick={() => {
+                navigate(`/customers/add`, { state: { record: customer } })
+              }}
+            >Edit Customer</Button>
             {customer?.approvalStatus === 'PENDING' && (
               <>
                 <Button variant='default' onClick={() => setApproveModal(true)}>

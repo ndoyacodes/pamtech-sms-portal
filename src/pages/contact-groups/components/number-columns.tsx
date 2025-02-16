@@ -109,6 +109,7 @@ export const columns: ColumnDef<any>[] = [
               id={row.getValue('id')}
               name={row.getValue('msisdn')}
               onClose={() => setdeleteState(false)}
+              type='number'
             />
           )}
         </div>

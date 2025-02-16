@@ -473,6 +473,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
                       <Input
                         type='file'
                         className='pl-9'
+                         accept='application/pdf'
                         //@ts-ignore
                         onChange={(e) => field.onChange(e.target.files[0])}
                       />

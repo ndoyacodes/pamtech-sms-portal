@@ -62,9 +62,8 @@ class AuthService extends APIClient {
 
 
   forgetPassword(data:any) {
-    return this.post<void>(' /auth/forgot-password', data);
+    return this.post<void>('/auth/forgot-password', data);
   }
-
 
 
 }

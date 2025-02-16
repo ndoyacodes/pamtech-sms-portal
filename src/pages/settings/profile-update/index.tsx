@@ -21,6 +21,7 @@ import {
     FormLabel,
     FormMessage,
   } from '@/components/ui/form'
+import { useAuth } from '@/hooks/api-hooks/auth/useAuth';
 
 const profileSchema = z.object({
     firstName: z.string().min(2, 'First name is required'),
@@ -46,6 +47,7 @@ const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [serverError, setServerError] = useState('');
   const { user } = useAuthStore();
+  const {resetPassword} =  useAuth();
   
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
@@ -69,14 +71,14 @@ const ProfilePage = () => {
   }
 
   const { register: registerPassword, handleSubmit: handlePasswordSubmit, 
-    formState: { errors: passwordErrors }, reset: resetPassword } = useForm<PasswordFormData>({
+    formState: { errors: passwordErrors }, reset: resetPasswordForm } = useForm<PasswordFormData>({
     resolver: zodResolver(passwordSchema)
   });
 
 
   const handlePasswordChange = async (data: PasswordFormData) => {
-      console.log(data);
-      resetPassword();
+       resetPassword.mutateAsync(data);
+       resetPasswordForm();
       setServerError('Password changed failed');
   };
 
@@ -274,7 +276,9 @@ const ProfilePage = () => {
             </div>
 
             <div className="flex items-end justify-end">
-              <Button type="submit" className="w-full md:w-auto">
+              <Button type="submit" className="w-full md:w-auto"
+                loading={resetPassword?.isPending}
+              >
                 Change Password
               </Button>
             </div>

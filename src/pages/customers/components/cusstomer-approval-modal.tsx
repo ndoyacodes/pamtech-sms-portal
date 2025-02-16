@@ -11,6 +11,7 @@ import {
   import { useCustomer } from '@/hooks/api-hooks/customers/customer-hook';
   import { Textarea } from '@/components/ui/textarea';
   import { toast } from 'react-toastify';
+import { useQueryClient } from '@tanstack/react-query';
   
   interface CustomerApprovalModalProps {
     customerId: number;
@@ -21,6 +22,10 @@ import {
   const CustomerApprovalModal = ({ customerId, actionType, onClose }: CustomerApprovalModalProps) => {
     const [remarks, setRemarks] = useState('')
     const { approveCustomer } = useCustomer()
+    const queryClient =  useQueryClient();
+
+    console.log(actionType);
+    
 
     function capitalize(str: string) {
       return str.charAt(0).toUpperCase() + str.slice(1)
@@ -32,7 +37,7 @@ import {
         return
       }
 
-      const approved = actionType === 'APPROVE'
+      const approved = actionType === 'APPROVE' || actionType === 'ACTIVATE'
       approveCustomer.mutate(
         {
           id: customerId,
@@ -41,6 +46,7 @@ import {
         },
         {
           onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['customers'] })
             toast.success(
               approved
                 ? 'Customer approved successfully!'

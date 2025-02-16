@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useAuth } from '@/hooks/api-hooks/auth/useAuth'
 
 interface ForgotFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -21,10 +22,10 @@ const formSchema = z.object({
     .string()
     .min(1, { message: 'Please enter your email' })
     .email({ message: 'Invalid email address' }),
-})
+});
 
 export function ForgotForm({ className, ...props }: ForgotFormProps) {
-  const [isLoading, setIsLoading] = useState(false)
+  const {forgetPassword} =  useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -32,12 +33,7 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
   })
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    console.log(data)
-
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+    forgetPassword.mutateAsync(data);
   }
 
   return (
@@ -58,7 +54,9 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
                 </FormItem>
               )}
             />
-            <Button className='mt-2' loading={isLoading}>
+            <Button className='mt-2' loading={forgetPassword.isPending}
+            disabled={forgetPassword.isPending}
+            >
               Continue
             </Button>
           </div>

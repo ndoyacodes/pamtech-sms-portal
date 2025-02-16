@@ -259,6 +259,7 @@ const AddEditCustomer = () => {
                           <Input
                             type='file'
                             className='pl-9'
+                            accept='application/pdf'
                             onChange={(e) =>
                               field.onChange(e.target.files?.[0])
                             }

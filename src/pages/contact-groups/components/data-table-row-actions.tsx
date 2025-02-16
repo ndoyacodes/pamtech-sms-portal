@@ -11,6 +11,8 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { taskSchema } from '../data/schema'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import DeleteNumberDialog from './delete-dialog'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -19,9 +21,9 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const item = taskSchema.parse(row.original);
-  const navigate =  useNavigate();
-
+  const item = taskSchema.parse(row.original)
+  const [deleteModal, setDeleteModal] = useState(false)
+  const navigate = useNavigate()
 
   return (
     <DropdownMenu>
@@ -35,16 +37,39 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-      <DropdownMenuItem  onClick={() => {
-        navigate(`/phonebook/${item.id}`)
-        }}>View</DropdownMenuItem>
-        <DropdownMenuItem  onClick={() => {}}>Edit</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            navigate(`/phonebook/${item.id}`)
+          }}
+        >
+          View
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            navigate('/upload-phonebook', { state: { record: item } })
+          }}
+        >
+          Edit
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => {}}>
+        <DropdownMenuItem
+          onClick={() => {
+            setDeleteModal(true)
+          }}
+        >
           Delete
           {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
         </DropdownMenuItem>
       </DropdownMenuContent>
+
+      {deleteModal && (
+        <DeleteNumberDialog
+          id={item?.id}
+          name={item?.name}
+          onClose={() => setDeleteModal(false)}
+          type='phonebook'
+        />
+      )}
     </DropdownMenu>
   )
 }

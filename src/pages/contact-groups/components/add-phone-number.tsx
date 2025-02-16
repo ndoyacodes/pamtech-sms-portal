@@ -15,6 +15,7 @@ import { usePhonebook } from "@/hooks/api-hooks/contacts/phonebook-hoook";
 
 interface AddPhoneNumberFormData {
     recipient: string;
+    name:string;
     col1: string;
     col2: string;
     col3: string;
@@ -64,6 +65,14 @@ export function AddPhoneNumberModal() {
                           id="recipient"
                           placeholder="Enter phone number"
                           {...register("recipient", { required: true })}
+                        />
+                    </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="recipient">Name</Label>
+                        <Input
+                          id="name"
+                          placeholder="Enter phone name"
+                          {...register("name", { required: false })}
                         />
                     </div>
                     <div className="grid gap-2">

@@ -9,14 +9,16 @@ import { FileIcon } from '@radix-ui/react-icons'
 import { usePhonebook } from '@/hooks/api-hooks/contacts/phonebook-hoook'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function Component() {
   const [files, setFiles] = useState<File[]>([])
-  const [isInvalid, setIsInvalid] = useState(false)
+  const [isInvalid, setIsInvalid] = useState(false);
+  const location =  useLocation();
+  const phoneBookData = location?.state?.phonebook;
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const [name, setName] = useState<string>('') // Name field
-  const [description, setDescription] = useState<string>('') // Description field
+  const [name, setName] = useState<string>(phoneBookData?.name) 
+  const [description, setDescription] = useState<string>(phoneBookData?.description) 
   const { uploadPhoneBook } = usePhonebook();
   const navigate =  useNavigate();
 
@@ -99,7 +101,12 @@ export default function Component() {
     }
 
     try {
+     if(phoneBookData){
+      // update phonebook function
+     }else{
       uploadPhoneBook.mutate({ data: finalData })
+     }
+
     } catch (error) {
       setErrorMessage('An error occurred while uploading the file.')
     }
@@ -121,7 +128,9 @@ export default function Component() {
 
       <Layout.Body>
         <div className='flex flex-col bg-background'>
-          <h2 className='mb-6 text-2xl font-semibold'>Upload Phonebook File</h2>
+          <h2 className='mb-6 text-2xl font-semibold'>
+            {phoneBookData? `Edit phone book details ${phoneBookData?.name}`:'Upload new phonebook'}
+          </h2>
           {/* Name and Description Fields */}
           <div className='mb-5 mt-6 w-full max-w-xl space-y-4'>
             <div>

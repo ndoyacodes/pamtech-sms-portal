@@ -54,6 +54,7 @@ export function DataTableRowActions<TData>({
         >
           View
         </DropdownMenuItem>
+
         {customer.approvalStatus !== 'DISABLED' &&
           customer.approvalStatus !== 'REJECTED' && (
             <DropdownMenuItem onClick={() => setRejectModal(true)}>
@@ -61,7 +62,15 @@ export function DataTableRowActions<TData>({
             </DropdownMenuItem>
           )}
 
-        {customer.approvalStatus === 'DISABLED' && (
+        {customer.approvalStatus === 'DISABLED' 
+        && (
+          <DropdownMenuItem onClick={() => setApproveModal(true)}>
+            Activate
+          </DropdownMenuItem>
+        )}
+
+{customer.approvalStatus === 'REJECTED' 
+        && (
           <DropdownMenuItem onClick={() => setApproveModal(true)}>
             Activate
           </DropdownMenuItem>
