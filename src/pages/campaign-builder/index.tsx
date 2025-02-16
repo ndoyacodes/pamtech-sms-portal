@@ -26,8 +26,8 @@ import { useQuery } from '@tanstack/react-query'
 import { useSms } from '@/hooks/api-hooks/message/sms-hook'
 
 const MESSAGE_TYPES = [
-  { value: 'dynamic', label: 'dynamic' },
-  { value: 'static', label: 'static' }
+  { value: 'dynamic', label: 'Dynamic' },
+  { value: 'static', label: 'Static' }
 ]
 
 const RECIPIENT_MODES = [
