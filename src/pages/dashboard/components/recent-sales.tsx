@@ -100,9 +100,6 @@ const InteractivePieChart = () => {
         return transformedData
       }
 
-      // Handle non-customer case
-      // const response = await dashboardService.getDashbordCustomerChat();
-      // return transformNonCustomerData(response);
     },
     retry: 2,
     staleTime: 5 * 60 * 1000,
@@ -112,8 +109,6 @@ const InteractivePieChart = () => {
   const onPieEnter = (_: any, index: any) => {
     setActiveIndex(index)
   }
-
-  console.log('dashData', dashData)
 
   if (isLoading) {
     return (
