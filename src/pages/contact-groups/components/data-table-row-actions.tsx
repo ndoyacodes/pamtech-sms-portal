@@ -58,7 +58,6 @@ export function DataTableRowActions<TData>({
           }}
         >
           Delete
-          {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
         </DropdownMenuItem>
       </DropdownMenuContent>
 

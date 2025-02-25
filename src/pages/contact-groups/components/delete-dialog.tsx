@@ -26,10 +26,11 @@ const DeleteNumberDialog = ({ id, name, onClose,type  }: DeleteNumberDialogProps
                 return await contactService.deletePhoneBookNumber(id)
             }else if(type === "phonebook") {
                  //soft delete phonebook
+                return await contactService.deletePhoneBook(id)
             }
         },
         onSuccess: () => {
-            toast.success('Number deleted successfully')
+            toast.success(type === 'number' ? 'Number deleted successfully' : 'Phonebook deleted successfully')
             queryClient.invalidateQueries({ queryKey: ['phonebook'] })
             onClose()
         },

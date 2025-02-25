@@ -40,6 +40,10 @@ class ContactServices extends APIClient {
     deletePhoneBookNumber(id: string | number) {
         return this.delete(`/phonebook/delete-number/${id}`)
     }
+
+    deletePhoneBook(id: string | number) {
+      return this.delete(`/phonebook/delete/${id}`)
+    }
 }
 
 export const contactService = new ContactServices()
