@@ -48,15 +48,15 @@ export const columns: ColumnDef<any>[] = [
     ),
   },
 
-  {
-    accessorKey: 'msisdn',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Name' />
-    ),
-    cell: ({ row }) => (
-      <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
-    ),
-  },
+  // {
+  //   accessorKey: 'msisdn',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title='Name' />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
+  //   ),
+  // },
 
   // {
   //   accessorKey: 'msisdn',
