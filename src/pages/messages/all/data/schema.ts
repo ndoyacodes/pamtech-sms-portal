@@ -15,7 +15,7 @@ export const taskSchema = z.object({
   smscUsername: z.any().optional(),
   smscPassword: z.any().optional(),
   sendingNetwork: z.any().optional(),
-  smsCount: z.number().optional(),
+  smsCount: z.any().optional(),
   dateSent: z.any().optional(),
   customer: z.any().optional(),
   plan: z.any().optional(),
