@@ -1,292 +1,430 @@
-import { Cross2Icon, FileIcon } from '@radix-ui/react-icons'
-import { Table } from '@tanstack/react-table'
-
-import { Button } from '@/components/custom/button'
-import { DataTableViewOptions } from '../components/data-table-view-options'
-
-import { priorities, statuses } from '../data/data'
-import { DataTableFacetedFilter } from './data-table-faceted-filter'
-import { IconFilter } from '@tabler/icons-react'
-import { z } from 'zod'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { FileIcon } from '@radix-ui/react-icons';
+import { Table } from '@tanstack/react-table';
+import { Button } from '@/components/custom/button';
+import { DataTableViewOptions } from './data-table-view-options';
+import { IconFilter } from '@tabler/icons-react';
+import { z } from 'zod';
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormField,
   FormItem,
   FormLabel,
   FormControl,
+  FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui/select';
+import { useQuery } from '@tanstack/react-query'
+import { senderIdService } from '@/api/services/customers/senderid.services.ts'
 
 const formSchema = z.object({
-  period: z.string(),
-  date: z.string(),
-  direction: z.string(),
-  type: z.string(),
-  status: z.string(),
-  to: z.string(),
-  from: z.string(),
-  messageId: z.string(),
-})
+  period: z.string().optional(),
+  fromDate: z.string().optional(),
+  toDate: z.string().optional(),
+  direction: z.string().optional(),
+  type: z.string().optional(),
+  status: z.string().optional(),
+  fromAddress: z.string().optional(),
+  messageId: z.string().optional(),
+  senderId: z.number().optional(),
+  recipient: z.string().optional(),
+  msisdn: z.string().optional(),
+});
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+  table: Table<TData>;
+  onFilterSubmit?: (data: any) => void;
 }
 
+const getFieldType = (fieldName: string, value: any): string => {
+  if (fieldName === 'senderId') return 'NUMBER';
+  if (fieldName === 'fromDate' || fieldName === 'toDate') return 'DATE';
+  if (typeof value === 'boolean') return 'BOOLEAN';
+  if (typeof value === 'number') return 'NUMBER';
+  return 'STRING';
+};
+
+const formatDateForInput = (date: Date): string => {
+  return date.toISOString().slice(0, 16);
+};
+
 export function DataTableToolbar<TData>({
-  table,
-}: DataTableToolbarProps<TData>) {
-  const [ShowFIlter, setShowFIlter] = useState(false)
+                                          table,
+                                          onFilterSubmit
+                                        }: DataTableToolbarProps<TData>) {
+  const [showFilter, setShowFilter] = useState(false);
+  const [showDateFields, setShowDateFields] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       period: '',
-      date: '',
-      direction: '',
-      type: '',
+      fromDate: '',
+      toDate: '',
       status: '',
-      to: '',
-      from: '',
-      messageId: '',
+      senderId: undefined,
+      msisdn: '',
     },
-  })
+  });
 
-  const isFiltered = table.getState().columnFilters.length > 0
+  const periodValue = form.watch('period');
+
+  useEffect(() => {
+    setShowDateFields(periodValue === 'CUSTOM');
+
+    if (periodValue !== 'CUSTOM') {
+      const now = new Date();
+      let fromDate = new Date();
+      let toDate = new Date();
+
+      switch (periodValue) {
+        case 'TODAY':
+          fromDate.setHours(0, 0, 0, 0);
+          toDate.setHours(23, 59, 59, 999);
+          break;
+
+        case 'YESTERDAY':
+          fromDate.setDate(fromDate.getDate() - 1);
+          fromDate.setHours(0, 0, 0, 0);
+          toDate.setDate(toDate.getDate() - 1);
+          toDate.setHours(23, 59, 59, 999);
+          break;
+
+        case 'THIS_WEEK':
+          const firstDayOfWeek = now.getDate() - now.getDay();
+          fromDate = new Date(now.setDate(firstDayOfWeek));
+          fromDate.setHours(0, 0, 0, 0);
+          toDate = new Date();
+          toDate.setHours(23, 59, 59, 999);
+          break;
+
+        case 'THIS_MONTH':
+          fromDate = new Date(now.getFullYear(), now.getMonth(), 1);
+          fromDate.setHours(0, 0, 0, 0);
+          toDate = new Date();
+          toDate.setHours(23, 59, 59, 999);
+          break;
+
+        default:
+          fromDate = new Date(0);
+          toDate = new Date(0);
+          break;
+      }
+
+      if (periodValue) {
+        form.setValue('fromDate', formatDateForInput(fromDate));
+        form.setValue('toDate', formatDateForInput(toDate));
+      } else {
+        form.setValue('fromDate', '');
+        form.setValue('toDate', '');
+      }
+    }
+  }, [periodValue, form]);
+
+  const { data: senderIds, isLoading: loadingSenderIds } = useQuery({
+    queryKey: ['sender-ids'],
+    queryFn: async () => {
+      const response = await senderIdService.getCustomerSenderIds({
+        page: 0,
+        size: 10000,
+      });
+
+      return (
+        // @ts-ignore
+        response?.content?.map((sid: { id: any; senderId: any }) => ({
+          value: sid.id,
+          label: sid.senderId,
+        })) || []
+      )
+    },
+  });
+
+  const onSubmit = async (values: any) => {
+    try {
+      setIsLoading(true);
+      const filters = Object.entries(values)
+        .filter(([key, value]) => {
+          if (key === 'period') return false;
+          if ((key === 'fromDate' || key === 'toDate') && (!values.fromDate && !values.toDate)) return false;
+          if (key !== 'fromDate' && key !== 'toDate') {
+            return value !== undefined && value !== '';
+          }
+          return false;
+        })
+        .map(([key, value]) => {
+          if (key === 'msisdn') {
+            return {
+              key: 'recipient',
+              operator: 'LIKE',
+              field_type: 'STRING',
+              value: value,
+              values: [value],
+            };
+          }
+
+          if (key === 'senderId') {
+            return {
+              key: 'sender.id',
+              operator: 'EQUAL',
+              field_type: 'NUMBER',
+              value: value,
+              values: [value],
+            };
+          }
+
+          return {
+            key,
+            operator: 'EQUAL',
+            field_type: getFieldType(key, value),
+            value: value,
+            values: [value],
+          };
+        });
+
+      if (values.fromDate || values.toDate) {
+        filters.push({
+          key: 'createdAt',
+          operator: 'BETWEEN',
+          field_type: 'DATE',
+          value: values.fromDate || null,
+          // @ts-ignore
+          valueTo: values.toDate || null,
+          values: [values.fromDate || '', values.toDate || '']
+        });
+      }
+
+      const requestData = {
+        filters,
+        sorts: [],
+        page: 0,
+        size: 10
+      };
+
+      console.log('Submitting filter data:', requestData);
+
+      if (onFilterSubmit) {
+        await onFilterSubmit(requestData);
+      }
+
+      // Close the filter panel after successful submission
+      // setShowFilter(false);
+    } catch (error) {
+      console.error('Error applying filters:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleClearFilters = () => {
+    form.reset();
+    table.getAllColumns().forEach(column => {
+      column.setFilterValue(undefined);
+    });
+
+    // If onFilterSubmit exists, call it with empty filters to reset the data
+    if (onFilterSubmit) {
+      const emptyRequestData = {
+        filters: [],
+        sorts: [],
+        page: 0,
+        size: 10
+      };
+      onFilterSubmit(emptyRequestData);
+    }
+  };
 
   return (
-   <>
-    <div className='flex items-center justify-between'>
-      <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
-        <Input
-          placeholder='Filter ...'
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('title')?.setFilterValue(event.target.value)
-          }
-          className='h-8 w-[150px] lg:w-[250px]'
-        />
-        <div className='flex gap-x-2'>
-          {table.getColumn('status') && (
-            <DataTableFacetedFilter
-              column={table.getColumn('status')}
-              title='Status'
-              options={statuses}
-            />
-          )}
-          {table.getColumn('priority') && (
-            <DataTableFacetedFilter
-              column={table.getColumn('priority')}
-              title='Status'
-              options={priorities}
-            />
-          )}
-          <Button
-            variant='default'
-            onClick={() => setShowFIlter(!ShowFIlter)}
-            className='h-8 px-2 lg:px-3'
-          >
-            Filter
-            <IconFilter className='ml-2 h-4 w-4' />
-          </Button>
-          <Button
-            variant='default'
-            // onClick={() => table.resetColumnFilters()}
-            className='h-8 px-2 lg:px-3'
-          >
-            Export
-            <FileIcon className='ml-2 h-4 w-4' />
-          </Button>
+    <>
+      <div className='flex items-center justify-between'>
+        <div className='flex flex-1 flex-col-reverse sm:flex-row sm:items-center sm:space-x-2'>
+          <Input
+            placeholder='Filter ...'
+            value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+            onChange={(event) =>
+              table.getColumn('title')?.setFilterValue(event.target.value)
+            }
+            className='h-8 w-[250px]'
+          />
+          <div className='flex gap-x-2'>
+            <Button
+              variant='default'
+              onClick={() => setShowFilter(!showFilter)}
+              className='h-8 px-3'
+            >
+              Filter <IconFilter className='ml-2 h-4 w-4' />
+            </Button>
+            <Button variant='default' className='h-8 px-3'>
+              Export <FileIcon className='ml-2 h-4 w-4' />
+            </Button>
+          </div>
         </div>
-        {isFiltered && (
-          <Button
-            variant='ghost'
-            onClick={() => table.resetColumnFilters()}
-            className='h-8 px-2 lg:px-3'
-          >
-            Reset
-            <Cross2Icon className='ml-2 h-4 w-4' />
-          </Button>
-        )}
+        <DataTableViewOptions table={table} />
       </div>
-      <DataTableViewOptions table={table} />
 
-    
-    </div>
+      {showFilter && (
+        <div className='mt-4 rounded-lg bg-white p-6 shadow-md'>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='grid grid-cols-1 gap-4 md:grid-cols-6'>
+              <FormField
+                control={form.control}
+                name='period'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Period</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select one' />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value='TODAY'>Today</SelectItem>
+                        <SelectItem value='YESTERDAY'>Yesterday</SelectItem>
+                        <SelectItem value='THIS_WEEK'>This week</SelectItem>
+                        <SelectItem value='THIS_MONTH'>This month</SelectItem>
+                        <SelectItem value='CUSTOM'>Custom</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
 
-    {ShowFIlter && (
-  <div className='rounded-lg p-6 shadow'>
-    <Form {...form}>
-      <form className='grid grid-cols-2 gap-6'>
-        {/* Left Column */}
-        <div className='space-y-4'>
-          {/* Period Field */}
-          <FormField
-            control={form.control}
-            name='period'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Period:</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
+              {showDateFields && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name='fromDate'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>From Date</FormLabel>
+                        <FormControl>
+                          <Input type='datetime-local' {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='toDate'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>To Date</FormLabel>
+                        <FormControl>
+                          <Input type='datetime-local' {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+
+              <FormField
+                control={form.control}
+                name='senderId'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Sender ID</FormLabel>
+                    <Select
+                      onValueChange={(value) => field.onChange(Number(value))}
+                      // @ts-ignore
+                      defaultValue={field.value?.toString()}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select sender ID' />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {loadingSenderIds ? (
+                          <SelectItem value="loading">Loading...</SelectItem>
+                        ) : (
+                          senderIds?.map((sender: any) => (
+                            <SelectItem key={sender.value} value={sender.value.toString()}>
+                              {sender.label}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='msisdn'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder={"2557XXXXXXX"} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='status'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select one' />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value='DELIVERED'>Delivered</SelectItem>
+                        <SelectItem value='PENDING'>Pending</SelectItem>
+                        <SelectItem value='SENT'>Sent</SelectItem>
+                        <SelectItem value='FAILED'>Failed</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+
+              <div className="col-span-full flex justify-end mt-4">
+                <Button
+                  type="submit"
+                  variant="default"
+                  disabled={isLoading}
                 >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder='Select one' />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value='today'>Today</SelectItem>
-                    <SelectItem value='yesterday'>Yesterday</SelectItem>
-                    <SelectItem value='last7days'>Last 7 Days</SelectItem>
-                    <SelectItem value='last30days'>
-                      Last 30 Days
-                    </SelectItem>
-                    <SelectItem value='custom'>Custom</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormItem>
-            )}
-          />
-
-          {/* Date Field */}
-          <FormField
-            control={form.control}
-            name='date'
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input placeholder='YYYY-MM-DD' {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-
-          {/* Direction Field */}
-          <FormField
-            control={form.control}
-            name='direction'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Direction:</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  {isLoading ? 'Applying...' : 'Apply Filters'}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="ml-2"
+                  onClick={handleClearFilters}
+                  disabled={isLoading}
                 >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder='Select one' />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value='inbound'>Inbound</SelectItem>
-                    <SelectItem value='outbound'>Outbound</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormItem>
-            )}
-          />
-
-          {/* Type Field */}
-          <FormField
-            control={form.control}
-            name='type'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Type:</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder='Select one' />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value='sms'>SMS</SelectItem>
-                    <SelectItem value='mms'>MMS</SelectItem>
-                    <SelectItem value='voice'>Voice</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormItem>
-            )}
-          />
+                  Clear Filters
+                </Button>
+              </div>
+            </form>
+          </Form>
         </div>
-
-        {/* Right Column */}
-        <div className='space-y-4'>
-          {/* Status Field */}
-          <FormField
-            control={form.control}
-            name='status'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Status:</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-
-          {/* To Field */}
-          <FormField
-            control={form.control}
-            name='to'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>To:</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-
-          {/* From Field */}
-          <FormField
-            control={form.control}
-            name='from'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>From:</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-
-          {/* Message ID Field */}
-          <FormField
-            control={form.control}
-            name='messageId'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Message ID:</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        </div>
-      </form>
-    </Form>
-  </div>
-)}
-   </>
-  )
+      )}
+    </>
+  );
 }
-
-

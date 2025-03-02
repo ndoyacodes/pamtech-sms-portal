@@ -10,6 +10,10 @@ class MessageService extends APIClient {
         return this.get<any[]>('/sms', params);
     }
 
+  searchMessages(data: any) {
+    return this.post<any[]>('/sms/search', data);
+  }
+
     // Get a single message by ID
     getMessageById(id: string) {
         return this.get<any>(`/sms/${id}`);
