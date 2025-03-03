@@ -231,7 +231,6 @@ export function DataTableToolbar<TData>({
       column.setFilterValue(undefined);
     });
 
-    // If onFilterSubmit exists, call it with empty filters to reset the data
     if (onFilterSubmit) {
       const emptyRequestData = {
         filters: [],

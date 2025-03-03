@@ -59,8 +59,8 @@ export function DataTable<TData, TValue>({
       columnFilters,
       pagination,
     },
-    manualPagination: true, // Enable manual pagination
-    pageCount: Math.ceil(totalElements / pagination.pageSize), // Total number of pages
+    manualPagination: true,
+    pageCount: Math.ceil(totalElements / pagination.pageSize),
     onPaginationChange: (updater) => {
       const newPagination =
         typeof updater === 'function' ? updater(pagination) : updater;
