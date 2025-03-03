@@ -6,8 +6,12 @@ class MessageService extends APIClient {
     }
 
     // Get all messages with pagination
-    getMessages(params?: { page?: number; size?: number }) {
+    /*getMessages(params?: { page?: number; size?: number }) {
         return this.get<any[]>('/sms', params);
+    }*/
+
+    getMessages(data: any) {
+        return this.post<any[]>('/sms/search', data);
     }
 
   searchMessages(data: any) {

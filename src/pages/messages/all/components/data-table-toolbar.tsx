@@ -4,6 +4,7 @@ import { Button } from '@/components/custom/button';
 import { DataTableViewOptions } from './data-table-view-options';
 import { IconFilter } from '@tabler/icons-react';
 import { z } from 'zod';
+import { formatDateForInput } from '../../../../lib/utils'
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -53,9 +54,9 @@ const getFieldType = (fieldName: string, value: any): string => {
   return 'STRING';
 };
 
-const formatDateForInput = (date: Date): string => {
-  return date.toISOString().slice(0, 16);
-};
+// const formatDateForInput = (date: Date): string => {
+//   return date.toISOString().slice(0, 16);
+// };
 
 export function DataTableToolbar<TData>({
                                           table,
@@ -94,24 +95,30 @@ export function DataTableToolbar<TData>({
           break;
 
         case 'YESTERDAY':
-          fromDate.setDate(fromDate.getDate() - 1);
+          fromDate = new Date(now);
+          fromDate.setDate(now.getDate() - 1);
           fromDate.setHours(0, 0, 0, 0);
-          toDate.setDate(toDate.getDate() - 1);
+
+          toDate = new Date(now);
+          toDate.setDate(now.getDate() - 1);
           toDate.setHours(23, 59, 59, 999);
           break;
 
         case 'THIS_WEEK':
-          const firstDayOfWeek = now.getDate() - now.getDay();
-          fromDate = new Date(now.setDate(firstDayOfWeek));
+          fromDate = new Date(now);
+          const firstDayOfWeek = now.getDate() - now.getDay(); // Sunday = 0
+          fromDate.setDate(firstDayOfWeek);
           fromDate.setHours(0, 0, 0, 0);
-          toDate = new Date();
+
+          toDate = new Date(now);
           toDate.setHours(23, 59, 59, 999);
           break;
 
         case 'THIS_MONTH':
           fromDate = new Date(now.getFullYear(), now.getMonth(), 1);
           fromDate.setHours(0, 0, 0, 0);
-          toDate = new Date();
+
+          toDate = new Date(now);
           toDate.setHours(23, 59, 59, 999);
           break;
 
@@ -198,7 +205,7 @@ export function DataTableToolbar<TData>({
           field_type: 'DATE',
           value: values.fromDate || null,
           // @ts-ignore
-          valueTo: values.toDate || null,
+          value_to: values.toDate || null,
           values: [values.fromDate || '', values.toDate || '']
         });
       }
@@ -246,14 +253,14 @@ export function DataTableToolbar<TData>({
     <>
       <div className='flex items-center justify-between'>
         <div className='flex flex-1 flex-col-reverse sm:flex-row sm:items-center sm:space-x-2'>
-          <Input
-            placeholder='Filter ...'
-            value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
-            onChange={(event) =>
-              table.getColumn('title')?.setFilterValue(event.target.value)
-            }
-            className='h-8 w-[250px]'
-          />
+          {/*<Input*/}
+          {/*  placeholder='Filter ...'*/}
+          {/*  value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}*/}
+          {/*  onChange={(event) =>*/}
+          {/*    table.getColumn('title')?.setFilterValue(event.target.value)*/}
+          {/*  }*/}
+          {/*  className='h-8 w-[250px]'*/}
+          {/*/>*/}
           <div className='flex gap-x-2'>
             <Button
               variant='default'
