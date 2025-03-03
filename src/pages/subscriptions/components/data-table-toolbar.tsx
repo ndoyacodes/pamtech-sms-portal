@@ -8,18 +8,8 @@ import { DataTableViewOptions } from '../components/data-table-view-options'
 // import { priorities, statuses } from '../data/data'
 // import { DataTableFacetedFilter } from './data-table-faceted-filter'
 import { useNavigate } from 'react-router-dom'
-import {  IconPlus, IconArrowDown } from '@tabler/icons-react'
+import {  IconPlus } from '@tabler/icons-react'
 import { useAuthStore } from '@/hooks/use-auth-store'
-import { DataTableFacetedFilter } from './data-table-faceted-filter'
-import { statuses } from '../data/data'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>,
@@ -29,8 +19,7 @@ interface DataTableToolbarProps<TData> {
 
 export function DataTableToolbar<TData>({
   table,
-  onStatusChange,
-  status
+  // status
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const navigate =  useNavigate();
@@ -40,21 +29,21 @@ export function DataTableToolbar<TData>({
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
         <Input
-          placeholder='Filter invoices...'
+          placeholder='Filter ...'
           value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
             table.getColumn('title')?.setFilterValue(event.target.value)
           }
           className='h-8 w-[150px] lg:w-[250px]'
         />
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>
+  {/*<DropdownMenu>*/}
+    {/*<DropdownMenuTrigger asChild>
       <Button variant="outline" className="h-8 w-[150px]">
         {statuses.find(s => status === s.value)?.label || 'Filter by Status'}
         <IconArrowDown className="ml-2 h-4 w-4" />
       </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="end">
+    </DropdownMenuTrigger>*/}
+    {/*<DropdownMenuContent align="end">
       <DropdownMenuLabel>Filter Status</DropdownMenuLabel>
       <DropdownMenuSeparator />
       {statuses.map((statusdt) => (
@@ -69,17 +58,17 @@ export function DataTableToolbar<TData>({
           )}
         </DropdownMenuItem>
       ))}
-    </DropdownMenuContent>
-  </DropdownMenu>
+    </DropdownMenuContent>*/}
+  {/*</DropdownMenu>*/}
         <div className='flex gap-x-2'>
-          {table.getColumn('status') && (
+          {/*{table.getColumn('status') && (
             <DataTableFacetedFilter
               column={table.getColumn('status')}
               title='Status'
               options={statuses}
 
             />
-          )}
+          )}*/}
 
                {user?.customer && (
                 <Button
@@ -87,7 +76,7 @@ export function DataTableToolbar<TData>({
                 onClick={() => navigate('/sms/top-up')}
                 className='h-8 px-2 lg:px-3'
               >
-                Create New subscription
+                New subscription
                 <IconPlus className='ml-2 h-4 w-4' />
               </Button>
                )}

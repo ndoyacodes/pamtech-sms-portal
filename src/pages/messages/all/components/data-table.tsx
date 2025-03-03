@@ -35,15 +35,17 @@ interface DataTableProps<TData, TValue> {
   };
   onPaginationChange: (pagination: { pageIndex: number; pageSize: number }) => void;
   totalElements: number;
+  onFilterSubmit?: (data: any) => void; // Add this prop
 }
 
 export function DataTable<TData, TValue>({
-  columns,
-  data,
-  pagination,
-  onPaginationChange,
-  totalElements,
-}: DataTableProps<TData, TValue>) {
+                                           columns,
+                                           data,
+                                           pagination,
+                                           onPaginationChange,
+                                           totalElements,
+                                           onFilterSubmit, // Destructure the prop
+                                         }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -59,8 +61,8 @@ export function DataTable<TData, TValue>({
       columnFilters,
       pagination,
     },
-    manualPagination: true, // Enable manual pagination
-    pageCount: Math.ceil(totalElements / pagination.pageSize), // Total number of pages
+    manualPagination: true,
+    pageCount: Math.ceil(totalElements / pagination.pageSize),
     onPaginationChange: (updater) => {
       const newPagination =
         typeof updater === 'function' ? updater(pagination) : updater;
@@ -81,7 +83,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className='space-y-4'>
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} onFilterSubmit={onFilterSubmit} />
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
@@ -93,9 +95,9 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}

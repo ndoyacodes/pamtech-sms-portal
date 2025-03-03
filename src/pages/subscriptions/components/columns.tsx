@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
-import { DataTableRowActions } from './data-table-row-actions'
+// import { DataTableRowActions } from './data-table-row-actions'
 import { Invoice } from '../data/schema'
 
 export const columns: ColumnDef<Invoice>[] = [
@@ -39,6 +39,17 @@ export const columns: ColumnDef<Invoice>[] = [
     cell: ({ row }) => <div className='w-[80px]'>{row.index + 1}</div>,
     enableSorting: false,
     enableHiding: false,
+  },
+  {
+    accessorKey: 'plan',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Plan' />
+    ),
+    cell: ({ row }) => {
+      console.log("this is row ", row)
+      // @ts-ignore
+      return <div className='w-[80px]'>{row?.original.plan?.name}</div>
+    },
   },
   {
     accessorKey: 'numberOfSmsPurchased',
@@ -86,8 +97,8 @@ export const columns: ColumnDef<Invoice>[] = [
        </Badge>
      ),
    },
-  {
+  /*{
     id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,
-  },
+  },*/
 ]

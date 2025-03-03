@@ -10,6 +10,7 @@ export const subscriptionSchema = z.object({
   expired: z.boolean(),
   expiryDate: z.any(),
   createdAt: z.any(),
+  plan: z.any().optional(),
 })
 
 export type Invoice = z.infer<typeof subscriptionSchema>
