@@ -25,10 +25,10 @@ import { senderIdService } from '@/api/services/customers/senderid.services'
 import { useQuery } from '@tanstack/react-query'
 import { useSms } from '@/hooks/api-hooks/message/sms-hook'
 
-const MESSAGE_TYPES = [
+/*const MESSAGE_TYPES = [
   { value: 'dynamic', label: 'Dynamic' },
   { value: 'static', label: 'Static' }
-]
+]*/
 
 const RECIPIENT_MODES = [
   { value: 'PHONEBOOK', label: 'Phone Book' },
@@ -291,30 +291,6 @@ export const BulkSMSForm = () => {
                       )}
                     />
 
-                    <FormField
-                      control={form.control}
-                      name='messageType'
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Message Type *</FormLabel>
-                          <FormControl>
-                            <Select
-                              className='my-react-select-container'
-                              classNamePrefix='my-react-select'
-                              placeholder='Select message type'
-                              options={MESSAGE_TYPES}
-                              onChange={(option) =>
-                                field.onChange(option?.value)
-                              }
-                              value={MESSAGE_TYPES.find(
-                                (option) => option.value === field.value
-                              )}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
                   </div>
 
                   {/* Recipients Section */}

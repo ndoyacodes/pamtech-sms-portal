@@ -48,45 +48,55 @@ export const columns: ColumnDef<any>[] = [
     ),
   },
 
-  // {
-  //   accessorKey: 'msisdn',
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title='Name' />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
-  //   ),
-  // },
+  {
+    accessorKey: 'col1',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Column B' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('col1')}</div>
+    ),
+  },
 
-  // {
-  //   accessorKey: 'msisdn',
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title='Column B' />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
-  //   ),
-  // },
+  {
+    accessorKey: 'col2',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Column C' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('col2')}</div>
+    ),
+  },
 
-  // {
-  //   accessorKey: 'msisdn',
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title='Column C' />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
-  //   ),
-  // },
+  {
+    accessorKey: 'col3',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Column D' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('col3')}</div>
+    ),
+  },
 
-  // {
-  //   accessorKey: 'msisdn',
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title='Column D' />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <div className='max-w-[200px] truncate'>{row.getValue('msisdn')}</div>
-  //   ),
-  // },
+  {
+    accessorKey: 'col4',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Column E' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('col4')}</div>
+    ),
+  },
+
+  {
+    accessorKey: 'col5',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Column F' />
+    ),
+    cell: ({ row }) => (
+      <div className='max-w-[200px] truncate'>{row.getValue('col5')}</div>
+    ),
+  },
 
   {
     accessorKey: 'msisdn',
