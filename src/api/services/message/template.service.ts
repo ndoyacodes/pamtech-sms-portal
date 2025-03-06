@@ -36,7 +36,7 @@ class TemplateService extends APIClient {
 
     // Delete a template
     deleteTemplate(id: number) {
-        return this.delete<void>(`/templates/${id}`, {id: id});
+        return this.delete<void>(`/templates/${id}`);
     }
 
     getCustomerTemplates(id:any,p0: { page: number; size: number; }) {

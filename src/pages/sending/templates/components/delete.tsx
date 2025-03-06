@@ -26,7 +26,7 @@ const DeleteTemplateDialog = ({ id, name, onClose }: DeleteTemplateDialogProps) 
         onSuccess: () => {
             toast.success('Template deleted successfully')
             queryClient.invalidateQueries({ queryKey: ['templates'] })
-            // onClose()
+            onClose()
         },
         onError: (error: any) => {
             const errorMessage = error?.response?.data?.message || 'Failed to delete template'

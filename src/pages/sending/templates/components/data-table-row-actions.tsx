@@ -7,13 +7,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { schema } from '../data/schema'
 import { useNavigate } from 'react-router-dom'
-import DeleteDialog from '../../sender-ids/components/delete'
 import { useState } from 'react'
+import DeleteDialog from '@/pages/sending/templates/components/delete.tsx'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -53,7 +52,6 @@ export function DataTableRowActions<TData>({
           setDeleteTemplate(true)
         }}>
           Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
 
