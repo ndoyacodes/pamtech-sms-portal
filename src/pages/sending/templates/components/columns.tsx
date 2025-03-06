@@ -87,7 +87,8 @@ export const columns: ColumnDef<DataSchema>[] = [
       <DataTableColumnHeader column={column} title='Status' />
     ),
     cell: ({ row }) => {
-      const isActive = row.getValue('active')
+      console.log(row)
+      const isActive = row.original.active
       return (
       <div className='flex w-[100px] items-center'>
         <Badge variant={isActive ? 'default' : 'destructive'}>

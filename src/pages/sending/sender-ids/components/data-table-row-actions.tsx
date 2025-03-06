@@ -59,13 +59,13 @@ export function DataTableRowActions<TData>({
         >
           View
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            navigate(`/sender-ids/add/`, { state: { record: item } })
-          }}
-        >
-          Edit
-        </DropdownMenuItem>
+        {/*<DropdownMenuItem*/}
+        {/*  onClick={() => {*/}
+        {/*    navigate(`/sender-ids/add/`, { state: { record: item } })*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  Edit*/}
+        {/*</DropdownMenuItem>*/}
 
         {!user?.customer && (
           <>
