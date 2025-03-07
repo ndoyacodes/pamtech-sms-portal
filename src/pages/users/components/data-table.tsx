@@ -29,11 +29,20 @@ import { DataTableToolbar } from '../components/data-table-toolbar'
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  pagination: {
+    pageIndex: number;
+    pageSize: number;
+  };
+  onPaginationChange: (pagination: { pageIndex: number; pageSize: number }) => void;
+  totalElements: number;
 }
 
 export function DataTable<TData, TValue>({
-  columns,
-  data,
+                                           columns,
+                                           data,
+                                           pagination,
+                                           onPaginationChange,
+                                           totalElements,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -51,6 +60,14 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
+      pagination,
+    },
+    manualPagination: true,
+    pageCount: Math.ceil(totalElements / pagination.pageSize),
+    onPaginationChange: (updater) => {
+      const newPagination =
+        typeof updater === 'function' ? updater(pagination) : updater;
+      onPaginationChange(newPagination);
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
@@ -63,7 +80,7 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  })
+  });
 
   return (
     <div className='space-y-4'>

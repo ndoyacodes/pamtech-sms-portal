@@ -63,6 +63,18 @@ const router = createBrowserRouter([
           }),
         },
         {
+          path: '/users',
+          lazy: async () => ({
+            Component: (await import('@/pages/users')).default,
+          }),
+        },
+        {
+          path: '/users/add',
+          lazy: async () => ({
+            Component: (await import('@/pages/users/components/add-edit-user.tsx')).default,
+          }),
+        },
+        {
           path: '/automations',
           lazy: async () => ({
             Component: (await import('@/pages/automations')).default,
@@ -205,7 +217,8 @@ const router = createBrowserRouter([
           lazy: async () => ({
             Component: (await import('@/pages/sending/templates/components/add-edit-templates.tsx')).default,
           }),
-        },  {
+        },
+        {
           path: 'templates/add',
           lazy: async () => ({
             Component: (await import('@/pages/sending/templates/components/add-edit-templates.tsx')).default,

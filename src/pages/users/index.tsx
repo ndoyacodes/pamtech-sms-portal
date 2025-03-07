@@ -4,12 +4,12 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { DataTable } from './components/data-table'
 import { columns } from './components/columns'
-// import { useAuthStore } from '@/hooks/use-auth-store'
 import { useQuery } from '@tanstack/react-query'
-import { messageService } from '@/api/services/message/message.service'
 import { useState } from 'react'
+import { usersService } from '@/api/services/users/users.service'
 
 export default function FarmersPage() {
+
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -20,17 +20,15 @@ export default function FarmersPage() {
     sorts: [
       {
         key: "id",
-        direction: "DESC"
+        direction: "ASC"
       }
     ],
     page: 0,
     size: 10
   })
 
-  // const { user } = useAuthStore();
-
-  const { data: allSms, isLoading, refetch } = useQuery({
-    queryKey: ['all-sms', pagination.pageIndex, pagination.pageSize, filterParams],
+  const { data: users, isLoading } = useQuery({
+    queryKey: ['users', pagination.pageIndex, pagination.pageSize, filterParams],
     queryFn: async () => {
       const req = {
         ...filterParams,
@@ -38,7 +36,7 @@ export default function FarmersPage() {
         size: pagination.pageSize
       }
 
-      const response: any = await messageService.getMessages({ ...req })
+      const response: any = await usersService.getUsers(req)
       return (
         response || {
           content: response.content || [],
@@ -50,19 +48,20 @@ export default function FarmersPage() {
     staleTime: 5 * 60 * 1000,
   })
 
-
+  // @ts-ignore
   const handleFilterSubmit = (filterData: any) => {
     setFilterParams(filterData);
     setPagination({
       pageIndex: 0,
       pageSize: pagination.pageSize
     });
-    return refetch();
   };
+
 
   return (
     <Layout>
-      <Layout.Header sticky className='mt-4 lg:mt-0 md:mt-0 sm:mt-4'>
+      {/* ===== Top Heading ===== */}
+      <Layout.Header sticky className='mt-4 sm:mt-4 md:mt-0 lg:mt-0'>
         <Search />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
@@ -73,9 +72,11 @@ export default function FarmersPage() {
       <Layout.Body>
         <div className='mb-2 flex items-center justify-between space-y-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>All messages</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>
+              Users
+            </h2>
             <p className='text-muted-foreground'>
-              Here&apos;s a list of all messages
+              Here&apos;s a list of all users
             </p>
           </div>
         </div>
@@ -86,13 +87,11 @@ export default function FarmersPage() {
         ) : (
           <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0'>
             <DataTable
-              data={allSms?.content}
+              data={users.content || []}
               columns={columns}
               pagination={pagination}
-              onPaginationChange={setPagination}
-              totalElements={allSms?.totalElements || 0}
-              onFilterSubmit={handleFilterSubmit}
-            />
+             onPaginationChange={setPagination}
+              totalElements={users?.totalElements || 0}/>
           </div>
         )}
       </Layout.Body>
