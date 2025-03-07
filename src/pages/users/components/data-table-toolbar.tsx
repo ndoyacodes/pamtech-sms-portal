@@ -4,24 +4,31 @@ import { Table } from '@tanstack/react-table'
 import { Button } from '@/components/custom/button'
 import { Input } from '@/components/ui/input'
 import { DataTableViewOptions } from '../components/data-table-view-options'
-
-import { priorities, statuses } from '../data/data'
-import { DataTableFacetedFilter } from './data-table-faceted-filter'
+import {  IconPlus } from '@tabler/icons-react'
+import { useAuthStore } from '@/hooks/use-auth-store'
+import { useNavigate } from 'react-router-dom'
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+  table: Table<TData>,
+  // onStatusChange: (status:string) => void;
+  // status: string;
 }
 
 export function DataTableToolbar<TData>({
   table,
+  // status
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
+  const {user } =  useAuthStore();
+  const navigate = useNavigate();
+
+  console.log("Auth user ", user)
 
   return (
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
         <Input
-          placeholder='Filter tasks...'
+          placeholder='Filter ...'
           value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
             table.getColumn('title')?.setFilterValue(event.target.value)
@@ -29,20 +36,17 @@ export function DataTableToolbar<TData>({
           className='h-8 w-[150px] lg:w-[250px]'
         />
         <div className='flex gap-x-2'>
-          {table.getColumn('status') && (
-            <DataTableFacetedFilter
-              column={table.getColumn('status')}
-              title='Status'
-              options={statuses}
-            />
-          )}
-          {table.getColumn('priority') && (
-            <DataTableFacetedFilter
-              column={table.getColumn('priority')}
-              title='Priority'
-              options={priorities}
-            />
-          )}
+               {user?.customer && (
+                <Button
+                variant='default'
+                onClick={() => navigate("/users/add")}
+                className='h-8 px-2 lg:px-3'
+              >
+                New User
+                <IconPlus className='ml-2 h-4 w-4' />
+              </Button>
+               )}
+
         </div>
         {isFiltered && (
           <Button

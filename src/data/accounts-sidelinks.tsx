@@ -12,6 +12,7 @@ import {
     IconCpu2,
     IconFilePhone,
     IconLayersSubtract,
+    IconUser,
   } from '@tabler/icons-react'
   
   export interface NavLink {
@@ -44,12 +45,6 @@ import {
       href: '/requests',
       icon: <IconMessages size={18} />,
       sub: [
-        // {
-        //   title: 'Campaigns builder',
-        //   label: '',
-        //   href: '/sms/campaign-builder',
-        //   icon: <IconUserScreen size={18} />,
-        // },
         {
          title: 'Send Bulk SMS',
           label: '',
@@ -111,10 +106,12 @@ import {
         href: '/blacklists',
         icon: <IconShoppingCart size={18} />,
       } ,
-      
-     
-  
-    //Admin Modules
+    {
+      title: 'Users',
+      label: '',
+      href: '/users',
+      icon: <IconUser size={18} />,
+    } ,
     {
       title: 'Reports',
       label: '',
@@ -133,12 +130,6 @@ import {
           href: '/reports/all-messages',
           icon: <IconReportAnalytics size={18} />,
         },
-        // {
-        //     title: 'received messages',
-        //     label: '',
-        //     href: '/reports/all-messages',
-        //     icon: <IconReportAnalytics size={18} />,
-        //   },
           {
             title: 'Sent Messages',
             label: '',
