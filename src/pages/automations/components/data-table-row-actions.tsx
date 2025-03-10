@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from '@/components/ui/use-toast'
 import { Campaign } from '@/pages/automations/components/columns.tsx'
 import { useState } from 'react'
-import EnableCampaignCOnfirmation from './enable-campaigns-confirmation'
+import CampaignConfirmationModal from './campaigns-confirmation.tsx'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -39,18 +39,6 @@ export function DataTableRowActions<TData>({
     navigate(`/automations/campaign/${campaign.id}`, { state: { campaign } })
   }
 
-  console.log(campaign)
-
-  const handleDelete = () => {
-    if (!campaign?.id) {
-      toast({
-        title: 'Error',
-        description: 'Campaign ID is missing.',
-        variant: 'destructive',
-      })
-      return
-    }
-  }
 
   return (
     <DropdownMenu>
@@ -61,7 +49,7 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         <DropdownMenuItem onClick={handleEdit}>View</DropdownMenuItem>
-        {campaign.active === true ? (
+        {campaign.active ? (
           <DropdownMenuItem
             onClick={() => {
               setEnableMOdal(true)
@@ -81,11 +69,14 @@ export function DataTableRowActions<TData>({
           </DropdownMenuItem>
         )}
 
-        <DropdownMenuItem onClick={handleDelete}>Delete</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {
+          setEnableMOdal(true)
+          setEnableState('delete')
+        }}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
 
       {enableMOdal && (
-        <EnableCampaignCOnfirmation
+        <CampaignConfirmationModal
           campaign={campaign.name}
           campaignId={campaign.id}
           mode={enableState}

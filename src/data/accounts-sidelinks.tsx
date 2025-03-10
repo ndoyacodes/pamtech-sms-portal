@@ -1,19 +1,18 @@
 import {
-    IconLayoutDashboard,
-    IconMessages,
-    IconUserScreen,
-    IconShoppingCart,
-    IconPhoneCall,
-    IconTemplate,
-    IconDashboard,
-    IconReport,
-    IconReportAnalytics,
-    IconBrandTelegram,
-    IconCpu2,
-    IconFilePhone,
-    IconLayersSubtract,
-    IconUser,
-  } from '@tabler/icons-react'
+  IconLayoutDashboard,
+  IconMessages,
+  IconUserScreen,
+  IconPhoneCall,
+  IconTemplate,
+  IconDashboard,
+  IconReport,
+  IconReportAnalytics,
+  IconBrandTelegram,
+  IconCpu2,
+  IconFilePhone,
+  IconLayersSubtract,
+  IconUser, IconAtOff,
+} from '@tabler/icons-react'
   
   export interface NavLink {
     title: string
@@ -104,7 +103,7 @@ import {
         title: 'Blacklist',
         label: '',
         href: '/blacklists',
-        icon: <IconShoppingCart size={18} />,
+        icon: <IconAtOff size={18} />,
       } ,
     {
       title: 'Users',

@@ -15,6 +15,7 @@
     phone: string;
     email: string;
     roles: string[];
+    role: string;
     permissions: string[];
     firstName?: string;
     lastName?: string;
