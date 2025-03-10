@@ -40,6 +40,11 @@ class CampaignService extends APIClient {
                 return this.get<CampaignData>(`/campaign/${id}`);
         }
 
+        // Get a single campaign by ID
+        getCampaignLogsById(id: string) {
+                return this.get<CampaignData>(`/campaign/log/${id}`);
+        }
+
         // Update a campaign
         updateCampaign(id: number, data: Partial<CampaignData>) {
                 return this.patch<CampaignData>(`/campaign/${id}`, data);

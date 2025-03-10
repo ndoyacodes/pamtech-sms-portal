@@ -8,11 +8,27 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TabsContent } from '@radix-ui/react-tabs'
+import { useQuery } from '@tanstack/react-query'
+import { campaignService } from '@/api/services/campaign/campaign.service'
 
 const CampaignDetailsPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const campaign = location.state?.campaign
+
+  const { data: logs, isLoading } = useQuery({
+    queryKey: ['campaign-logs', campaign?.id],
+    queryFn: async () => {
+      const response: any = await  campaignService.getCampaignLogsById(campaign?.id);
+     
+      return response || [];
+    },
+    retry: 2,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  console.log(logs);
+  
 
   return (
     <Layout>
