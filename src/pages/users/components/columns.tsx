@@ -53,11 +53,7 @@ export const columns: ColumnDef<Invoice>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Email Address' />
     ),
-    cell: ({ row }) => (
-      <div className='w-[100px]'>
-        {row.getValue('email')}
-      </div>
-    ),
+    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('email')}</div>,
   },
   {
     accessorKey: 'phoneNumber',
@@ -65,9 +61,7 @@ export const columns: ColumnDef<Invoice>[] = [
       <DataTableColumnHeader column={column} title='Phone Number' />
     ),
     cell: ({ row }) => (
-      <div className='w-[100px]'>
-        {row.getValue('phoneNumber')}
-      </div>
+      <div className='w-[100px]'>{row.getValue('phoneNumber')}</div>
     ),
   },
   {
@@ -75,14 +69,12 @@ export const columns: ColumnDef<Invoice>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Role' />
     ),
-    cell: ({ row }) => (
-      <div className='w-[100px]'>
-        {row.getValue('role')}
-      </div>
-    ),
+    cell: ({ row }) => <div className='w-[100px]'>{row.getValue('role')}</div>,
   },
   {
     id: 'actions',
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => {
+      return <DataTableRowActions row={row} />
+    },
   },
 ]

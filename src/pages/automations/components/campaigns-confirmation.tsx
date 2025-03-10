@@ -17,7 +17,7 @@ interface EnableCampaignCOnfirmationProps {
     onClose: () => void
 }
 
-const EnableCampaignCOnfirmation = ({  mode, onClose, campaignId, campaign }: EnableCampaignCOnfirmationProps) => {
+const CampaignConfirmationModal = ({  mode, onClose, campaignId, campaign }: EnableCampaignCOnfirmationProps) => {
     const queryClient = useQueryClient();
 
     console.log(mode, campaignId, campaign);
@@ -27,8 +27,10 @@ const EnableCampaignCOnfirmation = ({  mode, onClose, campaignId, campaign }: En
         mutationFn: async () => {
             if (mode  === 'disable') {
                await campaignService.campaignAction(`disable/${campaignId}`);
-            }else{
+            }else if (mode === 'enable'){
                 await campaignService.campaignAction(`enable/${campaignId}`);
+            }else if (mode === 'delete') {
+                await campaignService.deleteCampaign(campaignId);
             }
         },
         onSuccess: () => {
@@ -74,4 +76,4 @@ const EnableCampaignCOnfirmation = ({  mode, onClose, campaignId, campaign }: En
     )
 }
 
-export default EnableCampaignCOnfirmation
+export default CampaignConfirmationModal
