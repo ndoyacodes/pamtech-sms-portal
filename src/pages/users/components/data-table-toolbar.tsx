@@ -36,7 +36,7 @@ export function DataTableToolbar<TData>({
           className='h-8 w-[150px] lg:w-[250px]'
         />
         <div className='flex gap-x-2'>
-               {user?.customer && (
+               {user?.customer && user?.role === "ADMIN" && (
                 <Button
                 variant='default'
                 onClick={() => navigate("/users/add")}

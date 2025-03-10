@@ -52,7 +52,7 @@ class CampaignService extends APIClient {
 
         // Delete a campaign
         deleteCampaign(id: number) {
-                return this.delete<void>(`/campaign/${id}`, {id:id});
+                return this.delete<void>(`/campaign/delete/${id}`, {id:id});
         }
 }
 

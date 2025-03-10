@@ -183,7 +183,7 @@ export function DataTableToolbar<TData>({
             return {
               key: 'sender.id',
               operator: 'EQUAL',
-              field_type: 'NUMBER',
+              field_type: 'STRING',
               value: value,
               values: [value],
             };
