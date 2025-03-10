@@ -159,6 +159,45 @@ const CampaignDetailsPage = () => {
             <h1 className='mb-6 text-3xl font-bold'>Campaign History</h1>
             {/* Campaign Logs Table */}
             <div className='overflow-x-auto'>
+              {
+                isLoading ? (
+                  <div className='flex h-64 items-center justify-center'>
+                    <div className='h-8 w-8 animate-spin rounded-full border-b-2 border-gray-900 dark:border-white'></div>
+                  </div>
+                ) : logs.length === 0 ? (
+                  <p className='text-lg text-gray-500'>No logs available</p>
+                ) : (
+                  <table className='w-full table-auto'>
+                    <thead>
+                      <tr>
+                        <th className='px-4 py-2 text-left'>Date</th>
+                        <th className='px-4 py-2 text-left'>Message</th>
+                        <th className='px-4 py-2 text-left'>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {logs.map((log: any) => (
+                        <tr key={log.id}>
+                          <td className='px-4 py-2'>
+                            {format(new Date(log.createdAt), 'yyyy-MM-dd HH:mm')}
+                          </td>
+                          <td className='px-4 py-2'>{log.message}</td>
+                          <td className='px-4 py-2'>
+                            <Badge
+                              variant={
+                                log.status === 'SUCCESS' ? 'success' : 'destructive'
+                              }
+                            >
+                              {log.status}
+                            </Badge>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )
+                 
+              }
               {/*<DataTable columns={columns} data={data} />*/}
             </div>
           </TabsContent>
