@@ -94,13 +94,13 @@ const CampaignDetailsPage = () => {
                     <div>
                       <p className='text-sm text-gray-500'>Start Date</p>
                       <p className='text-lg'>
-                        {format(new Date(campaign.startDate), 'yyyy-MM-dd')}
+                        { campaign?.startDate && format(new Date(campaign.startDate), 'yyyy-MM-dd')}
                       </p>
                     </div>
                     <div>
                       <p className='text-sm text-gray-500'>End Date</p>
                       <p className='text-lg'>
-                        {format(new Date(campaign.endDate), 'yyyy-MM-dd')}
+                        { campaign?.endDate && format(new Date(campaign.endDate), 'yyyy-MM-dd')}
                       </p>
                     </div>
                     <div>

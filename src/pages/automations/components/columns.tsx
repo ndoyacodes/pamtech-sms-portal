@@ -3,7 +3,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { Badge } from '@/components/ui/badge.tsx'
 import { DataTableRowActions } from './data-table-row-actions'
-import { format } from 'date-fns';
+import { isValid, parseISO, format } from 'date-fns';
 
 export type Campaign = {
   id: number
@@ -78,20 +78,25 @@ export const columns: ColumnDef<Campaign>[] = [
       <DataTableColumnHeader column={column} title='Start Date' />
     ),
     cell: ({ row }) => {
-      const startDate = row.getValue('startDate');
-      // @ts-ignore
-      return format(new Date(startDate), 'yyyy-MM-dd');
+      const startDate = row?.original?.startDate;
+      if (!startDate) return 'N/A';
+
+      const parsedDate = parseISO(startDate);
+      return isValid(parsedDate) ? format(parsedDate, 'yyyy-MM-dd') : 'Invalid Date';
     },
   },
+
   {
     accessorKey: 'endDate',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='End Date' />
     ),
     cell: ({ row }) => {
-      const endDate = row.getValue('endDate');
-      // @ts-ignore
-      return format(new Date(endDate), 'yyyy-MM-dd');
+      const endDate = row?.original?.endDate;
+      if (!endDate) return 'N/A';
+
+      const parsedDate = parseISO(endDate);
+      return isValid(parsedDate) ? format(parsedDate, 'yyyy-MM-dd') : 'Invalid Date';
     },
   },
   {
