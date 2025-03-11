@@ -93,6 +93,20 @@ const resetPassword = useMutation(
   }
 )
 
+  const reset = useMutation({
+    mutationFn: ({ token, email, data }: { token: string; email: string, data: any }) =>
+      authService.resetPassword(token, email, data),
+    onSuccess: () => {
+      navigate('/login');
+      toast.success('Password updated successfully');
+    },
+    onError: (error: any) => {
+      const errorMessage =
+        error?.response?.data?.message || 'Password reset failed';
+      toast.error(errorMessage);
+    }
+  });
+
 
 const updateCurrentUserProfile = useMutation(
   {
@@ -113,6 +127,7 @@ const updateCurrentUserProfile = useMutation(
     registerCustomer,
     updateCurrentUserProfile,
     forgetPassword,
-    resetPassword
+    resetPassword,
+    reset
   };
 };
