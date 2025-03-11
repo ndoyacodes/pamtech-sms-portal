@@ -97,7 +97,7 @@ const resetPassword = useMutation(
     mutationFn: ({ token, email, data }: { token: string; email: string, data: any }) =>
       authService.resetPassword(token, email, data),
     onSuccess: () => {
-      navigate('/login');
+      navigate('/sign-in');
       toast.success('Password updated successfully');
     },
     onError: (error: any) => {
