@@ -32,6 +32,12 @@ const router = createBrowserRouter([
     }),
   },
   {
+    path: '/password-reset/:token',
+    lazy: async () => ({
+      Component: (await import('./pages/auth/reset-password')).default,
+    }),
+  },
+  {
     path: '/otp',
     lazy: async () => ({
       Component: (await import('./pages/auth/otp')).default,

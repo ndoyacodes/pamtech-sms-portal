@@ -57,8 +57,15 @@ class AuthService extends APIClient {
  
 
   forgetReset(data:any) {
-    return this.post<void>('/auth/password-reset/', data);
+    return this.post<void>('/auth/password-reset/', data)
   }
+
+  resetPassword(token: string, email: string, data: Record<string, any>) {
+    const params = new URLSearchParams({ 'reset-token': token, email });
+
+    return this.post<any>(`/auth/password-reset?${params.toString()}`, data);
+  }
+
 
 
   forgetPassword(data:any) {
