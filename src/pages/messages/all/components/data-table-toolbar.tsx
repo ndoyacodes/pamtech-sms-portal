@@ -203,10 +203,10 @@ export function DataTableToolbar<TData>({
           key: 'createdAt',
           operator: 'BETWEEN',
           field_type: 'DATE',
-          value: values.fromDate || null,
+          value: formatDateForInput(values.fromDate) || null,
           // @ts-ignore
-          value_to: values.toDate || null,
-          values: [values.fromDate || '', values.toDate || '']
+          value_to: formatDateForInput(values.toDate) || null,
+          values: [formatDateForInput(values.fromDate) || '', formatDateForInput(values.toDate) || '']
         });
       }
 

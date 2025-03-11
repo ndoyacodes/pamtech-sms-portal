@@ -7,5 +7,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatDateForInput(date: any) {
-  return moment(date).format('YYYY-MM-DDTHH:mm:ss');
+  return moment(date).toISOString();
 }
