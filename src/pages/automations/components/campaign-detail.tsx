@@ -10,6 +10,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TabsContent } from '@radix-ui/react-tabs'
 import { useQuery } from '@tanstack/react-query'
 import { campaignService } from '@/api/services/campaign/campaign.service'
+import moment from 'moment'
 
 const CampaignDetailsPage = () => {
   const navigate = useNavigate()
@@ -27,8 +28,6 @@ const CampaignDetailsPage = () => {
     staleTime: 5 * 60 * 1000,
   });
 
-  console.log(logs);
-  
 
   return (
     <Layout>
@@ -140,7 +139,7 @@ const CampaignDetailsPage = () => {
                     <div>
                       <p className='text-sm text-gray-500'>Next Run</p>
                       <p className='text-lg'>
-                        {/*{campaign.nextRun ? format(new Date(campaign.nextRun), 'yyyy-MM-dd HH:mm') : 'N/A'}*/}
+                        {campaign.nextRun ? moment(campaign.nextRun).format('yyyy-MM-DD HH:mm:ss') : 'N/A'}
                       </p>
                     </div>
                     <div>
@@ -171,28 +170,30 @@ const CampaignDetailsPage = () => {
                     <thead>
                       <tr>
                         <th className='px-4 py-2 text-left'>Date</th>
-                        <th className='px-4 py-2 text-left'>Message</th>
+                        <th className='px-4 py-2 text-left'>Run Description</th>
                         <th className='px-4 py-2 text-left'>Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {logs.map((log: any) => (
-                        <tr key={log.id}>
+                      {
+                        logs.map((log: any) => {
+                          console.log(log)
+                        return <tr key={log.id}>
                           <td className='px-4 py-2'>
-                            {format(new Date(log.createdAt), 'yyyy-MM-dd HH:mm')}
+                            {moment(log.createdAt).format('yyyy-MM-DD HH:mm:ss')}
                           </td>
-                          <td className='px-4 py-2'>{log.message}</td>
+                          <td className='px-4 py-2'>{log.runDescription}</td>
                           <td className='px-4 py-2'>
                             <Badge
                               variant={
-                                log.status === 'SUCCESS' ? 'success' : 'destructive'
+                                log.status === 'COMPLETED' ? 'success' : 'destructive'
                               }
                             >
                               {log.status}
                             </Badge>
                           </td>
                         </tr>
-                      ))}
+                      })}
                     </tbody>
                   </table>
                 )

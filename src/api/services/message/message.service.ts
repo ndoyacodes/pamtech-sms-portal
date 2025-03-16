@@ -23,7 +23,7 @@ class MessageService extends APIClient {
         return this.get<any>(`/sms/${id}`);
     }
 
-    // Send bulk SMS
+    // Quick Send
     sendBulkSMS(data: any) {
         return this.post<any>('/sms/send-bulk', data, 
             {

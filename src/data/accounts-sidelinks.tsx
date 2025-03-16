@@ -2,16 +2,14 @@ import {
   IconLayoutDashboard,
   IconMessages,
   IconUserScreen,
-  IconPhoneCall,
   IconTemplate,
   IconDashboard,
   IconReport,
   IconReportAnalytics,
-  IconBrandTelegram,
   IconCpu2,
   IconFilePhone,
   IconLayersSubtract,
-  IconUser, IconAtOff,
+  IconUser, IconAtOff, IconSend
 } from '@tabler/icons-react'
   
   export interface NavLink {
@@ -45,16 +43,16 @@ import {
       icon: <IconMessages size={18} />,
       sub: [
         {
-         title: 'Send Bulk SMS',
+         title: 'Quick Send',
           label: '',
           href: '/sms/send-bulk-sms',
-          icon: <IconPhoneCall size={18} />,
+          icon: <IconSend size={18} />,
         },
         {
           title: 'Campaigns',
           label: '',
           href: '/automations',
-          icon: <IconBrandTelegram size={18} />,
+          icon: <IconMessages size={18} />,
         },
     
       ],
