@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams, useNavigate } from 'react-router-dom'
-import { format } from 'date-fns'
 import { Layout } from '@/components/custom/layout'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -106,13 +105,13 @@ const [deleteTemplate, setDeleteTemplate] = useState(false);
                   <div>
                     <p className='text-sm text-muted-foreground'>Created At</p>
                     <p className='text-sm'>
-                      {format(new Date(template?.createdAt), 'PPp')}
+                      {template?.createdAt}
                     </p>
                   </div>
                   <div>
                     <p className='text-sm text-muted-foreground'>Last Updated</p>
                     <p className='text-sm'>
-                      {format(new Date(template?.updatedAt), 'PPp')}
+                      {template?.updatedAt}
                     </p>
                   </div>
                 </div>
@@ -146,7 +145,7 @@ const [deleteTemplate, setDeleteTemplate] = useState(false);
                     <div>
                       <p className='text-sm font-medium'>Created</p>
                       <p className='text-sm text-muted-foreground'>
-                        {format(new Date(template?.createdAt), 'PPp')}
+                        {template?.createdAt}
                       </p>
                     </div>
                   </div>
@@ -154,7 +153,7 @@ const [deleteTemplate, setDeleteTemplate] = useState(false);
                     <div>
                       <p className='text-sm font-medium'>Last Updated</p>
                       <p className='text-sm text-muted-foreground'>
-                        {format(new Date(template?.updatedAt), 'PPp')}
+                        {template?.updatedAt}
                       </p>
                     </div>
                   </div>
