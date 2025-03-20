@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -68,21 +69,21 @@ const MONTHS = [
 
 const formSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  description: z.string().optional(),
+  description: z.any(),
   phoneBooks: z.array(z.number()).min(1, 'Phone Books are required'),
   senderId: z.number().min(1, 'Sender ID is required'),
   messageTemplate: z.number().min(1, 'Message Template is required'),
-  startDate: z.string().optional(),
-  endDate: z.string().optional(),
+  startDate: z.any().optional(),
+  endDate: z.any().optional(),
   recurring: z.boolean().default(false),
   recurringPeriod: z.string().optional(),
-  nextRunDate: z.string().optional(),
+  nextRunDate: z.any().optional(),
   isActive: z.boolean().default(true),
   weeklyDays: z.array(z.string()).optional(),
   monthlyDates: z.array(z.number()).optional(),
   yearlyMonth: z.string().optional(),
   yearlyDate: z.number().optional(),
-  runTime: z.string().optional()
+  runTime: z.any().optional()
 }).superRefine((data, ctx) => {
   if (data.recurring) {
     if (!data.startDate) {
@@ -167,31 +168,33 @@ export const CampaignForm = () => {
   const { user } = useAuthStore()
   const { createCampaign } = useCampaign()
   const navigate = useNavigate()
+  const [selectedTemplateContent, setSelectedTemplateContent] = useState('')
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
-      description: '',
+      description: null,
       phoneBooks: [],
       senderId: undefined,
       messageTemplate: undefined,
-      startDate: '',
-      endDate: '',
+      startDate: null,
+      endDate: null,
       recurring: false,
       recurringPeriod: undefined,
-      nextRunDate: '',
+      nextRunDate: null,
       isActive: true,
       weeklyDays: [],
       monthlyDates: [],
       yearlyMonth: undefined,
       yearlyDate: 1,
-      runTime: '',
+      runTime: null,
     },
   })
 
   const watchRecurring = form.watch('recurring')
   const watchRecurringPeriod = form.watch('recurringPeriod')
+  const watchMessageTemplate = form.watch('messageTemplate')
 
   const { data: phoneBooks, isLoading } = useQuery({
     queryKey: ['phone-books'],
@@ -224,16 +227,29 @@ export const CampaignForm = () => {
   const { data: messageTemplates, isLoading: isLoadingTemplates } = useQuery({
     queryKey: ['templates'],
     queryFn: async () => {
-      const response: any = await templateService.getCustomerTemplates(
+      const response = await templateService.getCustomerTemplates(
         user?.customer?.id,
         { page: 0, size: 100 }
       )
+      // @ts-ignore
       return response?.map((mt: any) => ({
         value: mt.id,
         label: mt.name,
+        content: mt.message,
       })) || []
     },
   })
+
+  useEffect(() => {
+    if (watchMessageTemplate && messageTemplates) {
+      const template = messageTemplates.find(
+        (t: any) => t.value === watchMessageTemplate
+      )
+      setSelectedTemplateContent(template?.content || '')
+    } else {
+      setSelectedTemplateContent('')
+    }
+  }, [watchMessageTemplate, messageTemplates])
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     let periodParam: string[] = []
@@ -253,7 +269,7 @@ export const CampaignForm = () => {
         break
       default:
         if (!data.recurring) {
-                        periodParam = [data.nextRunDate || '']
+          periodParam = [data.nextRunDate || '']
         }
     }
 
@@ -344,7 +360,11 @@ export const CampaignForm = () => {
                           <Select
                             isLoading={isLoadingTemplates}
                             options={messageTemplates}
-                            onChange={(option) => field.onChange(option?.value)}
+                            onChange={(option: any) => {
+                              console.log(option)
+                              field.onChange(option?.value)
+                              setSelectedTemplateContent(option?.content || '')
+                            }}
                             value={messageTemplates?.find(
                               (opt: any) => opt.value === field.value
                             )}
@@ -353,6 +373,17 @@ export const CampaignForm = () => {
                         </FormItem>
                       )}
                     />
+
+                    {watchMessageTemplate && (
+                      <FormItem>
+                        <Card className='p-4 bg-muted/50'>
+                          <div className='whitespace-pre-wrap text-sm'>
+                            {selectedTemplateContent}
+                          </div>
+                        </Card>
+                      </FormItem>
+                    )}
+
                     <FormField
                       control={form.control}
                       name='senderId'
@@ -482,8 +513,8 @@ export const CampaignForm = () => {
                                   isMulti
                                   options={daysOfWeek}
                                   value={daysOfWeek.filter(opt =>
-                                    field.value?.includes(opt.value)
-                                  )}
+                                    field.value?.includes(opt.value))
+                                  }
                                   onChange={(options) =>
                                     field.onChange(options?.map(opt => opt.value))
                                   }
@@ -505,8 +536,8 @@ export const CampaignForm = () => {
                                   isMulti
                                   options={datesInMonth}
                                   value={datesInMonth.filter(opt =>
-                                    field.value?.includes(opt.value)
-                                  )}
+                                    field.value?.includes(opt.value))
+                                  }
                                   onChange={(options) =>
                                     field.onChange(options?.map(opt => opt.value))
                                   }

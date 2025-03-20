@@ -11,13 +11,17 @@ import { TabsContent } from '@radix-ui/react-tabs'
 import { useQuery } from '@tanstack/react-query'
 import { campaignService } from '@/api/services/campaign/campaign.service'
 import moment from 'moment'
+import { DataTable } from '@/pages/messages/all/components/data-table.tsx'
+import { useState } from 'react'
+import { messageService } from '@/api/services/message/message.service.ts'
+import { columns } from '@/pages/messages/all/components/columns.tsx'
 
 const CampaignDetailsPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const campaign = location.state?.campaign
 
-  const { data: logs, isLoading } = useQuery({
+  const { data: logs } = useQuery({
     queryKey: ['campaign-logs', campaign?.id],
     queryFn: async () => {
       const response: any = await  campaignService.getCampaignLogsById(campaign?.id);
@@ -27,6 +31,63 @@ const CampaignDetailsPage = () => {
     retry: 2,
     staleTime: 5 * 60 * 1000,
   });
+
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  })
+
+  const [filterParams, setFilterParams] = useState({
+    filters: [
+      {
+        "key": "campaign.id",
+        "operator": "EQUAL",
+        "field_type": "STRING",
+        "value": campaign.id,
+        "values": [
+          campaign.id
+        ]
+      }
+    ],
+    sorts: [
+      {
+        key: "id",
+        direction: "DESC"
+      }
+    ],
+    page: 0,
+    size: 10
+  })
+
+  const { data: allSms, isLoading, refetch } = useQuery({
+    queryKey: ['all-sms', pagination.pageIndex, pagination.pageSize, filterParams],
+    queryFn: async () => {
+      const req = {
+        ...filterParams,
+        page: pagination.pageIndex,
+        size: pagination.pageSize
+      }
+
+      const response: any = await messageService.getMessages({ ...req })
+      return (
+        response || {
+          content: response.content || [],
+          totalElements: response?.totalElements,
+        }
+      )
+    },
+    retry: 2,
+    staleTime: 5 * 60 * 1000,
+  })
+
+  const handleFilterSubmit = (filterData: any) => {
+    setFilterParams(filterData);
+    setPagination({
+      pageIndex: 0,
+      pageSize: pagination.pageSize
+    });
+    return refetch();
+  };
 
 
   return (
@@ -52,9 +113,8 @@ const CampaignDetailsPage = () => {
         >
           <div className='mt-3 w-full overflow-x-auto pb-2'>
             <TabsList>
-              <TabsTrigger value='campaign-details'>
-                Campaign Details
-              </TabsTrigger>
+              <TabsTrigger value='campaign-details'>Campaign Details</TabsTrigger>
+              <TabsTrigger value='messages'>Messages</TabsTrigger>
               <TabsTrigger value='logs'>Campaign history</TabsTrigger>
             </TabsList>
           </div>
@@ -154,6 +214,24 @@ const CampaignDetailsPage = () => {
             </div>
           </TabsContent>
 
+          <TabsContent value='messages' className='space-y-4'>
+            <h1 className='mb-6 text-3xl font-bold'>Sms Log</h1>
+            {/* Campaign Logs Table */}
+            <div className='overflow-x-auto'>
+              {
+                  <DataTable
+                    data={allSms?.content}
+                    columns={columns}
+                    pagination={pagination}
+                    onPaginationChange={setPagination}
+                    totalElements={allSms?.totalElements || 0}
+                    onFilterSubmit={handleFilterSubmit}
+                  />
+              }
+              {/*<DataTable columns={columns} data={data} />*/}
+            </div>
+          </TabsContent>
+
           <TabsContent value='logs' className='space-y-4'>
             <h1 className='mb-6 text-3xl font-bold'>Campaign History</h1>
             {/* Campaign Logs Table */}
@@ -163,7 +241,7 @@ const CampaignDetailsPage = () => {
                   <div className='flex h-64 items-center justify-center'>
                     <div className='h-8 w-8 animate-spin rounded-full border-b-2 border-gray-900 dark:border-white'></div>
                   </div>
-                ) : logs.length === 0 ? (
+                ) : logs?.length === 0 ? (
                   <p className='text-lg text-gray-500'>No logs available</p>
                 ) : (
                   <table className='w-full table-auto'>

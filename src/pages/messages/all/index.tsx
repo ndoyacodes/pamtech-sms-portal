@@ -27,8 +27,6 @@ export default function FarmersPage() {
     size: 10
   })
 
-  // const { user } = useAuthStore();
-
   const { data: allSms, isLoading, refetch } = useQuery({
     queryKey: ['all-sms', pagination.pageIndex, pagination.pageSize, filterParams],
     queryFn: async () => {
@@ -49,7 +47,6 @@ export default function FarmersPage() {
     retry: 2,
     staleTime: 5 * 60 * 1000,
   })
-
 
   const handleFilterSubmit = (filterData: any) => {
     setFilterParams(filterData);
