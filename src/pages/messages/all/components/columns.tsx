@@ -6,6 +6,7 @@ import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 
 import { Invoice } from '../data/schema'
+import moment from 'moment'
 
 // @ts-ignore
 // @ts-ignore
@@ -77,7 +78,7 @@ export const columns: ColumnDef<Invoice>[] = [
     cell: ({ row }) => (
       <Badge
         variant={
-          row.getValue('status') === 'success' ? 'secondary' : 'destructive'
+          row.getValue('status') === 'FAILED' ? 'destructive' : row.getValue('status') === 'DELIVERED' ? 'success' : 'secondary'
         }
       >
         {row.getValue('status')}
@@ -91,10 +92,13 @@ export const columns: ColumnDef<Invoice>[] = [
     ),
   },
   {
-    accessorKey: 'dateSent',
+    accessorKey: 'createdAt',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Date Sent' />
+      <DataTableColumnHeader column={column} title='Timestamp' />
     ),
+    cell: ({ row }) => {
+      return moment(row.original.createdAt).format('YYYY-MM-DD HH:mm:ss')
+    },
   },
   {
     id: 'actions',
