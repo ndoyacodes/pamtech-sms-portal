@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Layout } from '@/components/custom/layout'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { templateService } from '@/api/services/message/template.service'
 import {
   AlertCircle,
-  MessageSquare,
+  Building,
   Calendar,
+  MessageSquare,
   Tag,
-  Building
 } from 'lucide-react'
 import { Button } from '@/components/custom/button'
 import { Search } from '@/components/search'
@@ -21,7 +21,7 @@ import DeleteDialog from '../../sender-ids/components/delete'
 export const TemplateView = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-const [deleteTemplate, setDeleteTemplate] = useState(false);
+  const [deleteTemplate, setDeleteTemplate] = useState(false)
 
   const {
     data: template,
@@ -29,13 +29,11 @@ const [deleteTemplate, setDeleteTemplate] = useState(false);
     error,
   } = useQuery({
     queryKey: ['template', id],
-    queryFn: async() => {
-        
-        const res:any = await templateService.getTemplateById(id)
+    queryFn: async () => {
+      const res: any = await templateService.getTemplateById(id)
 
-
-       return res;
-    }
+      return res
+    },
   })
 
   if (isLoading) {
@@ -69,7 +67,7 @@ const [deleteTemplate, setDeleteTemplate] = useState(false);
 
   return (
     <Layout>
-         <Layout.Header sticky className='mt-4 lg:mt-0 md:mt-0 sm:mt-4'>
+      <Layout.Header sticky className='mt-4 sm:mt-4 md:mt-0 lg:mt-0'>
         <Search />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
@@ -99,20 +97,20 @@ const [deleteTemplate, setDeleteTemplate] = useState(false);
               <CardContent className='space-y-4'>
                 <div className='grid grid-cols-2 gap-4'>
                   <div>
-                    <p className='text-sm text-muted-foreground'>Message Type</p>
+                    <p className='text-sm text-muted-foreground'>
+                      Message Type
+                    </p>
                     <Badge variant='outline'>{template?.messageType}</Badge>
                   </div>
                   <div>
                     <p className='text-sm text-muted-foreground'>Created At</p>
-                    <p className='text-sm'>
-                      {template?.createdAt}
-                    </p>
+                    <p className='text-sm'>{template?.createdAt}</p>
                   </div>
                   <div>
-                    <p className='text-sm text-muted-foreground'>Last Updated</p>
-                    <p className='text-sm'>
-                      {template?.updatedAt}
+                    <p className='text-sm text-muted-foreground'>
+                      Last Updated
                     </p>
+                    <p className='text-sm'>{template?.updatedAt}</p>
                   </div>
                 </div>
               </CardContent>
@@ -162,49 +160,69 @@ const [deleteTemplate, setDeleteTemplate] = useState(false);
             </Card>
 
             <Card>
-                            <CardHeader>
-                                <CardTitle className='flex items-center gap-2'>
-                                    <Building className='h-5 w-5' />
-                                    Customer Information
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className='space-y-4'>
-                                <div className='grid grid-cols-2 gap-4'>
-                                    <div>
-                                        <p className='text-sm text-muted-foreground'>Company Name</p>
-                                        <p className='text-sm'>{template?.customer.companyName}</p>
-                                    </div>
-                                    <div>
-                                        <p className='text-sm text-muted-foreground'>Name</p>
-                                        <p className='text-sm'>{template?.customer.firstName} {template?.customer.lastName}</p>
-                                    </div>
-                                    <div>
-                                        <p className='text-sm text-muted-foreground'>Customer Type</p>
-                                        <Badge variant='outline'>{template?.customer.customerType}</Badge>
-                                    </div>
-                                    <div>
-                                        <p className='text-sm text-muted-foreground'>SMS Balance</p>
-                                        <p className='text-sm'>{template?.customer.smsBalance}</p>
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
+              <CardHeader>
+                <CardTitle className='flex items-center gap-2'>
+                  <Building className='h-5 w-5' />
+                  Customer Information
+                </CardTitle>
+              </CardHeader>
+              <CardContent className='space-y-4'>
+                <div className='grid grid-cols-2 gap-4'>
+                  <div>
+                    <p className='text-sm text-muted-foreground'>
+                      Company Name
+                    </p>
+                    <p className='text-sm'>{template?.customer.companyName}</p>
+                  </div>
+                  <div>
+                    <p className='text-sm text-muted-foreground'>Name</p>
+                    <p className='text-sm'>
+                      {template?.customer.firstName}{' '}
+                      {template?.customer.lastName}
+                    </p>
+                  </div>
+                  <div>
+                    <p className='text-sm text-muted-foreground'>
+                      Customer Type
+                    </p>
+                    <Badge variant='outline'>
+                      {template?.customer.customerType}
+                    </Badge>
+                  </div>
+                  <div>
+                    <p className='text-sm text-muted-foreground'>SMS Balance</p>
+                    <p className='text-sm'>{template?.customer.smsBalance}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           <div className='flex justify-end space-x-4'>
-            <Button 
+            <Button
               variant='outline'
-              onClick={() => navigate(`/templates/add`, {state: {record: template}})}
+              onClick={() =>
+                navigate(`/templates/add`, { state: { record: template } })
+              }
             >
               Edit Template
             </Button>
-            <Button variant='destructive'
-            onClick={() => setDeleteTemplate(true)}
-            >Delete Template</Button>
+            <Button
+              variant='destructive'
+              onClick={() => setDeleteTemplate(true)}
+            >
+              Delete Template
+            </Button>
           </div>
         </div>
 
-        {deleteTemplate && <DeleteDialog id={template?.id} name={template?.name} onClose={() =>  setDeleteTemplate(false)}/>}
+        {deleteTemplate && (
+          <DeleteDialog
+            id={template?.id}
+            name={template?.name}
+            onClose={() => setDeleteTemplate(false)}
+          />
+        )}
       </Layout.Body>
     </Layout>
   )
