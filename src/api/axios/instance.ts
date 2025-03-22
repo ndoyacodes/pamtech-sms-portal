@@ -11,7 +11,7 @@ export type ServiceType = keyof typeof microservicesUrls;
 const createAxiosInstance = (baseURL: string): AxiosInstance => {
   const instance = axios.create({
     baseURL,
-    timeout: 180000,
+    timeout: 360000,
     headers: {
       'Content-Type': 'application/json'
     },
