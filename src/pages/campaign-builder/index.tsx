@@ -251,7 +251,7 @@ export const BulkSMSForm = () => {
       </Layout.Header>
 
       <Layout.Body>
-        <Card className="mx-auto w-1/3 p-8">
+        <Card className="mx-auto w-1/2 p-8">
           <h2 className="mb-6 text-2xl font-semibold">Quick Send</h2>
 
           <Form {...form}>
