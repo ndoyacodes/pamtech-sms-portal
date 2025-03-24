@@ -251,15 +251,13 @@ export const BulkSMSForm = () => {
       </Layout.Header>
 
       <Layout.Body>
-        <Card className="mx-auto p-8">
+        <Card className="mx-auto w-1/3 p-8">
           <h2 className="mb-6 text-2xl font-semibold">Quick Send</h2>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                {/* Left Column */}
                 <div className="space-y-6">
-                  {/* Sender Information */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-medium">Sender Information</h3>
                     <FormField
@@ -317,7 +315,7 @@ export const BulkSMSForm = () => {
 
                   {/* Scheduling Options */}
                   <div className="space-y-4">
-                    <FormField
+                    {/*<FormField
                       control={form.control}
                       name="scheduled"
                       render={({ field }) => (
@@ -331,7 +329,7 @@ export const BulkSMSForm = () => {
                           </FormControl>
                         </FormItem>
                       )}
-                    />
+                    />*/}
                     {watchScheduled && (
                       <FormField
                         control={form.control}
@@ -406,21 +404,21 @@ export const BulkSMSForm = () => {
                         </FormItem>
                       )}
                     />
-                    <FormField
-                      control={form.control}
-                      name="saveAsTemplate"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                          <div className="space-y-0.5">
-                            <FormLabel className="text-base">Save as Template</FormLabel>
-                            <FormDescription>Save this message for future use.</FormDescription>
-                          </div>
-                          <FormControl>
-                            <Switch checked={field.value} onCheckedChange={field.onChange} />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
+                    {/*<FormField*/}
+                    {/*  control={form.control}*/}
+                    {/*  name="saveAsTemplate"*/}
+                    {/*  render={({ field }) => (*/}
+                    {/*    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">*/}
+                    {/*      <div className="space-y-0.5">*/}
+                    {/*        <FormLabel className="text-base">Save as Template</FormLabel>*/}
+                    {/*        <FormDescription>Save this message for future use.</FormDescription>*/}
+                    {/*      </div>*/}
+                    {/*      <FormControl>*/}
+                    {/*        <Switch checked={field.value} onCheckedChange={field.onChange} />*/}
+                    {/*      </FormControl>*/}
+                    {/*    </FormItem>*/}
+                    {/*  )}*/}
+                    {/*/>*/}
                   </div>
                 </div>
               </div>
