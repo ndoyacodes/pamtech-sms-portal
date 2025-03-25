@@ -22,9 +22,7 @@
     customer?: Customer | null;
   }
 
-
-  
-  // Authentication State Type
+ // Authentication State Type
   export interface AuthState {
     user: UserInfo | null;
     tokens: {
