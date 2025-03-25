@@ -9,7 +9,6 @@
     customerType: 'POSTPAID' | 'PREPAID';
   }
 
-  // User Information Type
   export interface UserInfo {
     username: string;
     phone: string;
