@@ -64,13 +64,13 @@ export function UserNav() {
           )
         }
 
-          <Button
+          {/*<Button
             className=''
             size='sm'
             onClick={() => navigate('/sms/top-up')}
           >
             Top up
-          </Button>
+          </Button>*/}
         </div>
       )}
       <DropdownMenu>

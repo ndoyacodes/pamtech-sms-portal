@@ -7,9 +7,9 @@ import { DataTableViewOptions } from '../components/data-table-view-options'
 
 // import { priorities, statuses } from '../data/data'
 // import { DataTableFacetedFilter } from './data-table-faceted-filter'
-import { useNavigate } from 'react-router-dom'
-import {  IconPlus } from '@tabler/icons-react'
-import { useAuthStore } from '@/hooks/use-auth-store'
+// import { useNavigate } from 'react-router-dom'
+// import {  IconPlus } from '@tabler/icons-react'
+// import { useAuthStore } from '@/hooks/use-auth-store'
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>,
@@ -22,8 +22,8 @@ export function DataTableToolbar<TData>({
   // status
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
-  const navigate =  useNavigate();
-  const {user } =  useAuthStore();
+  // const navigate =  useNavigate();
+  // const {user } =  useAuthStore();
 
   return (
     <div className='flex items-center justify-between'>
@@ -70,7 +70,7 @@ export function DataTableToolbar<TData>({
             />
           )}*/}
 
-               {user?.customer && (
+               {/*{user?.customer && (
                 <Button
                 variant='default'
                 onClick={() => navigate('/sms/top-up')}
@@ -79,7 +79,7 @@ export function DataTableToolbar<TData>({
                 New subscription
                 <IconPlus className='ml-2 h-4 w-4' />
               </Button>
-               )}
+               )}*/}
                <Button
             variant='default'
             // onClick={() => table.resetColumnFilters()}
