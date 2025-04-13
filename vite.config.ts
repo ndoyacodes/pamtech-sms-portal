@@ -1,11 +1,8 @@
-// https://github.com/vitejs/vite/discussions/3448
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
-// import jsconfigPaths from 'vite-jsconfig-paths';
-//import reactRefresh from "@vitejs/plugin-react-refresh";
 import rollupReplace from "@rollup/plugin-replace";
-
+import { obfuscator } from 'vite-plugin-obfuscator';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -14,7 +11,6 @@ export default defineConfig(({ mode }) => {
 
   return {
     preview: {
-      // this ensures that the browser opens upon server start
       open: true,
       host: true
     },
@@ -25,16 +21,12 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': path.resolve(__dirname, './src'),
       },
-  
     },
-    // base: API_URL,
     server: {
       proxy: {
         '/api': {
-          // target: 'http://localhost:6915',
           target: 'https://opessms.yared.codes/',
           changeOrigin: true,
-          // rewrite: (path) => path.replace(/^\/api/, '')
         }
       }
     },
@@ -47,12 +39,34 @@ export default defineConfig(({ mode }) => {
         },
       }),
       react(),
-      // jsconfigPaths()
-    //   NodeModulesPolyfillPlugin({
-    //     buffer: true
-    // }),
-      //reactRefresh(),
-    ],
-  
+      // Only apply obfuscation in production builds
+      mode === 'production' && obfuscator({
+        options: {
+          compact: true,
+          controlFlowFlattening: true,
+          deadCodeInjection: false,
+          debugProtection: false,
+          identifierNamesGenerator: 'hexadecimal',
+          selfDefending: true,
+          stringArray: true,
+          stringArrayThreshold: 0.75,
+          transformObjectKeys: true,
+          unicodeEscapeSequence: false
+        }
+      })
+    ].filter(Boolean),
+    build: {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true
+        },
+        format: {
+          comments: false
+        }
+      },
+      sourcemap: false // Disable sourcemaps for better obfuscation
+    }
   };
 });

@@ -83,28 +83,28 @@ const formSchema = z.object({
   monthlyDates: z.array(z.number()).optional(),
   yearlyMonth: z.string().optional(),
   yearlyDate: z.number().optional(),
-  runTime: z.any().optional()
+  runTime: z.any().optional(),
 }).superRefine((data, ctx) => {
   if (data.recurring) {
     if (!data.startDate) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'Start date is required for recurring campaigns',
-        path: ['startDate']
+        path: ['startDate'],
       })
     }
     if (!data.endDate) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'End date is required for recurring campaigns',
-        path: ['endDate']
+        path: ['endDate'],
       })
     }
     if (!data.recurringPeriod) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'Recurring period is required',
-        path: ['recurringPeriod']
+        path: ['recurringPeriod'],
       })
     }
 
@@ -114,7 +114,7 @@ const formSchema = z.object({
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: 'Weekly days are required',
-            path: ['weeklyDays']
+            path: ['weeklyDays'],
           })
         }
         break
@@ -123,7 +123,7 @@ const formSchema = z.object({
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: 'Monthly dates are required',
-            path: ['monthlyDates']
+            path: ['monthlyDates'],
           })
         }
         break
@@ -132,14 +132,14 @@ const formSchema = z.object({
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: 'Yearly month is required',
-            path: ['yearlyMonth']
+            path: ['yearlyMonth'],
           })
         }
         if (!data.yearlyDate) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: 'Yearly date is required',
-            path: ['yearlyDate']
+            path: ['yearlyDate'],
           })
         }
         break
@@ -148,7 +148,7 @@ const formSchema = z.object({
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: 'Run time is required for daily campaigns',
-            path: ['runTime']
+            path: ['runTime'],
           })
         }
         break
@@ -158,7 +158,7 @@ const formSchema = z.object({
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'Next run date is required',
-        path: ['nextRunDate']
+        path: ['nextRunDate'],
       })
     }
   }
@@ -229,7 +229,7 @@ export const CampaignForm = () => {
     queryFn: async () => {
       const response = await templateService.getCustomerTemplates(
         user?.customer?.id,
-        { page: 0, size: 100 }
+        { page: 0, size: 100 },
       )
       // @ts-ignore
       return response?.map((mt: any) => ({
@@ -243,7 +243,7 @@ export const CampaignForm = () => {
   useEffect(() => {
     if (watchMessageTemplate && messageTemplates) {
       const template = messageTemplates.find(
-        (t: any) => t.value === watchMessageTemplate
+        (t: any) => t.value === watchMessageTemplate,
       )
       setSelectedTemplateContent(template?.content || '')
     } else {
@@ -275,7 +275,7 @@ export const CampaignForm = () => {
 
     const payload = {
       ...data,
-      periodParam: periodParam.length > 0 ? periodParam : undefined
+      periodParam: periodParam.length > 0 ? periodParam : undefined,
     }
 
     createCampaign.mutate(
@@ -292,11 +292,11 @@ export const CampaignForm = () => {
           toast({
             title: 'Error',
             description: 'Failed to create campaign. Please try again.',
-            variant: 'destructive'
+            variant: 'destructive',
           })
           console.error('Error creating campaign:', error)
         },
-      }
+      },
     )
   }
 
@@ -304,26 +304,25 @@ export const CampaignForm = () => {
     <Layout>
       <Layout.Header sticky>
         <Search />
-        <div className='ml-auto flex items-center space-x-4'>
+        <div className="ml-auto flex items-center space-x-4">
           <ThemeSwitch />
           <UserNav />
         </div>
       </Layout.Header>
 
       <Layout.Body>
-        <Card className='mx-auto p-8'>
-          <h2 className='mb-6 text-2xl font-semibold'>Create Campaign</h2>
-
+        <Card className="mx-auto w-fit p-8">
+          <h1 className="mb-12 text-3xl font-semibold">Create Campaign</h1>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-              <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-0">
+              <div className="grid grid-cols-1 gap-20 md:grid-cols-2">
                 {/* Left Column */}
-                <div className='space-y-6'>
-                  <div className='space-y-4'>
-                    <h3 className='text-lg font-medium'>Basic Information</h3>
+                <div className="space-y-6">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium">Basic Information</h3>
                     <FormField
                       control={form.control}
-                      name='name'
+                      name="name"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Campaign Name *</FormLabel>
@@ -336,7 +335,7 @@ export const CampaignForm = () => {
                     />
                     <FormField
                       control={form.control}
-                      name='description'
+                      name="description"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Description</FormLabel>
@@ -349,11 +348,11 @@ export const CampaignForm = () => {
                     />
                   </div>
 
-                  <div className='space-y-4'>
-                    <h3 className='text-lg font-medium'>Content Selection</h3>
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium">Content Selection</h3>
                     <FormField
                       control={form.control}
-                      name='messageTemplate'
+                      name="messageTemplate"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Message Template *</FormLabel>
@@ -366,8 +365,9 @@ export const CampaignForm = () => {
                               setSelectedTemplateContent(option?.content || '')
                             }}
                             value={messageTemplates?.find(
-                              (opt: any) => opt.value === field.value
+                              (opt: any) => opt.value === field.value,
                             )}
+                            styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                           />
                           <FormMessage />
                         </FormItem>
@@ -376,8 +376,8 @@ export const CampaignForm = () => {
 
                     {watchMessageTemplate && (
                       <FormItem>
-                        <Card className='p-4 bg-muted/50'>
-                          <div className='whitespace-pre-wrap text-sm'>
+                        <Card className="p-4 bg-muted/50">
+                          <div className="whitespace-pre-wrap text-sm">
                             {selectedTemplateContent}
                           </div>
                         </Card>
@@ -386,7 +386,7 @@ export const CampaignForm = () => {
 
                     <FormField
                       control={form.control}
-                      name='senderId'
+                      name="senderId"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Sender ID *</FormLabel>
@@ -395,8 +395,9 @@ export const CampaignForm = () => {
                             options={senderIds}
                             onChange={(option) => field.onChange(option?.value)}
                             value={senderIds?.find(
-                              (opt: any) => opt.value === field.value
+                              (opt: any) => opt.value === field.value,
                             )}
+                            styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                           />
                           <FormMessage />
                         </FormItem>
@@ -406,12 +407,12 @@ export const CampaignForm = () => {
                 </div>
 
                 {/* Right Column */}
-                <div className='space-y-6'>
-                  <div className='space-y-4'>
-                    <h3 className='text-lg font-medium'>Audience</h3>
+                <div className="space-y-6">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium">Audience</h3>
                     <FormField
                       control={form.control}
-                      name='phoneBooks'
+                      name="phoneBooks"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Phone Books *</FormLabel>
@@ -423,8 +424,9 @@ export const CampaignForm = () => {
                               field.onChange(options?.map(opt => opt.value))
                             }
                             value={phoneBooks?.filter((opt: any) =>
-                              field.value?.includes(opt.value)
+                              field.value?.includes(opt.value),
                             )}
+                            styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                           />
                           <FormMessage />
                         </FormItem>
@@ -432,15 +434,15 @@ export const CampaignForm = () => {
                     />
                   </div>
 
-                  <div className='space-y-4'>
-                    <h3 className='text-lg font-medium'>Schedule</h3>
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium">Schedule</h3>
                     <FormField
                       control={form.control}
-                      name='recurring'
+                      name="recurring"
                       render={({ field }) => (
-                        <FormItem className='rounded-lg border p-4'>
-                          <div className='flex items-center justify-between'>
-                            <div className='space-y-0.5'>
+                        <FormItem className="rounded-lg border p-4">
+                          <div className="flex items-center justify-between">
+                            <div className="space-y-0.5">
                               <FormLabel>Recurring Campaign</FormLabel>
                               <FormDescription>
                                 Enable to schedule multiple runs
@@ -459,25 +461,25 @@ export const CampaignForm = () => {
 
                     {watchRecurring ? (
                       <>
-                        <div className='grid grid-cols-2 gap-4'>
+                        <div className="grid grid-cols-2 gap-4">
                           <FormField
                             control={form.control}
-                            name='startDate'
+                            name="startDate"
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Start Date *</FormLabel>
-                                <Input type='date' {...field} />
+                                <Input type="date" {...field} />
                                 <FormMessage />
                               </FormItem>
                             )}
                           />
                           <FormField
                             control={form.control}
-                            name='endDate'
+                            name="endDate"
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>End Date *</FormLabel>
-                                <Input type='date' {...field} />
+                                <Input type="date" {...field} />
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -486,7 +488,7 @@ export const CampaignForm = () => {
 
                         <FormField
                           control={form.control}
-                          name='recurringPeriod'
+                          name="recurringPeriod"
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>Recurring Period *</FormLabel>
@@ -494,8 +496,9 @@ export const CampaignForm = () => {
                                 options={RECURRING_PERIODS}
                                 onChange={(option) => field.onChange(option?.value)}
                                 value={RECURRING_PERIODS.find(
-                                  opt => opt.value === field.value
+                                  opt => opt.value === field.value,
                                 )}
+                                styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                               />
                               <FormMessage />
                             </FormItem>
@@ -505,7 +508,7 @@ export const CampaignForm = () => {
                         {watchRecurringPeriod === 'WEEKLY' && (
                           <FormField
                             control={form.control}
-                            name='weeklyDays'
+                            name="weeklyDays"
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Days of Week *</FormLabel>
@@ -518,6 +521,7 @@ export const CampaignForm = () => {
                                   onChange={(options) =>
                                     field.onChange(options?.map(opt => opt.value))
                                   }
+                                  styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                                 />
                                 <FormMessage />
                               </FormItem>
@@ -528,7 +532,7 @@ export const CampaignForm = () => {
                         {watchRecurringPeriod === 'MONTHLY' && (
                           <FormField
                             control={form.control}
-                            name='monthlyDates'
+                            name="monthlyDates"
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Monthly Dates *</FormLabel>
@@ -541,6 +545,7 @@ export const CampaignForm = () => {
                                   onChange={(options) =>
                                     field.onChange(options?.map(opt => opt.value))
                                   }
+                                  styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                                 />
                                 <FormMessage />
                               </FormItem>
@@ -549,19 +554,20 @@ export const CampaignForm = () => {
                         )}
 
                         {watchRecurringPeriod === 'YEARLY' && (
-                          <div className='grid grid-cols-2 gap-4'>
+                          <div className="grid grid-cols-2 gap-4">
                             <FormField
                               control={form.control}
-                              name='yearlyMonth'
+                              name="yearlyMonth"
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Month *</FormLabel>
                                   <Select
                                     options={MONTHS}
                                     value={MONTHS.find(
-                                      opt => opt.value === field.value
+                                      opt => opt.value === field.value,
                                     )}
                                     onChange={(option) => field.onChange(option?.value)}
+                                    styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                                   />
                                   <FormMessage />
                                 </FormItem>
@@ -569,16 +575,17 @@ export const CampaignForm = () => {
                             />
                             <FormField
                               control={form.control}
-                              name='yearlyDate'
+                              name="yearlyDate"
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Day *</FormLabel>
                                   <Select
                                     options={datesInMonth}
                                     value={datesInMonth.find(
-                                      opt => opt.value === field.value
+                                      opt => opt.value === field.value,
                                     )}
                                     onChange={(option) => field.onChange(option?.value)}
+                                    styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                                   />
                                   <FormMessage />
                                 </FormItem>
@@ -590,11 +597,11 @@ export const CampaignForm = () => {
                         {watchRecurringPeriod === 'DAILY' && (
                           <FormField
                             control={form.control}
-                            name='runTime'
+                            name="runTime"
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Daily Run Time *</FormLabel>
-                                <Input type='time' {...field} />
+                                <Input type="time" {...field} />
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -604,11 +611,11 @@ export const CampaignForm = () => {
                     ) : (
                       <FormField
                         control={form.control}
-                        name='nextRunDate'
+                        name="nextRunDate"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Next Run Date *</FormLabel>
-                            <Input type='datetime-local' {...field} />
+                            <Input type="datetime-local" {...field} />
                             <FormMessage />
                           </FormItem>
                         )}
@@ -618,10 +625,10 @@ export const CampaignForm = () => {
                 </div>
               </div>
 
-              <div className='flex justify-end'>
+              <div className="flex justify-end">
                 <Button
-                  type='submit'
-                  className='w-full md:w-auto'
+                  type="submit"
+                  className="w-full md:w-auto"
                   loading={createCampaign.isPending}
                 >
                   Create Campaign

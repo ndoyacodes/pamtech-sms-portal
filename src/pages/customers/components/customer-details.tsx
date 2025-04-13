@@ -23,12 +23,14 @@ import { Search } from '@/components/search'
 import { useState } from 'react'
 import CustomerApprovalModal from './cusstomer-approval-modal'
 import PDFViewerModal from './kyc-view-doc'
+import GenerateInvoice from './generate-invoice'
 
 const CustomerDetails = () => {
   const { id } = useParams()
   const [approveModal, setApproveModal] = useState(false)
   const [rejectModal, setRejectModal] = useState(false)
   const [openKycFile, setOpenKycFile] = useState(false)
+  const [invoiceModal, setInvoiceModal] = useState(false)
   const navigate = useNavigate()
 
   const { data: customer, isLoading } = useQuery({
@@ -82,11 +84,19 @@ const CustomerDetails = () => {
             </p>
           </div>
           <div className='flex gap-2'>
+            {(customer?.approvalStatus !== 'PENDING' && customer?.customerType === 'POSTPAID') &&
+              <>
+                <Button variant="default" onClick={() => setInvoiceModal(true)}
+                >Generate Invoice</Button>
+              </>
+          }
+
             <Button variant='outline'
               onClick={() => {
                 navigate(`/customers/add`, { state: { record: customer } })
               }}
             >Edit Customer</Button>
+
             {customer?.approvalStatus === 'PENDING' && (
               <>
                 <Button variant='default' onClick={() => setApproveModal(true)}>
@@ -281,6 +291,15 @@ const CustomerDetails = () => {
           isOpen={openKycFile}
           onClose={() => setOpenKycFile(false)}
           title={customer?.firstName}
+        />
+      )}
+
+      {invoiceModal && (
+        <GenerateInvoice
+          isOpen={invoiceModal}
+          onClose={() => setInvoiceModal(false)}
+          title={ `Generate invoice for ${customer?.firstName}` }
+          customer={customer}
         />
       )}
     </Layout>
