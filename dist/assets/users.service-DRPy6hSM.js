@@ -1,0 +1,1 @@
+import{A as s}from"./instance-BGpPafi2.js";class r extends s{constructor(){super("baseService")}getUsers(e){return this.post("/users/get",e)}getUser(e){return this.get(`/users/${e}`)}createUser(e){return this.post("/users",e)}updateStatus(e){return this.put("/users/"+e)}}const i=new r;export{i as u};

@@ -1,0 +1,1 @@
+import{A as e}from"./instance-BGpPafi2.js";class t extends e{constructor(){super("baseService")}getMessages(s){return this.post("/sms/search",s)}searchMessages(s){return this.post("/sms/search",s)}getMessageById(s){return this.get(`/sms/${s}`)}sendBulkSMS(s){return this.post("/sms/send-bulk",s,{headers:{"Content-Type":"multipart/form-data"}})}}const n=new t;export{n as m};
