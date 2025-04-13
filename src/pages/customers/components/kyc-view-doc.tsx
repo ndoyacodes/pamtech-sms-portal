@@ -48,18 +48,7 @@ const PDFViewerModal = ({ isOpen, onClose, title = 'Document Viewer' }: PDFViewe
         throw error;
       }
     },
-  });
-
-  // React.useEffect(() => {
-  //   return () => {
-  //     if (pdfUrl) {
-  //       URL.revokeObjectURL(pdfUrl);
-  //     }
-  //   };
-  // }, [pdfUrl]);
-
-  console.log('PDF URL:', pdfUrl);
-  
+  });  
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format:check": "prettier --check .",
+    "build:obfuscated": "tsc && vite build --mode production",
     "format": "prettier --write .",
     "test": "echo 'No tests yet!'"
   },
@@ -79,6 +80,7 @@
     "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5",
-    "vite": "^5.2.9"
+    "vite": "^5.2.9",
+    "vite-plugin-obfuscator": "^1.0.5"
   }
 }
