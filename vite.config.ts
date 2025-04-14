@@ -2,7 +2,7 @@ import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import rollupReplace from "@rollup/plugin-replace";
-import { obfuscator } from 'vite-plugin-obfuscator';
+import obfuscatorPlugin from 'vite-plugin-obfuscator'; // Changed import style
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -39,8 +39,7 @@ export default defineConfig(({ mode }) => {
         },
       }),
       react(),
-      // Only apply obfuscation in production builds
-      mode === 'production' && obfuscator({
+      mode === 'production' && obfuscatorPlugin({ // Changed to use default import
         options: {
           compact: true,
           controlFlowFlattening: true,
@@ -66,7 +65,7 @@ export default defineConfig(({ mode }) => {
           comments: false
         }
       },
-      sourcemap: false // Disable sourcemaps for better obfuscation
+      sourcemap: false
     }
   };
 });
