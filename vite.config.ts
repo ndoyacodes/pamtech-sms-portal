@@ -2,12 +2,11 @@ import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import rollupReplace from "@rollup/plugin-replace";
-import obfuscatorPlugin from 'vite-plugin-obfuscator'; // Changed import style
+import obfuscatorPlugin from 'rollup-plugin-obfuscator'; // Default import
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const API_URL = `${env.VITE_APP_BASE_NAME}`;
-  const PORT = 3000;
+
 
   return {
     preview: {
@@ -39,7 +38,7 @@ export default defineConfig(({ mode }) => {
         },
       }),
       react(),
-      mode === 'production' && obfuscatorPlugin({ // Changed to use default import
+      mode === 'production' && obfuscatorPlugin({
         options: {
           compact: true,
           controlFlowFlattening: true,
@@ -48,9 +47,7 @@ export default defineConfig(({ mode }) => {
           identifierNamesGenerator: 'hexadecimal',
           selfDefending: true,
           stringArray: true,
-          stringArrayThreshold: 0.75,
-          transformObjectKeys: true,
-          unicodeEscapeSequence: false
+          stringArrayThreshold: 0.75
         }
       })
     ].filter(Boolean),
@@ -60,9 +57,6 @@ export default defineConfig(({ mode }) => {
         compress: {
           drop_console: true,
           drop_debugger: true
-        },
-        format: {
-          comments: false
         }
       },
       sourcemap: false
