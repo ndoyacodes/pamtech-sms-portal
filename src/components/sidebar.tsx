@@ -87,7 +87,7 @@ export default function Sidebar({
               className={`flex flex-row justify-center truncate ${isCollapsed ? 'invisible w-0' : 'visible w-auto'}`}
             >
               <img src='/logo.png' alt='' className='py-4  object-cover' />
-              {/* <span className='font-bold px-4 text-xl'>OPESSMS</span>
+              {/* <span className='font-bold px-4 text-xl'>pamtechSMS</span>
               <span className='text-xs px-4'>Admin portal</span> */}
             </div>
           </div>

@@ -9,7 +9,7 @@ export default function ForgotPassword() {
          
           <Card className='p-6'>
           <div className='mb-4 flex items-center justify-center py-4'>
-            <img src="/logo.png" alt="opes logo" className='' />
+            <img src="/logo.png" alt="pamtech logo" className='' />
           </div>
             <div className='mb-2 flex flex-col space-y-2 text-left'>
               <h1 className='text-md font-semibold tracking-tight'>

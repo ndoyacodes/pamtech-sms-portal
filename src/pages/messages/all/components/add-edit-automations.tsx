@@ -39,7 +39,7 @@ export const AutomationForm: React.FC = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
-      senderId: 'OPES',
+      senderId: 'pamtech',
       phoneNumbers: '',
       contactGroups: '',
       smsTemplate: '',

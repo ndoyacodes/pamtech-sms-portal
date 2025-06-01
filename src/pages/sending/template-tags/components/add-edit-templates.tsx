@@ -82,7 +82,7 @@ export const TemplateTagForm: React.FC = () => {
           className=""
         >
             <p>
-        OPES SMS provides certain <b>template variables or tags</b> that you can use to personalize message content. The most
+        pamtech SMS provides certain <b>template variables or tags</b> that you can use to personalize message content. The most
         commonly used variables include <i>first_name</i>, <i>last_name</i>, and <i>email</i>.
       </p>
           {/* Name Field */}

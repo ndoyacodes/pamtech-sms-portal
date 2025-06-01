@@ -11,7 +11,7 @@ export default function SignUp() {
           <Card className='p-6'>
             <div className='mb-2 flex flex-col space-y-2 text-left'>
             <div className='mb-4 flex items-center justify-center py-4'>
-            <img src="/logo.png" alt="opes logo" className='' />
+            <img src="/logo.png" alt="pamtech logo" className='' />
             {/* <h1 className='text-xl font-medium'>Shamba Bora</h1> */}
           </div>
               <h1 className='text-lg font-semibold tracking-tight'>

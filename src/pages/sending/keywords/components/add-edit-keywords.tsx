@@ -76,7 +76,7 @@ const KeywordForm: React.FC = () => {
       <p className='mb-2'>
       A keyword makes it easy for subscribers to opt in to receive important messages and offers . There are no forms to fill out, apps to download, or URLs to remember. 
       <br />
-      All they need to do is text your keyword to your number, and they’re in. You can assign an unique keyword to a unique user on OPES SMS</p>
+      All they need to do is text your keyword to your number, and they’re in. You can assign an unique keyword to a unique user on pamtech SMS</p>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             {/* ===== Title & Keyword ===== */}

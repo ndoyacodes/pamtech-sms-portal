@@ -11,7 +11,7 @@ export default function SignIn2() {
           <Card className='p-6'>
             <div className='flex flex-col space-y-2 text-left'>
             <div className='mb-4 flex items-center justify-center py-4'>
-            <img src="/logo.png" alt="opes logo" className='' />
+            <img src="/logo.png" alt="pamtech logo" className='' />
             {/* <h1 className='text-xl font-medium'>Shamba Bora</h1> */}
           </div>
 

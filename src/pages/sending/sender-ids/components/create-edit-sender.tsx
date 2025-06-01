@@ -70,7 +70,7 @@ const AddEditCustomer = () => {
             Sender ID is what appears on people's phones to show who the SMS is from.
             <br />
              It can be your Brand Name or Company Name. 
-             Set Price value 0 for free of cost sender id on OPES SMS
+             Set Price value 0 for free of cost sender id on pamtech SMS
             </p>
           </div>
         </div>

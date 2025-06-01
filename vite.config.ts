@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/api': {
-          target: 'https://opessms.yared.codes/',
+          target: 'https://pamtechsms.yared.codes/',
           changeOrigin: true,
         }
       }
