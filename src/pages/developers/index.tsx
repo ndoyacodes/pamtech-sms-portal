@@ -36,7 +36,7 @@ const DeveloperDashboard = () => {
   
   const form = useForm({
     defaultValues: {
-      endpoint: 'https://pamtechsms.yared.codes/api/v1/sms/send',
+      endpoint: 'https://sms.pamtech.co.tz/api/v1/sms/send',
     }
   });
 

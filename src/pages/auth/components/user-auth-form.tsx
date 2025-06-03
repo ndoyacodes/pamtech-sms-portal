@@ -59,14 +59,14 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     <div className={cn('grid gap-6', className)} {...props}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className='grid gap-2'>
+          <div className='grid gap-4'>
             <FormField
               control={form.control}
               name='email'
               render={({ field }) => (
                 <FormItem className='space-y-1'>
                   <FormLabel>Email</FormLabel>
-                  <FormControl>
+                  <FormControl className="py-6 px-4">
                     <Input placeholder='name@example.com' {...field} />
                   </FormControl>
                   <FormMessage />
@@ -87,14 +87,14 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                       Forgot password?
                     </Link>
                   </div>
-                  <FormControl>
+                  <FormControl className="py-6 px-4">
                     <PasswordInput placeholder='********' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button className='mt-2' loading={loginUser.isPending}
+            <Button className='mt-2 py-6' loading={loginUser.isPending}
             disabled={loginUser.isPending} type='submit'
             >
               Login
@@ -109,27 +109,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                  Dont have an account? <Link to='/sign-up' className='text-primary'>Register Here!</Link>
                 </span>
               </div>
-            </div>
-
-            <div className='flex items-center gap-2'>
-              {/* <Button
-                variant='outline'
-                className='w-full'
-                type='button'
-                loading={isLoading}
-                leftSection={<IconBrandGithub className='h-4 w-4' />}
-              >
-                GitHub
-              </Button>
-              <Button
-                variant='outline'
-                className='w-full'
-                type='button'
-                loading={isLoading}
-                leftSection={<IconBrandFacebook className='h-4 w-4' />}
-              >
-                Facebook
-              </Button> */}
             </div>
           </div>
         </form>
