@@ -143,7 +143,7 @@ const DeveloperDashboard = () => {
                     </FormLabel>
                     <div className="relative">
                       <Input 
-                        value={showKey ? tokenData.apiKey : '••••••••••••••••'}
+                        value={showKey ? tokenData.apiKey : '••••••••••••••••••••••••••••••••'}
                         readOnly 
                         className="pr-24"
                       />

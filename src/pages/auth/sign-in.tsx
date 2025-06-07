@@ -7,12 +7,12 @@ export default function SignIn2() {
     <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'>
       <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[480px] md:w-full lg:w-full lg:p-8'>
         <div className='mb-4 flex items-center justify-center'></div>
-        <Card className='p-12'>
+        <Card className='py-12 px-8'>
           <div className='flex flex-col space-y-2 text-left'>
             <div className='mb-4 flex items-center justify-center py-4'>
               <img
                 src='/logo.png'
-                width={200}
+                width={150}
                 height={0}
                 alt='pamtech logo'
                 className=''

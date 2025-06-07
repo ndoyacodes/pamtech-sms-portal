@@ -16,6 +16,7 @@ import { Button } from '@/components/custom/button'
 import { PasswordInput } from '@/components/custom/password-input'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/api-hooks/auth/useAuth'
+// import { Check } from 'lucide-react'
 // import useIsAuthenticated from '@/hooks/use-is-authenticated'
 // import useAuthentication from '@/hooks/use-authentication'
 
@@ -94,7 +95,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 </FormItem>
               )}
             />
-            <Button className='mt-2 py-6' loading={loginUser.isPending}
+            <Button className='flex items-center px-8 py-6 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600
+            text-white hover:from-green-600 hover:to-emerald-700 transition-all duration-300
+            font-medium shadow-lg hover:shadow-xl transform hover:scale-105 ml-auto w-full'
+                    loading={loginUser.isPending}
             disabled={loginUser.isPending} type='submit'
             >
               Login
