@@ -5,6 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
+import { useAuth } from '@/hooks/api-hooks/auth/useAuth';
+
 
 const formSchema = z
   .object({
@@ -25,6 +27,7 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 export const SignUpForm: FC = () => {
+  const { registerCustomer } = useAuth();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
@@ -59,11 +62,19 @@ export const SignUpForm: FC = () => {
   ];
 
   const onFormSubmit = async (data: FormData): Promise<void> => {
-    console.log('Form data ready for submission:', data);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      alert('Account created successfully!');
+      const registrationData = {
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phoneNumber: data.phoneNumber,
+        country: data.country,
+        serviceType: data.serviceType,
+      };
+
+      await registerCustomer.mutateAsync(registrationData);
+
     } catch (error) {
       console.error('Submission error:', error);
     }

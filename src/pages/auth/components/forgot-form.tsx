@@ -48,7 +48,7 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
                 <FormItem className='space-y-1'>
                   <FormLabel>Email</FormLabel>
                   <FormControl className="py-6 px-4">
-                    <Input placeholder='' {...field} className='bg-white' />
+                    <Input placeholder='' {...field} className='bg-white focus:border-blue-500 hover:border-gray-300' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
