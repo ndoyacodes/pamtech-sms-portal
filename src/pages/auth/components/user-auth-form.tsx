@@ -68,7 +68,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 <FormItem className='space-y-1'>
                   <FormLabel>Email</FormLabel>
                   <FormControl className="py-6 px-4">
-                    <Input placeholder='name@example.com' {...field} />
+                    <Input placeholder='' {...field} className='bg-white'/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,7 +89,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     </Link>
                   </div>
                   <FormControl className="py-6 px-4">
-                    <PasswordInput placeholder='********' {...field} />
+                    <PasswordInput placeholder='' {...field} className='bg-white' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -97,7 +97,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             />
             <Button className='flex items-center px-8 py-6 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600
             text-white hover:from-green-600 hover:to-emerald-700 transition-all duration-300
-            font-medium shadow-lg hover:shadow-xl transform hover:scale-105 ml-auto w-full'
+            font-medium shadow-lg hover:shadow-xl transform hover:scale-105 ml-auto w-full' style={{background: 'var(--brand-color)'}}
                     loading={loginUser.isPending}
             disabled={loginUser.isPending} type='submit'
             >

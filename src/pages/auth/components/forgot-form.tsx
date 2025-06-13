@@ -47,14 +47,14 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
               render={({ field }) => (
                 <FormItem className='space-y-1'>
                   <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder='name@example.com' {...field} />
+                  <FormControl className="py-6 px-4">
+                    <Input placeholder='' {...field} className='bg-white' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button className='mt-2' loading={forgetPassword.isPending}
+            <Button className='mt-2' style={{ background: 'var(--brand-color)' }} loading={forgetPassword.isPending}
             disabled={forgetPassword.isPending}
             >
               Continue
