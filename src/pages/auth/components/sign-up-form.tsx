@@ -61,24 +61,28 @@ export const SignUpForm: FC = () => {
     'Postpaid', 'Prepaid'
   ];
 
-  const onFormSubmit = async (data: FormData): Promise<void> => {
+  
+  const onFormSubmit = async (formData: FormData): Promise<void> => {
     try {
-      const registrationData = {
-        email: data.email,
-        password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        phoneNumber: data.phoneNumber,
-        country: data.country,
-        serviceType: data.serviceType,
-      };
+      const formDataPayload = new FormData();
+ 
+      formDataPayload.append('first_name', formData.firstName);
+      formDataPayload.append('last_name', formData.lastName);
+      formDataPayload.append('email', formData.email);
+      formDataPayload.append('password', formData.password);
+      formDataPayload.append('phone_number', formData.phoneNumber);
+      formDataPayload.append('country', formData.country);
+      formDataPayload.append('service_type', formData.serviceType);
 
-      await registerCustomer.mutateAsync(registrationData);
-
+      await registerCustomer.mutateAsync(formDataPayload);
+      
     } catch (error) {
+     
       console.error('Submission error:', error);
     }
   };
+
+
 
   return (
     <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'>
