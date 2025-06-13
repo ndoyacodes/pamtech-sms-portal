@@ -38,6 +38,12 @@ const router = createBrowserRouter([
     }),
   },
   {
+    path: '/resend-new-code',
+    lazy: async () => ({
+      Component: (await import('./pages/auth/resend-new-code')).default,
+    }),
+  },
+  {
     path: '/otp',
     lazy: async () => ({
       Component: (await import('./pages/auth/otp')).default,

@@ -74,7 +74,12 @@ export function OtpForm({ className, ...props }: OtpFormProps) {
                 </FormItem>
               )}
             />
-            <Button className='mt-2' disabled={disabledBtn} loading={isLoading}>
+            <Button className='w-full px-8 py-6 rounded-xl text-white font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
+             style={{
+              background: 'linear-gradient(to right, var(--brand-color-TOP), var(--brand-color-BOTTOM))'
+                }}
+            
+            disabled={disabledBtn} loading={isLoading}>
               Verify
             </Button>
           </div>

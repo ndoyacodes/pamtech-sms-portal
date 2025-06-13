@@ -1,9 +1,8 @@
 import { Card } from '@/components/ui/card'
-// import { ForgotForm } from './components/forgot-form'
 import { ForgotForm } from './components/forgot-form'
 import { Link } from 'react-router-dom'
 
-export default function ForgotPassword() {
+export default function ResendOtp() {
   return (
     <>
       <div className='container grid h-svh flex-col items-center justify-center bg-primary-foreground lg:max-w-none lg:px-0'>
@@ -18,15 +17,15 @@ export default function ForgotPassword() {
               />
             </div>
             <div className="flex justify-center flex-col items-center text-center mb-6">
-                   <h1 className="text-2xl font-bold text-gray-900 mb-2">Forgot Password?</h1>
-                   <p className="text-gray-600">Reset here</p>
+                   <h1 className="text-2xl font-bold text-gray-900 mb-2">Resend OTP</h1>
+                   <p className="text-gray-600">Please Enter a Registed Phone Number</p>
             </div>
          
           <Card className='py-12 px-8'>
           
             <div className='mb-4 flex flex-col space-y-2 text-left'>
               <p className='text-sm text-muted-foreground'>
-                Enter your registered phone number and you will receive an OTP to reset your password.
+                Make sure to enter the phone number associated with your account. You will receive a new OTP to reset your password.
               </p>
             </div>
             <ForgotForm />

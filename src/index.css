@@ -7,8 +7,10 @@
     /* Base colors */
     --background: 0 0% 100%;
     --foreground: 220 20% 20%;
-    --brand-color: #0682ff; /* Dodger Blue */
+    --brand-color: #0682ff; 
     --brand-color-hover: #315982;
+    --brand-color-BOTTOM: #1785f4; 
+    --brand-color-TOP: #762fc4;
     
     /* Card and popover */
     --card: 220 33% 98%;
