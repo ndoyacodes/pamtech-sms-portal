@@ -2,7 +2,7 @@ import { Card } from '@/components/ui/card'
 import { ForgotForm } from './components/forgot-form'
 import { Link } from 'react-router-dom'
 
-export default function ResendOtp() {
+export default function ResendLink() {
   return (
     <>
       <div className='container grid h-svh flex-col items-center justify-center bg-primary-foreground lg:max-w-none lg:px-0'>
@@ -17,15 +17,15 @@ export default function ResendOtp() {
               />
             </div>
             <div className="flex justify-center flex-col items-center text-center mb-6">
-                   <h1 className="text-2xl font-bold text-gray-900 mb-2">Resend OTP</h1>
-                   <p className="text-gray-600">Please Enter a Registed Phone Number</p>
+                   <h1 className="text-2xl font-bold text-gray-900 mb-2">Resend Link</h1>
+                   <p className="text-gray-600">Please Enter a Registered Email Address</p>
             </div>
-         
+
           <Card className='py-12 px-8'>
           
             <div className='mb-4 flex flex-col space-y-2 text-left'>
               <p className='text-sm text-muted-foreground'>
-                Make sure to enter the phone number associated with your account. You will receive a new OTP to reset your password.
+                Make sure to enter the email address associated with your account. You will receive a new link to reset your password.
               </p>
             </div>
             <ForgotForm />
@@ -35,7 +35,7 @@ export default function ResendOtp() {
               </div>
               <div className='relative flex justify-center text-xs uppercase'>
                 <span className='bg-background px-2 text-muted-foreground'>
-                 Dont have an account? <Link to='/sign-up' className='text-primary'>Register Here!</Link>
+                 Did not receive an email? <Link to='/resend-new-link' className='text-primary'>Resend Link!</Link>
                 </span>
               </div>
             </div>

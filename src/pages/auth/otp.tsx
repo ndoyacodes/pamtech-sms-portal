@@ -17,27 +17,24 @@ export default function Otp() {
               />
             </div>
             <div className="flex justify-center flex-col items-center text-center mb-6">
-                   <h1 className="text-2xl font-bold text-gray-900 mb-2">Forgot Password?</h1>
-                   <p className="text-gray-600">Reset here</p>
+                   <h1 className="text-2xl font-bold text-gray-900 mb-2">Verify Phone number</h1>
+                   <p className="text-gray-600">Please enter the OTP sent to your phone number.</p>
             </div>
-         
-          <Card className='py-12 px-8'>
-          
+            <Card className='py-12 px-8'>
+
             <div className='mb-4 flex flex-col space-y-2 text-left'>
               <p className='text-sm text-muted-foreground'>
                Please enter the authentication code you received via SMS on your phone number.
               </p>
             </div>
-            <OtpForm />
+            <OtpForm/>
             <p className='mt-4 px-8 text-center text-sm text-muted-foreground'>
               Haven't received it?{' '}
               <Link
-                to='/resend-new-code'
-                className='underline underline-offset-4 hover:text-primary'
-              >
-                Resend a new code.
+                to='/resend-otp'
+                className='underline underline-offset-4 hover:text-primary'>
+                Verify phone number.
               </Link>
-              .
             </p>
             <div className='relative my-2'>
               <div className='absolute inset-0 flex items-center'>

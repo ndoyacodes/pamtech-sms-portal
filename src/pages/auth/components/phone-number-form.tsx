@@ -14,15 +14,15 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/hooks/api-hooks/auth/useAuth'
-import {  Mail } from 'lucide-react';
+import {  Phone } from 'lucide-react';
 
 interface ForgotFormProps extends HTMLAttributes<HTMLDivElement> {}
 
 const formSchema = z.object({
-  email: z.string().min(1, { message: 'Email is required' }),
+  phone: z.string().min(1, { message: 'Phone number is required' }),
 });
 
-export function ForgotForm({ className, ...props }: ForgotFormProps) {
+export function PhoneNumberForm({ className, ...props }: ForgotFormProps) {
   const {forgetPassword} =  useAuth();
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: '' },
+    defaultValues: { phone: '' },
   })
 
   function onSubmit(data: z.infer<typeof formSchema>) {
@@ -39,7 +39,7 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
 
   if (forgetPassword.isSuccess) {
     navigate('/password-reset/:token', {
-      state: { email: form.getValues('email') }
+      state: { phone: form.getValues('phone') }
     });
   }
 
@@ -50,23 +50,23 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
           <div className='grid gap-2'>
             <FormField
               control={form.control}
-              name='email'
+              name='phone'
               render={({ field }) => (
                 <FormItem className='space-y-1'>
                   <FormLabel className="flex items-center gap-2">
-                    Email
+                    Phone Number
                   </FormLabel>
                   <div className="relative w-full">
                     <Input
-                      type="email"
+                      type="tel"
                       className={`w-full pl-10 pr-4 py-6 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-white${
-                        form.formState.errors.email
-                          ? 'border-red-300 bg-red-50' 
+                        form.formState.errors.phone
+                          ? 'border-red-300 bg-red-50'
                           : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
                       }`}
                       {...field}
                     />
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   </div>
                   <FormMessage className="mt-1 text-sm text-red-500" />
                 </FormItem>
@@ -78,8 +78,10 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
                 background: 'linear-gradient(to right, var(--brand-color-TOP), var(--brand-color-BOTTOM))' 
               }} 
               loading={forgetPassword.isPending}
-              disabled={forgetPassword.isPending}>
-              Continue
+              disabled={forgetPassword.isPending}
+
+            >
+              Send OTP
             </Button>
           </div>
         </form>

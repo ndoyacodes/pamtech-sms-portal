@@ -52,7 +52,6 @@ export const useAuth = () => {
       //     refresh_token: data.access.refresh_token
       //   })
       // );
-
       navigate('/sign-in');
     },
     onError: (error: any) => {
