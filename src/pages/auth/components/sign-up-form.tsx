@@ -56,21 +56,22 @@ export const SignUpForm: FC = () => {
 
   const serviceTypes = ['Postpaid', 'Prepaid'];
 
-  const onFormSubmit = async (formData: FormData): Promise<void> => {
-    try {
-      const formDataPayload = new FormData();
-      formDataPayload.append('first_name', formData.firstName);
-      formDataPayload.append('last_name', formData.lastName);
-      formDataPayload.append('email', formData.email);
-      formDataPayload.append('password', formData.password);
-      formDataPayload.append('phone_number', formData.phoneNumber);
-      formDataPayload.append('country', formData.country);
-      formDataPayload.append('service_type', formData.serviceType);
-      await registerCustomer.mutateAsync(formDataPayload);
-    } catch (error) {
-      console.error('Submission error:', error);
-    }
-  };
+const onFormSubmit = async (formData: FormData): Promise<void> => {
+  try {
+    const jsonPayload = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      phone_number: formData.phoneNumber,
+      country: formData.country,
+      service_type: formData.serviceType,
+    };
+    await registerCustomer.mutateAsync(jsonPayload); 
+  } catch (error) {
+    console.error('Submission error:', error);
+  }
+};
 
   return (
     <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'>

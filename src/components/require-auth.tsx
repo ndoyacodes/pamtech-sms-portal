@@ -8,7 +8,7 @@ const RequireAuth: React.FC = () => {
   const location = useLocation();
 
   //Negating this to view
-  if (isAuthenticated) {
+  if (!isAuthenticated) {
     return <Navigate to="/sign-in" state={{ from: location }} replace />;
   }
 
