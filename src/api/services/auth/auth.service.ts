@@ -67,13 +67,13 @@ class AuthService extends APIClient {
     return this.post<any>(`/auth/password-reset?${params.toString()}`, data);
   }
 
-
-
   forgetPassword(data:any) {
     return this.post<void>('/auth/forgot-password', data);
   }
 
-
+  verifyPhone(data:any) {
+    return this.post<void>('/auth/verify', data);
+  }
 }
 
 export const authService = new AuthService();

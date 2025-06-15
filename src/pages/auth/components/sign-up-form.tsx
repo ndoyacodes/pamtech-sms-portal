@@ -59,11 +59,11 @@ export const SignUpForm: FC = () => {
 const onFormSubmit = async (formData: FormData): Promise<void> => {
   try {
     const jsonPayload = {
-      first_name: formData.firstName,
-      last_name: formData.lastName,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
       email: formData.email,
       password: formData.password,
-      phone_number: formData.phoneNumber,
+      phoneNumber: formData.phoneNumber,
       country: formData.country,
       service_type: formData.serviceType,
     };

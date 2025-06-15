@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { authService } from '@/api/services/auth/auth.service';
 import { setCredentials } from '@/store/slices/auth/auth.slice';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -44,29 +45,40 @@ export const useAuth = () => {
 
   const registerCustomer = useMutation({
     mutationFn: authService.regieter.bind(authService),
-    onSuccess: (_data: any) => {
-      toast.success('Registration successful please login');
-      // dispatch(
-      //   setCredentials({
-      //     access_token: data.access.access_token,
-      //     refresh_token: data.access.refresh_token
-      //   })
-      // );
-      navigate('/sign-in');
+    onSuccess: (res: any) => {
+      toast.success('Your account has been created successfully. OTP was sent to your phone number.');
+
+      console.log(res)
+
+      const phone = res.body.phoneNumber
+
+      // Set phone in cookie (expires in 3 mins)
+      Cookies.set('signup_phone', phone, { expires: 3 / 1440 }) // 3 minutes
+
+      navigate('/verify-phone');
     },
     onError: (error: any) => {
       console.log('error', error);
 
       const errorMessage =
         error?.response?.data?.message || 'Failed to register user';
-      if (errorMessage.includes('Failed to register user')) {
-        toast.error('Failed to register user');
-      } else {
         toast.error(errorMessage);
-      }
     }
   });
 
+  const verifyPhone = useMutation({
+    mutationFn: authService.verifyPhone.bind(authService),
+    onSuccess: () => {
+      toast.success('Phone number was successfully verified. Please login.');
+
+      navigate('/sign-in');
+    },
+    onError: (error: any) => {
+      console.log('error', error);
+      const errorMessage = error.response?.data?.message || 'Failed to verify phone number';
+      toast.error(errorMessage);
+    }
+  });
 
   const  forgetPassword = useMutation(
     {
@@ -75,7 +87,7 @@ export const useAuth = () => {
             toast.success("password reset was sent successfully, a link is sent to your email to reset your password");
         },
         onError: () => {
-            toast.error("Failed to reset passwors, email accout not found")
+            toast.error("Failed to reset password, email account not found")
         }
     }
 )
@@ -126,6 +138,7 @@ const updateCurrentUserProfile = useMutation(
     registerCustomer,
     updateCurrentUserProfile,
     forgetPassword,
+    verifyPhone,
     resetPassword,
     reset
   };

@@ -2,12 +2,10 @@ import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import rollupReplace from "@rollup/plugin-replace";
-import obfuscatorPlugin from 'rollup-plugin-obfuscator'; // Default import
+import obfuscatorPlugin from 'rollup-plugin-obfuscator';
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
-
-
+  loadEnv(mode, process.cwd(), '')
   return {
     preview: {
       open: true,
@@ -26,6 +24,7 @@ export default defineConfig(({ mode }) => {
         '/api': {
           target: 'https://sms.pamtech.co.tz/',
           changeOrigin: true,
+          secure: false
         }
       }
     },
