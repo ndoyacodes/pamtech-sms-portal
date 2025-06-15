@@ -1,8 +1,10 @@
 import { HTMLAttributes } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import {  Mail, Eye, EyeOff, Lock } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -13,7 +15,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
-import { PasswordInput } from '@/components/custom/password-input'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/api-hooks/auth/useAuth'
 // import { Check } from 'lucide-react'
@@ -38,6 +39,7 @@ const formSchema = z.object({
 })
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const [showPassword, setShowPassword] = useState(false);
   const {loginUser} = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,47 +62,82 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     <div className={cn('grid gap-6', className)} {...props}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className='grid gap-4'>
-            <FormField
+          <div className='grid gap-4 w-full'>
+           <FormField
               control={form.control}
-              name='email'
+              name="email"
               render={({ field }) => (
-                <FormItem className='space-y-1'>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl className="py-6 px-4">
-                    <Input placeholder='' {...field} className='bg-white focus:border-blue-500 hover:border-gray-300'/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='password'
-              render={({ field }) => (
-                <FormItem className='space-y-1'>
-                  <div className='flex items-center justify-between'>
-                    <FormLabel>Password</FormLabel>
-                    <Link
-                      to='/forgot-password'
-                      className='text-sm font-medium text-muted-foreground hover:opacity-75'
-                    >
-                      Forgot password?
-                    </Link>
+                <FormItem className="space-y-2 w-full">
+                  <FormLabel className="flex items-center gap-2">
+                    <Mail className="w-4 h-4" /> Email
+                  </FormLabel>
+                  <div className="relative w-full">
+                    <FormControl>
+                      <Input
+                        {...field}
+                        className={`w-full pl-10 pr-4 py-6 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-white${
+                          form.formState.errors.email 
+                            ? 'border-red-300 bg-red-50' 
+                            : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
+                        }`}
+                      />
+                    </FormControl>
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   </div>
-                  <FormControl className="py-6 px-4">
-                    <PasswordInput placeholder='' {...field} className='bg-white focus:border-blue-500 hover:border-gray-300' />
-                  </FormControl>
-                  <FormMessage />
+                  <FormMessage className="mt-1 text-sm text-red-500" />
                 </FormItem>
               )}
             />
-            <Button className='flex items-center px-8 py-6 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600
-            text-white hover:from-green-600 hover:to-emerald-700 transition-all duration-300
-            font-medium shadow-lg hover:shadow-xl transform hover:scale-105 ml-auto w-full' style={{background: 'var(--brand-color)'}}
-                    loading={loginUser.isPending}
-            disabled={loginUser.isPending} type='submit'
-            >
+            <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="space-y-2 w-full">
+                    <div className="flex items-center justify-between">
+                      <FormLabel className="flex items-center gap-2">
+                        <Lock className="w-4 h-4" /> Password
+                      </FormLabel>
+                      <Link
+                        to="/forgot-password"
+                        className="text-sm font-medium text-muted-foreground hover:opacity-75"
+                      >
+                        Forgot password?
+                      </Link>
+                    </div>
+                    <div className="relative w-full">
+                      <FormControl>
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          {...field}
+                          className={`w-full pl-10 pr-10 py-6 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-white ${
+                            form.formState.errors.password 
+                              ? 'border-red-300 bg-red-50' 
+                              : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
+                          }`}
+                        />
+                      </FormControl>
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                    <FormMessage className="mt-1 text-sm text-red-500" />
+                  </FormItem>
+                )}
+              />
+            <Button 
+            className="w-full px-8 py-6 rounded-xl text-white font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+            style={{
+              background: 'linear-gradient(to right, var(--brand-color-TOP), var(--brand-color-BOTTOM))'
+                  }}
+                  loading={loginUser.isPending}
+                  disabled={loginUser.isPending} 
+                  type="submit"
+                >
               Login
             </Button>
 

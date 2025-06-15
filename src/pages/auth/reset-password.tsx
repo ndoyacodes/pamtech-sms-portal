@@ -1,26 +1,38 @@
 import { Card } from '@/components/ui/card'
-import { ResetForm } from '@/pages/auth/components/reset-password.tsx'
+import { ResetForm} from './components/reset-password-form'
 
-export default function ForgotPassword() {
+export default function ResetPassword() {
   return (
     <>
       <div className='container grid h-svh flex-col items-center justify-center bg-primary-foreground lg:max-w-none lg:px-0'>
-        <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[480px] lg:p-8'>
-         
-          <Card className='p-6'>
-          <div className='mb-4 flex items-center justify-center py-4'>
-            <img src="/logo.png" alt="pamtech logo" className='' />
-          </div>
-            <div className='mb-2 flex flex-col space-y-2 text-left'>
-              <h1 className='text-md font-semibold tracking-tight'>
-                Reset Password
-              </h1>
-              {/*<p className='text-sm text-muted-foreground'>
-                Enter your registered email and <br /> we will send you a link
-                to reset your password.
-              </p>*/}
+        <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] lg:p-8'>
+          <div className='mb-1 flex items-center justify-center py-4'>
+              <img
+                src='/logo.png'
+                width={150}
+                height={0}
+                alt='pamtech logo'
+                className=''
+              />
+            </div>
+            <div className="flex justify-center flex-col items-center text-center mb-6">
+                   <h1 className="text-2xl font-bold text-gray-900 mb-2">Reset Your Password</h1>
+                   <p className="text-gray-600">Enter Your Password below</p>
+            </div>
+
+          <Card className='py-12 px-8'>
+          
+            <div className='mb-4 flex flex-col space-y-2 text-left'>
+              <p className='text-sm text-muted-foreground'>
+                Make your password strong and unique. It should be at least 8 characters long and include a mix of letters, numbers, and special characters.
+              </p>
             </div>
             <ResetForm />
+            <div className='relative my-2'>
+              <div className='absolute inset-0 flex items-center'>
+                <span className='w-full border-t' />
+              </div>
+            </div>
           </Card>
         </div>
       </div>

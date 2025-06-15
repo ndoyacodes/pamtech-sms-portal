@@ -13,6 +13,12 @@ const router = createBrowserRouter([
       Component: (await import('./pages/auth/sign-in-other.tsx')).default,
     }),
   },
+   {
+    path: '/password-reset',
+    lazy: async () => ({
+      Component: (await import('./pages/auth/reset-password.tsx')).default,
+    }),
+  },
   {
     path: '/sign-in',
     lazy: async () => ({
@@ -25,6 +31,18 @@ const router = createBrowserRouter([
       Component: (await import('./pages/auth/sign-up')).default,
     }),
   },
+   {
+    path: '/verify-phone',
+    lazy: async () => ({
+      Component: (await import('./pages/auth/verify-phone.tsx')).default,
+    }),
+  },
+   {
+    path: '/resend-otp',
+    lazy: async () => ({
+      Component: (await import('./pages/auth/resend-otp')).default,
+    }),
+  },
   {
     path: '/forgot-password',
     lazy: async () => ({
@@ -32,9 +50,9 @@ const router = createBrowserRouter([
     }),
   },
   {
-    path: '/password-reset/:token',
+    path: '/resend-new-link',
     lazy: async () => ({
-      Component: (await import('./pages/auth/reset-password')).default,
+      Component: (await import('./pages/auth/resend-new-link.tsx')).default,
     }),
   },
   {

@@ -82,7 +82,7 @@ const PinInput = React.forwardRef<HTMLDivElement, PinInputProps>(
       onChange,
       onComplete,
       onIncomplete,
-      placeholder = '○',
+      placeholder = '-',
       type = 'alphanumeric',
       name,
       form,

@@ -72,7 +72,7 @@ export function ResetForm({ className, ...props }: ResetFormProps) {
                 <FormItem className='space-y-1'>
                   <FormLabel>New Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder='Password' {...field} />
+                    <Input type="password" placeholder='' {...field} className='bg-white'/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -85,7 +85,7 @@ export function ResetForm({ className, ...props }: ResetFormProps) {
                 <FormItem className='space-y-1'>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder='Confirm Password' {...field} />
+                    <Input type="password" placeholder='' {...field} className='bg-white' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
