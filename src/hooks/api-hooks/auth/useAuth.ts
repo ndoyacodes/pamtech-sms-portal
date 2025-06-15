@@ -53,7 +53,7 @@ export const useAuth = () => {
       const phone = res.body.phoneNumber
 
       // Set phone in cookie (expires in 3 mins)
-      Cookies.set('signup_phone', phone, { expires: 3 / 1440 }) // 3 minutes
+      Cookies.set('signup_phone', phone, { expires: 3 / 1440 })
 
       navigate('/verify-phone');
     },
