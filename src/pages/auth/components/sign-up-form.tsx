@@ -1,5 +1,5 @@
 import { useState, FC } from 'react';
-import { User, Mail, Check, Eye, EyeOff, Wrench, Globe, ChevronDown, Lock } from 'lucide-react';
+import { User, Mail, Eye, EyeOff, Wrench, Globe, ChevronDown, Lock } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
