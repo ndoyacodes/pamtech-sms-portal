@@ -7,10 +7,10 @@ export const customerSchema = z.object({
   email: z.string().email(),
   firstName: z.string(),
   lastName: z.string(),
-  timezone: z.string(),
+  timezone: z.any(),
   status: z.boolean(),
-  language: z.string(),
-  companyName: z.string(),
+  language: z.any(),
+  companyName: z.any(),
   website: z.any(),
   customerType: z.any(),
   approvalStatus: z.string()

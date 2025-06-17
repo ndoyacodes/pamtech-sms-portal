@@ -32,7 +32,7 @@ type FormData = z.infer<typeof formSchema>
 export function OtpForm({ className, ...props }: Readonly<OtpFormProps>) {
   const [isLoading, setIsLoading] = useState(false)
   const [disabledBtn, setDisabledBtn] = useState(true)
-  const [phone, setPhone] = useState("true")
+  const [phone, setPhone] = useState("")
   const { verifyPhone } = useAuth()
 
   useEffect(() => {

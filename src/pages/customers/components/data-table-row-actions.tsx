@@ -20,7 +20,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const customer = customerSchema.parse(row.original)
+  const customer = customerSchema.parse(row?.original)
   const [approveModal, setApproveModal] = useState(false)
   const [revokeApprovalMOdal, setRevokeApprovalMOdal] = useState(false)
   const [rejectModal, setRejectModal] = useState(false)
