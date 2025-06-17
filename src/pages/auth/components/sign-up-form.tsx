@@ -1,11 +1,13 @@
 import { useState, FC } from 'react';
-import { User, Mail, Phone, Check, Eye, EyeOff, Wrench, Globe, ChevronDown, Lock } from 'lucide-react';
+import { User, Mail, Check, Eye, EyeOff, Wrench, Globe, ChevronDown, Lock } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { useAuth } from '@/hooks/api-hooks/auth/useAuth';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css'; 
 
 const formSchema = z.object({
   email: z.string().min(1, { message: 'Email is required' }).email('Invalid email format'),
@@ -55,6 +57,7 @@ export const SignUpForm: FC = () => {
   ];
 
   const serviceTypes = ['Postpaid', 'Prepaid'];
+
 
 const onFormSubmit = async (formData: FormData): Promise<void> => {
   try {
@@ -148,23 +151,50 @@ const onFormSubmit = async (formData: FormData): Promise<void> => {
                 </div>
 
                 <div className="space-y-2 w-full">
-                  <label htmlFor="phoneNumber" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                     Phone Number
-                  </label>
-                  <div className="relative w-full">
-                    <input
-                      type="tel"
-                      id="phoneNumber"
-                      className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 ${
-                        errors.phoneNumber ? 'border-red-300 bg-red-50' : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
-                      }`}
-                      {...register('phoneNumber')}
-                    />
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <label
+                          htmlFor="phoneNumber"
+                          className="text-sm font-medium text-gray-700 flex items-center gap-2"
+                      >
+                          Phone Number
+                      </label>
+                      
+                     <PhoneInput
+                          country={'tz'}
+                          countryCodeEditable={false}
+                          inputProps={{
+                            name: 'phoneNumber',
+                            id: 'phoneNumber',
+                            required: true,
+                            inputMode: 'numeric',
+                          }}
+                          value={form.getValues('phoneNumber')}
+                          onChange={(value, data: import('react-phone-input-2').CountryData) => {
+                            const dialCode = data?.dialCode || '';
+                            const numericValue = value.replace(/\D/g, '');
+                            const localNumber = numericValue.startsWith(dialCode)
+                              ? numericValue.slice(dialCode.length)
+                              : numericValue;
+
+                            const limitedLocalNumber = localNumber.slice(0, 9); 
+                            const fullNumber = `${dialCode}${limitedLocalNumber}`;
+
+                            form.setValue('phoneNumber', fullNumber);
+                          }}
+                          inputClass={`!w-full !pl-16 !pr-4 !h-12 !py-3 !text-sm !rounded-lg !border-2 !transition-all !duration-200 !focus:outline-none !focus:ring-2 !focus:ring-blue-100 ${
+                            errors.phoneNumber
+                              ? '!border-red-300 !bg-red-50'
+                              : '!border-gray-200 !focus:border-blue-500 hover:!border-gray-300'
+                          }`}
+                          buttonClass="!border-none !bg-transparent !left-3 !h-10"
+                          containerClass="!w-full !relative !flex !items-center"
+                          dropdownClass="!z-[1000]"
+                        />
+
+                        {errors.phoneNumber && (
+                          <p className="mt-1 text-sm text-red-500">{errors.phoneNumber.message}</p>
+                        )}
                   </div>
-                  {errors.phoneNumber && <p className="mt-1 text-sm text-red-500">{errors.phoneNumber.message}</p>}
-                </div>
-              </div>
+               </div>
 
               {/* Service Type & Country Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
@@ -281,7 +311,7 @@ const onFormSubmit = async (formData: FormData): Promise<void> => {
                 {isSubmitting ? 'Creating Account...' : (
                   <>
                     Create Account
-                    <Check className="h-4 w-4 ml-2" />
+                    {/* <Check className="h-4 w-4 ml-2" /> */}
                   </>
                 )}
               </button>
@@ -292,19 +322,25 @@ const onFormSubmit = async (formData: FormData): Promise<void> => {
                   <span className='w-full border-t' />
                 </div>
                 <div className='relative flex justify-center text-xs uppercase'>
-                  <span className='bg-background px-2 text-muted-foreground'>
-                    Already have an account? <Link to='/sign-in' className='text-primary'>Sign in!</Link>
-                  </span>
                 </div>
               </div>
-              
+              <div className='mt-4 px-8' />
+              <p className='text-sm text-muted-foreground text-center'>
+                Already have an account?{' '}
+                <Link
+                  to='/sign-in'
+                  className='underline underline-offset-4 hover:text-primary'
+                >
+                  Sign in
+                </Link>
+              </p>
               <p className='mt-4 px-8 text-center text-sm text-muted-foreground'>
                 By clicking Create Account, you agree to our{' '}
-                <Link className='underline underline-offset-4 hover:text-primary' to={'#'}>
+                <Link className='underline underline-offset-4 hover:text-primary' to={'https://pamtech.co.tz/terms-of-service/'}>
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link to='#' className='underline underline-offset-4 hover:text-primary'>
+                <Link to='https://pamtech.co.tz/terms-of-service/' className='underline underline-offset-4 hover:text-primary'>
                   Privacy Policy
                 </Link>.
               </p>

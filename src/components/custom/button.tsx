@@ -10,16 +10,22 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'bg-primary text-primary-foreground shadow hover:bg-primary/90',
+       default:
+        'bg-gradient-to-r from-[var(--brand-color-TOP)] to-[var(--brand-color-BOTTOM)] text-white shadow hover:opacity-90',
+
+
         destructive:
-          'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
+          'bg-red-600 text-white shadow-sm hover:bg-red-700',
+
         outline:
-          'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
+          'border border-input bg-background shadow-sm hover:bg-[var(--brand-color-TOP)] hover:text-[var(--button-text-color)]',
+
         secondary:
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
+          'bg-gradient-to-r from-[var(--brand-color-TOP)] to-[var(--brand-color-BOTTOM)] text-white shadow-sm hover:opacity-90',
+        ghost:
+          'hover:bg-[var(--brand-color-BOTTOM)] hover:text-white',
+
+        link: 'text-[var(--brand-color-BOTTOM)] underline-offset-4 hover:underline',
       },
       size: {
         default: 'h-9 px-4 py-2',
@@ -34,6 +40,8 @@ const buttonVariants = cva(
     },
   }
 )
+
+
 
 interface ButtonPropsBase
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,

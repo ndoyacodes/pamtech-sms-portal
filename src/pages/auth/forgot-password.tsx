@@ -35,12 +35,28 @@ export default function ForgotPassword() {
                 <span className='w-full border-t' />
               </div>
               <div className='relative flex justify-center text-xs uppercase'>
-                <span className='bg-background px-2 text-muted-foreground'>
-                  Did not receive an email?
-                 <Link to='/resend-new-link' className='text-primary'> Resend email</Link>
-                </span>
               </div>
             </div>
+            <div className='mt-4 px-8' />
+              <p className='text-sm text-muted-foreground text-center'>
+                Did not receive the email?{' '}
+                <Link
+                  to='/resend-new-link'
+                  className='underline underline-offset-4 hover:text-primary'
+                >
+                  Resend 
+                </Link>
+              </p>
+              <div className='mt-4 px-8' />
+              <p className='text-sm text-muted-foreground text-center'>
+                Remember the password?{' '}
+                <Link
+                  to='/sign-in'
+                  className='underline underline-offset-4 hover:text-primary'
+                >
+                  Sign in
+                </Link>
+              </p>
           </Card>
         </div>
       </div>

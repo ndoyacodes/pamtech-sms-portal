@@ -1,5 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/custom/button'
+import { useDispatch } from 'react-redux';
+import { logout } from '@/store/slices/auth/auth.slice';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,9 +42,11 @@ export function UserNav() {
   });
 
   // const [jwtToken,setJwtToken] =useAuthentication();
+  const dispatch = useDispatch();
   function logOut() {
     // console.log("Jwt:"+jwtToken)
     // setJwtToken("");
+    dispatch(logout());
     navigate('/sign-in')
   }
 

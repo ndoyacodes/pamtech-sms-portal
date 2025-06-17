@@ -43,7 +43,6 @@ export default function Sidebar({
         onClick={() => setNavOpened(false)}
         className={`absolute inset-0 transition-[opacity] delay-100 duration-700 ${navOpened ? 'h-svh opacity-50' : 'h-0 opacity-0'} w-full bg-black md:hidden`}
       />
-
       <Layout fixed className={navOpened ? 'h-svh' : ''}>
         {/* Header */}
         <Layout.Header
@@ -86,7 +85,14 @@ export default function Sidebar({
             <div
               className={`flex flex-row justify-center truncate ${isCollapsed ? 'invisible w-0' : 'visible w-auto'}`}
             >
-              <img src='/logo.png' alt='' className='py-4  object-cover' />
+              {/* Logo */}
+              <img
+                src='/logo.png'
+                width={150}
+                height={0}
+                alt='pamtech logo'
+                className=''
+              />
               {/* <span className='font-bold px-4 text-xl'>pamtechSMS</span>
               <span className='text-xs px-4'>Admin portal</span> */}
             </div>
