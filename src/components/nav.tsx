@@ -99,6 +99,7 @@ function NavLink({
           size: 'sm',
         }),
         'h-12 justify-start text-wrap rounded-none px-6',
+        'hover:bg-gradient-to-r hover:from-[var(--brand-color-TOP)] hover:to-[var(--brand-color-BOTTOM)] hover:text-white',
         subLink && 'h-10 w-full border-l border-l-slate-500 px-2'
       )}
       aria-current={checkActiveNav(href) ? 'page' : undefined}
@@ -198,13 +199,17 @@ function NavLinkIconDropdown({ title, icon, label, sub }: NavLinkProps) {
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant={isChildActive ? 'secondary' : 'ghost'}
-              size='icon'
-              className='h-12 w-12'
-            >
-              {icon}
-            </Button>
+          <Button
+            size="icon"
+            className={cn(
+              'h-12 w-12 text-white transition-colors duration-200',
+              isChildActive
+                ? 'bg-gradient-to-r from-[var(--brand-color-TOP)] to-[var(--brand-color-BOTTOM)]'
+                : 'hover:bg-gradient-to-r hover:from-[var(--brand-color-TOP)] hover:to-[var(--brand-color-BOTTOM)]'
+            )}
+          >
+            {icon}
+          </Button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
         <TooltipContent side='right' className='flex items-center gap-4'>
@@ -227,7 +232,11 @@ function NavLinkIconDropdown({ title, icon, label, sub }: NavLinkProps) {
           <DropdownMenuItem key={`${title}-${href}`} asChild>
             <Link
               to={href}
-              className={`${checkActiveNav(href) ? 'bg-secondary' : ''}`}
+              className={cn(
+                  'px-2 py-1 rounded-md transition-colors',
+                  checkActiveNav(href) &&
+                    'bg-gradient-to-r from-[var(--brand-color-TOP)] to-[var(--brand-color-BOTTOM)] text-white'
+                )}
             >
               {icon} <span className='ml-2 max-w-52 text-wrap'>{title}</span>
               {label && <span className='ml-auto text-xs'>{label}</span>}

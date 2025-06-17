@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom'
 
 export default function SignIn2() {
   return (
-    <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'>
-      
-      <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] md:w-full lg:w-full lg:p-8'>
+    <div className='container grid h-svh flex-col items-center justify-center bg-primary-foreground lg:max-w-none lg:px-0'> 
+      <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] lg:p-8'>
         <div className='mb-4 flex items-center justify-center'></div>
         <div className='mb-1 flex items-center justify-center py-4'>
               <img
@@ -18,35 +17,26 @@ export default function SignIn2() {
               />
             </div>
                 <div className="flex justify-center flex-col items-center text-center mb-6">
-                   <h1 className="text-2xl font-bold text-gray-900 mb-2">Sign in to your account</h1>
+                   <h1 className="text-2xl font-bold text-gray-900 mb-2">User login</h1>
                    <p className="text-gray-600">Welcome back</p>
                 </div>
-        <Card className='py-12 px-8'>
-          <div className='flex flex-col space-y-2 text-left'>
+              <Card className='py-12 px-8'>
+              <div className='flex flex-col space-y-2 text-left'>
 
-            {/* <h1 className='text-2xl font-semibold tracking-tight'>Login</h1> */}
-            <p className='text-sm text-muted-foreground'>
-            </p>
-          </div>
-          <UserAuthForm />
-          <p className='mt-4 px-8 text-center text-sm text-muted-foreground'>
-            By clicking login, you agree to our{' '}
-            <Link
-              className='underline underline-offset-4 hover:text-primary'
-              to={'#'}
-            >
-              Terms of Service
-            </Link>{' '}
-            and{' '}
-            <Link
-              to='#'
-              className='underline underline-offset-4 hover:text-primary'
-            >
-              Privacy Policy
-            </Link>
-            .
-          </p>
-        </Card>
+                <p className='text-sm text-muted-foreground'></p>
+              </div>
+              <UserAuthForm />
+            <div className='mt-4 px-8' />
+              <p className='text-sm text-muted-foreground text-center'>
+                Don't have an account?{' '}
+                <Link
+                  to='/sign-up'
+                  className='underline underline-offset-4 hover:text-primary'
+                >
+                  Sign up
+                </Link>
+              </p>
+            </Card>
       </div>
     </div>
   )

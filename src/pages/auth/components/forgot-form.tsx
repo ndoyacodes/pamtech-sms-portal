@@ -53,7 +53,7 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
               name='email'
               render={({ field }) => (
                 <FormItem className='space-y-1'>
-                  <FormLabel className="flex items-center gap-2">
+                  <FormLabel className="flex items-center gap-2 mb-3">
                     Email
                   </FormLabel>
                   <div className="relative w-full">
