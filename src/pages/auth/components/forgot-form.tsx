@@ -1,10 +1,10 @@
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes,  useState  } from 'react'
 import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '@/components/custom/button'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import {
   Form,
   FormField,
@@ -24,7 +24,9 @@ const formSchema = z.object({
 
 export function ForgotForm({ className, ...props }: ForgotFormProps) {
   const {forgetPassword} =  useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const [submitted, setSubmitted] = useState(false);
+
 
 
 
@@ -33,15 +35,22 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
     defaultValues: { email: '' },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    forgetPassword.mutateAsync(data);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      await forgetPassword.mutateAsync(data);
+      setSubmitted(true); 
+    } catch (err) {
+      console.log("Something went wrong", err)
+    }
   }
 
-  if (forgetPassword.isSuccess) {
-    navigate('/password-reset/:token', {
-      state: { email: form.getValues('email') }
-    });
-  }
+// Commenting this, should be done with link from email
+
+  // if (forgetPassword.isSuccess) {
+  //   navigate('/password-reset/:token', {
+  //     state: { email: form.getValues('email') }
+  //   });
+  // }
 
   return (
     <div className={cn('grid gap-6', className)} {...props}>
@@ -77,10 +86,20 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
               style={{  
                 background: 'linear-gradient(to right, var(--brand-color-TOP), var(--brand-color-BOTTOM))' 
               }} 
+              
               loading={forgetPassword.isPending}
-              disabled={forgetPassword.isPending}>
-              Continue
+              disabled={forgetPassword.isPending}
+              >
+              Send Link
             </Button>
+            {submitted && (
+              <div>
+                <p className="text-green-600 text-center text-sm mt-4">
+                  Please check your email to reset your password.
+                </p>
+              </div>
+              
+            )}
           </div>
         </form>
       </Form>

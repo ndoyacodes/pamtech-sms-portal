@@ -77,19 +77,22 @@ const onFormSubmit = async (formData: FormData): Promise<void> => {
 };
 
   return (
-    <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'>
+    <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'
+     style={{ backgroundColor: "var(--background-color)" }}
+    >
       <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] md:w-full lg:w-full lg:p-8'>
-        <div className='mb-4 flex items-center justify-center py-4'>
-          <img src='/logo.png' width={150} height={0} alt='company logo' />
-        </div>
         
-        <div className="flex justify-center flex-col items-center text-center mb-6">
+        
+
+        <div className="max-w-3xl lg:max-w-5xl mx-auto">
+          <Card className="py-6 px-6">
+          <div className='mb-4 flex items-center justify-center py-4'>
+              <img src='/logo.png' width={150} height={0} alt='company logo' />
+          </div>
+          <div className="flex justify-center flex-col items-center text-center mb-6">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Create Your Account</h1>
           <p className="text-gray-600">Join us and get started today</p>
         </div>
-
-        <div className="max-w-md lg:max-w-xl mx-auto">
-          <Card className="py-12 px-8">
             <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6 w-full">
               {/* Name Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
@@ -317,13 +320,13 @@ const onFormSubmit = async (formData: FormData): Promise<void> => {
               </button>
 
               {/* Footer Links */}
-              <div className='relative my-2'>
+              {/* <div className='relative my-2'>
                 <div className='absolute inset-0 flex items-center'>
                   <span className='w-full border-t' />
                 </div>
                 <div className='relative flex justify-center text-xs uppercase'>
                 </div>
-              </div>
+              </div> */}
               <div className='mt-4 px-8' />
               <p className='text-sm text-muted-foreground text-center'>
                 Already have an account?{' '}

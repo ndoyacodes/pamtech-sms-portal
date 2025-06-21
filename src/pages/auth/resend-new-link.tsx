@@ -5,9 +5,15 @@ import { Link } from 'react-router-dom'
 export default function ResendLink() {
   return (
     <>
-      <div className='container grid h-svh flex-col items-center justify-center bg-primary-foreground lg:max-w-none lg:px-0'>
+      <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0 bg-blue'
+      style={{ backgroundColor: "var(--background-color)" }}
+      >
         <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] lg:p-8'>
-          <div className='mb-1 flex items-center justify-center py-4'>
+          
+            
+
+          <Card className='py-12 px-8'>
+            <div className='mb-1 flex items-center justify-center py-4'>
               <img
                 src='/logo.png'
                 width={150}
@@ -18,10 +24,7 @@ export default function ResendLink() {
             </div>
             <div className="flex justify-center flex-col items-center text-center mb-6">
                    <h1 className="text-2xl font-bold text-gray-900 mb-2">Forgot Password?</h1>
-                   <p className="text-gray-600">Please Enter a Registered Email Address</p>
             </div>
-
-          <Card className='py-12 px-8'>
           
             <div className='mb-4 flex flex-col space-y-2 text-left'>
               <p className='text-sm text-muted-foreground'>
@@ -37,7 +40,7 @@ export default function ResendLink() {
               </div>
             </div>
             <div className='mt-4 px-8' />
-              <p className='text-sm text-muted-foreground text-center'>
+              {/* <p className='text-sm text-muted-foreground text-center'>
                 Did not receive the email?{' '}
                 <Link
                   to='/resend-new-link'
@@ -45,7 +48,7 @@ export default function ResendLink() {
                 >
                   Resend 
                 </Link>
-              </p>
+              </p> */}
               <div className='mt-4 px-8' />
               <p className='text-sm text-muted-foreground text-center'>
                 Remember the password?{' '}
