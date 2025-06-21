@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     }),
   },
    {
-    path: '/password-reset',
+    path: '/password-reset/:token',
     lazy: async () => ({
       Component: (await import('./pages/auth/reset-password.tsx')).default,
     }),
