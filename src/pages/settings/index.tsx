@@ -16,7 +16,7 @@ export default function Settings() {
     <Layout fixed>
       {/* ===== Top Heading ===== */}
       <Layout.Header>
-        <Search />
+        {/* <Search /> */}
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
           <UserNav />
@@ -26,10 +26,10 @@ export default function Settings() {
       <Layout.Body className='flex flex-col'>
         <div className='space-y-0.5'>
           <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
-            Settings
+            Preferences
           </h1>
           <p className='text-muted-foreground'>
-            Manage your account settings and set e-mail preferences.
+            Manage your account preferences here.
           </p>
         </div>
         <Separator className='my-4 lg:my-6' />

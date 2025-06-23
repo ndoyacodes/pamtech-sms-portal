@@ -47,7 +47,7 @@ export default function Dashboard() {
       <Layout.Header>
         {/* <TopNav links={topNav} /> */}
         <div className='ml-auto flex items-center space-x-4'>
-          <Search />
+          {/* <Search /> */}
           <ThemeSwitch />
           <UserNav />
         </div>
@@ -62,23 +62,25 @@ export default function Dashboard() {
       </Layout>
     )
   }
-
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
       <Layout.Header>
         {/* <TopNav links={topNav} /> */}
         <div className='ml-auto flex items-center space-x-4'>
-          <Search />
+          {/* <Search /> */}
           <ThemeSwitch />
           <UserNav />
         </div>
       </Layout.Header>
 
       {/* ===== Main ===== */}
+      
       <Layout.Body>
         <div className='mb-2 flex items-center justify-between space-y-2'>
-          <h1 className='text-2xl font-bold tracking-tight'>Dashboard</h1>
+         <h1 className="text-2xl font-bold tracking-tight">
+          Hi, {user?.firstName ?? 'there'}
+        </h1>
         </div>
         <Tabs
           orientation='vertical'
@@ -100,7 +102,7 @@ export default function Dashboard() {
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                    Total Sms sent
+                    Total SMS sent
                   </CardTitle>
                   <IconChecklist />
 
@@ -120,7 +122,10 @@ export default function Dashboard() {
                    <IconMessage />
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>{dashData?.smsBalance}</div>
+                  <div className='text-2xl font-bold'>
+                    {/* {user?.serviceType === 'postpaid' ? '∞' : dashData?.smsBalance} */}
+                    {dashData?.smsBalance}
+                  </div>
                   <p className='text-xs text-muted-foreground'>
                    account total sms balance
                   </p>
@@ -238,6 +243,21 @@ export default function Dashboard() {
               </Card>
             </div>
           </TabsContent>
+
+        <TabsContent value="analytics" className="flex items-center justify-center h-64">
+          <Card className="w-full max-w-d ">
+            <CardHeader>
+            </CardHeader>
+            <CardContent>
+              <p className="text-center text-lg font-semibold text-muted-foreground">
+                Coming Soon ...
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+
+
         </Tabs>
       </Layout.Body>
     </Layout>

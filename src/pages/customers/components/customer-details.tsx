@@ -67,7 +67,7 @@ const CustomerDetails = () => {
   return (
     <Layout>
       <Layout.Header sticky className='mt-4 sm:mt-4 md:mt-0 lg:mt-0'>
-        <Search />
+        {/* <Search /> */}
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
           <UserNav />

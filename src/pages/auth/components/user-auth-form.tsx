@@ -55,7 +55,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       password: data.password
     }
 
-    loginUser.mutate(finalData)   
+    loginUser.mutate(finalData) 
   }
 
   return (

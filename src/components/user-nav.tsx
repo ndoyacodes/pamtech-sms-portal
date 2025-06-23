@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/custom/button'
 import { useDispatch } from 'react-redux';
+import { useState, useEffect} from 'react';
 import { logout } from '@/store/slices/auth/auth.slice';
 import {
   DropdownMenu,
@@ -26,6 +27,7 @@ const formatNumber = (amount: number) => {
 
 
 export function UserNav() {
+  const [dateTime, setDateTime] = useState(new Date());
   const navigate = useNavigate()
   const {user} =  useAuthStore();
 
@@ -49,10 +51,23 @@ export function UserNav() {
     dispatch(logout());
     navigate('/sign-in')
   }
+  useEffect(() => {
+    const timer = setInterval(() => setDateTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
 
   return (
     <div className='flex  items-center justify-center gap-2'>
+       <div className="flex flex-col items-start justify-center min-w-[150px]">
+          <p className="text-sm font-semibold text-blue-600">
+            {dateTime.toLocaleDateString()}
+          </p>
+          <p className="text-sm font-semibold text-blue-600">
+            {dateTime.toLocaleTimeString()}
+          </p>
+        </div>
+        
       {user?.customer && (
         <div className='flex flex-row gap-2 justify-start mr-2'>
         {
@@ -61,21 +76,19 @@ export function UserNav() {
               <div className='h-3 w-3 animate-spin rounded-full border-b-2 border-gray-900 dark:border-white'></div>
             </div>
           ) : (
-            <div className='flex flex-col items-start justify-start'>
-              <p className='text-xs font-semibold text-muted-foreground'>SMS Balance</p>
-              <p className='text-sm font-semibold'>{formatNumber(dashData?.smsBalance)} SMS</p>
-            </div>
-          )
-        }
-
-          {/*<Button
+            <div className="flex flex-col items-start justify-start">
+            <Button
             className=''
             size='sm'
             onClick={() => navigate('/sms/top-up')}
           >
-            Top up
-          </Button>*/}
+            Top Up SMS
+          </Button>
+          </div>
+          )
+        }
         </div>
+        
       )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -107,16 +120,7 @@ export function UserNav() {
               Profile
               {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
             </DropdownMenuItem>
-            <DropdownMenuItem
-                onClick={() => navigate('/settings')}
-            >
-              Settings
-              {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Billing
-              {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
-            </DropdownMenuItem>
+            
          
           </DropdownMenuGroup>
           <DropdownMenuSeparator />

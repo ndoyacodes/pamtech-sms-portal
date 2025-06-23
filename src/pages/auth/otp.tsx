@@ -9,7 +9,9 @@ export default function Otp() {
        style={{ backgroundColor: "var(--background-color)" }}
       >
         <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] lg:p-8'>
-          <div className='mb-1 flex items-center justify-center py-4'>
+          
+            <Card className='py-12 px-8'>
+              <div className='mb-1 flex items-center justify-center py-4'>
               <img
                 src='/logo.png'
                 width={150}
@@ -20,9 +22,7 @@ export default function Otp() {
             </div>
             <div className="flex justify-center flex-col items-center text-center mb-6">
                    <h1 className="text-2xl font-bold text-gray-900 mb-2">Verify Phone number</h1>
-                   <p className="text-gray-600">Please enter the OTP sent to your phone number.</p>
             </div>
-            <Card className='py-12 px-8'>
 
             <div className='mb-4 flex flex-col space-y-2 text-left'>
               <p className='text-sm text-muted-foreground'>

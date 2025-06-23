@@ -3,6 +3,7 @@ import {
   IconMessages,
   IconUserScreen,
   IconTemplate,
+  IconSettings,
   IconDashboard,
   IconReport,
   IconReportAnalytics,
@@ -31,13 +32,7 @@ import {
       icon: <IconLayoutDashboard size={18} />,
     },
     {
-      title: 'Subscriptions',
-      label: '',
-      href: '/subscriptions',
-      icon: <IconLayersSubtract size={18} />,
-    },
-    {
-      title: 'SMS',
+      title: 'Send SMS',
       label: '',
       href: '/requests',
       icon: <IconMessages size={18} />,
@@ -58,10 +53,26 @@ import {
       ],
     },
     {
-      title: 'Phone book',
+      title: 'Contacts list',
       label: '',
       href: '/contacts',
       icon: <IconFilePhone size={18} />,
+      sub: [
+        {
+          title: 'Contacts',
+          label: '',
+          href: '/contacts',
+          icon: <IconFilePhone size={18} />,
+        },
+        {
+          title: 'Blacklist',
+          label: '',
+          href: '/blacklists',
+          icon: <IconAtOff size={18} />,
+        },
+    
+      ],
+
     },
     // {
     //   title: 'Subscriptions',
@@ -89,7 +100,7 @@ import {
         //   icon: <IconPhoneCall size={18} />,
         // },
         {
-          title: 'Sms Templates',
+          title: 'SMS Templates',
           label: '',
           href: '/templates',
           icon: <IconTemplate size={18} />,
@@ -97,49 +108,72 @@ import {
     
       ],
     },
-    {
-        title: 'Blacklist',
-        label: '',
-        href: '/blacklists',
-        icon: <IconAtOff size={18} />,
-      } ,
+    // {
+    //     title: 'Blacklist',
+    //     label: '',
+    //     href: '/blacklists',
+    //     icon: <IconAtOff size={18} />,
+    //   } ,
     {
       title: 'Users',
       label: '',
       href: '/users',
       icon: <IconUser size={18} />,
     } ,
-    {
-      title: 'Reports',
+     {
+      title: 'History',
       label: '',
-      href: '/requests',
+      href: '/reports',
       icon: <IconReport size={18} />,
-      sub: [
-        {
-          title: 'Analysis',
-          label: '',
-          href: '/',
-          icon: <IconDashboard size={18} />,
-        },
-        {
-          title: 'All Messages',
-          label: '',
-          href: '/reports/all-messages',
-          icon: <IconReportAnalytics size={18} />,
-        },
-          {
-            title: 'Sent Messages',
-            label: '',
-            href: '/reports/all-messages',
-            icon: <IconReportAnalytics size={18} />,
-          },
-      ],
+      // sub: [
+      // {
+      //     title: 'All Messages',
+      //     label: '',
+      //     href: '/reports/all-messages',
+      //     icon: <IconReportAnalytics size={18} />,
+      //   },
+      //     // {
+      //     //   title: 'Sent Messages',
+      //     //   label: '',
+      //     //   href: '/reports/all-messages',
+      //     //   icon: <IconReportAnalytics size={18} />,
+      //     // },
+      // ],
+
+    } ,
+    // {
+    //   title: 'Reports',
+    //   label: '',
+    //   href: '/reports',
+    //   icon: <IconReport size={18} />,
+    // },
+     {
+      title: 'Billing',
+      label: '',
+      href: '/subscriptions',
+      icon: <IconLayersSubtract size={18} />,
     },
     {
-      title: 'Developers',
+      title: 'Settings',
       label: '',
       href: '/developers',
-      icon: <IconCpu2 size={18} />,
+      icon: <IconSettings size={18} />,
+      sub: [
+       
+        {
+          title: 'Preferences',
+          label: '',
+          href: '/settings',
+          icon: <IconReportAnalytics size={18} />,
+        },
+
+        {
+          title: 'Developers',
+          label: '',
+          href: 'developers',
+          icon: <IconDashboard size={18} />,
+        },
+      ],
     } ,
   
   

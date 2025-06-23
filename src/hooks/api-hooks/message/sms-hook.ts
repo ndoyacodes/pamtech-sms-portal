@@ -12,7 +12,7 @@ export const useSms = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['sms'] });
             toast.success('Campaign was successfully sent.');
-            navigate('/');
+            navigate('/dashboard');
         },
         onError: (error: any) => {
             const errorMessage =

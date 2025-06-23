@@ -1,4 +1,4 @@
-import { FileIcon } from '@radix-ui/react-icons';
+import { Download } from 'lucide-react';
 import { Table } from '@tanstack/react-table';
 import { Button } from '@/components/custom/button';
 import { DataTableViewOptions } from './data-table-view-options';
@@ -262,7 +262,7 @@ export function DataTableToolbar<TData>({
               Filter <IconFilter className='ml-2 h-4 w-4' />
             </Button>
             <Button variant='default' className='h-8 px-3'>
-              Export <FileIcon className='ml-2 h-4 w-4' />
+              Export <Download className='ml-2 h-4 w-4' />
             </Button>
           </div>
         </div>

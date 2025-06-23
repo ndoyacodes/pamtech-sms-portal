@@ -51,7 +51,7 @@ export default function Apps() {
       {/* ===== Top Heading ===== */}
       <Layout.Header>
         <div className='flex w-full items-center justify-between'>
-          <Search />
+          {/* <Search /> */}
           <div className='flex items-center space-x-4'>
             <ThemeSwitch />
             <UserNav />

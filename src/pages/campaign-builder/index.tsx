@@ -32,7 +32,7 @@ import Select from 'react-select'
 const RECIPIENT_MODES = [
   { value: 'PHONEBOOK', label: 'Phone Book' },
   { value: 'FILE', label: 'Excel File' },
-  { value: 'COMMA_SEPARATED', label: 'Comma Separated Numbers' },
+  { value: 'COMMA_SEPARATED', label: 'Comma Separated' },
 ];
 
 // Form Schema
@@ -204,11 +204,24 @@ export const BulkSMSForm = () => {
             // @ts-ignore
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Upload Excel File *</FormLabel>
+                <div className="flex items-center justify-between mb-1">
+                  <FormLabel className="m-0">Upload Excel File *</FormLabel>
+                  <a
+                    href="https://docs.google.com/spreadsheets/d/1Y1JNJ5d7wCyQB21gvAdwLJkGscxQR6KWkpQUkn733mY/export?format=xlsx&id=1Y1JNJ5d7wCyQB21gvAdwLJkGscxQR6KWkpQUkn733mY&gid=0"
+                    download="SampleTemplate.xlsx"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    Download Excel Template
+                  </a>
+                </div>
                 <FormControl>
-                  <Input type="file" accept=".xlsx,.xls" onChange={handleFileChange} />
+                  <Input  className= "bg-white" type="file" accept=".xlsx,.xls" onChange={handleFileChange} />
                 </FormControl>
-                <FormDescription>Upload an Excel file containing phone numbers in the first column.</FormDescription>
+                <FormDescription>
+                  Upload an Excel file containing phone numbers in the first column.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -224,8 +237,8 @@ export const BulkSMSForm = () => {
                 <FormLabel>Phone Numbers *</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Enter phone numbers separated by commas (e.g., +1234567890, +9876543210)"
-                    className="h-32 resize-none"
+                    placeholder="+255 123 123 123 , +255 123 123 123, +255 123 123 123 , +255 123 123 123"
+                    className="h-32 resize-none bg-white"
                     {...field}
                   />
                 </FormControl>
@@ -243,7 +256,7 @@ export const BulkSMSForm = () => {
   return (
     <Layout>
       <Layout.Header sticky className="mt-4 lg:mt-0 md:mt-0 sm:mt-4">
-        <Search />
+      {/* <Search /> */}
         <div className="ml-auto flex items-center space-x-4">
           <ThemeSwitch />
           <UserNav />
@@ -251,7 +264,7 @@ export const BulkSMSForm = () => {
       </Layout.Header>
 
       <Layout.Body>
-        <Card className="mx-auto w-1/2 p-8">
+        <Card className="w-full h-screen p-8 overflow-auto">
           <h2 className="mb-6 text-2xl font-semibold">Quick Send</h2>
 
           <Form {...form}>
@@ -280,6 +293,7 @@ export const BulkSMSForm = () => {
                       )}
                     />
                   </div>
+                  
 
                   {/* Recipients Section */}
                   <div className="space-y-4">
@@ -394,8 +408,8 @@ export const BulkSMSForm = () => {
                           <FormLabel>Message *</FormLabel>
                           <FormControl>
                             <Textarea
-                              placeholder="Enter your message"
-                              className="h-32 resize-none"
+                              placeholder="Your message..."
+                              className="h-48 md:h-64 resize-y bg-white"
                               {...field}
                               disabled={watchUseTemplate}
                             />

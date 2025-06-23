@@ -303,7 +303,7 @@ export const CampaignForm = () => {
   return (
     <Layout>
       <Layout.Header sticky>
-        <Search />
+        {/* <Search /> */}
         <div className="ml-auto flex items-center space-x-4">
           <ThemeSwitch />
           <UserNav />

@@ -1,11 +1,12 @@
 import { useState, ChangeEvent, DragEvent } from 'react'
 import * as XLSX from 'xlsx'
 import { Layout } from '@/components/custom/layout'
-import { Search } from '@/components/search'
+// import { Search } from '@/components/search'
+import { Download } from 'lucide-react'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { Button } from '@/components/custom/button'
-import { FileIcon } from '@radix-ui/react-icons'
+
 import { usePhonebook } from '@/hooks/api-hooks/contacts/phonebook-hoook'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -128,7 +129,7 @@ export default function Component() {
     <Layout>
       {/* ===== Top Heading ===== */}
       <Layout.Header sticky className='mt-4 sm:mt-4 md:mt-0 lg:mt-0'>
-        <Search />
+        {/* <Search /> */}
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
           <UserNav />
@@ -217,7 +218,7 @@ export default function Component() {
                 disabled={uploadPhoneBook.isPending}
               >
                 Save File
-                <FileIcon className='ml-2 h-4 w-4' />
+                <Download className='ml-2 h-4 w-4' />
               </Button>
                 )}
               {
