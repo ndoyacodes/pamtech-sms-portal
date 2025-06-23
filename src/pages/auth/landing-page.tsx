@@ -52,7 +52,7 @@ const LandingPage = () => {
             className="h-14 text-lg px-8 py-4"
             onClick={() => navigate('/sign-up')}
             >
-            Create Account
+            Get Started
           </Button>
         </div>
       </section>

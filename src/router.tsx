@@ -8,7 +8,7 @@ import RequireAuth from './components/require-auth.tsx';
 const router = createBrowserRouter([
   // Public Routes
   {
-    path: '/',
+    path: '/welcome',
     lazy: async () => ({
       Component: (await import('./pages/auth/landing-page.tsx')).default,
     }),
