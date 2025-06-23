@@ -78,7 +78,7 @@ const onFormSubmit = async (formData: FormData): Promise<void> => {
 
   return (
     <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'
-     style={{ backgroundColor: "var(--background-color)" }}
+     style={{ backgroundImage: `linear-gradient(to left, var(--brand-color-right-inside), var(--brand-color-left-inside))`, }}
     >
       <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] md:w-full lg:w-full lg:p-8'>
         

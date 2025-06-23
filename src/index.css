@@ -13,6 +13,10 @@
     --brand-color-TOP: #762fc4;
     --background-color: #0a429c;
     --background-color-inside:#13182019; 
+    --brand-color-right: rgba(118, 47, 196, 0.1)
+    --brand-color-left: rgba(23, 133, 244, 0.1);
+    --brand-color-right-inside: rgba(118, 47, 196, 0.4);
+    --brand-color-left-inside: rgba(23, 133, 244, 0.3);
     
     /* Card and popover */
     --card: 220 33% 98%;

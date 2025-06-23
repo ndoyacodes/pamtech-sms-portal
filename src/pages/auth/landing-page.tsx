@@ -12,27 +12,32 @@ const LandingPage = () => {
         <div className="container mx-auto flex justify-between items-center py-4 px-6">
           <div className="flex items-center gap-2">
             <img src="/logo.png" alt="Pamtech Logo" className="h-10" />
-            <span className="font-bold text-lg">Pamtech Bulk SMS</span>
+            <span className="font-bold text-base md:text-xl">Pamtech Bulk SMS</span>
           </div>
           <nav className="space-x-6 hidden md:flex">
-            <a href="#" className="text-gray-700 hover:text-blue-600" onClick={(e) => {
+            <a href="#" className="font-bold text-lg hover:text-blue-600" onClick={(e) => {
               e.preventDefault();
               const section = document.getElementById("about");
               if (section) section.scrollIntoView({ behavior: "smooth" });
             }}>About</a>
-            <a href="#" className="text-gray-700 hover:text-blue-600" onClick={(e) => {
+            <a href="#" className="font-bold text-lg hover:text-blue-600" onClick={(e) => {
               e.preventDefault();
               const section = document.getElementById("contact");
               if (section) section.scrollIntoView({ behavior: "smooth" });
             }}>Contact</a>
-            <a href="/sign-in" className="text-gray-700 hover:text-blue-600">Log in</a>
+            <a href="/sign-in" className="font-bold text-lg hover:text-blue-600">Log in</a>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20">
-        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20"
+      style={{
+                backgroundImage: `linear-gradient(to left, var(--brand-color-right), var(--brand-color-left))`,
+            }}
+      
+      >
+        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div className="text-center md:text-left">
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
