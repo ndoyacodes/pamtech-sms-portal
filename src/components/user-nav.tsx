@@ -59,14 +59,14 @@ export function UserNav() {
 
   return (
     <div className='flex  items-center justify-center gap-2'>
-       <div className="flex flex-col items-start justify-center min-w-[150px]">
+       {/* <div className="flex flex-col items-start justify-center min-w-[150px]">
           <p className="text-sm font-semibold text-blue-600">
             {dateTime.toLocaleDateString()}
           </p>
           <p className="text-sm font-semibold text-blue-600">
             {dateTime.toLocaleTimeString()}
           </p>
-        </div>
+        </div> */}
         
       {user?.customer && (
         <div className='flex flex-row gap-2 justify-start mr-2'>
@@ -77,13 +77,13 @@ export function UserNav() {
             </div>
           ) : (
             <div className="flex flex-col items-start justify-start">
-            <Button
+            {/* <Button
             className=''
             size='sm'
             onClick={() => navigate('/sms/top-up')}
           >
             Top Up SMS
-          </Button>
+          </Button> */}
           </div>
           )
         }

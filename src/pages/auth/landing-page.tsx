@@ -22,7 +22,7 @@ const LandingPage = () => {
                     const section = document.getElementById("about");
                     if (section) section.scrollIntoView({ behavior: "smooth" });
                 }}
-            >About us
+            >About
             </a>
             <a 
             href="#"
@@ -82,74 +82,13 @@ const LandingPage = () => {
       </section>
 
 
-{/* About Section */}
+
     <section id="about" className="py-16 bg-white">
     <div className="container mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">About Pamtech Web Services</h2>
-        <p className="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto text-center mb-12">
-        Pamtech Web Services is a leading provider of digital communication tools and transformative tech solutions in East Africa.
-        We specialize in building scalable, cloud-based systems that empower businesses to connect with their customers,
-        streamline operations, and grow sustainably.
-        </p>
+       
+   
+        
 
-        {/* Our Vision & Mission */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
-        <div className="bg-blue-50 p-6 rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-4">Our Mission</h3>
-            <p className="text-gray-700">
-            To provide budget-friendly, high-quality technology solutions that help businesses thrive in the digital era.
-            We aim to be industry leaders through innovation and transformative change.
-            </p>
-        </div>
-        <div className="bg-green-50 p-6 rounded-lg shadow-sm">
-            <h3 className="text-xl font-semibold mb-4">Our Vision</h3>
-            <p className="text-gray-700">
-            To revolutionize industries across Africa by turning ideas into reality through cutting-edge web, mobile,
-            and software development.
-            </p>
-        </div>
-        </div>
-
-        {/* Core Services */}
-        <h3 className="text-2xl font-bold text-center mb-6">Our Core Services</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-        <div className="border rounded-lg p-6 hover:shadow-lg transition">
-            <h4 className="text-lg font-semibold mb-2">Website Development</h4>
-            <p className="text-gray-600">
-            We create tailor-made websites that reflect your brand identity and business goals. From e-commerce stores to corporate sites, we deliver professional and responsive designs.
-            </p>
-        </div>
-        <div className="border rounded-lg p-6 hover:shadow-lg transition">
-            <h4 className="text-lg font-semibold mb-2">Mobile App Development</h4>
-            <p className="text-gray-600">
-            Custom iOS and Android apps built using the latest technologies — empowering businesses to reach users on the go.
-            </p>
-        </div>
-        <div className="border rounded-lg p-6 hover:shadow-lg transition">
-            <h4 className="text-lg font-semibold mb-2">G Shop POS Software</h4>
-            <p className="text-gray-600">
-            A powerful point-of-sale system designed to streamline operations for supermarkets, pharmacies, liquor stores, and more.
-            </p>
-        </div>
-        <div className="border rounded-lg p-6 hover:shadow-lg transition">
-            <h4 className="text-lg font-semibold mb-2">Web Hosting</h4>
-            <p className="text-gray-600">
-            Reliable and fast hosting solutions to ensure your website stays online and performs at its best.
-            </p>
-        </div>
-        <div className="border rounded-lg p-6 hover:shadow-lg transition">
-            <h4 className="text-lg font-semibold mb-2">Email Hosting</h4>
-            <p className="text-gray-600">
-            Professional email addresses tied to your domain for improved branding and credibility.
-            </p>
-        </div>
-        <div className="border rounded-lg p-6 hover:shadow-lg transition">
-            <h4 className="text-lg font-semibold mb-2">Graphics Design</h4>
-            <p className="text-gray-600">
-            Branding materials, logos, banners, and visuals that align with your business identity and marketing strategy.
-            </p>
-        </div>
-        </div>
 
         {/* Contact Section */}
         <section id="contact" className="py-16 bg-white">

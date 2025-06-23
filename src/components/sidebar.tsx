@@ -34,14 +34,17 @@ export default function Sidebar({
   return (
     <aside
       className={cn(
-        `fixed left-0 right-0 top-0 z-50 w-full border-r-2 border-r-muted transition-[width] md:bottom-0 md:right-auto md:h-svh ${isCollapsed ? 'md:w-14' : 'md:w-64'}`,
-        className
-      )}
+    `fixed left-0 right-0 top-0 z-50 w-full border-r-2 border-r-muted transition-[width] md:bottom-0 md:right-auto md:h-svh 
+     ${isCollapsed ? 'md:w-14' : 'md:w-64'} 
+     bg-background dark:bg-background`, // Ensures both light and dark mode use theme
+    className
+  )}
     >
       {/* Overlay in mobile */}
       <div
         onClick={() => setNavOpened(false)}
-        className={`absolute inset-0 transition-[opacity] delay-100 duration-700 ${navOpened ? 'h-svh opacity-50' : 'h-0 opacity-0'} w-full bg-black md:hidden`}
+        className={`absolute inset-0 transition-opacity duration-300 ${navOpened ? 'opacity-50' : 'opacity-0 pointer-events-none'} bg-black md:hidden`}
+        style={{ zIndex: 40 }}
       />
       <Layout fixed className={navOpened ? 'h-svh' : ''}>
         {/* Header */}
@@ -115,7 +118,8 @@ export default function Sidebar({
         {/* Navigation links */}
         <Nav
           id='sidebar-menu'
-          className={`z-40 h-full flex-1 overflow-auto ${navOpened ? 'max-h-screen' : 'max-h-0 py-0 md:max-h-screen md:py-2'}`}
+          className={`z-40 h-full flex-1 overflow-auto bg-white dark:bg-zinc-900
+            ${navOpened ? 'max-h-screen' : 'max-h-0 py-0 md:max-h-screen md:py-2'}`}
           closeNav={() => setNavOpened(false)}
           isCollapsed={isCollapsed}
           links={sidelinksData}
