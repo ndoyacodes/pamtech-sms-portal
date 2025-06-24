@@ -68,7 +68,6 @@ export const TemplateView = () => {
   return (
     <Layout>
       <Layout.Header sticky className='mt-4 sm:mt-4 md:mt-0 lg:mt-0'>
-        {% comment %} <Search /> {% endcomment %}
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
           <UserNav />
