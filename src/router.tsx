@@ -10,7 +10,13 @@ const router = createBrowserRouter([
   {
     path: '/welcome',
     lazy: async () => ({
-      Component: (await import('./pages/auth/landing-page.tsx')).default,
+      Component: (await import('./pages/landing-page.tsx')).default,
+    }),
+  },
+  {
+    path: '/pricing',
+    lazy: async () => ({
+      Component: (await import('./pages/pricing-page.tsx')).default,
     }),
   },
   {

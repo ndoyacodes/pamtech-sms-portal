@@ -14,23 +14,19 @@ const LandingPage = () => {
             <img src="/logo.png" alt="Pamtech Logo" className="h-10 pointer md:h-20" />
           </div>
           <nav className="space-x-6 hidden md:flex">
-            <a href="#" className="font-bold text-lg hover:text-blue-600" onClick={(e) => {
-              e.preventDefault();
-              const section = document.getElementById("about");
-              if (section) section.scrollIntoView({ behavior: "smooth" });
-            }}>About</a>
+            <a href="/pricing" className="font-bold text-lg hover:text-blue-600">Pricing</a>
             <a href="#" className="font-bold text-lg hover:text-blue-600" onClick={(e) => {
               e.preventDefault();
               const section = document.getElementById("contact");
               if (section) section.scrollIntoView({ behavior: "smooth" });
-            }}>Contact</a>
+            }}>Contact us</a>
             <a href="/sign-in" className="font-bold text-lg hover:text-blue-600">Log in</a>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-     <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 animate-fadeIn mb-0 p-0"
+     <section className="flex items-center bg-gradient-to-br from-blue-50 via-white to-purple-50 animate-fadeIn mb-0 p-0  min-h-[50vh]"
           style={{
             backgroundImage: `linear-gradient(to left, var(--brand-color-right), var(--brand-color-left))`,
           }}
@@ -50,11 +46,11 @@ const LandingPage = () => {
           </div>
 
           {/* Image */}
-          <div className="w-full">
+          <div className="w-full h-full">
             <img
               src="/lady.png" // Replace this with your image
               alt="User using system"
-              className="rounded-xl  w-full h-auto object-cover"
+              className="rounded-xl  w-full h-full object-cover"
             />
           </div>
         </div>
@@ -160,7 +156,7 @@ type ContactCardProps = {
   link?: string;
 };
 
-const ContactCard: React.FC<ContactCardProps> = ({ icon, title, value, link }) => (
+export const ContactCard: React.FC<ContactCardProps> = ({ icon, title, value, link }) => (
   <div className="bg-blue-50 p-6 rounded-lg shadow-sm text-center hover:shadow-md transition">
     {icon}
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
