@@ -1,7 +1,6 @@
 import { useState, ChangeEvent, DragEvent } from 'react'
 import * as XLSX from 'xlsx'
 import { Layout } from '@/components/custom/layout'
-// import { Search } from '@/components/search'
 import { Download } from 'lucide-react'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'

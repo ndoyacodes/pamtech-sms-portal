@@ -5,7 +5,6 @@ import {
   IconTool,
 } from '@tabler/icons-react'
 import { Layout } from '@/components/custom/layout'
-import { Search } from '@/components/search'
 import { Separator } from '@/components/ui/separator'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'

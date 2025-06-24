@@ -17,7 +17,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { Layout } from '@/components/custom/layout'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
-import { Search } from '@/components/search'
 
 // Validation schema
 const formSchema = z.object({

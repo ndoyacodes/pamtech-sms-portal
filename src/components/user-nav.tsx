@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/custom/button'
 import { useDispatch } from 'react-redux';
-import { useState, useEffect} from 'react';
 import { logout } from '@/store/slices/auth/auth.slice';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,20 +18,11 @@ import { useQuery } from '@tanstack/react-query'
 import { dashboardService } from '@/api/services/dashboard/dashboard.service'
 
 
-const formatNumber = (amount: number) => {
-  return new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }).format(amount);
-};
-
-
 export function UserNav() {
-  const [dateTime, setDateTime] = useState(new Date());
   const navigate = useNavigate()
   const {user} =  useAuthStore();
 
-  const { data: dashData, isLoading } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ['dashboard',],
     queryFn: async () => {
       if (user?.customer) {
@@ -51,11 +42,7 @@ export function UserNav() {
     dispatch(logout());
     navigate('/sign-in')
   }
-  useEffect(() => {
-    const timer = setInterval(() => setDateTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
+  
 
   return (
     <div className='flex  items-center justify-center gap-2'>

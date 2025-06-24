@@ -7,7 +7,6 @@ import {
   IconDashboard,
   IconReport,
   IconReportAnalytics,
-  IconCpu2,
   IconFilePhone,
   IconLayersSubtract,
   IconUser, IconAtOff, IconSend

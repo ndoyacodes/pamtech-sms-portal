@@ -10,7 +10,6 @@ import {
   Calendar,
   AlertCircle
 } from 'lucide-react';
-import { Search } from '@/components/search';
 import ThemeSwitch from '@/components/theme-switch';
 import { UserNav } from '@/components/user-nav';
 

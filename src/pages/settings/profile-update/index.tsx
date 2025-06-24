@@ -10,7 +10,6 @@ import {
 import { useAuthStore } from '@/hooks/use-auth-store';
 import { Button } from '@/components/custom/button';
 import { Layout } from '@/components/custom/layout'
-import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import {

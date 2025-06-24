@@ -13,7 +13,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/custom/button';
 import { Layout } from '@/components/custom/layout';
-import { Search } from '@/components/search';
 import ThemeSwitch from '@/components/theme-switch';
 import { UserNav } from '@/components/user-nav';
 import { Textarea } from '@/components/ui/textarea';

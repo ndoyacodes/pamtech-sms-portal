@@ -1,6 +1,6 @@
 import { Button } from "@/components/custom/button";
 import { useNavigate } from 'react-router-dom';
-import { Rocket, Lock, Wallet, Mail, MapPin, Phone, Check, X } from 'lucide-react';
+import {Mail, MapPin, Phone, Check, X } from 'lucide-react';
 import { ContactCard } from "./landing-page";
 
 const PricingPage = () => {

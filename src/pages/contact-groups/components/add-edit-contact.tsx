@@ -14,7 +14,6 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/custom/button'
 import { Layout } from '@/components/custom/layout'
 import { Switch } from '@/components/ui/switch'
-import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 

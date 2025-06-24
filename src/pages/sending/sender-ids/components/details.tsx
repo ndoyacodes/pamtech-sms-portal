@@ -12,7 +12,6 @@ import {
     Tag,
 } from 'lucide-react'
 import { Button } from '@/components/custom/button'
-import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { useState } from 'react'

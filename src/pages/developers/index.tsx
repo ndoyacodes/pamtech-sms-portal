@@ -16,7 +16,6 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/custom/button';
 import { IconCopy, IconEye, IconEyeOff } from '@tabler/icons-react';
 import { Layout } from '@/components/custom/layout';
-import { Search } from '@/components/search';
 import ThemeSwitch from '@/components/theme-switch';
 import { UserNav } from '@/components/user-nav';
 import { dashboardService } from '@/api/services/dashboard/dashboard.service';

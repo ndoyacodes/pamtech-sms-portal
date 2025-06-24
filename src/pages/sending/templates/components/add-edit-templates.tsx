@@ -14,7 +14,6 @@ import { Button } from '@/components/custom/button'
 import Select from 'react-select'
 import { Textarea } from '@/components/ui/textarea'
 import { Layout } from '@/components/custom/layout'
-import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { formSchema, FormSchema } from '../data/template-form-schema'
@@ -98,7 +97,7 @@ const AddTemplateForm = () => {
   return (
     <Layout>
       <Layout.Header sticky className='mt-4 lg:mt-0 md:mt-0 sm:mt-4'>
-        <Search />
+     
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
           <UserNav />

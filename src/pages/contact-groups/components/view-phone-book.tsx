@@ -14,7 +14,6 @@ import {
   Globe,
 } from 'lucide-react'
 // import { Button } from '@/components/custom/button'
-import { Search } from '@/components/search'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
