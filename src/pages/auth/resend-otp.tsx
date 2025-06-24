@@ -6,7 +6,12 @@ export default function ResendOtp() {
   return (
     <>
       <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'
-       style={{ backgroundImage: `linear-gradient(to left, var(--brand-color-right-inside), var(--brand-color-left-inside))`, }}
+     style=
+        {{
+          backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`, 
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
       >
         <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] lg:p-8'>
           
