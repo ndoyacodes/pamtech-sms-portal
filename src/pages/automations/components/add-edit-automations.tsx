@@ -310,7 +310,7 @@ export const CampaignForm = () => {
       </Layout.Header>
 
       <Layout.Body>
-        <Card className="mx-auto w-fit p-8">
+        <Card className="w-full h-full  p-8">
           <h1 className="mb-12 text-3xl font-semibold">Create Campaign</h1>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-0">
@@ -326,7 +326,7 @@ export const CampaignForm = () => {
                         <FormItem>
                           <FormLabel>Campaign Name *</FormLabel>
                           <FormControl>
-                            <Input {...field} />
+                            <Input {...field} className="bg-white"/>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -339,7 +339,7 @@ export const CampaignForm = () => {
                         <FormItem>
                           <FormLabel>Description</FormLabel>
                           <FormControl>
-                            <Textarea {...field} />
+                            <Textarea {...field} className="bg-white" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -368,14 +368,14 @@ export const CampaignForm = () => {
                             )}
                             styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                           />
-                          <FormMessage />
+                          <FormMessage className="bg-white"/>
                         </FormItem>
                       )}
                     />
 
                     {watchMessageTemplate && (
                       <FormItem>
-                        <Card className="p-4 bg-muted/50">
+                        <Card className="p-4 bg-muted/50 bg-white">
                           <div className="whitespace-pre-wrap text-sm">
                             {selectedTemplateContent}
                           </div>
@@ -398,7 +398,7 @@ export const CampaignForm = () => {
                             )}
                             styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                           />
-                          <FormMessage />
+                          <FormMessage className="bg-white" />
                         </FormItem>
                       )}
                     />
@@ -439,16 +439,16 @@ export const CampaignForm = () => {
                       control={form.control}
                       name="recurring"
                       render={({ field }) => (
-                        <FormItem className="rounded-lg border p-4">
+                        <FormItem className="rounded-lg border p-4  bg-white">
                           <div className="flex items-center justify-between">
                             <div className="space-y-0.5">
                               <FormLabel>Recurring Campaign</FormLabel>
-                              <FormDescription>
+                              <FormDescription  className='bg-white'>
                                 Enable to schedule multiple runs
                               </FormDescription>
                             </div>
                             <FormControl>
-                              <Switch
+                              <Switch 
                                 checked={field.value}
                                 onCheckedChange={field.onChange}
                               />
@@ -467,7 +467,7 @@ export const CampaignForm = () => {
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Start Date *</FormLabel>
-                                <Input type="date" {...field} />
+                                <Input type="date" {...field}  className='bg-white'/>
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -478,7 +478,7 @@ export const CampaignForm = () => {
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>End Date *</FormLabel>
-                                <Input type="date" {...field} />
+                                <Input type="date" {...field} className='bg-white'/>
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -614,7 +614,7 @@ export const CampaignForm = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Next Run Date *</FormLabel>
-                            <Input type="datetime-local" {...field} />
+                            <Input type="datetime-local" {...field} className='bg-white'/>
                             <FormMessage />
                           </FormItem>
                         )}

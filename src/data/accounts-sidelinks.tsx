@@ -48,6 +48,12 @@ import {
           href: '/automations',
           icon: <IconMessages size={18} />,
         },
+         {
+      title: 'Outbox',
+      label: '',
+      href: '/reports',
+      icon: <IconReport size={18} />,
+    }
     
       ],
     },
@@ -80,66 +86,60 @@ import {
     //   icon: <IconShoppingCart size={18} />,
     // },
 
-    {
-      title: 'Sending',
-      label: '',
-      href: '/requests',
-      icon: <IconMessages size={18} />,
-      sub: [
-        {
-          title: 'Sender ID',
-          label: '',
-          href: '/sender-ids',
-          icon: <IconUserScreen size={18} />,
-        },
-        // {
-        //   title: 'Numbers',
-        //   label: '',
-        //   href: '/phone-numbers',
-        //   icon: <IconPhoneCall size={18} />,
-        // },
-        {
-          title: 'SMS Templates',
-          label: '',
-          href: '/templates',
-          icon: <IconTemplate size={18} />,
-        },
+    // {
+    //   title: 'Sending',
+    //   label: '',
+    //   href: '/requests',
+    //   icon: <IconMessages size={18} />,
+    //   sub: [
+    //     {
+    //       title: 'Sender ID',
+    //       label: '',
+    //       href: '/sender-ids',
+    //       icon: <IconUserScreen size={18} />,
+    //     },
+    //     // {
+    //     //   title: 'Numbers',
+    //     //   label: '',
+    //     //   href: '/phone-numbers',
+    //     //   icon: <IconPhoneCall size={18} />,
+    //     // },
+    //     {
+    //       title: 'SMS Templates',
+    //       label: '',
+    //       href: '/templates',
+    //       icon: <IconTemplate size={18} />,
+    //     },
     
-      ],
-    },
+    //   ],
+    // },
     // {
     //     title: 'Blacklist',
     //     label: '',
     //     href: '/blacklists',
     //     icon: <IconAtOff size={18} />,
     //   } ,
-    {
-      title: 'Users',
-      label: '',
-      href: '/users',
-      icon: <IconUser size={18} />,
-    } ,
-     {
-      title: 'History',
-      label: '',
-      href: '/reports',
-      icon: <IconReport size={18} />,
-      // sub: [
-      // {
-      //     title: 'All Messages',
-      //     label: '',
-      //     href: '/reports/all-messages',
-      //     icon: <IconReportAnalytics size={18} />,
-      //   },
-      //     // {
-      //     //   title: 'Sent Messages',
-      //     //   label: '',
-      //     //   href: '/reports/all-messages',
-      //     //   icon: <IconReportAnalytics size={18} />,
-      //     // },
-      // ],
+    //  {
+    //   title: 'Outbox',
+    //   label: '',
+    //   href: '/reports',
+    //   icon: <IconReport size={18} />,
+    //   sub: [
+    //   {
+    //       title: 'All Messages',
+    //       label: '',
+    //       href: '/reports/all-messages',
+    //       icon: <IconReportAnalytics size={18} />,
+    //     },
+    //       {
+    //         title: 'Sent Messages',
+    //         label: '',
+    //         href: '/reports/all-messages',
+    //         icon: <IconReportAnalytics size={18} />,
+    //       },
+    //   ],
 
-    } ,
+    // } ,
     // {
     //   title: 'Reports',
     //   label: '',
@@ -152,6 +152,12 @@ import {
       href: '/subscriptions',
       icon: <IconLayersSubtract size={18} />,
     },
+     {
+      title: 'User Management',
+      label: '',
+      href: '/users',
+      icon: <IconUser size={18} />,
+    } ,
     {
       title: 'Settings',
       label: '',
@@ -160,12 +166,23 @@ import {
       sub: [
        
         {
+          title: 'Sender ID',
+          label: '',
+          href: '/sender-ids',
+          icon: <IconUserScreen size={18} />,
+        },
+        {
+          title: 'SMS Templates',
+          label: '',
+          href: '/templates',
+          icon: <IconTemplate size={18} />,
+        },
+        {
           title: 'Preferences',
           label: '',
           href: '/settings',
           icon: <IconReportAnalytics size={18} />,
         },
-
         {
           title: 'Developers',
           label: '',

@@ -64,7 +64,7 @@ export const AddBlacklistForm = () => {
       </Layout.Header>
       {/* ===== Page Title ===== */}
       <Layout.Header>
-        <h1 className='text-2xl font-bold'>Add SPam Word</h1>
+        <h1 className='text-2xl font-bold'>Add Spam Word</h1>
       </Layout.Header>
 
       {/* ===== Form ===== */}

@@ -1,8 +1,10 @@
 import { Button } from "@/components/custom/button";
 import { useNavigate } from 'react-router-dom';
-import { Rocket, Lock, Wallet, Mail, MapPin, Phone } from 'lucide-react';
+import { Rocket, Lock, Wallet, Mail, MapPin, Phone, User } from 'lucide-react';
+import { useAppSelector } from "@/store/store-hooks";
 
 const LandingPage = () => {
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
 
   return (
@@ -20,7 +22,13 @@ const LandingPage = () => {
               const section = document.getElementById("contact");
               if (section) section.scrollIntoView({ behavior: "smooth" });
             }}>Contact us</a>
-            <a href="/sign-in" className="font-bold text-lg hover:text-blue-600">Log in</a>
+            {isAuthenticated ? (
+  <a href="/" className="font-bold text-lg hover:text-blue-600 flex items-center gap-2">
+                  <User className="w-6 h-6" /> <span>My Account</span>
+              </a>
+            ) : (
+              <a href="/sign-in" className="font-bold text-lg hover:text-blue-600">Log in</a>
+            )}
           </nav>
         </div>
       </header>

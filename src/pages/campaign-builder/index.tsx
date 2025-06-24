@@ -263,7 +263,7 @@ export const BulkSMSForm = () => {
       </Layout.Header>
 
       <Layout.Body>
-        <Card className="w-full h-screen p-8 overflow-auto">
+        <Card className="w-full h-full p-8 overflow-auto">
           <h2 className="mb-6 text-2xl font-semibold">Quick Send</h2>
 
           <Form {...form}>
@@ -370,7 +370,7 @@ export const BulkSMSForm = () => {
                       control={form.control}
                       name="useTemplate"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-white">
                           <div className="space-y-0.5">
                             <FormLabel className="text-base">Use Predefined Template</FormLabel>
                             <FormDescription>Select a predefined template for your message.</FormDescription>

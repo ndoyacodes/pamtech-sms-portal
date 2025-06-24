@@ -1,10 +1,12 @@
 import { Button } from "@/components/custom/button";
 import { useNavigate } from 'react-router-dom';
-import {Mail, MapPin, Phone, Check, X } from 'lucide-react';
+import {Mail, MapPin, Phone, Check, X, User } from 'lucide-react';
 import { ContactCard } from "./landing-page";
+import { useAppSelector } from "@/store/store-hooks";
 
 const PricingPage = () => {
   const navigate = useNavigate();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
@@ -21,7 +23,13 @@ const PricingPage = () => {
               const section = document.getElementById("contact");
               if (section) section.scrollIntoView({ behavior: "smooth" });
             }}>Contact us</a>
-            <a href="/sign-in" className="font-bold text-lg hover:text-blue-600">Log in</a>
+            {isAuthenticated ? (
+              <a href="/" className="font-bold text-lg hover:text-blue-600 flex items-center gap-2">
+                  <User className="w-6 h-6" /> <span>My Account</span>
+              </a>
+            ) : (
+              <a href="/sign-in" className="font-bold text-lg hover:text-blue-600">Log in</a>
+            )}
           </nav>
         </div>
       </header>
@@ -62,13 +70,13 @@ const PricingPage = () => {
       {/* Pricing Cards Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <PricingCard 
               title="Individual" 
-              price="16 /SMS" 
+              price="16" 
               description="Perfect for small businesses getting started" 
               features={[
-                "500 SMS Credits",
+                "5,999 SMS Max",
                 "TZS 10 per extra SMS",
                 "Basic Support",
                 "No API Access"
@@ -77,15 +85,15 @@ const PricingPage = () => {
                 "Priority Support",
                 "Dedicated Account Manager"
               ]}
-              buttonText="Get Started"
+              buttonText="Choose Individual"
               onClick={() => navigate('/sign-up')}
             />
             <PricingCard 
               title="Community" 
-              price="15 /SMS" 
+              price="15" 
               description="For growing businesses with more needs" 
               features={[
-                "1,500 SMS Credits",
+                "54,999 SMS Max",
                 "TZS 9 per extra SMS",
                 "Email Support",
                 "Basic API Access"
@@ -94,16 +102,16 @@ const PricingPage = () => {
                 "Priority Support",
                 "Dedicated Account Manager"
               ]}
-              buttonText="Choose Basic"
+              buttonText="Choose Community"
               onClick={() => navigate('/sign-up')}
               popular={true}
             />
             <PricingCard 
               title="Start-up" 
-              price="14 /SMS"  
+              price="14"  
               description="For established businesses" 
               features={[
-                "5,500 SMS Credits",
+                "409,999 SMS Max",
                 "TZS 8 per extra SMS",
                 "Priority Support",
                 "Full API Access"
@@ -111,25 +119,26 @@ const PricingPage = () => {
               nonFeatures={[
                 "Dedicated Account Manager"
               ]}
-              buttonText="Choose Standard"
+              buttonText="Choose Start-up"
               onClick={() => navigate('/sign-up')}
             />
             <PricingCard 
               title="Enterprise" 
-              price="13 /SMS" 
+              price="Talk to Sales" 
               description="For high-volume senders" 
               features={[
-                "12,000 SMS Credits",
+                "Beyond 410,000 SMS",
                 "TZS 7 per extra SMS",
                 "24/7 Support",
                 "Full API Access",
+                "Priority Support",
                 "Dedicated Account Manager"
               ]}
               nonFeatures={[]}
-              buttonText="Choose Premium"
+              buttonText="Choose Enterprise"
               onClick={() => navigate('/sign-up')}
             />
-            <PricingCard 
+            {/* <PricingCard 
               title="Enterprise" 
               price="CUSTOM" 
               description="Custom solutions for large organizations" 
@@ -143,7 +152,7 @@ const PricingPage = () => {
               nonFeatures={[]}
               buttonText="Contact Sales"
               onClick={() => window.location.href = 'mailto:sales@pamtech.co.tz'}
-            />
+            /> */}
           </div>
         </div>
       </section>
@@ -157,21 +166,19 @@ const PricingPage = () => {
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="p-4">Feature</th>
-                  <th className="p-4">Starter</th>
-                  <th className="p-4">Basic</th>
-                  <th className="p-4">Standard</th>
-                  <th className="p-4">Premium</th>
+                  <th className="p-4">Individual</th>
+                  <th className="p-4">Community</th>
+                  <th className="p-4">Start-up</th>
                   <th className="p-4">Enterprise</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-gray-200">
                   <td className="p-4 font-medium">SMS Credits</td>
-                  <td className="p-4">500</td>
-                  <td className="p-4">1,500</td>
-                  <td className="p-4">5,500</td>
-                  <td className="p-4">12,000</td>
-                  <td className="p-4">Custom</td>
+                  <td className="p-4">5,999  SMS Max</td>
+                  <td className="p-4">54,999 SMS Max</td>
+                  <td className="p-4">409,999 SMS Max</td>
+                  <td className="p-4">Beyond 410,000 SMS</td>
                 </tr>
                 <tr className="border-b border-gray-200">
                   <td className="p-4 font-medium">Extra SMS Rate</td>
@@ -179,27 +186,23 @@ const PricingPage = () => {
                   <td className="p-4">TZS 9</td>
                   <td className="p-4">TZS 8</td>
                   <td className="p-4">TZS 7</td>
-                  <td className="p-4">Custom</td>
                 </tr>
                 <tr className="border-b border-gray-200">
                   <td className="p-4 font-medium">API Access</td>
                   <td className="p-4"><X className="text-red-500 inline" /></td>
                   <td className="p-4">Basic</td>
                   <td className="p-4">Full</td>
-                  <td className="p-4">Full</td>
-                  <td className="p-4">Custom</td>
+                  <td className="p-4">Full + Support</td>
                 </tr>
                 <tr className="border-b border-gray-200">
                   <td className="p-4 font-medium">Support</td>
                   <td className="p-4">Basic</td>
                   <td className="p-4">Email</td>
                   <td className="p-4">Priority</td>
-                  <td className="p-4">24/7</td>
                   <td className="p-4">Dedicated</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium">Account Manager</td>
-                  <td className="p-4"><X className="text-red-500 inline" /></td>
                   <td className="p-4"><X className="text-red-500 inline" /></td>
                   <td className="p-4"><X className="text-red-500 inline" /></td>
                   <td className="p-4"><Check className="text-green-500 inline" /></td>
@@ -289,7 +292,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
     <p className="text-gray-600 mb-4">{description}</p>
     
     <div className="my-6">
-      <span className="text-4xl font-extrabold">{price}</span>
+     {!isNaN(Number(price)) && <span className="text-4xl font-extrabold"> TZS </span>} <span className="text-4xl font-extrabold">{price}</span> {!isNaN(Number(price)) && <span> /SMS</span>}
       {price !== "Custom" && <span className="text-gray-500"></span>}
     </div>
     
