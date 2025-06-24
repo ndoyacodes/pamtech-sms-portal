@@ -15,6 +15,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/hooks/api-hooks/auth/useAuth'
 import {  Mail } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'
 
 interface ForgotFormProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -22,12 +23,19 @@ const formSchema = z.object({
   email: z.string().min(1, { message: 'Email is required' }),
 });
 
+
+
+
 export function ForgotForm({ className, ...props }: ForgotFormProps) {
   const {forgetPassword} =  useAuth();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
 
-
+  function handleNavigate() {
+    setTimeout(() => {
+      navigate('/sign-in');
+    }, 5000); 
+  }
 
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -89,6 +97,8 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
               
               loading={forgetPassword.isPending}
               disabled={forgetPassword.isPending}
+              onClick={handleNavigate}
+    
               >
               Send Link
             </Button>
