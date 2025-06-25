@@ -14,7 +14,7 @@ const PricingPage = () => {
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="container mx-auto flex justify-between items-center py-4 px-6">
           <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="Pamtech Logo" className="h-10 pointer md:h-20" />
+            <img src="/logo.png" alt="Pamtech Logo" className="h-6 md:h-10 lg:h-12 pointer" />
           </div>
           <nav className="space-x-6 hidden md:flex">
             <a href="/welcome" className="font-bold text-lg hover:text-blue-600">Home</a>
@@ -59,7 +59,7 @@ const PricingPage = () => {
           {/* Image */}
           <div className="w-full h-full">
             <img
-              src="/lady.png" // Replace this with your image
+              src="/lady2.png" // Replace this with your image
               alt="User using system"
               className="rounded-xl  w-full h-full object-cover"
             />
