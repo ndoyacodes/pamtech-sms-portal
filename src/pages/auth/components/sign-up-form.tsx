@@ -78,8 +78,8 @@ export const SignUpForm: FC = () => {
         backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`,
       }}
     >
-      <div className="w-full max-w-2xl bg-white dark:bg-gray-900 transition-colors">
-        <Card className="p-6 sm:p-8 md:p-10">
+      <div className="w-full max-w-2xl">
+        <Card className="p-6 sm:p-8 md:p-10 border-radius">
           <div className="flex justify-center mb-4">
             <img src="/logo.png" width={120} alt="company logo" />
           </div>
