@@ -251,7 +251,7 @@ export function DataTableToolbar<TData>({
 
   return (
     <>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between '>
         <div className='flex flex-1 flex-col-reverse sm:flex-row sm:items-center sm:space-x-2'>
           <div className='flex gap-x-2'>
             <Button
@@ -278,14 +278,14 @@ export function DataTableToolbar<TData>({
                 name='period'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Period</FormLabel>
+                    <FormLabel className='dark:text-black'>Period</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder='Select one' />
+                        <SelectTrigger className='dark:text-black'>
+                          <SelectValue placeholder='Select one'  />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -307,9 +307,9 @@ export function DataTableToolbar<TData>({
                     name='fromDate'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>From Date</FormLabel>
+                        <FormLabel className='dark:text-black'>From Date</FormLabel>
                         <FormControl>
-                          <Input type='datetime-local' {...field} />
+                          <Input type='datetime-local' className='dark:text-black' {...field} />
                         </FormControl>
                       </FormItem>
                     )}
@@ -319,9 +319,9 @@ export function DataTableToolbar<TData>({
                     name='toDate'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>To Date</FormLabel>
+                        <FormLabel className='dark:text-black'>To Date</FormLabel>
                         <FormControl>
-                          <Input type='datetime-local' {...field} />
+                          <Input type='datetime-local' className='dark:text-black' {...field} />
                         </FormControl>
                       </FormItem>
                     )}
@@ -334,14 +334,14 @@ export function DataTableToolbar<TData>({
                 name='senderId'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Sender ID</FormLabel>
+                    <FormLabel className='dark:text-black'>Sender ID</FormLabel>
                     <Select
                       onValueChange={(value) => field.onChange(Number(value))}
                       // @ts-ignore
                       defaultValue={field.value?.toString()}
                     >
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger className='dark:text-black'>
                           <SelectValue placeholder='Select sender ID' />
                         </SelectTrigger>
                       </FormControl>
@@ -366,10 +366,10 @@ export function DataTableToolbar<TData>({
                 control={form.control}
                 name='msisdn'
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                  <FormItem >
+                    <FormLabel className='dark:text-black'>Phone Number</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder={"2557XXXXXXX"} />
+                      <Input className='dark:text-black' {...field} placeholder={"2557XXXXXXX"} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -380,14 +380,14 @@ export function DataTableToolbar<TData>({
                 name='status'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Status</FormLabel>
+                    <FormLabel className='dark:text-black'>Status</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder='Select one' />
+                        <SelectTrigger className='dark:text-black'>
+                          <SelectValue  placeholder='Select one' />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>

@@ -71,19 +71,19 @@ export function ForgotForm({ className, ...props }: ForgotFormProps) {
               render={({ field }) => (
                 <FormItem className='space-y-1'>
                   <FormLabel className="flex items-center gap-2 mb-3">
-                    Email
+                    Email Address
                   </FormLabel>
                   <div className="relative w-full">
                     <Input
                       type="email"
-                      className={`w-full pl-10 pr-4 py-6 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-white${
+                      className={`w-full pl-10 pr-4 py-5 bg-whiterounded-lg border-2 transition-all dark:text-black duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-white${
                         form.formState.errors.email
                           ? 'border-red-300 bg-red-50' 
                           : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
                       }`}
                       {...field}
                     />
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Mail className="dark:text-black absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   </div>
                   <FormMessage className="mt-1 text-sm text-red-500" />
                 </FormItem>

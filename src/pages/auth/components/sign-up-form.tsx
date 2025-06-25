@@ -27,8 +27,8 @@ type FormData = z.infer<typeof formSchema>;
 
 export const SignUpForm: FC = () => {
   const { registerCustomer } = useAuth();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -51,310 +51,213 @@ export const SignUpForm: FC = () => {
     formState: { errors, isSubmitting },
   } = form;
 
-  const countries = [
-    'Tanzania', 'Kenya', 'Uganda', 'Rwanda', 
-    'Burundi', 'Congo', 'South Sudan',
-  ];
-
+  const countries = ['Tanzania', 'Kenya', 'Uganda', 'Rwanda', 'Burundi', 'Congo', 'South Sudan'];
   const serviceTypes = ['Postpaid', 'Prepaid'];
 
-
-const onFormSubmit = async (formData: FormData): Promise<void> => {
-  try {
-    const jsonPayload = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      password: formData.password,
-      phoneNumber: formData.phoneNumber,
-      country: formData.country,
-      service_type: formData.serviceType,
-    };
-    await registerCustomer.mutateAsync(jsonPayload); 
-  } catch (error) {
-    console.error('Submission error:', error);
-  }
-};
+  const onFormSubmit = async (formData: FormData): Promise<void> => {
+    try {
+      const jsonPayload = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        phoneNumber: formData.phoneNumber,
+        country: formData.country,
+        service_type: formData.serviceType,
+      };
+      await registerCustomer.mutateAsync(jsonPayload);
+    } catch (error) {
+      console.error('Submission error:', error);
+    }
+  };
 
   return (
-    <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'
-    style=
-        {{
-          backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`, 
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+    <div
+      className="min-h-screen w-full flex items-center justify-center px-4 py-8 md:px-6 lg:px-8 bg-cover bg-center"
+      style={{
+        backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`,
+      }}
     >
-      <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] md:w-full lg:w-full lg:p-8'>
-        
-        
-
-        <div className="max-w-3xl lg:max-w-5xl mx-auto">
-          <Card className="py-6 px-6">
-          <div className='mb-4 flex items-center justify-center py-4'>
-              <img src='/logo.png' width={150} height={0} alt='company logo' />
+      <div className="w-full max-w-2xl bg-white dark:bg-gray-900 transition-colors">
+        <Card className="p-6 sm:p-8 md:p-10">
+          <div className="flex justify-center mb-4">
+            <img src="/logo.png" width={120} alt="company logo" />
           </div>
-          <div className="flex justify-center flex-col items-center text-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Create Your Account</h1>
-          <p className="text-gray-600">Join us and get started today</p>
+
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white ">Create Your Account</h2>
+            <p className="text-sm text-gray-600 dark:text-white">Join us and get started today</p>
+          </div>
+
+          <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-white">First Name</label>
+                <div className="relative">
+                  <input type="text" {...register('firstName')} className={`w-full rounded-md border px-4 py-2 pl-10 ${errors.firstName ? 'border-red-400 bg-red-50' : 'border-gray-300'}`} />
+                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-black" />
+                </div>
+                {errors.firstName && <p className="text-sm text-red-500 mt-1">{errors.firstName.message}</p>}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-white">Last Name</label>
+                <div className="relative">
+                  <input type="text" {...register('lastName')} className={`w-full rounded-md border px-4 py-2 pl-10 dark:text-white ${errors.lastName ? 'border-red-400 bg-red-50' : 'border-gray-300'}`} />
+                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-black" />
+                </div>
+                {errors.lastName && <p className="text-sm text-red-500 mt-1 ">{errors.lastName.message}</p>}
+              </div>
+            </div>
+
+          {/* Email and Phone Number */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div>
+    <label className="block text-sm font-medium text-gray-700 dark:text-white">Email Address</label>
+    <div className="relative">
+      <input
+        type="email"
+        {...register('email')}
+        className={`w-full rounded-md border px-4 py-2 pl-10 ${errors.email ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
+      />
+      <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-black" />
+    </div>
+    {errors.email && <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>}
+  </div>
+
+  <div>
+    <label className="block text-sm font-medium text-gray-700 dark:text-white">Phone Number</label>
+    <PhoneInput
+      country={'tz'}
+      countryCodeEditable={false}
+      inputProps={{ name: 'phoneNumber', required: true }}
+      value={form.getValues('phoneNumber')}
+      onChange={(value, data: any) => {
+        const dialCode = data?.dialCode || '';
+        const numericValue = value.replace(/\D/g, '');
+        const localNumber = numericValue.startsWith(dialCode)
+          ? numericValue.slice(dialCode.length)
+          : numericValue;
+        const fullNumber = `${dialCode}${localNumber.slice(0, 9)}`;
+        form.setValue('phoneNumber', fullNumber);
+      }}
+      inputClass={`!w-full !pl-16 !pr-4 !py-5 !rounded-md dark:text-black!text-sm ${errors.phoneNumber ? '!border-red-400 !bg-red-50' : '!border-gray-300'}`}
+      buttonClass="!border-none !bg-transparent !left-3"
+      containerClass="!w-full"
+    />
+    {errors.phoneNumber && <p className="text-sm text-red-500 mt-1">{errors.phoneNumber.message}</p>}
+  </div>
+</div>
+
+{/* Service Type and Country */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div>
+    <label className="block text-sm font-medium text-gray-700 dark:text-white">Service Type</label>
+    <div className="flex items-center gap-4 mt-2">
+      <Wrench className="h-4 w-4 text-gray-500 dark:text-white" />
+      {serviceTypes.map((type) => (
+        <label key={type} className="flex items-center gap-2 text-sm">
+          <input
+            type="radio"
+            value={type}
+            {...register('serviceType')}
+            className="accent-blue-600"
+          />
+          <span>{type}</span>
+        </label>
+      ))}
+    </div>
+    {errors.serviceType && <p className="text-sm text-red-500 mt-1">{errors.serviceType.message}</p>}
+  </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-white">Country</label>
+        <div className="relative">
+          <select
+            {...register('country')}
+            className={`w-full rounded-md border px-4 py-2 pl-10 dark:text-black appearance-none ${errors.country ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
+          >
+            <option value="">Select your country</option>
+            {countries.map((country) => (
+              <option key={country} value={country}>{country}</option>
+            ))}
+          </select>
+          <Globe className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-black" />
+          <ChevronDown className="absolute right-3 top-3 h-4 w-4 text-gray-400 pointer-events-none" />
         </div>
-            <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6 w-full">
-              {/* Name Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                <div className="space-y-2 w-full">
-                  <label htmlFor="firstName" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    First Name
-                  </label>
-                  <div className="relative w-full">
-                    <input
-                      type="text"
-                      id="firstName"
-                      className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 ${
-                        errors.firstName ? 'border-red-300 bg-red-50' : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
-                      }`}
-                      {...register('firstName')}
-                    />
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  </div>
-                  {errors.firstName && <p className="mt-1 text-sm text-red-500">{errors.firstName.message}</p>}
-                </div>
+        {errors.country && <p className="text-sm text-red-500 mt-1">{errors.country.message}</p>}
+      </div>
+    </div>
 
-                <div className="space-y-2 w-full">
-                  <label htmlFor="lastName" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                     Last Name
-                  </label>
-                  <div className="relative w-full">
-                    <input
-                      type="text"
-                      id="lastName"
-                      className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 ${
-                        errors.lastName ? 'border-red-300 bg-red-50' : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
-                      }`}
-                      {...register('lastName')}
-                    />
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  </div>
-                  {errors.lastName && <p className="mt-1 text-sm text-red-500">{errors.lastName.message}</p>}
-                </div>
-              </div>
+    {/* Password and Confirm Password */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-white">Password</label>
+        <div className="relative">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            {...register('password')}
+            className={`w-full rounded-md dark:text-black border px-4 py-2 pl-10 pr-10 ${errors.password ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
+          />
+          <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-black" />
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700"
+          >
+            {showPassword ? <EyeOff className="w-5 h-5 dark:text-black" /> : <Eye className="w-5 h-5 dark:text-black" />}
+          </button>
+        </div>
+        {errors.password && <p className="text-sm text-red-500 mt-1">{errors.password.message}</p>}
+      </div>
 
-              {/* Email & Phone Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                <div className="space-y-2 w-full">
-                  <label htmlFor="email" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    Email Address
-                  </label>
-                  <div className="relative w-full">
-                    <input
-                      type="email"
-                      id="email"
-                      className={`w-full pl-10 pr-4 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 ${
-                        errors.email ? 'border-red-300 bg-red-50' : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
-                      }`}
-                      {...register('email')}
-                    />
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  </div>
-                  {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
-                </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-white">Confirm Password</label>
+        <div className="relative">
+          <input
+            type={showConfirmPassword ? 'text' : 'password'}
+            {...register('confirmPassword')}
+            className={`w-full rounded-md border px-4 py-2 pl-10 dark:text-black pr-10 ${errors.confirmPassword ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
+          />
+          <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-black" />
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword((prev) => !prev)}
+            className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700"
+          >
+            {showConfirmPassword ? <EyeOff className="w-5 h-5 dark:text-black" /> : <Eye className="w-5 h-5 dark:text-black" />}
+          </button>
+        </div>
+        {errors.confirmPassword && <p className="text-sm text-red-500 mt-1">{errors.confirmPassword.message}</p>}
+      </div>
+    </div>
 
-                <div className="space-y-2 w-full">
-                      <label
-                          htmlFor="phoneNumber"
-                          className="text-sm font-medium text-gray-700 flex items-center gap-2"
-                      >
-                          Phone Number
-                      </label>
-                      
-                     <PhoneInput
-                          country={'tz'}
-                          countryCodeEditable={false}
-                          inputProps={{
-                            name: 'phoneNumber',
-                            id: 'phoneNumber',
-                            required: true,
-                            inputMode: 'numeric',
-                          }}
-                          value={form.getValues('phoneNumber')}
-                          onChange={(value, data: import('react-phone-input-2').CountryData) => {
-                            const dialCode = data?.dialCode || '';
-                            const numericValue = value.replace(/\D/g, '');
-                            const localNumber = numericValue.startsWith(dialCode)
-                              ? numericValue.slice(dialCode.length)
-                              : numericValue;
 
-                            const limitedLocalNumber = localNumber.slice(0, 9); 
-                            const fullNumber = `${dialCode}${limitedLocalNumber}`;
-
-                            form.setValue('phoneNumber', fullNumber);
-                          }}
-                          inputClass={`!w-full !pl-16 !pr-4 !h-12 !py-3 !text-sm !rounded-lg !border-2 !transition-all !duration-200 !focus:outline-none !focus:ring-2 !focus:ring-blue-100 ${
-                            errors.phoneNumber
-                              ? '!border-red-300 !bg-red-50'
-                              : '!border-gray-200 !focus:border-blue-500 hover:!border-gray-300'
-                          }`}
-                          buttonClass="!border-none !bg-transparent !left-3 !h-10"
-                          containerClass="!w-full !relative !flex !items-center"
-                          dropdownClass="!z-[1000]"
-                        />
-
-                        {errors.phoneNumber && (
-                          <p className="mt-1 text-sm text-red-500">{errors.phoneNumber.message}</p>
-                        )}
-                  </div>
-               </div>
-
-              {/* Service Type & Country Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                <div className="space-y-2 w-full">
-                  <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                     Service Type
-                  </label>
-                  <div className="flex items-center gap-6 mt-2">
-                    <Wrench className="h-4 w-4 text-gray-500" />
-                    {serviceTypes.map((type) => (
-                      <label key={type} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          value={type}
-                          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                          {...register('serviceType')}
-                        />
-                        
-                        <span className="text-gray-700">{type}</span>
-                      </label>
-                    ))}
-                  </div>
-                  {errors.serviceType && (
-                    <p className="mt-1 text-sm text-red-500">{errors.serviceType.message}</p>
-                  )}
-                </div>
-
-                <div className="space-y-2 w-full">
-                  <label htmlFor="country" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                  Country
-                  </label>
-                  <div className="relative w-full">
-                    <select
-                      id="country"
-                      className={`w-full pl-10 pr-8 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 appearance-none ${
-                        errors.country ? 'border-red-300 bg-red-50' : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
-                      }`}
-                      {...register('country')}
-                    >
-                      <option value="">Select your country</option>
-                      {countries.map((country) => (
-                        <option key={country} value={country}>{country}</option>
-                      ))}
-                    </select>
-                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-                  </div>
-                  {errors.country && <p className="mt-1 text-sm text-red-500">{errors.country.message}</p>}
-                </div>
-              </div>
-
-              {/* Password Fields */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                <div className="space-y-2 w-full">
-                  <label htmlFor="password" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    Password
-                  </label>
-                  <div className="relative w-full">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      id="password"
-                      className={`w-full pl-10 pr-11 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 ${
-                        errors.password ? 'border-red-300 bg-red-50' : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
-                      }`}
-                      {...register('password')}
-                    />
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    >
-                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                    </button>
-                  </div>
-                  {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
-                </div>
-
-                <div className="space-y-2 w-full">
-                  <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    Confirm Password
-                  </label>
-                  <div className="relative w-full">
-                    <input
-                      type={showConfirmPassword ? "text" : "password"}
-                      id="confirmPassword"
-                      className={`w-full pl-10 pr-11 py-3 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 ${
-                        errors.confirmPassword ? 'border-red-300 bg-red-50' : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
-                      }`}
-                      {...register('confirmPassword')}
-                    />
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    >
-                      {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                    </button>
-                  </div>
-                  {errors.confirmPassword && <p className="mt-1 text-sm text-red-500">{errors.confirmPassword.message}</p>}
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-               className="w-full px-6 py-3 rounded-lg text-white font-medium transition-all duration-300  hover:shadow-xl transform hover:scale-[1.02] flex items-center justify-center"
+            <button
+              type="submit"
               disabled={isSubmitting}
-              style={{ 
-                background: 'linear-gradient(to right, var(--brand-color-TOP), var(--brand-color-BOTTOM))'
-              }}
-              >
-                {isSubmitting ? 'Creating Account...' : (
-                  <>
-                    Create Account
-                    {/* <Check className="h-4 w-4 ml-2" /> */}
-                  </>
-                )}
-              </button>
+              className="w-full px-6 py-3 rounded-lg text-white font-medium transition-transform transform hover:scale-105 hover:shadow-lg"
+              style={{ background: 'linear-gradient(to right, var(--brand-color-TOP), var(--brand-color-BOTTOM))' }}
+            >
+              {isSubmitting ? 'Creating Account...' : 'Create Account'}
+            </button>
 
-              {/* Footer Links */}
-              {/* <div className='relative my-2'>
-                <div className='absolute inset-0 flex items-center'>
-                  <span className='w-full border-t' />
-                </div>
-                <div className='relative flex justify-center text-xs uppercase'>
-                </div>
-              </div> */}
-              <div className='mt-4 px-8' />
-              <p className='text-sm text-muted-foreground text-center'>
-                Already have an account?{' '}
-                <Link
-                  to='/sign-in'
-                  className='underline underline-offset-4 hover:text-primary'
-                >
-                  Sign in
-                </Link>
-              </p>
-              <p className='mt-4 px-8 text-center text-sm text-muted-foreground'>
-                By clicking Create Account, you agree to our{' '}
-                <Link className='underline underline-offset-4 hover:text-primary' to={'https://pamtech.co.tz/terms-of-service/'}>
-                  Terms of Service
-                </Link>{' '}
-                and{' '}
-                <Link to='https://pamtech.co.tz/terms-of-service/' className='underline underline-offset-4 hover:text-primary'>
-                  Privacy Policy
-                </Link>.
-              </p>
-            </form>
-          </Card>
-        </div>
+            <p className="text-center text-sm text-gray-600 dark:text-white">
+              Already have an account?{' '}
+              <Link to="/sign-in" className="text-blue-600 underline hover:text-blue-800 dark:text-blue-400">Sign in</Link>
+            </p>
+
+            <p className="text-center text-xs text-gray-500 dark:text-white">
+              By clicking Create Account, you agree to our{' '}
+              <Link to="https://pamtech.co.tz/terms-of-service/" className="underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                Terms of Service
+              </Link>{' '}and{' '}
+              <Link to="https://pamtech.co.tz/terms-of-service/" className="underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                Privacy Policy
+              </Link>.
+            </p>
+          </form>
+        </Card>
       </div>
     </div>
   );

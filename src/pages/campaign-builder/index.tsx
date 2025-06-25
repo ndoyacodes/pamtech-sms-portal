@@ -188,6 +188,7 @@ export const BulkSMSForm = () => {
                     onChange={(options) => field.onChange(options?.map((opt: any) => opt.value))}
                     // @ts-ignore
                     value={phoneBooks?.filter((option: any) => field.value?.includes(option.value))}
+                     className='dark:text-black'
                   />
                 </FormControl>
                 <FormMessage />
@@ -216,7 +217,7 @@ export const BulkSMSForm = () => {
                   </a>
                 </div>
                 <FormControl>
-                  <Input  className= "bg-white" type="file" accept=".xlsx,.xls" onChange={handleFileChange} />
+                  <Input  className= "bg-white  dark:text-black" type="file" accept=".xlsx,.xls" onChange={handleFileChange} />
                 </FormControl>
                 <FormDescription>
                   Upload an Excel file containing phone numbers in the first column.
@@ -237,8 +238,9 @@ export const BulkSMSForm = () => {
                 <FormControl>
                   <Textarea
                     placeholder="+255 123 123 123 , +255 123 123 123, +255 123 123 123 , +255 123 123 123"
-                    className="h-32 resize-none bg-white"
+                    className="h-32 resize-none bg-white  dark:text-black"
                     {...field}
+
                   />
                 </FormControl>
                 <FormDescription>Enter phone numbers in international format, separated by commas.</FormDescription>
@@ -285,6 +287,7 @@ export const BulkSMSForm = () => {
                               options={senderIds}
                               onChange={(option: any) => field.onChange(option?.value)}
                               value={senderIds?.find((option: any) => option.value === field.value)}
+                              className='dark:text-black'
                             />
                           </FormControl>
                           <FormMessage />
@@ -370,10 +373,10 @@ export const BulkSMSForm = () => {
                       control={form.control}
                       name="useTemplate"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-white">
+                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-white dark:text-black">
                           <div className="space-y-0.5">
                             <FormLabel className="text-base">Use Predefined Template</FormLabel>
-                            <FormDescription>Select a predefined template for your message.</FormDescription>
+                            <FormDescription className='dark:text-black'>Select a predefined template for your message.</FormDescription>
                           </div>
                           <FormControl>
                             <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -393,6 +396,7 @@ export const BulkSMSForm = () => {
                               options={messageTemplates}
                               onChange={(option: any) => field.onChange(option?.value)}
                               value={messageTemplates?.find((opt: any) => opt.value === field.value)}
+                              className='dark:text-black'
                             />
                             <FormMessage />
                           </FormItem>
@@ -407,10 +411,11 @@ export const BulkSMSForm = () => {
                           <FormLabel>Message *</FormLabel>
                           <FormControl>
                             <Textarea
+                              className="h-48 md:h-64 resize-y bg-white dark:text-black"
                               placeholder="Your message..."
-                              className="h-48 md:h-64 resize-y bg-white"
                               {...field}
                               disabled={watchUseTemplate}
+                              
                             />
                           </FormControl>
                           <FormMessage />

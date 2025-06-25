@@ -151,6 +151,12 @@ const router = createBrowserRouter([
               Component: (await import('@/pages/subscriptions')).default,
             }),
           },
+           {
+            path: 'pricing-buy',
+            lazy: async () => ({
+              Component: (await import('@/pages/pricing')).default,
+            }),
+          },
           {
             path: 'subscriptions/add',
             lazy: async () => ({

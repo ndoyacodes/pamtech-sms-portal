@@ -23,11 +23,11 @@ const LandingPage = () => {
               if (section) section.scrollIntoView({ behavior: "smooth" });
             }}>Contact us</a>
             {isAuthenticated ? (
-  <a href="/" className="font-bold text-lg hover:text-blue-600 flex items-center gap-2">
-                  <User className="w-6 h-6" /> <span>My Account</span>
+              <a href="/" className="font-bold text-lg hover:text-blue-600 flex items-center gap-2">
+                <Button onClick={()=> navigate("/sign-in")}> <User className="w-6 h-6" /> <span>My Account</span></Button>
               </a>
             ) : (
-              <a href="/sign-in" className="font-bold text-lg hover:text-blue-600">Log in</a>
+             <Button onClick={()=> navigate("/sign-in")}>Sign in</Button>
             )}
           </nav>
         </div>
@@ -72,7 +72,7 @@ const LandingPage = () => {
            <FeatureCard 
               icon={<Rocket className="w-10 h-10 mx-auto text-blue-500 mb-4" />} 
               title="Fast Delivery" 
-              description="Deliver messages instantly to millions of users across East Africa within seconds." 
+              description="Deliver messages instantly to millions of users across Tanzania within seconds." 
               className="feature-card opacity-100"
             />
             <FeatureCard 

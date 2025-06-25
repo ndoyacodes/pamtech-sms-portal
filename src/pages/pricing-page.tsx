@@ -25,10 +25,10 @@ const PricingPage = () => {
             }}>Contact us</a>
             {isAuthenticated ? (
               <a href="/" className="font-bold text-lg hover:text-blue-600 flex items-center gap-2">
-                  <User className="w-6 h-6" /> <span>My Account</span>
+                 <Button onClick={()=> navigate("/sign-in")}> <User className="w-6 h-6" /> <span>My Account</span></Button>
               </a>
-            ) : (
-              <a href="/sign-in" className="font-bold text-lg hover:text-blue-600">Log in</a>
+            ) : (     
+              <Button onClick={()=> navigate("/sign-in")}>Sign in</Button>
             )}
           </nav>
         </div>
@@ -114,7 +114,9 @@ const PricingPage = () => {
                 "409,999 SMS Max",
                 "TZS 8 per extra SMS",
                 "Priority Support",
-                "Full API Access"
+                "Full API Access",
+                "Access to analytical report",
+                "Direct Feedback"
               ]}
               nonFeatures={[
                 "Dedicated Account Manager"
@@ -132,6 +134,7 @@ const PricingPage = () => {
                 "24/7 Support",
                 "Full API Access",
                 "Priority Support",
+                "Access to analytical report",
                 "Dedicated Account Manager"
               ]}
               nonFeatures={[]}

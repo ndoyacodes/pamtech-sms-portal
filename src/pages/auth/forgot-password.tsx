@@ -14,26 +14,24 @@ export default function ForgotPassword() {
           backgroundPosition: 'center',
         }}
       >
-        <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] lg:p-8'>
-          
-        
-          <Card className='py-12 px-8'>
+        <div className="w-full max-w-2xl">
+           <Card className="p-6 sm:p-8 md:p-10">
             
             <div className='mb-1 flex items-center justify-center py-4'>
               <img
                 src='/logo.png'
-                width={150}
+                width={120}
                 height={0}
                 alt='pamtech logo'
                 className=''
               />
             </div>
               <div className="flex justify-center flex-col items-center text-center mb-6">
-                   <h1 className="text-2xl font-bold text-gray-900 mb-2">Forgot Password?</h1>
+                   <h1 className="text-2xl font-bold text-gray-900 mb-2 dark:text-white">Forgot Password?</h1>
             </div>
           
             <div className='mb-4 flex flex-col space-y-2 text-left'>
-              <p className='text-sm text-muted-foreground'>
+              <p className='text-sm text-muted-foreground dark:text-white'>
                 Enter your registered email address and you will receive a link to reset your password.
               </p>
             </div>
@@ -56,12 +54,11 @@ export default function ForgotPassword() {
                 </Link>
               </p> */}
               <div className='mt-4 px-8' />
-              <p className='text-sm text-muted-foreground text-center'>
+              <p className='text-sm text-muted-foreground text-center dark:text-white'>
                 Remember the password?{' '}
                 <Link
                   to='/sign-in'
-                  className='underline underline-offset-4 hover:text-primary'
-                >
+                   className="text-blue-600 underline hover:text-blue-300">
                   Sign in
                 </Link>
               </p>

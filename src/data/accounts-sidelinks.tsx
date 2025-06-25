@@ -9,7 +9,7 @@ import {
   IconReportAnalytics,
   IconFilePhone,
   IconLayersSubtract,
-  IconUser, IconAtOff, IconSend
+  IconUser, IconAtOff, IconSend, IconCurrencyDollar,   IconHistory
 } from '@tabler/icons-react'
   
   export interface NavLink {
@@ -79,6 +79,8 @@ import {
       ],
 
     },
+    
+
     // {
     //   title: 'Subscriptions',
     //   label: '',
@@ -151,7 +153,22 @@ import {
       label: '',
       href: '/subscriptions',
       icon: <IconLayersSubtract size={18} />,
+      sub: [
+        {
+          title: 'History',
+          label: '',
+          href: '/subscriptions',
+          icon: <IconHistory size={18} />,
+        },
+        {
+          title: 'Pricing',
+          label: '',
+          href: '/pricing-buy',
+          icon: <IconCurrencyDollar size={18} />,
+        },
+      ]
     },
+
      {
       title: 'User Management',
       label: '',

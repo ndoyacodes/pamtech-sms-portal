@@ -326,7 +326,7 @@ export const CampaignForm = () => {
                         <FormItem>
                           <FormLabel>Campaign Name *</FormLabel>
                           <FormControl>
-                            <Input {...field} className="bg-white"/>
+                            <Input {...field} className="bg-white  dark:text-black"/>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -339,7 +339,7 @@ export const CampaignForm = () => {
                         <FormItem>
                           <FormLabel>Description</FormLabel>
                           <FormControl>
-                            <Textarea {...field} className="bg-white" />
+                            <Textarea {...field} className="bg-white  dark:text-black" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -362,7 +362,9 @@ export const CampaignForm = () => {
                               console.log(option)
                               field.onChange(option?.value)
                               setSelectedTemplateContent(option?.content || '')
+                              
                             }}
+                            className={" dark:text-black"}
                             value={messageTemplates?.find(
                               (opt: any) => opt.value === field.value,
                             )}
@@ -375,7 +377,7 @@ export const CampaignForm = () => {
 
                     {watchMessageTemplate && (
                       <FormItem>
-                        <Card className="p-4 bg-muted/50 bg-white">
+                        <Card className="p-4 bg-muted/50 bg-white dark:text-black">
                           <div className="whitespace-pre-wrap text-sm">
                             {selectedTemplateContent}
                           </div>
@@ -396,6 +398,7 @@ export const CampaignForm = () => {
                             value={senderIds?.find(
                               (opt: any) => opt.value === field.value,
                             )}
+                            className={" dark:text-black"}
                             styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                           />
                           <FormMessage className="bg-white" />
@@ -425,6 +428,7 @@ export const CampaignForm = () => {
                             value={phoneBooks?.filter((opt: any) =>
                               field.value?.includes(opt.value),
                             )}
+                            className={" dark:text-black"}
                             styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                           />
                           <FormMessage />
@@ -442,8 +446,8 @@ export const CampaignForm = () => {
                         <FormItem className="rounded-lg border p-4  bg-white">
                           <div className="flex items-center justify-between">
                             <div className="space-y-0.5">
-                              <FormLabel>Recurring Campaign</FormLabel>
-                              <FormDescription  className='bg-white'>
+                              <FormLabel className='dark:text-black'>Recurring Campaign</FormLabel>
+                              <FormDescription  className='bg-whit dark:text-black'>
                                 Enable to schedule multiple runs
                               </FormDescription>
                             </div>
@@ -467,7 +471,7 @@ export const CampaignForm = () => {
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Start Date *</FormLabel>
-                                <Input type="date" {...field}  className='bg-white'/>
+                                <Input type="date" {...field}  className='bg-white dark:text-black'/>
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -478,7 +482,7 @@ export const CampaignForm = () => {
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>End Date *</FormLabel>
-                                <Input type="date" {...field} className='bg-white'/>
+                                <Input type="date" {...field} className='bg-white dark:text-black'/>
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -497,7 +501,8 @@ export const CampaignForm = () => {
                                 value={RECURRING_PERIODS.find(
                                   opt => opt.value === field.value,
                                 )}
-                                styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
+                                className='dark:text-black'
+                                styles={{ menuPortal: base => ({ ...base, zIndex: 990 }) }}
                               />
                               <FormMessage />
                             </FormItem>
@@ -520,6 +525,7 @@ export const CampaignForm = () => {
                                   onChange={(options) =>
                                     field.onChange(options?.map(opt => opt.value))
                                   }
+                                  className='dark:text-black'
                                   styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                                 />
                                 <FormMessage />
@@ -544,6 +550,7 @@ export const CampaignForm = () => {
                                   onChange={(options) =>
                                     field.onChange(options?.map(opt => opt.value))
                                   }
+                                  className='dark:text-black'
                                   styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                                 />
                                 <FormMessage />
@@ -566,6 +573,7 @@ export const CampaignForm = () => {
                                       opt => opt.value === field.value,
                                     )}
                                     onChange={(option) => field.onChange(option?.value)}
+                                    className='dark:text-black'
                                     styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
                                   />
                                   <FormMessage />
@@ -585,6 +593,7 @@ export const CampaignForm = () => {
                                     )}
                                     onChange={(option) => field.onChange(option?.value)}
                                     styles={{ menuPortal: base => ({ ...base, zIndex: 999 }) }}
+                                    className='dark:text-black'
                                   />
                                   <FormMessage />
                                 </FormItem>
@@ -600,7 +609,7 @@ export const CampaignForm = () => {
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Daily Run Time *</FormLabel>
-                                <Input type="time" {...field} />
+                                <Input type="time" {...field} className='dark:text-black'/>
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -614,7 +623,7 @@ export const CampaignForm = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Next Run Date *</FormLabel>
-                            <Input type="datetime-local" {...field} className='bg-white'/>
+                            <Input type="datetime-local" {...field} className='bg-white dark:text-black'/>
                             <FormMessage />
                           </FormItem>
                         )}

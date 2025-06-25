@@ -1,50 +1,47 @@
-import { Card } from '@/components/ui/card'
-import { UserAuthForm } from './components/user-auth-form'
-import { Link } from 'react-router-dom'
+import { Card } from '@/components/ui/card';
+import { UserAuthForm } from './components/user-auth-form';
+import { Link } from 'react-router-dom';
 
-export default function SignIn2() {
+export default function SignIn() {
   return (
-    <div className='container grid h-svh flex-col items-center justify-center  lg:max-w-none lg:px-0'
-   style=
-        {{
-          backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`,  
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-    > 
-      <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[580px] lg:p-8'>
-                
-              <Card className='py-12 px-8'>
-                <div className='mb-1 flex items-center justify-center py-4'>
-              <img
-                src='/logo.png'
-                width={150}
-                height={0}
-                alt='pamtech logo'
-                className=''
-              />
-            </div>
-            <div className="flex justify-center flex-col items-center text-center mb-6">
-                   <h1 className="text-2xl font-bold text-gray-900 mb-2">User login</h1>
-                   <p className="text-gray-600">Welcome back</p>
-                </div>
-              <div className='flex flex-col space-y-2 text-left'>
+    <div
+      className="min-h-screen w-full flex items-center justify-center px-4 py-8 md:px-6 lg:px-8 bg-cover bg-center"
+      style={{
+        backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`,
+      }}
+    >
+      <div className="w-full max-w-2xl">
+        <Card className="p-6 sm:p-8 md:p-10 bg-white dark:bg-gray-900 shadow-md transition-colors duration-300">
+          <div className="flex justify-center mb-4">
+            <img
+              src="/logo.png"
+              width={120}
+              alt="pamtech logo"
+            />
+          </div>
 
-                <p className='text-sm text-muted-foreground'></p>
-              </div>
-              <UserAuthForm />
-            <div className='mt-4 px-8' />
-              <p className='text-sm text-muted-foreground text-center'>
-                Don't have an account?{' '}
-                <Link
-                  to='/sign-up'
-                  className='underline underline-offset-4 hover:text-primary'
-                >
-                  Sign up
-                </Link>
-              </p>
-            </Card>
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              User Login
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-white">
+              Welcome back
+            </p>
+          </div>
+
+          <UserAuthForm />
+
+          <p className="text-center text-sm text-gray-600 dark:text-white mt-6">
+            Don't have an account?{' '}
+            <Link
+              to="/sign-up"
+              className="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300"
+            >
+              Sign up
+            </Link>
+          </p>
+        </Card>
       </div>
     </div>
-  )
+  );
 }

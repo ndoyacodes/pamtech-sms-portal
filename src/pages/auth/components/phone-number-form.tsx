@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '@/components/custom/button'
+import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
 import {
   Form,
@@ -27,21 +28,18 @@ export function PhoneNumberForm({ className, ...props }: ForgotFormProps) {
   const navigate = useNavigate();
 
 
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { phone: '' },
   })
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    forgetPassword.mutateAsync(data);
+      // Set phone in cookie (expires in 3 mins)
+      console.log(data.phone);
+      Cookies.set('signup_phone', data.phone, { expires: 3 / 1440 })
+      navigate('/verify-phone');
   }
 
-  if (forgetPassword.isSuccess) {
-    navigate('/password-reset/:token', {
-      state: { phone: form.getValues('phone') }
-    });
-  }
 
   return (
     <div className={cn('grid gap-6', className)} {...props}>
@@ -53,20 +51,20 @@ export function PhoneNumberForm({ className, ...props }: ForgotFormProps) {
               name='phone'
               render={({ field }) => (
                 <FormItem className='space-y-1'>
-                  <FormLabel className="flex items-center gap-2">
+                  <FormLabel className="flex items-center gap-2 dark:text-white">
                     Phone Number
                   </FormLabel>
                   <div className="relative w-full">
                     <Input
                       type="tel"
-                      className={`w-full pl-10 pr-4 py-6 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-white${
+                      className={`w-full pl-10 pr-4 py-6 dark:text-black rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-white${
                         form.formState.errors.phone
                           ? 'border-red-300 bg-red-50'
                           : 'border-gray-200 focus:border-blue-500 hover:border-gray-300'
                       }`}
                       {...field}
                     />
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Phone className=" dark:text-black absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   </div>
                   <FormMessage className="mt-1 text-sm text-red-500" />
                 </FormItem>
