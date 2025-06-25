@@ -278,7 +278,7 @@ export function DataTableToolbar<TData>({
                 name='period'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className='dark:text-black'>Period</FormLabel>
+                    <FormLabel className='dark:text-black'>Date Range</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
