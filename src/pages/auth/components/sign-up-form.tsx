@@ -75,7 +75,7 @@ export const SignUpForm: FC = () => {
     <div
       className="min-h-screen w-full flex items-center justify-center px-4 py-8 md:px-6 lg:px-8 bg-cover bg-center"
       style={{
-        backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`,
+        backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady-bg.webp')`,
       }}
     >
       <div className="w-full max-w-2xl">
@@ -245,6 +245,10 @@ export const SignUpForm: FC = () => {
             <p className="text-center text-sm text-gray-600 dark:text-white">
               Already have an account?{' '}
               <Link to="/sign-in" className="text-blue-600 underline hover:text-blue-800 dark:text-blue-400">Sign in</Link>
+            </p>
+             <p className="text-center text-sm text-gray-600 dark:text-white">
+              Return to{' '}
+              <Link to="/" className="text-blue-600 underline hover:text-blue-800 dark:text-blue-400">Home page</Link>
             </p>
 
             <p className="text-center text-xs text-gray-500 dark:text-white">

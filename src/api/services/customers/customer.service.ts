@@ -17,7 +17,6 @@ class CustomerService extends APIClient {
     }
 
     // Get a single customer by ID GET
-
     getCustomerById(id: any) {
         return this.get<any>(`/customer/${id}`);
     }
@@ -51,6 +50,18 @@ class CustomerService extends APIClient {
     deleteCustomer(id: number) {
         return this.delete<void>(`/customer/${id}`, {id: id});
     }
+
+
+    uploadCustomerAttachment(data: FormData) {
+        return this.post('/customer/attachment', data, {
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            },
+        });
 }
+}
+
+
+
 
 export const customerService = new CustomerService();

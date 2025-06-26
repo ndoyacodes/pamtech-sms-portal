@@ -1,14 +1,15 @@
 import { createBrowserRouter } from 'react-router-dom';
-import GeneralError from './pages/errors/general-error';
-import NotFoundError from './pages/errors/not-found-error';
-import MaintenanceError from './pages/errors/maintenance-error';
+import GeneralError from './pages/errors/general-error.tsx';
+import NotFoundError from './pages/errors/not-found-error.tsx';
+import MaintenanceError from './pages/errors/maintenance-error.tsx';
 import UnauthorisedError from './pages/errors/unauthorised-error.tsx';
 import RequireAuth from './components/require-auth.tsx';
+import AppShell from './components/app-shell.tsx';
 
 const router = createBrowserRouter([
   // Public Routes
   {
-    path: '/welcome',
+    path: '/',
     lazy: async () => ({
       Component: (await import('./pages/landing-page.tsx')).default,
     }),
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
   {
     path: '/sign-up',
     lazy: async () => ({
-      Component: (await import('./pages/auth/sign-up')).default,
+      Component: (await import('./pages/auth/sign-up.tsx')).default,
     }),
   },
   {
@@ -46,13 +47,13 @@ const router = createBrowserRouter([
   {
     path: '/resend-otp',
     lazy: async () => ({
-      Component: (await import('./pages/auth/resend-otp')).default,
+      Component: (await import('./pages/auth/resend-otp.tsx')).default,
     }),
   },
   {
     path: '/forgot-password',
     lazy: async () => ({
-      Component: (await import('./pages/auth/forgot-password')).default,
+      Component: (await import('./pages/auth/forgot-password.tsx')).default,
     }),
   },
   {
@@ -70,25 +71,32 @@ const router = createBrowserRouter([
   {
     path: '/otp',
     lazy: async () => ({
-      Component: (await import('./pages/auth/otp')).default,
+      Component: (await import('./pages/auth/otp.tsx')).default,
     }),
   },
 
   {
-    path: '/',
     element: <RequireAuth />,
+    errorElement: <GeneralError />,
     children: [
-      {
-        path: '',
-        lazy: async () => ({
-          Component: (await import('./components/app-shell')).default,
-        }),
-        errorElement: <GeneralError />,
-        children: [
+        { 
+          
+          children: 
+          [
+            
           {
+
+          element: <AppShell/>,
+          lazy: async () => ({
+          Component: (await import('./components/app-shell.tsx')).default,
+          }),
+          errorElement: <GeneralError />,
+          children: [
+          {
+            path: '/dashboard',
             index: true,
             lazy: async () => ({
-              Component: (await import('./pages/dashboard')).default,
+              Component: (await import('./pages/dashboard/index.tsx')).default,
             }),
           },
           {
@@ -151,7 +159,7 @@ const router = createBrowserRouter([
               Component: (await import('@/pages/subscriptions')).default,
             }),
           },
-           {
+          {
             path: 'pricing-buy',
             lazy: async () => ({
               Component: (await import('@/pages/pricing')).default,
@@ -397,52 +405,55 @@ const router = createBrowserRouter([
           {
             path: 'settings',
             lazy: async () => ({
-              Component: (await import('./pages/settings')).default,
+              Component: (await import('./pages/settings/index.tsx')).default,
             }),
             errorElement: <GeneralError />,
             children: [
               {
                 index: true,
                 lazy: async () => ({
-                  Component: (await import('./pages/settings/appearance')).default,
+                  Component: (await import('./pages/settings/appearance/index.tsx')).default,
                 }),
               },
               {
                 path: 'account',
                 lazy: async () => ({
-                  Component: (await import('./pages/settings/account')).default,
+                  Component: (await import('./pages/settings/account/index.tsx')).default,
                 }),
               },
               {
                 path: 'appearance',
                 lazy: async () => ({
-                  Component: (await import('./pages/settings/appearance')).default,
+                  Component: (await import('./pages/settings/appearance/index.tsx')).default,
                 }),
               },
               {
                 path: 'notifications',
                 lazy: async () => ({
-                  Component: (await import('./pages/settings/notifications')).default,
+                  Component: (await import('./pages/settings/notifications/index.tsx')).default,
                 }),
               },
               {
                 path: 'display',
                 lazy: async () => ({
-                  Component: (await import('./pages/settings/display')).default,
+                  Component: (await import('./pages/settings/display/index.tsx')).default,
                 }),
               },
               {
                 path: 'error-example',
                 lazy: async () => ({
-                  Component: (await import('./pages/settings/error-example')).default,
+                  Component: (await import('./pages/settings/error-example/index.tsx')).default,
                 }),
                 errorElement: <GeneralError className="h-[50svh]" minimal />,
               },
             ],
           },
-        ],
-      },
-    ],
+          ],
+          },
+          ],
+        }
+  ]
+    
   },
 
   // Error routes

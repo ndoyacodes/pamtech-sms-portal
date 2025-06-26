@@ -9,7 +9,7 @@ const RequireAuth: React.FC = () => {
 
   //Negating this to view
   if (!isAuthenticated) {
-    return <Navigate to="/welcome" state={{ from: location }} replace />;
+    return <Navigate to="/" state={{ from: location }} replace />;
   }
 
   return <Outlet />;

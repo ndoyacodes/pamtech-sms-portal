@@ -7,7 +7,7 @@ export default function SignIn() {
     <div
       className="min-h-screen w-full flex items-center justify-center px-4 py-8 md:px-6 lg:px-8 bg-cover bg-center"
       style={{
-        backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`,
+        backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady-bg.webp')`,
       }}
     >
       <div className="w-full max-w-2xl">
@@ -35,9 +35,18 @@ export default function SignIn() {
             Don't have an account?{' '}
             <Link
               to="/sign-up"
-              className="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300"
+              className="text-blue-600 underline hover:text-blue-300"
             >
               Sign up
+            </Link>
+          </p>
+          <p className="text-center text-sm text-gray-600 dark:text-white mt-6">
+            Return to {' '}
+            <Link
+              to="/"
+              className="text-blue-600 underline hover:text-blue-300"
+            >
+              Home page
             </Link>
           </p>
         </Card>

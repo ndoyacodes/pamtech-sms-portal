@@ -76,6 +76,7 @@ export default function SidebarNav({
               {item.title}
             </Link>
           ))}
+          
         </nav>
       </div>
     </>

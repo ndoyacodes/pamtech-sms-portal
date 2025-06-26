@@ -40,7 +40,7 @@ export function UserNav() {
     // console.log("Jwt:"+jwtToken)
     // setJwtToken("");
     dispatch(logout());
-    navigate('/sign-in')
+    navigate('/')
   }
   
 
@@ -112,7 +112,7 @@ export function UserNav() {
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => logOut()}>
-            Log out
+            Sign out
             {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
           </DropdownMenuItem>
         </DropdownMenuContent>

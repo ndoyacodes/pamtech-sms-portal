@@ -2,34 +2,82 @@ import { Button } from "@/components/custom/button";
 import { useNavigate } from 'react-router-dom';
 import { Rocket, Lock, Wallet, Mail, MapPin, Phone, User } from 'lucide-react';
 import { useAppSelector } from "@/store/store-hooks";
+import TextCarousel from "@/components/text-carousel";
+
+const carouselTexts = [
+  {
+    title: "Send Bulk SMS Instantly in Tanzania",
+    description: "Deliver messages to thousands of users with just one click. Fast, secure and reliable."
+  },
+  {
+    title: "Grow Your Business With Pamtech",
+    description: "Engage your audience effectively and increase conversions through targeted SMS campaigns."
+  },
+  {
+    title: "Affordable Messaging Plans for Every Budget",
+    description: "Choose from flexible prepaid or postpaid plans and start reaching customers today."
+  }
+];
+
+
+ const customerLogos = [
+  'logo.png',
+  'logo.png',
+  'logo.png',
+  'logo.png',
+  'logo.png',
+  'logo.png',
+              ];
 
 const LandingPage = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
+ 
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="container mx-auto flex justify-between items-center py-4 px-6">
-            <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="Pamtech Logo" className="h-6 md:h-10 lg:h-12 pointer" />
-            </div>
-          <nav className="space-x-6 hidden md:flex">
-            <a href="/pricing" className="font-bold text-lg hover:text-blue-600">Pricing</a>
-            <a href="#" className="font-bold text-lg hover:text-blue-600" onClick={(e) => {
-              e.preventDefault();
-              const section = document.getElementById("contact");
-              if (section) section.scrollIntoView({ behavior: "smooth" });
-            }}>Contact us</a>
-            {isAuthenticated ? (
-              <a href="/" className="font-bold text-lg hover:text-blue-600 flex items-center gap-2">
-                <Button onClick={()=> navigate("/sign-in")}> <User className="w-6 h-6" /> <span>My Account</span></Button>
+            <div className="flex items-center gap-2 pointer">
+              <a href="/">
+                <img src="/logo.png" alt="Pamtech Logo" className="h-6 md:h-10 lg:h-12 pointer" />
               </a>
-            ) : (
-             <Button onClick={()=> navigate("/sign-in")}>Sign in</Button>
-            )}
-          </nav>
+            </div>
+          <nav className="space-x-4 flex items-center">
+              <a href="/pricing" className="font-bold text-base sm:text-lg hover:text-blue-600">Pricing</a>
+              <a
+                href="#"
+                className="font-bold text-base sm:text-lg hover:text-blue-600"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const section = document.getElementById("contact");
+                  if (section) section.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                Contact us
+              </a>
+              {isAuthenticated ? (
+                <Button
+                  onClick={() => navigate("/dashboard")}
+                  className="flex items-center gap-2 text-base sm:text-lg"
+                >
+                  <User className="w-6 h-6" />
+                <span className="text-sm sm:text-base">My Account</span>
+                </Button>
+              ) : (
+                <div className="flex gap-2">
+              <Button onClick={() => navigate("/sign-in")} className="text-base sm:text-lg">
+                  Sign in
+                </Button>
+                <Button onClick={() => navigate("/sign-up")} className="text-base sm:text-lg">
+                  Sign Up
+                </Button>
+
+                </div>
+                
+              )}
+            </nav>
         </div>
       </header>
 
@@ -41,26 +89,25 @@ const LandingPage = () => {
         >
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
-          <div className="text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
-              Send Bulk SMS Instantly Across Tanzania
-            </h1>
-            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-lg">
-              Reliable, fast, and affordable bulk messaging services for businesses. Join thousands of businesses using our reliable SMS service.
-            </p>
-            <Button className="h-14 text-lg px-8 py-4" onClick={() => navigate('/sign-up')}>
-              Get Started
-            </Button>
-          </div>
+       <div className="text-center md:text-left">
+        <TextCarousel items={carouselTexts} interval={6000} />
+      <Button className="h-14 text-lg px-8 py-4 mt-4" onClick={() => navigate('/sign-up')}>
+        Get Started
+      </Button>
+ 
+        </div>
+
+
 
           {/* Image */}
-          <div className="w-full h-full">
-            <img
-              src="/lady2.png" // Replace this with your image
-              alt="User using system"
-              className="rounded-xl  h-full pointer"
-            />
-          </div>
+            <div className="w-full h-full flex items-center justify-center">
+          <img
+            src="/lady.webp"
+            alt="User using system"
+            className="rounded-xl h-full max-w-xs sm:max-w-sm md:max-w-full"
+            style={{ height: "90%" }}
+              />
+           </div>
         </div>
       </section>
 
@@ -95,6 +142,31 @@ const LandingPage = () => {
             </div>
       </section>
 
+      {/* Customer Logos Section */}
+      <section className="bg-gray py-12">
+         <h2 className="text-3xl font-bold text-center mb-6">Our Clients</h2>
+         <p className=" text-center mb-6">Our Clients are our top Priority, and we are commited to providing them with the highest Level of service</p>
+        <div className="container mx-auto px-6">
+         
+         <div className="overflow-hidden  max-w-screen-lg mx-auto">
+            <div className="flex animate-marquee gap-12 whitespace-nowrap w-max">
+              {[...Array(2)].flatMap(() =>
+                customerLogos.map((logo, index) => (
+                  <img
+                    key={`${logo}-${index}`}
+                    src={`/customers/${logo}`}
+                    alt={`Customer ${index + 1}`}
+                    className="h-12 w-auto object-contain mx-4"
+                  />
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+
       {/* About & Contact */}
       <section
         id="about"
@@ -117,7 +189,7 @@ const LandingPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <ContactCard icon={<Phone className="w-10 h-10 mx-auto text-green-500 mb-4" />} title="WhatsApp Us" value="+255 717 757 750" link="https://wa.me/255717757750" />
                 <ContactCard icon={<Mail className="w-10 h-10 mx-auto text-blue-500 mb-4" />} title="Email Us" value="info@pamtech.co.tz" link="mailto:info@pamtech.co.tz" />
-                <ContactCard icon={<MapPin className="w-10 h-10 mx-auto text-red-500 mb-4" />} title="Visit Our Office" value="New Safari Hotel, 310. Arusha, Tanzania" />
+                <ContactCard icon={<MapPin className="w-10 h-10 mx-auto text-red-500 mb-4" />} title="Visit Our Office" value="New Safari Hotel Rd, Arusha 23103" link="https://maps.app.goo.gl/hMhtnx6hnCRkuzm58" />
               </div>
             </div>
           </section>
@@ -164,21 +236,31 @@ type ContactCardProps = {
   link?: string;
 };
 
-export const ContactCard: React.FC<ContactCardProps> = ({ icon, title, value, link }) => (
-  <div className="bg-blue-50 p-6 rounded-lg shadow-sm text-center hover:shadow-md transition">
-    {icon}
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-gray-700">
-      {link ? (
-        <a href={link} target="_blank" rel="noopener noreferrer" className="hover:underline">
-          {value}
-        </a>
-      ) : (
-        value
-      )}
-    </p>
-  </div>
-);
+export const ContactCard: React.FC<ContactCardProps> = ({ icon, title, value, link }) => {
+  const cardContent = (
+    <>
+      {icon}
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-700">{value}</p>
+    </>
+  );
+
+  return link ? (
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block bg-blue-50 p-6 rounded-lg shadow-sm text-center hover:shadow-md transition hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      style={{ textDecoration: "none" }}
+    >
+      {cardContent}
+    </a>
+  ) : (
+    <div className="bg-blue-50 p-6 rounded-lg shadow-sm text-center hover:shadow-md transition">
+      {cardContent}
+    </div>
+  );
+};
 
 export default LandingPage;
 

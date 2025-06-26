@@ -3,6 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import {Mail, MapPin, Phone, Check, X, User } from 'lucide-react';
 import { ContactCard } from "./landing-page";
 import { useAppSelector } from "@/store/store-hooks";
+import TextCarousel from "@/components/text-carousel";
+
+
+const carouselTexts = [
+  {
+    title: "Flexible Plans for Every Business",
+    description: "Whether you're a startup or an enterprise, our pricing scales with your needs and budget."
+  },
+  {
+    title: "No Hidden Fees, Just Clear Value",
+    description: "Get transparent pricing with no surprises. What you see is exactly what you pay."
+  },
+  {
+    title: "Pay-As-You-Go or Monthly Plans",
+    description: "Choose between one-time bulk messaging or recurring plans—only pay for what you use."
+  },
+  {
+    title: "Volume Discounts Available",
+    description: "Save more as you scale. The more you send, the less you pay per SMS."
+  },
+];
+
 
 const PricingPage = () => {
   const navigate = useNavigate();
@@ -11,26 +33,46 @@ const PricingPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+      <header className="bg-white shadow-sm sticky top-0 z-50 flex justify-center items-center">
         <div className="container mx-auto flex justify-between items-center py-4 px-6">
-          <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="Pamtech Logo" className="h-6 md:h-10 lg:h-12 pointer" />
-          </div>
-          <nav className="space-x-6 hidden md:flex">
-            <a href="/welcome" className="font-bold text-lg hover:text-blue-600">Home</a>
-            <a href="#" className="font-bold text-lg hover:text-blue-600" onClick={(e) => {
-              e.preventDefault();
-              const section = document.getElementById("contact");
-              if (section) section.scrollIntoView({ behavior: "smooth" });
-            }}>Contact us</a>
-            {isAuthenticated ? (
-              <a href="/" className="font-bold text-lg hover:text-blue-600 flex items-center gap-2">
-                 <Button onClick={()=> navigate("/sign-in")}> <User className="w-6 h-6" /> <span>My Account</span></Button>
+           <div className="flex items-center gap-2 pointer">
+              <a href="/">
+                <img src="/logo.png" alt="Pamtech Logo" className="h-6 md:h-10 lg:h-12 pointer" />
               </a>
-            ) : (     
-              <Button onClick={()=> navigate("/sign-in")}>Sign in</Button>
-            )}
-          </nav>
+            </div>
+            <nav className="space-x-4 flex flex items-center">
+                <a href="/" className="font-bold text-base sm:text-lg hover:text-blue-600">Home</a>
+                <a
+                  href="#"
+                  className="font-bold text-base sm:text-lg hover:text-blue-600"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const section = document.getElementById("contact");
+                    if (section) section.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  Contact us
+                </a>
+                {isAuthenticated ? (
+                  <Button
+                    onClick={() => navigate("/dashboard")}
+                    className="flex items-center gap-2 text-base sm:text-lg"
+                  >
+                    <User className="w-6 h-6" />
+                  <span className="text-sm sm:text-base">My Account</span>
+                  </Button>
+                ) : (
+                    <div className="flex gap-2">
+              <Button onClick={() => navigate("/sign-in")} className="text-base sm:text-lg">
+                  Sign in
+                </Button>
+                <Button onClick={() => navigate("/sign-up")} className="text-base sm:text-lg">
+                  Sign Up
+                </Button>
+
+                </div>
+                )}
+              </nav>
         </div>
       </header>
 
@@ -44,26 +86,22 @@ const PricingPage = () => {
         >
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
-          <div className="text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
-             Pricing
-            </h1>
-            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-lg">
-              Reliable, fast, and affordable bulk messaging services for businesses. Join thousands of businesses using our reliable SMS service.
-            </p>
-            <Button className="h-14 text-lg px-8 py-4" onClick={() => navigate('/sign-up')}>
+        <div className="text-center md:text-left">
+            <TextCarousel items={carouselTexts} interval={6000} />
+            <Button className="h-14 text-lg px-8 py-4 mt-4" onClick={() => navigate('/sign-up')}>
               Get Started
             </Button>
-          </div>
+        </div>
 
           {/* Image */}
-          <div className="w-full h-full">
-            <img
-              src="/lady2.png" // Replace this with your image
-              alt="User using system"
-              className="rounded-xl  w-full h-full object-cover"
-            />
-          </div>
+          <div className="w-full h-full flex items-center justify-center">
+          <img
+            src="/lady.webp"
+            alt="User using system"
+            className="rounded-xl h-full max-w-xs sm:max-w-sm md:max-w-full"
+            style={{ height: "90%" }}
+              />
+           </div>
         </div>
       </section>
 
@@ -74,16 +112,17 @@ const PricingPage = () => {
             <PricingCard 
               title="Individual" 
               price="16" 
-              description="Perfect for small businesses getting started" 
+              description="Perfect for small businesses" 
               features={[
                 "5,999 SMS Max",
-                "TZS 10 per extra SMS",
-                "Basic Support",
-                "No API Access"
+                "Custom Sender ID",
+                "Daily Report",
+                "Full API Access",
+                "24/7 Support",
               ]}
               nonFeatures={[
-                "Priority Support",
-                "Dedicated Account Manager"
+                 "Dedicated Account Manager"
+                
               ]}
               buttonText="Choose Individual"
               onClick={() => navigate('/sign-up')}
@@ -91,16 +130,16 @@ const PricingPage = () => {
             <PricingCard 
               title="Community" 
               price="15" 
-              description="For growing businesses with more needs" 
+              description="Perfect for growing businesses" 
               features={[
                 "54,999 SMS Max",
-                "TZS 9 per extra SMS",
-                "Email Support",
-                "Basic API Access"
+                "Custom Sender ID",
+                "Daily Report",
+                "Full API Access",
+                "24/7 Support",
               ]}
               nonFeatures={[
-                "Priority Support",
-                "Dedicated Account Manager"
+                 "Dedicated Account Manager"
               ]}
               buttonText="Choose Community"
               onClick={() => navigate('/sign-up')}
@@ -112,14 +151,14 @@ const PricingPage = () => {
               description="For established businesses" 
               features={[
                 "409,999 SMS Max",
-                "TZS 8 per extra SMS",
-                "Priority Support",
+                "Custom Sender ID",
+                "Daily Report",
                 "Full API Access",
-                "Access to analytical report",
-                "Direct Feedback"
+                "24/7 Support",
+                "Dedicated Account Manager"
               ]}
               nonFeatures={[
-                "Dedicated Account Manager"
+                
               ]}
               buttonText="Choose Start-up"
               onClick={() => navigate('/sign-up')}
@@ -130,94 +169,20 @@ const PricingPage = () => {
               description="For high-volume senders" 
               features={[
                 "Beyond 410,000 SMS",
-                "TZS 7 per extra SMS",
-                "24/7 Support",
+                "Custom Sender ID",
+                "Daily Report",
                 "Full API Access",
-                "Priority Support",
-                "Access to analytical report",
+                "24/7 Support",
                 "Dedicated Account Manager"
               ]}
               nonFeatures={[]}
               buttonText="Choose Enterprise"
               onClick={() => navigate('/sign-up')}
             />
-            {/* <PricingCard 
-              title="Enterprise" 
-              price="CUSTOM" 
-              description="Custom solutions for large organizations" 
-              features={[
-                "Volume Discounts",
-                "Dedicated Support Team",
-                "Custom API Solutions",
-                "Account Manager",
-                "Service Level Agreement"
-              ]}
-              nonFeatures={[]}
-              buttonText="Contact Sales"
-              onClick={() => window.location.href = 'mailto:sales@pamtech.co.tz'}
-            /> */}
+    
           </div>
         </div>
       </section>
-
-      {/* Features Comparison */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Compare Features</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="p-4">Feature</th>
-                  <th className="p-4">Individual</th>
-                  <th className="p-4">Community</th>
-                  <th className="p-4">Start-up</th>
-                  <th className="p-4">Enterprise</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-gray-200">
-                  <td className="p-4 font-medium">SMS Credits</td>
-                  <td className="p-4">5,999  SMS Max</td>
-                  <td className="p-4">54,999 SMS Max</td>
-                  <td className="p-4">409,999 SMS Max</td>
-                  <td className="p-4">Beyond 410,000 SMS</td>
-                </tr>
-                <tr className="border-b border-gray-200">
-                  <td className="p-4 font-medium">Extra SMS Rate</td>
-                  <td className="p-4">TZS 10</td>
-                  <td className="p-4">TZS 9</td>
-                  <td className="p-4">TZS 8</td>
-                  <td className="p-4">TZS 7</td>
-                </tr>
-                <tr className="border-b border-gray-200">
-                  <td className="p-4 font-medium">API Access</td>
-                  <td className="p-4"><X className="text-red-500 inline" /></td>
-                  <td className="p-4">Basic</td>
-                  <td className="p-4">Full</td>
-                  <td className="p-4">Full + Support</td>
-                </tr>
-                <tr className="border-b border-gray-200">
-                  <td className="p-4 font-medium">Support</td>
-                  <td className="p-4">Basic</td>
-                  <td className="p-4">Email</td>
-                  <td className="p-4">Priority</td>
-                  <td className="p-4">Dedicated</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium">Account Manager</td>
-                  <td className="p-4"><X className="text-red-500 inline" /></td>
-                  <td className="p-4"><X className="text-red-500 inline" /></td>
-                  <td className="p-4"><Check className="text-green-500 inline" /></td>
-                  <td className="p-4"><Check className="text-green-500 inline" /></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-
 
 <section
         id="about"
@@ -227,7 +192,6 @@ const PricingPage = () => {
         }}
       >
         <div className="container mx-auto px-6">
-          {/* You can add an "About Us" section here if needed */}
 
           {/* Contact Section */}
           <section id="contact" className="py-16">
@@ -240,7 +204,7 @@ const PricingPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <ContactCard icon={<Phone className="w-10 h-10 mx-auto text-green-500 mb-4" />} title="WhatsApp Us" value="+255 717 757 750" link="https://wa.me/255717757750" />
                 <ContactCard icon={<Mail className="w-10 h-10 mx-auto text-blue-500 mb-4" />} title="Email Us" value="info@pamtech.co.tz" link="mailto:info@pamtech.co.tz" />
-                <ContactCard icon={<MapPin className="w-10 h-10 mx-auto text-red-500 mb-4" />} title="Visit Our Office" value="New Safari Hotel, 310. Arusha, Tanzania" />
+                <ContactCard icon={<MapPin className="w-10 h-10 mx-auto text-red-500 mb-4" />} title="Visit Our Office" value="New Safari Hotel Rd, Arusha 23103" link="https://maps.app.goo.gl/hMhtnx6hnCRkuzm58" />
               </div>
             </div>
           </section>

@@ -8,7 +8,7 @@ export default function ResendOtp() {
       <div className='container grid h-svh flex-col items-center justify-center lg:max-w-none lg:px-0'
      style=
         {{
-          backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`, 
+          backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady-bg.webp')`, 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -38,12 +38,24 @@ export default function ResendOtp() {
               <div className='absolute inset-0 flex items-center'>
                 <span className='w-full border-t' />
               </div>
-              <div className='relative flex justify-center text-xs uppercase'>
+              <div className='relative flex justify-center text-xs '>
                 <span className='bg-background px-2 text-muted-foreground dark:text-white'>
                   Did not receive an OTP?
-                 <Link to='/resend-otp' className='text-primary dark:text-blue-300'> Resend OTP</Link>
+                 <Link to='/resend-otp' className='text-blue-600 underline hover:text-blue-300'> Resend OTP</Link>
+                 <p className="text-center text-sm text-gray-600 dark:text-white mt-6">
+                  Return to {' '}
+                  <Link
+                    to="/"
+                    className="text-blue-600 underline hover:text-blue-300"
+                  >
+                    Home page
+                  </Link>
+                </p>
                 </span>
+                
               </div>
+              
+              
             </div>
           </Card>
         </div>

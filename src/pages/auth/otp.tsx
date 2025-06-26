@@ -8,7 +8,7 @@ export default function Otp() {
       <div className='container grid h-svh flex-col items-center justify-center  lg:max-w-none lg:px-0'
        style=
         {{
-          backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`, 
+          backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady-bg.webp')`, 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}

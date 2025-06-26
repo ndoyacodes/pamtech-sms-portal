@@ -113,7 +113,20 @@ export default function Component() {
      if(phoneBookData){
       // update phonebook function
      }else{
-      uploadPhoneBook.mutate({ data: finalData })
+     uploadPhoneBook.mutate(
+        { data: finalData },
+        {
+          onSuccess: () => {
+            toast.success("Phonebook uploaded successfully");
+            navigate('/contacts');
+          },
+          onError: (error: any) => {
+            setErrorMessage('Upload failed. Please try again.')
+            toast.error("Failed to upload phonebook.");
+            console.error(error);
+          },
+        }
+)
      }
 
     } catch (error) {
@@ -164,6 +177,16 @@ export default function Component() {
                 className='w-full'
               />
             </div>
+             <a
+                    href="https://docs.google.com/spreadsheets/d/1Y1JNJ5d7wCyQB21gvAdwLJkGscxQR6KWkpQUkn733mY/export?format=xlsx&id=1Y1JNJ5d7wCyQB21gvAdwLJkGscxQR6KWkpQUkn733mY&gid=0"
+                    download="SampleTemplate.xlsx"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-blue-600 hover:underline"
+                  >
+                    Download Excel Template
+                  </a>
+            
            {
             !phoneBookData && (
               <div
@@ -217,7 +240,7 @@ export default function Component() {
                 disabled={uploadPhoneBook.isPending}
               >
                 Save File
-                <Download className='ml-2 h-4 w-4' />
+                <UploadIcon className='ml-2 h-4 w-4' />
               </Button>
                 )}
               {

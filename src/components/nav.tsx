@@ -6,6 +6,9 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from './ui/collapsible'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { logout } from '@/store/slices/auth/auth.slice';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,12 +33,15 @@ interface NavProps extends React.HTMLAttributes<HTMLDivElement> {
   closeNav: () => void
 }
 
+
 export default function Nav({
   links,
   isCollapsed,
   className,
   closeNav,
-}: NavProps) {
+}: NavProps)
+
+{
   const renderLink = ({ sub, ...rest }: SideLink) => {
     const key = `${rest.title}-${rest.href}`
     if (isCollapsed && sub)
@@ -58,6 +64,17 @@ export default function Nav({
 
     return <NavLink {...rest} key={key} closeNav={closeNav} />
   }
+
+   // const [jwtToken,setJwtToken] =useAuthentication();
+ 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function logOut() {
+    dispatch(logout());
+    navigate('/');
+  }
+
   return (
     <div
       data-collapsed={isCollapsed}
@@ -71,6 +88,12 @@ export default function Nav({
           {links.map(renderLink)}
         </nav>
       </TooltipProvider>
+      {!isCollapsed && (
+          <div className="flex flex-col justify-center mt-8 gap-2">
+            <Button onClick={() => navigate("/")}>Home</Button>
+            <Button onClick={() => logOut()}>Sign Out</Button>
+          </div>
+        )}
     </div>
   )
 }
@@ -100,7 +123,8 @@ function NavLink({
         }),
         'h-12 justify-start text-wrap rounded-none px-6',
         'hover:bg-gradient-to-r hover:from-[var(--brand-color-TOP)] hover:to-[var(--brand-color-BOTTOM)] hover:text-white',
-        subLink && 'h-10 w-full border-l border-l-slate-500 px-2'
+        subLink && 'h-10 w-full border-l border-l-slate-500 px-2',
+        checkActiveNav(href) && 'bg-blue-600 text-white' 
       )}
       aria-current={checkActiveNav(href) ? 'page' : undefined}
     >

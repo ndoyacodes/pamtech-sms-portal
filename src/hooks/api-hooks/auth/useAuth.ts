@@ -26,7 +26,7 @@ export const useAuth = () => {
           })
         );
 
-        navigate('/');
+        navigate('/dashboard');
       } else {
         return true;
       }

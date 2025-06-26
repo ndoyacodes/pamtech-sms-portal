@@ -9,7 +9,7 @@ export default function ForgotPassword() {
       <div className='container grid h-svh flex-col items-center justify-center  lg:max-w-none lg:px-0'
         style=
         {{
-          backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady.png')`, 
+          backgroundImage: `linear-gradient(to bottom, var(--brand-color-right), var(--brand-color-left)), url('/lady-bg.webp')`, 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -54,12 +54,20 @@ export default function ForgotPassword() {
                 </Link>
               </p> */}
               <div className='mt-4 px-8' />
-              <p className='text-sm text-muted-foreground text-center dark:text-white'>
+              <p className='text-sm text-muted-foreground text-center dark:text-white mb-2'>
                 Remember the password?{' '}
                 <Link
                   to='/sign-in'
                    className="text-blue-600 underline hover:text-blue-300">
                   Sign in
+                </Link>
+              </p>
+               <p className='text-sm text-muted-foreground text-center dark:text-white'>
+                Return to{' '}
+                <Link
+                  to='/'
+                   className="text-blue-600 underline hover:text-blue-300">
+                  Home page
                 </Link>
               </p>
           </Card>

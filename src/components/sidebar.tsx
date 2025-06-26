@@ -89,13 +89,11 @@ export default function Sidebar({
               className={`flex flex-row justify-center truncate ${isCollapsed ? 'invisible w-0' : 'visible w-auto'}`}
             >
               {/* Logo */}
-              <img
-                src='/logo.png'
-                width={150}
-                height={0}
-                alt='pamtech logo'
-                className=''
-              />
+              <div className="flex items-center gap-2 pointer">
+              <a href="/">
+                <img src="/logo.png" alt="Pamtech Logo" className="h-6 md:h-10 lg:h-12 pointer" />
+              </a>
+            </div>
               {/* <span className='font-bold px-4 text-xl'>pamtechSMS</span>
               <span className='text-xs px-4'>Admin portal</span> */}
             </div>
@@ -114,7 +112,6 @@ export default function Sidebar({
             {navOpened ? <IconX /> : <IconMenu2 />}
           </Button>
         </Layout.Header>
-
         {/* Navigation links */}
         <Nav
           id='sidebar-menu'
@@ -123,7 +120,9 @@ export default function Sidebar({
           closeNav={() => setNavOpened(false)}
           isCollapsed={isCollapsed}
           links={sidelinksData}
+        
         />
+       
 
         {/* Scrollbar width toggle button */}
         <Button
@@ -137,6 +136,7 @@ export default function Sidebar({
             className={`h-5 w-5 ${isCollapsed ? 'rotate-180' : ''}`}
           />
         </Button>
+      
       </Layout>
     </aside>
   )
