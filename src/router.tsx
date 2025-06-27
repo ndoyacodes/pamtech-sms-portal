@@ -155,7 +155,7 @@ const router = createBrowserRouter([
           {
             path: 'payments',
             lazy: async () => ({
-              Component: (await import('@/pages/currency')).default,
+              Component: (await import('@/pages/payments')).default,
             }),
           },
           {
