@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IconChevronDown } from '@tabler/icons-react'
 import { Button, buttonVariants } from './custom/button'
 import {
@@ -6,9 +6,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from './ui/collapsible'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
-import { logout } from '@/store/slices/auth/auth.slice';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,23 +22,23 @@ import {
 } from './ui/tooltip'
 import { cn } from '@/lib/utils'
 import useCheckActiveNav from '@/hooks/use-check-active-nav'
+import { useDispatch } from 'react-redux'
+import { logout } from '@/store/slices/auth/auth.slice'
 import { SideLink } from '@/data/sidelinks'
 
 interface NavProps extends React.HTMLAttributes<HTMLDivElement> {
   isCollapsed: boolean
   links: SideLink[]
   closeNav: () => void
+  onItemClick?: (item: SideLink) => void
 }
-
 
 export default function Nav({
   links,
   isCollapsed,
   className,
   closeNav,
-}: NavProps)
-
-{
+}: NavProps) {
   const renderLink = ({ sub, ...rest }: SideLink) => {
     const key = `${rest.title}-${rest.href}`
     if (isCollapsed && sub)
@@ -65,16 +62,6 @@ export default function Nav({
     return <NavLink {...rest} key={key} closeNav={closeNav} />
   }
 
-   // const [jwtToken,setJwtToken] =useAuthentication();
- 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  function logOut() {
-    dispatch(logout());
-    navigate('/');
-  }
-
   return (
     <div
       data-collapsed={isCollapsed}
@@ -88,12 +75,6 @@ export default function Nav({
           {links.map(renderLink)}
         </nav>
       </TooltipProvider>
-      {!isCollapsed && (
-          <div className="flex flex-col justify-center mt-8 gap-2">
-            <Button onClick={() => navigate("/")}>Home</Button>
-            <Button onClick={() => logOut()}>Sign Out</Button>
-          </div>
-        )}
     </div>
   )
 }
@@ -101,6 +82,7 @@ export default function Nav({
 interface NavLinkProps extends SideLink {
   subLink?: boolean
   closeNav: () => void
+  isLogout?: boolean
 }
 
 function NavLink({
@@ -108,26 +90,40 @@ function NavLink({
   icon,
   label,
   href,
+  isLogout,
   closeNav,
   subLink = false,
 }: NavLinkProps) {
   const { checkActiveNav } = useCheckActiveNav()
-  return (
-    <Link
-      to={href}
-      onClick={closeNav}
-      className={cn(
-        buttonVariants({
-          variant: checkActiveNav(href) ? 'secondary' : 'ghost',
-          size: 'sm',
-        }),
-        'h-12 justify-start text-wrap rounded-none px-6',
-        'hover:bg-gradient-to-r hover:from-[var(--brand-color-TOP)] hover:to-[var(--brand-color-BOTTOM)] hover:text-white',
-        subLink && 'h-10 w-full border-l border-l-slate-500 px-2',
-        checkActiveNav(href) && 'bg-blue-600 text-white' 
-      )}
-      aria-current={checkActiveNav(href) ? 'page' : undefined}
-    >
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    closeNav()
+    if (isLogout) {
+      dispatch(logout())
+      navigate('/')
+    }
+  }
+
+  const commonClasses = cn(
+    buttonVariants({
+      variant: checkActiveNav(href) ? 'secondary' : 'ghost',
+      size: 'sm',
+    }),
+    'h-12 justify-start text-wrap rounded-none px-6',
+    'hover:bg-gradient-to-r hover:from-[var(--brand-color-TOP)] hover:to-[var(--brand-color-BOTTOM)] hover:text-white',
+    subLink && 'h-10 w-full border-l border-l-slate-500 px-2',
+    checkActiveNav(href) && 'bg-blue-600 text-white'
+  )
+
+  return isLogout ? (
+    <button onClick={handleClick} className={commonClasses}>
+      <div className='mr-2'>{icon}</div>
+      {title}
+    </button>
+  ) : (
+    <Link to={href} onClick={closeNav} className={commonClasses}>
       <div className='mr-2'>{icon}</div>
       {title}
       {label && (
@@ -139,11 +135,15 @@ function NavLink({
   )
 }
 
-function NavLinkDropdown({ title, icon, label, sub, closeNav }: NavLinkProps) {
+function NavLinkDropdown({
+  title,
+  icon,
+  label,
+  sub,
+  closeNav,
+}: NavLinkProps) {
   const { checkActiveNav } = useCheckActiveNav()
 
-  /* Open collapsible by default
-   * if one of child element is active */
   const isChildActive = !!sub?.find((s) => checkActiveNav(s.href))
 
   return (
@@ -182,40 +182,75 @@ function NavLinkDropdown({ title, icon, label, sub, closeNav }: NavLinkProps) {
   )
 }
 
-function NavLinkIcon({ title, icon, label, href }: NavLinkProps) {
+function NavLinkIcon({
+  title,
+  icon,
+  label,
+  href,
+  isLogout,
+  closeNav,
+}: NavLinkProps) {
   const { checkActiveNav } = useCheckActiveNav()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    closeNav()
+    if (isLogout) {
+      dispatch(logout())
+      navigate('/')
+    }
+  }
+
   return (
     <Tooltip delayDuration={0}>
       <TooltipTrigger asChild>
-        <Link
-          to={href}
-          className={cn(
-            buttonVariants({
-              variant: checkActiveNav(href) ? 'secondary' : 'ghost',
-              size: 'icon',
-            }),
-            'h-12 w-12'
-          )}
-        >
-          {icon}
-          <span className='sr-only'>{title}</span>
-        </Link>
+        {isLogout ? (
+          <button
+            onClick={handleClick}
+            className={cn(
+              buttonVariants({ variant: 'ghost', size: 'icon' }),
+              'h-12 w-12'
+            )}
+          >
+            {icon}
+            <span className='sr-only'>{title}</span>
+          </button>
+        ) : (
+          <Link
+            to={href}
+            className={cn(
+              buttonVariants({
+                variant: checkActiveNav(href) ? 'secondary' : 'ghost',
+                size: 'icon',
+              }),
+              'h-12 w-12'
+            )}
+          >
+            {icon}
+            <span className='sr-only'>{title}</span>
+          </Link>
+        )}
       </TooltipTrigger>
       <TooltipContent side='right' className='flex items-center gap-4'>
         {title}
-        {label && (
-          <span className='ml-auto text-muted-foreground'>{label}</span>
-        )}
+        {label && <span className='ml-auto text-muted-foreground'>{label}</span>}
       </TooltipContent>
     </Tooltip>
   )
 }
 
-function NavLinkIconDropdown({ title, icon, label, sub }: NavLinkProps) {
+function NavLinkIconDropdown({
+  title,
+  icon,
+  label,
+  sub,
+  closeNav,
+}: NavLinkProps) {
   const { checkActiveNav } = useCheckActiveNav()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  /* Open collapsible by default
-   * if one of child element is active */
   const isChildActive = !!sub?.find((s) => checkActiveNav(s.href))
 
   return (
@@ -223,48 +258,65 @@ function NavLinkIconDropdown({ title, icon, label, sub }: NavLinkProps) {
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger asChild>
-          <Button
-            size="icon"
-            className={cn(
-              'h-12 w-12 text-white transition-colors duration-200',
-              isChildActive
-                ? 'bg-gradient-to-r from-[var(--brand-color-TOP)] to-[var(--brand-color-BOTTOM)]'
-                : 'hover:bg-gradient-to-r hover:from-[var(--brand-color-TOP)] hover:to-[var(--brand-color-BOTTOM)]'
-            )}
-          >
-            {icon}
-          </Button>
+            <Button
+              size="icon"
+              className={cn(
+                'h-12 w-12 text-white transition-colors duration-200',
+                isChildActive
+                  ? 'bg-gradient-to-r from-[var(--brand-color-TOP)] to-[var(--brand-color-BOTTOM)]'
+                  : 'hover:bg-gradient-to-r hover:from-[var(--brand-color-TOP)] hover:to-[var(--brand-color-BOTTOM)]'
+              )}
+            >
+              {icon}
+            </Button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
-        <TooltipContent side='right' className='flex items-center gap-4'>
-          {title}{' '}
+        <TooltipContent side="right" className="flex items-center gap-4">
+          {title}
           {label && (
-            <span className='ml-auto text-muted-foreground'>{label}</span>
+            <span className="ml-auto text-muted-foreground">{label}</span>
           )}
           <IconChevronDown
             size={18}
-            className='-rotate-90 text-muted-foreground'
+            className="-rotate-90 text-muted-foreground"
           />
         </TooltipContent>
       </Tooltip>
-      <DropdownMenuContent side='right' align='start' sideOffset={4}>
+      <DropdownMenuContent side="right" align="start" sideOffset={4}>
         <DropdownMenuLabel>
           {title} {label ? `(${label})` : ''}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {sub!.map(({ title, icon, label, href }) => (
+        {sub!.map(({ title, icon, label, href, isLogout }) => (
           <DropdownMenuItem key={`${title}-${href}`} asChild>
-            <Link
-              to={href}
-              className={cn(
-                  'px-2 py-1 rounded-md transition-colors',
+            {isLogout ? (
+              <button
+                onClick={() => {
+                  dispatch(logout())
+                  navigate('/')
+                }}
+                className={cn(
+                  'w-full px-2 py-1 flex items-center rounded-md text-left',
+                  'hover:bg-gradient-to-r hover:from-[var(--brand-color-TOP)] hover:to-[var(--brand-color-BOTTOM)] hover:text-white'
+                )}
+              >
+                {icon}
+                <span className="ml-2 max-w-52 text-wrap">{title}</span>
+              </button>
+            ) : (
+              <Link
+                to={href}
+                className={cn(
+                  'px-2 py-1 rounded-md transition-colors flex items-center',
                   checkActiveNav(href) &&
                     'bg-gradient-to-r from-[var(--brand-color-TOP)] to-[var(--brand-color-BOTTOM)] text-white'
                 )}
-            >
-              {icon} <span className='ml-2 max-w-52 text-wrap'>{title}</span>
-              {label && <span className='ml-auto text-xs'>{label}</span>}
-            </Link>
+              >
+                {icon}
+                <span className="ml-2 max-w-52 text-wrap">{title}</span>
+                {label && <span className="ml-auto text-xs">{label}</span>}
+              </Link>
+            )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

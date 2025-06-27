@@ -28,6 +28,7 @@ export interface NavLink {
   label?: string
   href: string
   icon: JSX.Element
+  isLogout?: boolean
 }
 
 export interface SideLink extends NavLink {

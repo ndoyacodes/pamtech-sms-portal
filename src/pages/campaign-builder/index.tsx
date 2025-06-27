@@ -237,7 +237,7 @@ export const BulkSMSForm = () => {
                 <FormLabel>Phone Numbers *</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="+255 123 123 123 , +255 123 123 123, +255 123 123 123 , +255 123 123 123"
+                    placeholder="255 123 123 123 , 255 123 123 123, 255 123 123 123 , 255 123 123 123"
                     className="h-32 resize-none bg-white  dark:text-black"
                     {...field}
 

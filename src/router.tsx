@@ -5,20 +5,13 @@ import MaintenanceError from './pages/errors/maintenance-error.tsx';
 import UnauthorisedError from './pages/errors/unauthorised-error.tsx';
 import RequireAuth from './components/require-auth.tsx';
 import AppShell from './components/app-shell.tsx';
+import HomePage from './pages/home-layout.tsx';
 
 const router = createBrowserRouter([
   // Public Routes
   {
     path: '/',
-    lazy: async () => ({
-      Component: (await import('./pages/landing-page.tsx')).default,
-    }),
-  },
-  {
-    path: '/pricing',
-    lazy: async () => ({
-      Component: (await import('./pages/pricing-page.tsx')).default,
-    }),
+    element: <HomePage />, // if not using lazy loading
   },
   {
     path: '/sign-in',
@@ -157,6 +150,12 @@ const router = createBrowserRouter([
             path: 'subscriptions',
             lazy: async () => ({
               Component: (await import('@/pages/subscriptions')).default,
+            }),
+          },
+          {
+            path: 'payments',
+            lazy: async () => ({
+              Component: (await import('@/pages/currency')).default,
             }),
           },
           {

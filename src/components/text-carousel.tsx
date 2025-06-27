@@ -43,7 +43,7 @@ const TextCarousel: React.FC<TextCarouselProps> = ({ items, interval = 5000 }) =
         className="transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
-        <div className="flex w-full">
+        <div className="flex w-full mb-10">
           {items.map((item, index) => (
             <div key={index} className="flex-shrink-0 w-full text-center md:text-left p-4">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
@@ -63,7 +63,7 @@ const TextCarousel: React.FC<TextCarouselProps> = ({ items, interval = 5000 }) =
           <button
             key={index}
             className={`h-3 w-3 rounded-full transition-all duration-300 ${
-              currentIndex === index ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400'
+              currentIndex === index ? 'bg-blue-500' : 'bg-white hover:bg-gray-400'
             }`}
             aria-label={`Go to slide ${index + 1}`}
             onClick={() => goToIndex(index)}
