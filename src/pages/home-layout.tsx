@@ -72,7 +72,6 @@ const customerLogos = [
   'logo.png',
   'logo1.png',
   'logo2.png',
-  'logo.png',
   'logo3.png',
   'logo4.png',
 ];
@@ -263,61 +262,6 @@ export const HomePage = () => {
             <img src="/logo.png" alt="Pamtech Logo" className="h-6 md:h-10 lg:h-12 pointer" />
           </button>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         {isMobileMenuOpen ? (
         <button
@@ -540,10 +484,10 @@ export const HomePage = () => {
                 scrollToContact();
               }}>Contact</button>
               {isAuthenticated ? (
-                <button onClick={() => {
+                <Button onClick={() => {
                   setIsMobileMenuOpen(false);
                   navigate('/dashboard');
-                }}>My Account</button>
+                }}>My Account</Button>
               ) : (
                 <>
                   <Button onClick={() => {
