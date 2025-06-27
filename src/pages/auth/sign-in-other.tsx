@@ -1,5 +1,5 @@
 import { UserAuthForm } from './components/user-auth-form'
-import ViteLogo from '@/assets/vite.svg'
+
 
 export default function SignIn() {
   return (
@@ -24,7 +24,7 @@ export default function SignIn() {
           </div>
 
           <img
-            src={ViteLogo}
+            src="/logo.png"
             className='relative m-auto'
             width={301}
             height={60}
