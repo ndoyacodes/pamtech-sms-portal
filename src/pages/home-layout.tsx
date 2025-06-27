@@ -303,7 +303,7 @@ export const HomePage = () => {
               className="font-bold text-base sm:text-lg hover:text-blue-600"
               onClick={scrollToContact}
             >
-              Contact us
+              Contact
             </button>
             {isAuthenticated ? (
               <Button

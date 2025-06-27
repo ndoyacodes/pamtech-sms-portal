@@ -71,14 +71,14 @@ import {
       ],
     },
     {
-      title: 'Contacts list',
+      title: 'Contacts',
       label: '',
       href: '/contacts',
       icon: <IconFilePhone size={18} />,
       isLogout: false,
       sub: [
         {
-          title: 'Contacts',
+          title: 'Contact lists',
           label: '',
           href: '/contacts',
           icon: <IconFilePhone size={18} />,

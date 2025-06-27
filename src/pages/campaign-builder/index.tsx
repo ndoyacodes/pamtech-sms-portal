@@ -29,7 +29,7 @@ import Select from 'react-select'
 
 // Constants
 const RECIPIENT_MODES = [
-  { value: 'PHONEBOOK', label: 'Phone Book' },
+  { value: 'PHONEBOOK', label: 'Contacts' },
   { value: 'FILE', label: 'Excel File' },
   { value: 'COMMA_SEPARATED', label: 'Comma Separated' },
 ];

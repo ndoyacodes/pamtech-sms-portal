@@ -48,10 +48,10 @@ export default function FarmersPage() {
         <div className='mb-2 flex items-center justify-between space-y-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              Phone books
+              Contact lists
             </h2>
             <p className='text-muted-foreground'>
-              Here&apos;s a list of all your phone books
+              Here&apos;s a list of all your contact lists
             </p>
           </div>
         </div>

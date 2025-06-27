@@ -1,6 +1,6 @@
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { Table } from '@tanstack/react-table'
-import { Download } from 'lucide-react';
+import { Download, Upload} from 'lucide-react';
 
 import { Button } from '@/components/custom/button'
 import { Input } from '@/components/ui/input'
@@ -60,8 +60,8 @@ export function DataTableToolbar<TData>({
             onClick={() => navigate('/upload-phonebook')}
             className='h-8 px-2 lg:px-3'
           >
-            Import phone book
-            <Download className='ml-2 h-4 w-4' />
+            Import contact list
+            <Upload className='ml-2 h-4 w-4' />
           </Button>
         </div>
         {isFiltered && (
