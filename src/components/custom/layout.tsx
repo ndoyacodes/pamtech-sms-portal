@@ -60,14 +60,7 @@ const Layout = ({
           <span className="flex-1 text-sm text-center">
             Your account is not verified. Please upload the required documents to complete verification.
           </span>
-          <button
-            className="ml-4 p-1 rounded hover:bg-red-700 transition"
-            onClick={() => setShowBanner(false)}
-            aria-label="Dismiss"
-            type="button"
-          >
-            <X className="w-5 h-5" />
-          </button>
+         
           <button
             className="ml-2 bg-white text-red-600 px-3 py-1 rounded hover:bg-gray-100 transition text-xs font-semibold"
             onClick={() => {
@@ -77,6 +70,14 @@ const Layout = ({
             type="button"
           >
             Verify Now
+          </button>
+           <button
+            className="ml-4 p-1 rounded hover:bg-red-700 transition"
+            onClick={() => setShowBanner(false)}
+            aria-label="Dismiss"
+            type="button"
+          >
+            <X className="w-5 h-5" />
           </button>
         </div>
       )}

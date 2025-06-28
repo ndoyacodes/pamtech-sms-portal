@@ -32,7 +32,7 @@ const verificationDocs: {
 ];
 
 const initialStatus: Record<VerificationDocKey, DocStatusType> = {
-  tin: 'required',
+  tin: 'approved',
   business: 'required',
   blera: 'required',
   nida: 'required',
@@ -70,7 +70,7 @@ const VerificationCard = () => {
   const progress = (completed / verificationDocs.length) * 100;
 
   const handleEditClick = () => {
-    navigate('/verification'); // Adjust the route as needed
+    navigate('/verification'); 
   };
 
   return (

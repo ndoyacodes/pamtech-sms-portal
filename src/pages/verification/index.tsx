@@ -5,7 +5,7 @@ import {
 import { Button } from '@/components/custom/button'
 import { UploadCloud, BadgeCheck, Clock, XCircle, Info } from 'lucide-react'
 import { Layout } from '@/components/custom/layout'
-import { customerService } from '@/api/services/customers/customer.service' // use your service here
+import { customerService } from '@/api/services/customers/customer.service' 
 import { toast } from 'react-toastify'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
@@ -56,7 +56,6 @@ export default function VerificationPage() {
   useEffect(() => {
     async function fetchDocs() {
       try {
-        // Assume your customerService has a method to get the KYC files/info
         const response = await customerService.getCustomerKycFile(customerId)
         const data = (response as any).data
 
@@ -105,7 +104,6 @@ export default function VerificationPage() {
       toast.success(`${key.toUpperCase()} document uploaded successfully`)
       setFiles((prev) => ({ ...prev, [key]: null }))
 
-      // You may want to refresh or update submittedUrls here if your backend provides new URL after upload
       setSubmittedUrls((prev) => ({ ...prev, [key]: URL.createObjectURL(file) }))
     } catch (error) {
       console.error(error)
@@ -123,7 +121,7 @@ export default function VerificationPage() {
       </Layout.Header>
 
       <Layout.Body>
-        <h1 className="text-2xl font-bold mb-6">Edit Verification Documents</h1>
+        <h1 className="text-2xl font-bold mb-6">Upload your KYC Documents</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {verificationDocs.map((doc) => {
             const file = files[doc.key]
