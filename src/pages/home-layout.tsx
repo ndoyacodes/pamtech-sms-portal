@@ -366,16 +366,17 @@ export const HomePage = () => {
               <div className="container mx-auto px-6">
                 <div className="overflow-hidden max-w-screen-lg mx-auto">
                   <div className="flex animate-marquee gap-12 whitespace-nowrap w-max">
-                    {[...Array(2)].flatMap(() =>
-                      customerLogos.map((logo, index) => (
-                        <img
-                          key={`${logo}-${index}`}
-                          src={`/customers/${logo}`}
-                          alt={`Customer ${index + 1}`}
-                          className="h-12 w-auto object-contain mx-4"
-                        />
-                      ))
-                    )}
+                  {[...Array(2)].flatMap((_, outerIndex) =>
+                    customerLogos.map((logo, index) => (
+                      <img
+                        key={`${logo}-${outerIndex}-${index}`} 
+                        src={`/customers/${logo}`}
+                        alt={`Customer ${index + 1}`}
+                        className="h-12 w-auto object-contain mx-4"
+                      />
+                    ))
+                  )}
+
                   </div>
                 </div>
               </div>

@@ -381,6 +381,12 @@ const router = createBrowserRouter([
             }),
           },
           {
+              path: 'verification',
+             lazy: async () => ({
+              Component: (await import('@/pages/verification')).default,
+            }),
+          },
+          {
             path: 'reports',
             lazy: async () => ({
               Component: (await import('@/pages/messages/all')).default,

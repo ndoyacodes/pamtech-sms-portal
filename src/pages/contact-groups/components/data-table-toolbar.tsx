@@ -1,6 +1,6 @@
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { Table } from '@tanstack/react-table'
-import { Download, Upload} from 'lucide-react';
+import {Upload} from 'lucide-react';
 
 import { Button } from '@/components/custom/button'
 import { Input } from '@/components/ui/input'

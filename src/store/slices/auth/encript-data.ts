@@ -7,7 +7,7 @@ const ENCRYPTION_SECRET =  'your_very_secret_key';
 const hashKey = sha256(ENCRYPTION_SECRET).toString();
 
 export const encryptData = <T>(data: T): string | null => {
-  console.log('data', data);
+  // console.log('data', data);
   
   try {
     // Convert data to string

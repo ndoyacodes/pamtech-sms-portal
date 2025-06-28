@@ -55,7 +55,7 @@ export default function Sidebar({
       className={cn(
     `fixed left-0 right-0 top-0 z-50 w-full border-r-2 border-r-muted transition-[width] md:bottom-0 md:right-auto md:h-svh 
      ${isCollapsed ? 'md:w-14' : 'md:w-64'} 
-     bg-background dark:bg-background`, // Ensures both light and dark mode use theme
+     bg-background dark:bg-background`, 
     className
   )}
     >
@@ -65,7 +65,7 @@ export default function Sidebar({
         className={`absolute inset-0 transition-opacity duration-300 ${navOpened ? 'opacity-50' : 'opacity-0 pointer-events-none'} bg-black md:hidden`}
         style={{ zIndex: 40 }}
       />
-      <Layout fixed className={navOpened ? 'h-svh' : ''}>
+      <Layout fixed hideVerificationBanner className={navOpened ? 'h-svh' : ''}>
         {/* Header */}
         <Layout.Header
           sticky

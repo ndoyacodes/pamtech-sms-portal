@@ -245,7 +245,6 @@ function NavLinkIconDropdown({
   icon,
   label,
   sub,
-  closeNav,
 }: NavLinkProps) {
   const { checkActiveNav } = useCheckActiveNav()
   const dispatch = useDispatch()

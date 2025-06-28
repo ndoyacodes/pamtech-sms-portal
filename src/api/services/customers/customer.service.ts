@@ -53,7 +53,7 @@ class CustomerService extends APIClient {
 
 
     uploadCustomerAttachment(data: FormData) {
-        return this.post('/customer/attachment', data, {
+        return this.post('/api/attachment', data, {
             headers: {
             'Content-Type': 'multipart/form-data',
             },

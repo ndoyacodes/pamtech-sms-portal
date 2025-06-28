@@ -5,13 +5,14 @@ import { z } from 'zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { 
-  User, Lock, XCircle 
+  User, Lock, XCircle,
 } from 'lucide-react';
 import { useAuthStore } from '@/hooks/use-auth-store';
 import { Button } from '@/components/custom/button';
 import { Layout } from '@/components/custom/layout'
 import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
+import VerificationCard from '@/components/verification-card';
 import {
     Form,
     FormControl,
@@ -87,7 +88,6 @@ const ProfilePage = () => {
      <Layout>
           {/* ===== Top Heading ===== */}
              <Layout.Header sticky className='mt-4 lg:mt-0 md:mt-0 sm:mt-4'>
-            {/* <Search /> */}
             <div className='ml-auto flex items-center space-x-4'>
               <ThemeSwitch />
               <UserNav />
@@ -208,7 +208,11 @@ const ProfilePage = () => {
           </form>
         </Form>
       </CardContent>
+
       </Card>
+     {/* Profile Verification Change Section */}
+
+       <VerificationCard/>
 
       {/* Password Change Section */}
       <Card>
