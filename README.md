@@ -12,7 +12,7 @@
 
 ## Tech Stack
 
-**UI:** [ShadcnUI](https://ui.shadcn.com) (TailwindCSS + RadixUI)
+**UI:** [PamtechUI](https://ui.pamtech.co.tz) (TailwindCSS + RadixUI)
 
 **Build Tool:** [Vite](https://vitejs.dev/)
 
